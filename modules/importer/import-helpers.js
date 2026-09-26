@@ -2508,25 +2508,49 @@ export default class ImportHelpers {
     CONFIG.logger.debug(`Checking for existing compendium pack ${name}`);
     const searchName = "world." + name.toString().replaceAll(".", "").toLowerCase();
     const pack = game.packs.get(searchName);
-    if (!pack) {
-      const compendiumLabel = name.split(".")[name.split(".").length - 1];
-      const createdCompendium = await foundry.documents.collections.CompendiumCollection.createCompendium({
+    if (pack) {
+      await pack.configure({locked: false});
+      return pack;
+    }
+    // callers asking for the same pack while it is still being created share that one creation -
+    // a second create request for the same name fails with "already exists"
+    if (!this._packCreations.has(searchName)) {
+      this._packCreations.set(
+        searchName,
+        this._createCompendiumPack(type, name, searchName).finally(() => this._packCreations.delete(searchName)),
+      );
+    }
+    return this._packCreations.get(searchName);
+  }
+
+  /** In-flight compendium creations, keyed by collection name. */
+  static _packCreations = new Map();
+
+  static async _createCompendiumPack(type, name, searchName) {
+    const compendiumLabel = name.split(".")[name.split(".").length - 1];
+    let createdCompendium;
+    try {
+      createdCompendium = await foundry.documents.collections.CompendiumCollection.createCompendium({
         label: compendiumLabel,
         name: name.replaceAll(".", "").toLowerCase(),
         type: type,
       });
-      // get the folder for the compendium, creating it if needed
-      const compendiumFolder = await this.lookupOrCreateFolder(compendiumLabel);
-      // move the compendium into the proper folder
-      await createdCompendium.configure({
-        folder: compendiumFolder.id,
-      });
-      return game.packs.get(searchName);
-    } else {
-      await pack.configure({locked: false});
+    } catch (err) {
+      // the pack appeared between our lookup and the request (another client, or a retried
+      // socket message): use it rather than failing the whole importer
+      const existing = game.packs.get(searchName);
+      if (!existing) throw err;
+      CONFIG.logger.warn(`Compendium pack ${searchName} already existed when creating it; using the existing pack`);
+      await existing.configure({locked: false});
+      return existing;
     }
-
-    return pack;
+    // get the folder for the compendium, creating it if needed
+    const compendiumFolder = await this.lookupOrCreateFolder(compendiumLabel);
+    // move the compendium into the proper folder
+    await createdCompendium.configure({
+      folder: compendiumFolder.id,
+    });
+    return game.packs.get(searchName) ?? createdCompendium;
   }
 
   /**
