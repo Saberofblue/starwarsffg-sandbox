@@ -176,7 +176,7 @@ export async function findImported(page: Page, packName: string, importId: strin
     const pack = game.packs.get(`world.${packName.replaceAll('.', '').toLowerCase()}`);
     if (!pack) return null;
     const docs = await pack.getDocuments();
-    const found = docs.find((d: any) => d.flags?.starwarsffg?.ffgimportid === importId);
+    const found = docs.find((d: any) => d.flags?.starwarsffg_sandbox?.ffgimportid === importId);
     return found?.uuid ?? null;
   }, { packName, importId });
 }
@@ -193,7 +193,7 @@ export async function readPack(page: Page, packName: string): Promise<{
     return (await pack.getDocuments()).map((doc: any) => ({
       id: doc.id,
       name: String(doc.name ?? ''),
-      importId: String(doc.flags?.starwarsffg?.ffgimportid ?? ''),
+      importId: String(doc.flags?.starwarsffg_sandbox?.ffgimportid ?? ''),
     }));
   }, packName);
 }
@@ -358,7 +358,7 @@ export async function rebuildActiveEffects(page: Page, uuid: Uuid): Promise<void
   await page.evaluate(async (uuid) => {
     const item = await fromUuid(uuid);
     if (!item) throw new Error(`No item at ${uuid}`);
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const ModifierHelpers = (await load('helpers/modifiers.js')).default;
     // The sheet submits every field, not just the modifier rows - applyActiveEffectOnUpdate
     // reaches for `formData.data.hardpoints.value` on ship attachments, for instance.
@@ -597,7 +597,7 @@ export async function applyProgressionEditors(page: Page, uuid: Uuid): Promise<v
       : null;
     if (!field) return null;
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const editors = await load('items/item-editor.js');
     const Editor = field === 'talents' ? editors.talentEditor : editors.forcePowerEditor;
 
@@ -678,7 +678,7 @@ export async function clearProgressionNode(
     const node = item.system?.[field]?.[nodeKey];
     if (!node) return `no ${field} node "${nodeKey}" on ${item.name}`;
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const editors = await load('items/item-editor.js');
     const Editor = field === 'talents' ? editors.talentEditor : editors.forcePowerEditor;
 
@@ -717,7 +717,7 @@ export async function setLearned(
 
     await item.update({ [`system.${field}.${nodeKey}.islearned`]: learned });
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const ItemHelpers = (await load('helpers/item-helpers.js')).default;
     const reloaded = await fromUuid(itemUuid);
     await ItemHelpers.syncAEStatus(reloaded, reloaded.getEmbeddedCollection('ActiveEffect'));
@@ -1004,7 +1004,7 @@ async function clickActorPurchase(
   const problem = await page.evaluate(async ({ actorUuid, selector, missing, allowEditMode }) => {
     const actor = await fromUuid(actorUuid);
     if (!actor) return `No actor at ${actorUuid}`;
-    if (!allowEditMode && actor.getFlag('starwarsffg', 'config.enableEditMode')) {
+    if (!allowEditMode && actor.getFlag('starwarsffg_sandbox', 'config.enableEditMode')) {
       return 'the actor is in edit mode, which refuses every purchase';
     }
     const root = actor.sheet.element?.[0] ?? actor.sheet.element;
@@ -1116,7 +1116,7 @@ export async function addModification(
     const attachment = item.system?.itemattachment?.[attachmentIndex];
     if (!attachment) return `no attachment at index ${attachmentIndex}`;
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const { itemEditor } = await load('items/item-editor.js');
 
     // The same data the sheet's edit control passes (items/item-sheet-ffg.js:672).
@@ -1170,7 +1170,7 @@ export async function setModificationInstalled(
       return `no modifier at index ${modifierIndex} inside that attachment`;
     }
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const { itemEditor } = await load('items/item-editor.js');
 
     // The same data the sheet's edit control passes (items/item-sheet-ffg.js:672).
@@ -1226,7 +1226,7 @@ export async function dropOnActorSheet(
   const result = await page.evaluate(async ({ actorUuid, itemUuid, allowEditMode }) => {
     const actor = await fromUuid(actorUuid);
     if (!actor) return { error: `No actor at ${actorUuid}` };
-    if (!allowEditMode && actor.getFlag('starwarsffg', 'config.enableEditMode')) {
+    if (!allowEditMode && actor.getFlag('starwarsffg_sandbox', 'config.enableEditMode')) {
       return { error: 'the actor is in edit mode, which refuses every drop' };
     }
     const before = new Set(actor.items.map((i: any) => i.id));
@@ -1315,7 +1315,7 @@ export async function openModifierEditor(page: Page, opts: {
     const item = await fromUuid(o.itemUuid);
     if (!item) return { error: `No item at ${o.itemUuid}` };
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const EmbeddedItemHelpers = (await load('helpers/embeddeditem-helpers.js')).default;
 
     const before = new Set(Object.keys(ui.windows ?? {}));
@@ -1326,7 +1326,7 @@ export async function openModifierEditor(page: Page, opts: {
       const sheet = Object.entries(ui.windows ?? {})
         .filter(([id]) => !before.has(id))
         .map(([, app]) => app)
-        .find((app: any) => app?.object?.flags?.starwarsffg?.ffgIsTemp) as any;
+        .find((app: any) => app?.object?.flags?.starwarsffg_sandbox?.ffgIsTemp) as any;
       const root = sheet?.element?.[0] ?? sheet?.element;
       if (root?.id && document.getElementById(root.id)) return { id: root.id };
       await new Promise((r) => setTimeout(r, 25));
@@ -1419,7 +1419,7 @@ export async function writeThroughParentChain(page: Page, opts: {
     const item = await fromUuid(o.itemUuid);
     if (!actor || !item) return 'no actor or item';
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const EmbeddedItemHelpers = (await load('helpers/embeddeditem-helpers.js')).default;
 
     const before = new Set(Object.keys(ui.windows ?? {}));
@@ -1431,7 +1431,7 @@ export async function writeThroughParentChain(page: Page, opts: {
       sheet = Object.entries(ui.windows ?? {})
         .filter(([id]) => !before.has(id))
         .map(([, app]) => app)
-        .find((app: any) => app?.object?.flags?.starwarsffg?.ffgIsTemp);
+        .find((app: any) => app?.object?.flags?.starwarsffg_sandbox?.ffgIsTemp);
       if (!sheet) await new Promise((r) => setTimeout(r, 25));
     }
     if (!sheet) return 'the modifier editor never opened';
@@ -1459,7 +1459,7 @@ export async function resolveParentChain(page: Page, opts: {
     const item = await fromUuid(itemUuid);
     if (!item || (actorUuid && !actor)) return { error: 'no actor or item' };
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const EmbeddedItemHelpers = (await load('helpers/embeddeditem-helpers.js')).default;
 
     const before = new Set(Object.keys(ui.windows ?? {}));
@@ -1472,17 +1472,17 @@ export async function resolveParentChain(page: Page, opts: {
       sheet = Object.entries(ui.windows ?? {})
         .filter(([id]) => !before.has(id))
         .map(([, app]) => app)
-        .find((app: any) => app?.object?.flags?.starwarsffg?.ffgIsTemp);
+        .find((app: any) => app?.object?.flags?.starwarsffg_sandbox?.ffgIsTemp);
       if (!sheet) await new Promise((r) => setTimeout(r, 25));
     }
     if (!sheet) return { error: 'the modifier editor never opened' };
 
     // what the chain looks like on the way up, before it is resolved
     const chain: string[] = [];
-    let flags = sheet.object.flags.starwarsffg;
+    let flags = sheet.object.flags.starwarsffg_sandbox;
     while (flags) {
       chain.push(flags.ffgUuid ? `uuid:${flags.ffgUuid}` : `temp:${flags.ffgTempItemType ?? '?'}`);
-      flags = flags.ffgParent?.starwarsffg;
+      flags = flags.ffgParent?.starwarsffg_sandbox;
     }
 
     try {
@@ -1597,14 +1597,14 @@ export async function submitSheet(page: Page, uuid: Uuid): Promise<void> {
  */
 /** Read a setting's current value. */
 export async function readSetting(
-  page: Page, key: string, namespace = 'starwarsffg',
+  page: Page, key: string, namespace = 'starwarsffg_sandbox',
 ): Promise<any> {
   return page.evaluate(
     ({ key, namespace }) => game.settings.get(namespace, key) ?? null, { key, namespace });
 }
 
 export async function setSetting(
-  page: Page, key: string, value: unknown, namespace = 'starwarsffg',
+  page: Page, key: string, value: unknown, namespace = 'starwarsffg_sandbox',
 ): Promise<unknown> {
   const before = await page.evaluate(
     ({ key, namespace }) => game.settings.get(namespace, key) ?? null, { key, namespace });
@@ -1745,7 +1745,7 @@ export async function readCombatants(page: Page, combatUuid: Uuid): Promise<{
       hidden: Boolean(c.hidden || c.token?.hidden),
       // A slot with nobody behind it: `addExtraSlot` makes these to hold a side's place
       // (combat-ffg.js:33), and they are combatants like any other apart from the flag.
-      generic: Boolean(c.getFlag?.('starwarsffg', 'fake')),
+      generic: Boolean(c.getFlag?.('starwarsffg_sandbox', 'fake')),
       defeated: Boolean(c.isDefeated),
     }));
   }, combatUuid);
@@ -2229,7 +2229,7 @@ export async function readEditMode(page: Page, actorUuid: Uuid): Promise<boolean
   return page.evaluate(async (actorUuid) => {
     const actor = await fromUuid(actorUuid);
     if (!actor) throw new Error(`No actor at ${actorUuid}`);
-    return Boolean(actor.getFlag('starwarsffg', 'config.enableEditMode'));
+    return Boolean(actor.getFlag('starwarsffg_sandbox', 'config.enableEditMode'));
   }, actorUuid);
 }
 
@@ -2287,7 +2287,7 @@ export async function grantXp(
     const actor = await fromUuid(actorUuid);
     if (!actor) return `No actor at ${actorUuid}`;
 
-    const load = (path: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${path}`);
+    const load = (path: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${path}`);
     const module = await load('groupmanager-ffg.js');
     if (!module?.GroupManager) return 'the group manager could not be loaded';
 
@@ -2480,7 +2480,7 @@ export async function readSlotClaims(
   return page.evaluate(async ({ combatUuid, round }) => {
     const combat = await fromUuid(combatUuid);
     if (!combat) throw new Error(`No combat at ${combatUuid}`);
-    const claims = combat.getFlag('starwarsffg', 'combatClaims') ?? {};
+    const claims = combat.getFlag('starwarsffg_sandbox', 'combatClaims') ?? {};
     return claims[round ?? combat.round] ?? {};
   }, { combatUuid, round });
 }
@@ -2695,7 +2695,7 @@ async function collectRollErrors(page: Page): Promise<string[]> {
  */
 export async function skillThemeCopy(page: Page, from: string, id: string): Promise<unknown[]> {
   const result = await page.evaluate(({ from, id }) => {
-    const themes = game.settings.get('starwarsffg', 'arraySkillList') ?? [];
+    const themes = game.settings.get('starwarsffg_sandbox', 'arraySkillList') ?? [];
     const original = themes.find((theme: any) => theme.id === from);
     if (!original) {
       return { error: `no skill theme "${from}". The world has: ${themes.map((t: any) => t.id).join(', ')}` };
@@ -2717,7 +2717,7 @@ export async function buildCrewRoll(
     const vehicle = await fromUuid(vehicleUuid);
     if (!vehicle) return { error: `No vehicle at ${vehicleUuid}` };
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const { build_crew_roll } = await load('helpers/crew.js');
 
     try {
@@ -2736,7 +2736,7 @@ export async function readCrewRoles(page: Page): Promise<{
   name: string; skill: string; weapons: boolean; handling: boolean;
 }[]> {
   return page.evaluate(() =>
-    (game.settings.get('starwarsffg', 'arrayCrewRoles') ?? []).map((role: any) => ({
+    (game.settings.get('starwarsffg_sandbox', 'arrayCrewRoles') ?? []).map((role: any) => ({
       name: String(role.role_name ?? ''),
       skill: String(role.role_skill ?? ''),
       weapons: Boolean(role.use_weapons),
@@ -2751,7 +2751,7 @@ export async function readCrew(page: Page, vehicleUuid: Uuid): Promise<{
   return page.evaluate(async (vehicleUuid) => {
     const vehicle = await fromUuid(vehicleUuid);
     if (!vehicle) throw new Error(`No vehicle at ${vehicleUuid}`);
-    return (vehicle.getFlag('starwarsffg', 'crew') ?? []).map((member: any) => ({
+    return (vehicle.getFlag('starwarsffg_sandbox', 'crew') ?? []).map((member: any) => ({
       actorId: String(member.actor_id ?? ''),
       actorName: String(member.actor_name ?? ''),
       role: String(member.role ?? ''),
@@ -2771,13 +2771,13 @@ export async function setCrewRoles(
     if (!vehicle || !crew) return 'the vehicle or the crew member is gone';
     if (vehicle.type !== 'vehicle') return `${vehicle.name} is a ${vehicle.type}, not a vehicle`;
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const { updateRoles } = await load('helpers/crew.js');
 
     await updateRoles(vehicle, crew.id, [...roles]);
 
     for (let i = 0; i < 200; i++) {
-      const aboard = (vehicle.getFlag('starwarsffg', 'crew') ?? [])
+      const aboard = (vehicle.getFlag('starwarsffg_sandbox', 'crew') ?? [])
         .filter((member: any) => member.actor_id === crew.id)
         .map((member: any) => member.role);
       if (roles.every((role) => aboard.includes(role)) && aboard.length === roles.length) return null;
@@ -2800,10 +2800,10 @@ export async function removeCrewRole(
     const crew = await fromUuid(crewUuid);
     if (!vehicle || !crew) return 'the vehicle or the crew member is gone';
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const { deregister_crew } = await load('helpers/crew.js');
 
-    const held = (vehicle.getFlag('starwarsffg', 'crew') ?? [])
+    const held = (vehicle.getFlag('starwarsffg_sandbox', 'crew') ?? [])
       .filter((member: any) => member.actor_id === crew.id).map((member: any) => member.role);
     if (!held.includes(role)) {
       return `${crew.name} is not the ${role}. They are: ${held.join(', ') || 'not aboard at all'}`;
@@ -2812,7 +2812,7 @@ export async function removeCrewRole(
     deregister_crew(vehicle, crew.id, role);
 
     for (let i = 0; i < 200; i++) {
-      const aboard = (vehicle.getFlag('starwarsffg', 'crew') ?? [])
+      const aboard = (vehicle.getFlag('starwarsffg_sandbox', 'crew') ?? [])
         .filter((member: any) => member.actor_id === crew.id).map((member: any) => member.role);
       if (!aboard.includes(role)) return null;
       await new Promise((r) => setTimeout(r, 25));
@@ -2834,13 +2834,13 @@ export async function changeCrewRole(
     const crew = await fromUuid(crewUuid);
     if (!vehicle || !crew) return 'the vehicle or the crew member is gone';
 
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const { change_role } = await load('helpers/crew.js');
 
     await change_role(vehicle, crew.id, from, to);
 
     for (let i = 0; i < 200; i++) {
-      const aboard = (vehicle.getFlag('starwarsffg', 'crew') ?? [])
+      const aboard = (vehicle.getFlag('starwarsffg_sandbox', 'crew') ?? [])
         .filter((member: any) => member.actor_id === crew.id).map((member: any) => member.role);
       if (aboard.includes(to) && !aboard.includes(from)) return null;
       await new Promise((r) => setTimeout(r, 25));

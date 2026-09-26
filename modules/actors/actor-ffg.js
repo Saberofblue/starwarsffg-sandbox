@@ -10,7 +10,7 @@ export class ActorFFG extends foundry.documents.Actor {
 
   // returns true if EditMode is not enabled, false otherwise. sends warning notification if EditMode is enabled and sendWarn is true
   verifyEditModeIsNotEnabled(sendWarn = true){
-    const result = !this.getFlag("starwarsffg", "config.enableEditMode");
+    const result = !this.getFlag("starwarsffg_sandbox", "config.enableEditMode");
     if(sendWarn && !result) {
       ui.notifications.warn("Can't do this while EditMode is enabled");
     }
@@ -57,7 +57,7 @@ export class ActorFFG extends foundry.documents.Actor {
           bar2: {
             attribute: "stats.strain",
           },
-          prependAdjective: game.settings.get("starwarsffg", "RivalTokenPrepend"),
+          prependAdjective: game.settings.get("starwarsffg_sandbox", "RivalTokenPrepend"),
         };
         break;
       case "nemesis":
@@ -90,11 +90,11 @@ export class ActorFFG extends foundry.documents.Actor {
   /** @override **/
   async _preCreate(data, operation, user) {
     const defaultImages = {
-      character: "systems/starwarsffg/images/defaults/actors/character.png",
-      minion: "systems/starwarsffg/images/defaults/actors/minion.png",
-      nemesis: "systems/starwarsffg/images/defaults/actors/nemesis.png",
-      rival: "systems/starwarsffg/images/defaults/actors/rival.png",
-      vehicle: "systems/starwarsffg/images/defaults/actors/vehicle.png",
+      character: "systems/starwarsffg_sandbox/images/defaults/actors/character.png",
+      minion: "systems/starwarsffg_sandbox/images/defaults/actors/minion.png",
+      nemesis: "systems/starwarsffg_sandbox/images/defaults/actors/nemesis.png",
+      rival: "systems/starwarsffg_sandbox/images/defaults/actors/rival.png",
+      vehicle: "systems/starwarsffg_sandbox/images/defaults/actors/vehicle.png",
     }
     if (game.user.id === user.id && (!data?.img || data?.img === "icons/svg/mystery-man.svg")) {
       if (Object.keys(defaultImages).includes(data.type)) {
@@ -291,7 +291,7 @@ export class ActorFFG extends foundry.documents.Actor {
     });
 
     if (["character", "nemesis", "rival", "minion"].includes(actorData.type)) {
-      if (game.settings.get("starwarsffg", "enableSoakCalc")) {
+      if (game.settings.get("starwarsffg_sandbox", "enableSoakCalc")) {
         this._calculateDerivedValues(actorData);
       }
     } else if (["vehicle"].includes(actorData.type)) {
@@ -447,8 +447,8 @@ export class ActorFFG extends foundry.documents.Actor {
         activationLabel: element.system?.activation?.label,
         isRanked: element.system?.ranks?.ranked,
         source: [{
-          type: element?.flags?.starwarsffg?.fromSpecies ? "species" : "talent",
-          typeLabel: element?.flags?.starwarsffg?.fromSpecies ? "SWFFG.Species" : "SWFFG.Talent",
+          type: element?.flags?.starwarsffg_sandbox?.fromSpecies ? "species" : "talent",
+          typeLabel: element?.flags?.starwarsffg_sandbox?.fromSpecies ? "SWFFG.Species" : "SWFFG.Talent",
           name: element.name,
           id: element.id,
         }],
@@ -474,8 +474,8 @@ export class ActorFFG extends foundry.documents.Actor {
       } else {
         globalTalentList[index].isDirectlyAdded = true;
         globalTalentList[index].source.push({
-          type: element?.flags?.starwarsffg?.fromSpecies ? "species" : "talent",
-          typeLabel: element?.flags?.starwarsffg?.fromSpecies ? "SWFFG.Species" : "SWFFG.Talent",
+          type: element?.flags?.starwarsffg_sandbox?.fromSpecies ? "species" : "talent",
+          typeLabel: element?.flags?.starwarsffg_sandbox?.fromSpecies ? "SWFFG.Species" : "SWFFG.Talent",
           name: element.name,
           id: element.id,
         });
@@ -509,7 +509,7 @@ export class ActorFFG extends foundry.documents.Actor {
     }
 
     // enable talent sorting if global to true and sheet is set to inherit or sheet is set to true.
-    if ((game.settings.get("starwarsffg", "talentSorting") && (!actorData.flags?.config?.talentSorting || actorData.flags?.config?.talentSorting === "0")) || actorData.flags?.config?.talentSorting === "1") {
+    if ((game.settings.get("starwarsffg_sandbox", "talentSorting") && (!actorData.flags?.config?.talentSorting || actorData.flags?.config?.talentSorting === "0")) || actorData.flags?.config?.talentSorting === "1") {
       data.talentList = globalTalentList.slice().reverse().sort(this._sortTalents);
     } else {
       data.talentList = globalTalentList;

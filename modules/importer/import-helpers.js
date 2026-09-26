@@ -177,7 +177,7 @@ export default class ImportHelpers {
    */
   static findEntityByImportId(type, id) {
     return game.data[type].find((item) => {
-      return item.flags.starwarsffg.ffgimportid === id;
+      return item.flags.starwarsffg_sandbox.ffgimportid === id;
     });
   }
 
@@ -237,7 +237,7 @@ export default class ImportHelpers {
       const pack = game.packs.get(packId);
       const contents = await pack.getDocuments();
       return contents.find((item) => {
-        return item.flags.starwarsffg.ffgimportid === id;
+        return item.flags.starwarsffg_sandbox.ffgimportid === id;
       });
     }
     const cachePack = async (packid) => {
@@ -249,7 +249,7 @@ export default class ImportHelpers {
 
           const content = await pack.getDocuments();
           for (var i = 0; i < content.length; i++) {
-            CONFIG.temporary[packid][content[i].flags?.starwarsffg?.ffgimportid] = foundry.utils.deepClone(content[i]);
+            CONFIG.temporary[packid][content[i].flags?.starwarsffg_sandbox?.ffgimportid] = foundry.utils.deepClone(content[i]);
           }
         }
       }
@@ -1080,11 +1080,11 @@ export default class ImportHelpers {
           const weapon = JSON.parse(JSON.stringify(await this.findCompendiumEntityByImportId("Item", w.ItemKey, undefined, "weapon")));
           delete weapon._id;
 
-          const weaponItems = adversary.items.filter((s) => s.flags.starwarsffg.ffgimportid === weapon.flags.starwarsffg.ffgimportid);
+          const weaponItems = adversary.items.filter((s) => s.flags.starwarsffg_sandbox.ffgimportid === weapon.flags.starwarsffg_sandbox.ffgimportid);
 
           if (weaponItems.length > 0) {
             for (let i = 0; i < adversary.items.length; i += 1) {
-              if (adversary.items[i].type === "weapon" && adversary.items[i].flags.starwarsffg.ffgimportid === weapon.flags.starwarsffg.ffgimportid) {
+              if (adversary.items[i].type === "weapon" && adversary.items[i].flags.starwarsffg_sandbox.ffgimportid === weapon.flags.starwarsffg_sandbox.ffgimportid) {
                 adversary.items[i] = foundry.utils.mergeObject(weapon, adversary.items[i]);
               }
             }
@@ -1128,10 +1128,10 @@ export default class ImportHelpers {
           }
           const talent = JSON.parse(JSON.stringify(compTalent));
           delete talent._id;
-          const talentItems = adversary.items.filter((s) => s.flags.starwarsffg.ffgimportid === talent.flags.starwarsffg.ffgimportid);
+          const talentItems = adversary.items.filter((s) => s.flags.starwarsffg_sandbox.ffgimportid === talent.flags.starwarsffg_sandbox.ffgimportid);
           if (talentItems.length > 0) {
             for (let i = 0; i < adversary.items.length; i += 1) {
-              if (adversary.items[i].type === "talent" && adversary.items[i].flags.starwarsffg.ffgimportid === talent.flags.starwarsffg.ffgimportid) {
+              if (adversary.items[i].type === "talent" && adversary.items[i].flags.starwarsffg_sandbox.ffgimportid === talent.flags.starwarsffg_sandbox.ffgimportid) {
                 adversary.items[i] = foundry.utils.mergeObject(talent, adversary.items[i]);
               }
             }
@@ -1166,11 +1166,11 @@ export default class ImportHelpers {
           if(compArmor) {
             const armor = JSON.parse(JSON.stringify(compArmor));
             delete armor._id;
-            const armorItems = adversary.items.filter((s) => s.flags.starwarsffg.ffgimportid === armor.flags.starwarsffg.ffgimportid);
+            const armorItems = adversary.items.filter((s) => s.flags.starwarsffg_sandbox.ffgimportid === armor.flags.starwarsffg_sandbox.ffgimportid);
 
             if (armorItems.length > 0) {
               for (let i = 0; i < adversary.items.length; i += 1) {
-                if (adversary.items[i].type === "armor" && adversary.items[i].flags.starwarsffg.ffgimportid === armor.flags.starwarsffg.ffgimportid) {
+                if (adversary.items[i].type === "armor" && adversary.items[i].flags.starwarsffg_sandbox.ffgimportid === armor.flags.starwarsffg_sandbox.ffgimportid) {
                   adversary.items[i] = foundry.utils.mergeObject(armor, adversary.items[i]);
                 }
               }
@@ -1207,7 +1207,7 @@ export default class ImportHelpers {
             const gear = JSON.parse(JSON.stringify(compGear));
             delete gear._id;
 
-            let gearItem = adversary.items.find((s) => s.flags.starwarsffg.ffgimportid === gear.flags.starwarsffg.ffgimportid);
+            let gearItem = adversary.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === gear.flags.starwarsffg_sandbox.ffgimportid);
 
             let gearCount = 1;
             if (w?.Count) {
@@ -1259,7 +1259,7 @@ export default class ImportHelpers {
           force.data.upgrades[key].islearned = true;
         });
 
-        let forceItem = adversary.items.find((s) => s.flags.starwarsffg.ffgimportid === force.flags.starwarsffg.ffgimportid);
+        let forceItem = adversary.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === force.flags.starwarsffg_sandbox.ffgimportid);
         if (forceItem) {
           forceItem = foundry.utils.mergeObject(force, forceItem);
         } else {
@@ -1296,7 +1296,7 @@ export default class ImportHelpers {
   {
     const npcName = adversaryData.Name;
     const npcKey = adversaryData.Key;
-    const exists = game.data.actors.find((actor) => actor.flags.starwarsffg?.ffgimportid == npcKey);
+    const exists = game.data.actors.find((actor) => actor.flags.starwarsffg_sandbox?.ffgimportid == npcKey);
 
     // copy template character json
     let adversary = JSON.parse(JSON.stringify(ImportHelpers.characterTemplate));
@@ -1304,7 +1304,7 @@ export default class ImportHelpers {
     if(adversaryData.Description)
       adversary.data.biography = adversaryData.Description;
     adversary.flags = {
-      starwarsffg: {
+      starwarsffg_sandbox: {
         ffgimportid: npcKey
       }
     }
@@ -1393,7 +1393,7 @@ export default class ImportHelpers {
   {
     const npcName = adversaryData.Name;
     const npcKey = adversaryData.Key;
-    const exists = game.data.actors.find((actor) => actor.flags.starwarsffg?.ffgimportid == npcKey);
+    const exists = game.data.actors.find((actor) => actor.flags.starwarsffg_sandbox?.ffgimportid == npcKey);
 
     // minion sheet data obtained from an export and reformed for importing here.
     // Deep copy our template so we don't have to have a bunch of json sat here
@@ -1403,7 +1403,7 @@ export default class ImportHelpers {
     if(adversaryData.Description)
       adversary.data.biography = adversaryData.Description;
     adversary.flags = {
-      starwarsffg: {
+      starwarsffg_sandbox: {
         ffgimportid: npcKey
       }
     }
@@ -1546,7 +1546,7 @@ export default class ImportHelpers {
 
       const characterName = characterData.Character.Description.CharName;
 
-      const exists = game.data.actors.find((actor) => actor.flags?.starwarsffg?.ffgimportid === characterData.Character.Key);
+      const exists = game.data.actors.find((actor) => actor.flags?.starwarsffg_sandbox?.ffgimportid === characterData.Character.Key);
 
       console.log(`character exists: ${exists}`)
 
@@ -1558,7 +1558,7 @@ export default class ImportHelpers {
       }
 
       character.flags = {
-        starwarsffg: {
+        starwarsffg_sandbox: {
           ffgimportid: characterData.Character.Key
         }
       }
@@ -1680,7 +1680,7 @@ export default class ImportHelpers {
           }
 
           // does the character data already include the species
-          let speciesItem = character.items.find((s) => s.flags.starwarsffg.ffgimportid === species.flags.starwarsffg.ffgimportid);
+          let speciesItem = character.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === species.flags.starwarsffg_sandbox.ffgimportid);
 
           if (speciesItem) {
             species = foundry.utils.mergeObject(species, speciesItem);
@@ -1781,7 +1781,7 @@ export default class ImportHelpers {
             });
           }
 
-          let careerItem = character.items.find((s) => s.flags.starwarsffg.ffgimportid === career.flags.starwarsffg.ffgimportid);
+          let careerItem = character.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === career.flags.starwarsffg_sandbox.ffgimportid);
 
           if (careerItem) {
             careerItem = foundry.utils.mergeObject(career, careerItem);
@@ -1898,7 +1898,7 @@ export default class ImportHelpers {
                 specCount += 1;
                 updateDialogSpecialization(specCount, specTotal);
 
-                let specializationItem = character.items.find((s) => s.flags.starwarsffg.ffgimportid === specialization.flags.starwarsffg.ffgimportid);
+                let specializationItem = character.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === specialization.flags.starwarsffg_sandbox.ffgimportid);
 
                 if (specializationItem) {
                   specializationItem = foundry.utils.mergeObject(specialization, specializationItem);
@@ -1943,7 +1943,7 @@ export default class ImportHelpers {
                     updateDialogSpecialization(specCount, specTotal);
                   }
 
-                  let specializationItem = character.items.find((s) => s.flags.starwarsffg.ffgimportid === newspec.flags.starwarsffg.ffgimportid);
+                  let specializationItem = character.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === newspec.flags.starwarsffg_sandbox.ffgimportid);
 
                   if (specializationItem) {
                     specializationItem = foundry.utils.mergeObject(newspec, specializationItem);
@@ -1974,7 +1974,7 @@ export default class ImportHelpers {
             }
           }
 
-          let forceItem = character.items.find((s) => s.flags.starwarsffg.ffgimportid === force.flags.starwarsffg.ffgimportid);
+          let forceItem = character.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === force.flags.starwarsffg_sandbox.ffgimportid);
 
           if (forceItem) {
             forceItem = foundry.utils.mergeObject(force, forceItem);
@@ -1997,11 +1997,11 @@ export default class ImportHelpers {
             const weapon = JSON.parse(JSON.stringify(await this.findCompendiumEntityByImportId("Item", w.ItemKey, undefined, "weapon")));
             delete weapon._id;
 
-            const weaponItems = character.items.filter((s) => s.flags.starwarsffg.ffgimportid === weapon.flags.starwarsffg.ffgimportid);
+            const weaponItems = character.items.filter((s) => s.flags.starwarsffg_sandbox.ffgimportid === weapon.flags.starwarsffg_sandbox.ffgimportid);
 
             if (weaponItems.length > 0) {
               for (let i = 0; i < character.items.length; i += 1) {
-                if (character.items[i].type === "weapon" && character.items[i].flags.starwarsffg.ffgimportid === weapon.flags.starwarsffg.ffgimportid) {
+                if (character.items[i].type === "weapon" && character.items[i].flags.starwarsffg_sandbox.ffgimportid === weapon.flags.starwarsffg_sandbox.ffgimportid) {
                   character.items[i] = foundry.utils.mergeObject(weapon, character.items[i]);
                 }
               }
@@ -2035,11 +2035,11 @@ export default class ImportHelpers {
           try {
             const armor = JSON.parse(JSON.stringify(await this.findCompendiumEntityByImportId("Item", w.ItemKey, undefined, "armour")));
             delete armor._id;
-            const armorItems = character.items.filter((s) => s.flags.starwarsffg.ffgimportid === armor.flags.starwarsffg.ffgimportid);
+            const armorItems = character.items.filter((s) => s.flags.starwarsffg_sandbox.ffgimportid === armor.flags.starwarsffg_sandbox.ffgimportid);
 
             if (armorItems.length > 0) {
               for (let i = 0; i < character.items.length; i += 1) {
-                if (character.items[i].type === "armor" && character.items[i].flags.starwarsffg.ffgimportid === armor.flags.starwarsffg.ffgimportid) {
+                if (character.items[i].type === "armor" && character.items[i].flags.starwarsffg_sandbox.ffgimportid === armor.flags.starwarsffg_sandbox.ffgimportid) {
                   character.items[i] = foundry.utils.mergeObject(armor, character.items[i]);
                 }
               }
@@ -2071,7 +2071,7 @@ export default class ImportHelpers {
             const gear = JSON.parse(JSON.stringify(await this.findCompendiumEntityByImportId("Item", w.ItemKey, undefined, "gear")));
             delete gear._id;
 
-            let gearItem = character.items.find((s) => s.flags.starwarsffg.ffgimportid === gear.flags.starwarsffg.ffgimportid);
+            let gearItem = character.items.find((s) => s.flags.starwarsffg_sandbox.ffgimportid === gear.flags.starwarsffg_sandbox.ffgimportid);
 
             let gearCount = 1;
             if (w?.Count) {
@@ -2340,7 +2340,7 @@ export default class ImportHelpers {
       name: obj.Name,
       type,
       flags: {
-        starwarsffg: {
+        starwarsffg_sandbox: {
           ffgimportid: obj.Key
         }
       },
@@ -2349,7 +2349,7 @@ export default class ImportHelpers {
   }
 
   static async addImportItemToCompendium(type, data, pack, removeFirst) {
-    let entry = await ImportHelpers.findCompendiumEntityByImportId(type, data.flags.starwarsffg.ffgimportid, pack.collection);
+    let entry = await ImportHelpers.findCompendiumEntityByImportId(type, data.flags.starwarsffg_sandbox.ffgimportid, pack.collection);
     let objClass;
     let dataType;
     switch (type) {
@@ -2401,7 +2401,7 @@ export default class ImportHelpers {
         await ImportHelpers.applyActiveEffectOnUpdate(crt, data);
         await ImportHelpers.applyTalentActiveEffects(crt);
       }
-      CONFIG.temporary[pack.collection][data.flags.starwarsffg.ffgimportid] = foundry.utils.deepClone(crt);
+      CONFIG.temporary[pack.collection][data.flags.starwarsffg_sandbox.ffgimportid] = foundry.utils.deepClone(crt);
       return crt;
     } else {
       CONFIG.logger.debug(`Found existing ${type} ${dataType} ${data.name}`);
@@ -2499,7 +2499,7 @@ export default class ImportHelpers {
         }
       }
       upd = migrateDataToSystem(upd);
-      CONFIG.temporary[pack.collection][data.flags.starwarsffg.ffgimportid] = upd;
+      CONFIG.temporary[pack.collection][data.flags.starwarsffg_sandbox.ffgimportid] = upd;
       return upd;
     }
   }
@@ -2769,8 +2769,8 @@ export default class ImportHelpers {
         }
       } else if (dieMod.SkillChar) {
         // this is a skill modifier based on characteristic (ex all Brawn skills);
-        const skillTheme = await game.settings.get("starwarsffg", "skilltheme");
-        const allSkillsLists = await game.settings.get("starwarsffg", "arraySkillList");
+        const skillTheme = await game.settings.get("starwarsffg_sandbox", "skilltheme");
+        const allSkillsLists = await game.settings.get("starwarsffg_sandbox", "arraySkillList");
         const skills = allSkillsLists.find((i) => i.id === skillTheme).skills;
         const characteristicSkills = Object.keys(skills).filter((s) => skills[s].characteristic === ImportHelpers.convertOGCharacteristic(dieMod.SkillChar));
 
@@ -2786,8 +2786,8 @@ export default class ImportHelpers {
           }
         });
       } else if (dieMod.SkillType) {
-        const skillTheme = await game.settings.get("starwarsffg", "skilltheme");
-        const allSkillsLists = await game.settings.get("starwarsffg", "arraySkillList");
+        const skillTheme = await game.settings.get("starwarsffg_sandbox", "skilltheme");
+        const allSkillsLists = await game.settings.get("starwarsffg_sandbox", "arraySkillList");
         const skills = allSkillsLists.find((i) => i.id === skillTheme).skills;
         const characteristicSkills = Object.keys(skills).filter((s) => skills[s].type.toLowerCase() === dieMod.SkillType.toLowerCase());
 

@@ -64,10 +64,10 @@ import {ACTOR_DATA_MODELS} from "./data/actors/index.js";
 
 async function parseSkillList() {
   try {
-    return JSON.parse(await game.settings.get("starwarsffg", "arraySkillList"));
+    return JSON.parse(await game.settings.get("starwarsffg_sandbox", "arraySkillList"));
   } catch (e) {
     CONFIG.logger.log("Could not parse custom skill list, returning raw setting");
-    return await game.settings.get("starwarsffg", "arraySkillList");
+    return await game.settings.get("starwarsffg_sandbox", "arraySkillList");
   }
 }
 
@@ -140,7 +140,7 @@ Hooks.once("init", async function () {
 
 
   // Enable debug messages in console
-  game.settings.register("starwarsffg", "enableDebug", {
+  game.settings.register("starwarsffg_sandbox", "enableDebug", {
     name: game.i18n.localize("SWFFG.EnableDebug"),
     hint: game.i18n.localize("SWFFG.EnableDebugHint"),
     scope: "world",
@@ -153,7 +153,7 @@ Hooks.once("init", async function () {
    /**
    * Register statuses to add
    */
-  game.settings.register("starwarsffg", "additionalStatuses", {
+  game.settings.register("starwarsffg_sandbox", "additionalStatuses", {
     name: game.i18n.localize("SWFFG.Settings.AdditionalStatuses.Name"),
     hint: game.i18n.localize("SWFFG.Settings.AdditionalStatuses.Hint"),
     scope: "world",
@@ -164,7 +164,7 @@ Hooks.once("init", async function () {
   });
 
   // register turn marker reconfigurator
-  game.settings.register("starwarsffg", "configuredTurnMarker", {
+  game.settings.register("starwarsffg_sandbox", "configuredTurnMarker", {
     name: "configuredTurnMarker",
     hint: "configuredTurnMarker",
     scope: "world",
@@ -194,24 +194,24 @@ Hooks.once("init", async function () {
 
     const colors = {
       "stats.wounds": {
-        ok: game.settings.get("starwarsffg", "ui-token-healthy"),
-        damaged: game.settings.get("starwarsffg", "ui-token-wounded"),
-        overDamaged: game.settings.get("starwarsffg", "ui-token-overwounded"),
+        ok: game.settings.get("starwarsffg_sandbox", "ui-token-healthy"),
+        damaged: game.settings.get("starwarsffg_sandbox", "ui-token-wounded"),
+        overDamaged: game.settings.get("starwarsffg_sandbox", "ui-token-overwounded"),
       },
       "stats.hullTrauma": {
-        ok: game.settings.get("starwarsffg", "ui-token-healthy"),
-        damaged: game.settings.get("starwarsffg", "ui-token-wounded"),
-        overDamaged: game.settings.get("starwarsffg", "ui-token-overwounded"),
+        ok: game.settings.get("starwarsffg_sandbox", "ui-token-healthy"),
+        damaged: game.settings.get("starwarsffg_sandbox", "ui-token-wounded"),
+        overDamaged: game.settings.get("starwarsffg_sandbox", "ui-token-overwounded"),
       },
       "stats.strain": {
-        ok: game.settings.get("starwarsffg", "ui-token-stamina-ok"),
-        damaged: game.settings.get("starwarsffg", "ui-token-stamina-damaged"),
-        overDamaged: game.settings.get("starwarsffg", "ui-token-stamina-over"),
+        ok: game.settings.get("starwarsffg_sandbox", "ui-token-stamina-ok"),
+        damaged: game.settings.get("starwarsffg_sandbox", "ui-token-stamina-damaged"),
+        overDamaged: game.settings.get("starwarsffg_sandbox", "ui-token-stamina-over"),
       },
       "stats.systemStrain": {
-        ok: game.settings.get("starwarsffg", "ui-token-stamina-ok"),
-        damaged: game.settings.get("starwarsffg", "ui-token-stamina-damaged"),
-        overDamaged: game.settings.get("starwarsffg", "ui-token-stamina-over"),
+        ok: game.settings.get("starwarsffg_sandbox", "ui-token-stamina-ok"),
+        damaged: game.settings.get("starwarsffg_sandbox", "ui-token-stamina-damaged"),
+        overDamaged: game.settings.get("starwarsffg_sandbox", "ui-token-stamina-over"),
       },
     }
 
@@ -261,27 +261,27 @@ Hooks.once("init", async function () {
   };
 
   // Load character templates so that dynamic skills lists work correctly
-  await foundry.applications.handlebars.loadTemplates(["systems/starwarsffg/templates/actors/ffg-character-sheet.html", "systems/starwarsffg/templates/actors/ffg-minion-sheet.html"]);
+  await foundry.applications.handlebars.loadTemplates(["systems/starwarsffg_sandbox/templates/actors/ffg-character-sheet.html", "systems/starwarsffg_sandbox/templates/actors/ffg-minion-sheet.html"]);
 
   SettingsHelpers.initLevelSettings();
 
-  const uitheme = game.settings.get("starwarsffg", "ui-uitheme");
+  const uitheme = game.settings.get("starwarsffg_sandbox", "ui-uitheme");
 
   switch (uitheme) {
     case "mandar": {
-      $('link[href*="styles/starwarsffg.css"]').prop("disabled", true);
-      $("head").append('<link href="systems/starwarsffg/styles/mandar.css" rel="stylesheet" type="text/css" media="all">');
+      $('link[href*="styles/starwarsffg_sandbox.css"]').prop("disabled", true);
+      $("head").append('<link href="systems/starwarsffg_sandbox/styles/mandar.css" rel="stylesheet" type="text/css" media="all">');
       break;
     }
     default: {
-      $('link[href*="styles/starwarsffg.css"]').prop("disabled", false);
+      $('link[href*="styles/starwarsffg_sandbox.css"]').prop("disabled", false);
     }
   }
 
   /**
    * Register default XP spend notification
    */
-  game.settings.register("starwarsffg", "notifyOnXpSpend", {
+  game.settings.register("starwarsffg_sandbox", "notifyOnXpSpend", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Notify.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Notify.Hint"),
     scope: "world",
@@ -289,7 +289,7 @@ Hooks.once("init", async function () {
     default: true,
     type: Boolean,
   });
-  game.settings.register("starwarsffg", "defaultObligation", {
+  game.settings.register("starwarsffg_sandbox", "defaultObligation", {
     name: game.i18n.localize("SWFFG.Settings.Obligation.Default.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Obligation.Default.Hint"),
     scope: "world",
@@ -297,7 +297,7 @@ Hooks.once("init", async function () {
     default: 20,
     type: Number,
   });
-  game.settings.register("starwarsffg", "defaultDuty", {
+  game.settings.register("starwarsffg_sandbox", "defaultDuty", {
     name: game.i18n.localize("SWFFG.Settings.Duty.Default.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Duty.Default.Hint"),
     scope: "world",
@@ -305,7 +305,7 @@ Hooks.once("init", async function () {
     default: 20,
     type: Number,
   });
-  game.settings.register("starwarsffg", "defaultMorality", {
+  game.settings.register("starwarsffg_sandbox", "defaultMorality", {
     name: game.i18n.localize("SWFFG.Settings.Morality.Default.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Morality.Default.Hint"),
     scope: "world",
@@ -313,7 +313,7 @@ Hooks.once("init", async function () {
     default: 50,
     type: Number,
   });
-  game.settings.register("starwarsffg", "maxRarity", {
+  game.settings.register("starwarsffg_sandbox", "maxRarity", {
     name: game.i18n.localize("SWFFG.Settings.CharCreator.Items.maxRarity.Name"),
     hint: game.i18n.localize("SWFFG.Settings.CharCreator.Items.maxRarity.Hint"),
     scope: "world",
@@ -321,7 +321,7 @@ Hooks.once("init", async function () {
     default: 6,
     type: Number,
   });
-  game.settings.register("starwarsffg", "allowRestricted", {
+  game.settings.register("starwarsffg_sandbox", "allowRestricted", {
     name: game.i18n.localize("SWFFG.Settings.CharCreator.Items.allowRestricted.Name"),
     hint: game.i18n.localize("SWFFG.Settings.CharCreator.Items.allowRestricted.Hint"),
     scope: "world",
@@ -329,7 +329,7 @@ Hooks.once("init", async function () {
     default: false,
     type: Boolean,
   });
-  game.settings.register("starwarsffg", "defaultCredits", {
+  game.settings.register("starwarsffg_sandbox", "defaultCredits", {
     name: game.i18n.localize("SWFFG.Settings.Credits.Default.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Credits.Default.Hint"),
     scope: "world",
@@ -341,7 +341,7 @@ Hooks.once("init", async function () {
   /**
    * Register the option to use generic slots for combat
    */
-  game.settings.register("starwarsffg", "useGenericSlots", {
+  game.settings.register("starwarsffg_sandbox", "useGenericSlots", {
     name: game.i18n.localize("SWFFG.Settings.UseGenericSlots.Name"),
     hint: game.i18n.localize("SWFFG.Settings.UseGenericSlots.Hint"),
     scope: "world",
@@ -354,7 +354,7 @@ Hooks.once("init", async function () {
   CONFIG.Combat.documentClass = CombatFFG;
   CONFIG.Combatant.documentClass = CombatantFFG;
 
-  if (game.settings.get("starwarsffg", "useGenericSlots")) {
+  if (game.settings.get("starwarsffg_sandbox", "useGenericSlots")) {
     CONFIG.ui.combat = CombatTrackerFFG;
     // override the token placeable object so we can control turn indicators
     CONFIG.Token.objectClass = TokenFFG;
@@ -363,7 +363,7 @@ Hooks.once("init", async function () {
   /**
    * Register action to take when a user removes a combatant from combat
    */
-  game.settings.register("starwarsffg", "removeCombatantAction", {
+  game.settings.register("starwarsffg_sandbox", "removeCombatantAction", {
     name: game.i18n.localize("SWFFG.Settings.RemoveCombatantAction.Name"),
     hint: game.i18n.localize("SWFFG.Settings.RemoveCombatantAction.Hint"),
     scope: "world",
@@ -380,7 +380,7 @@ Hooks.once("init", async function () {
   /**
    * Register the max value for characteristics and skills
    */
-  game.settings.register("starwarsffg", "maxAttribute", {
+  game.settings.register("starwarsffg_sandbox", "maxAttribute", {
     name: game.i18n.localize("SWFFG.Settings.maxAttribute.Name"),
     hint: game.i18n.localize("SWFFG.Settings.maxAttribute.Hint"),
     scope: "world",
@@ -388,7 +388,7 @@ Hooks.once("init", async function () {
     default: 7,
     type: Number,
   });
-  game.settings.register("starwarsffg", "maxSkill", {
+  game.settings.register("starwarsffg_sandbox", "maxSkill", {
     name: game.i18n.localize("SWFFG.Settings.maxSkill.Name"),
     hint: game.i18n.localize("SWFFG.Settings.maxSkill.Hint"),
     scope: "world",
@@ -400,7 +400,7 @@ Hooks.once("init", async function () {
   /**
    * Register compendiums for sources for purchasing and character creation
    */
-  game.settings.register("starwarsffg", "specializationCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "specializationCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Specialization.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Specialization.Hint"),
     scope: "world",
@@ -408,7 +408,7 @@ Hooks.once("init", async function () {
     default: "world.oggdudespecializations",
     type: String,
   });
-  game.settings.register("starwarsffg", "signatureAbilityCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "signatureAbilityCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.SignatureAbility.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.SignatureAbility.Hint"),
     scope: "world",
@@ -416,7 +416,7 @@ Hooks.once("init", async function () {
     default: "world.oggdudesignatureabilities",
     type: String,
   });
-  game.settings.register("starwarsffg", "forcePowerCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "forcePowerCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.ForcePower.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.ForcePower.Hint"),
     scope: "world",
@@ -424,7 +424,7 @@ Hooks.once("init", async function () {
     default: "world.oggdudeforcepowers",
     type: String,
   });
-  game.settings.register("starwarsffg", "talentCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "talentCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Talent.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Talent.Hint"),
     scope: "world",
@@ -433,7 +433,7 @@ Hooks.once("init", async function () {
     type: String,
   });
   // backgrounds
-  game.settings.register("starwarsffg", "backgroundCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "backgroundCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Background.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Background.Hint"),
     scope: "world",
@@ -442,7 +442,7 @@ Hooks.once("init", async function () {
     type: String,
   });
   // obligations
-  game.settings.register("starwarsffg", "obligationCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "obligationCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Obligation.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Obligation.Hint"),
     scope: "world",
@@ -451,7 +451,7 @@ Hooks.once("init", async function () {
     type: String,
   });
   // species
-  game.settings.register("starwarsffg", "speciesCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "speciesCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Species.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Species.Hint"),
     scope: "world",
@@ -460,7 +460,7 @@ Hooks.once("init", async function () {
     type: String,
   });
   // careers
-  game.settings.register("starwarsffg", "careerCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "careerCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Career.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Career.Hint"),
     scope: "world",
@@ -469,7 +469,7 @@ Hooks.once("init", async function () {
     type: String,
   });
   // motivations
-  game.settings.register("starwarsffg", "motivationCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "motivationCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Motivation.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Motivation.Hint"),
     scope: "world",
@@ -478,7 +478,7 @@ Hooks.once("init", async function () {
     type: String,
   });
   // items
-  game.settings.register("starwarsffg", "itemCompendiums", {
+  game.settings.register("starwarsffg_sandbox", "itemCompendiums", {
     name: game.i18n.localize("SWFFG.Settings.Purchase.Item.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Purchase.Item.Hint"),
     scope: "world",
@@ -487,7 +487,7 @@ Hooks.once("init", async function () {
     type: String,
   });
   // defense dice setting
-  game.settings.register("starwarsffg", "useDefense", {
+  game.settings.register("starwarsffg_sandbox", "useDefense", {
     name: game.i18n.localize("SWFFG.Settings.UseDefense.Name"),
     hint: game.i18n.localize("SWFFG.Settings.UseDefense.Hint"),
     scope: "client",
@@ -498,7 +498,7 @@ Hooks.once("init", async function () {
    /**
    * Register roll simulation mode
    */
-  game.settings.register("starwarsffg", "displaySimulation", {
+  game.settings.register("starwarsffg_sandbox", "displaySimulation", {
     name: game.i18n.localize("SWFFG.Settings.Simulate.Name"),
     hint: game.i18n.localize("SWFFG.Settings.Simulate.Hint"),
     scope: "world",
@@ -511,7 +511,7 @@ Hooks.once("init", async function () {
       None: "None",
     },
   });
-  game.settings.register("starwarsffg", "rollSimulation", {
+  game.settings.register("starwarsffg_sandbox", "rollSimulation", {
     name: game.i18n.localize("SWFFG.Settings.SimulateCount.Name"),
     hint: game.i18n.localize("SWFFG.Settings.SimulateCount.Hint"),
     scope: "world",
@@ -525,7 +525,7 @@ Hooks.once("init", async function () {
    * @type {String}
    */
   // Register initiative rule
-  game.settings.register("starwarsffg", "initiativeRule", {
+  game.settings.register("starwarsffg_sandbox", "initiativeRule", {
     name: game.i18n.localize("SWFFG.InitiativeMode"),
     hint: game.i18n.localize("SWFFG.InitiativeModeHint"),
     scope: "world",
@@ -538,7 +538,7 @@ Hooks.once("init", async function () {
     },
     onChange: (rule) => _setffgInitiative(rule),
   });
-  _setffgInitiative(game.settings.get("starwarsffg", "initiativeRule"));
+  _setffgInitiative(game.settings.get("starwarsffg_sandbox", "initiativeRule"));
 
   function _setffgInitiative(initMethod) {
     let formula;
@@ -564,7 +564,7 @@ Hooks.once("init", async function () {
   }
 
   async function gameSkillsList() {
-    game.settings.registerMenu("starwarsffg", "addskilltheme", {
+    game.settings.registerMenu("starwarsffg_sandbox", "addskilltheme", {
       name: game.i18n.localize("SWFFG.SettingsSkillListImporter"),
       label: game.i18n.localize("SWFFG.SettingsSkillListImporterLabel"),
       hint: game.i18n.localize("SWFFG.SettingsSkillListImporterHint"),
@@ -573,7 +573,7 @@ Hooks.once("init", async function () {
       restricted: true,
     });
 
-    game.settings.register("starwarsffg", "addskilltheme", {
+    game.settings.register("starwarsffg_sandbox", "addskilltheme", {
       name: "Item Importer",
       scope: "world",
       default: {},
@@ -581,7 +581,7 @@ Hooks.once("init", async function () {
       type: Object,
     });
 
-    game.settings.register("starwarsffg", "arraySkillList", {
+    game.settings.register("starwarsffg_sandbox", "arraySkillList", {
       name: "Skill List",
       scope: "world",
       default: defaultSkillList,
@@ -600,7 +600,7 @@ Hooks.once("init", async function () {
         skillChoices[list.id] = list.id;
       });
 
-      game.settings.register("starwarsffg", "skilltheme", {
+      game.settings.register("starwarsffg_sandbox", "skilltheme", {
         name: game.i18n.localize("SWFFG.SettingsSkillTheme"),
         hint: game.i18n.localize("SWFFG.SettingsSkillThemeHint"),
         scope: "world",
@@ -611,8 +611,8 @@ Hooks.once("init", async function () {
         choices: skillChoices,
       });
 
-      if (game.settings.get("starwarsffg", "skilltheme") !== "starwars") {
-        const altSkills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === game.settings.get("starwarsffg", "skilltheme")).skills));
+      if (game.settings.get("starwarsffg_sandbox", "skilltheme") !== "starwars") {
+        const altSkills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === game.settings.get("starwarsffg_sandbox", "skilltheme")).skills));
 
         let skills = {};
         Object.keys(altSkills).forEach((skillKey) => {
@@ -647,12 +647,12 @@ Hooks.once("init", async function () {
     Hooks.on("createActor", (actor) => {
       if (actor.type !== "vehicle" && actor.type !== "homestead") {
         if (CONFIG.FFG?.alternateskilllists?.length) {
-          let skilllist = game.settings.get("starwarsffg", "skilltheme");
+          let skilllist = game.settings.get("starwarsffg_sandbox", "skilltheme");
           try {
             let skills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === skilllist)));
             CONFIG.logger.log(`Applying skill theme ${skilllist} to actor`);
 
-            if (!actor?.flags?.starwarsffg?.hasOwnProperty('ffgimportid') && JSON.stringify(Object.keys(skills.skills).sort()) !== JSON.stringify(Object.keys(actor.system.skills).sort())) {
+            if (!actor?.flags?.starwarsffg_sandbox?.hasOwnProperty('ffgimportid') && JSON.stringify(Object.keys(skills.skills).sort()) !== JSON.stringify(Object.keys(actor.system.skills).sort())) {
               // only apply the skills if it wasn't an imported actor and the skills loaded are not the same
               actor.update({
                 system: {
@@ -674,7 +674,7 @@ Hooks.once("init", async function () {
     });
 
     // slot bookkeeping only applies to generic slots; named slots are handled by the core tracker
-    if (game.settings.get("starwarsffg", "useGenericSlots")) {
+    if (game.settings.get("starwarsffg_sandbox", "useGenericSlots")) {
       Hooks.on("preCreateCombatant", async (combatant, context, options, combatantId) => {
         await game.combat.handleCombatantAddition(combatant, context, options, combatantId);
       });
@@ -720,16 +720,16 @@ Hooks.once("init", async function () {
     // set up our own statuses
     CONFIG.statusEffects = [];
     CONFIG.statusEffects.push({
-      id: "starwarsffg-defeated",
-      img: "systems/starwarsffg/images/status/defeated.svg",
+      id: "starwarsffg_sandbox-defeated",
+      img: "systems/starwarsffg_sandbox/images/status/defeated.svg",
       name: "SWFFG.Status.Defeated",
       changes: [],
     });
 
     // one-time statuses
     CONFIG.statusEffects.push({
-      id: "starwarsffg-boost-once",
-      img: `systems/starwarsffg/images/dice/${CONFIG.FFG.theme}/blue.png`,
+      id: "starwarsffg_sandbox-boost-once",
+      img: `systems/starwarsffg_sandbox/images/dice/${CONFIG.FFG.theme}/blue.png`,
       name: "SWFFG.Status.Boost.Next",
       changes: allSkillChanges['boost'],
       system: {
@@ -737,8 +737,8 @@ Hooks.once("init", async function () {
       }
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-setback-once",
-      img: `systems/starwarsffg/images/dice/${CONFIG.FFG.theme}/black.png`,
+      id: "starwarsffg_sandbox-setback-once",
+      img: `systems/starwarsffg_sandbox/images/dice/${CONFIG.FFG.theme}/black.png`,
       name: "SWFFG.Status.Setback.Next",
       changes: allSkillChanges['setback'],
       system: {
@@ -746,8 +746,8 @@ Hooks.once("init", async function () {
       }
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-upgrade-once",
-      img: `systems/starwarsffg/images/dice/${CONFIG.FFG.theme}/yellow.png`,
+      id: "starwarsffg_sandbox-upgrade-once",
+      img: `systems/starwarsffg_sandbox/images/dice/${CONFIG.FFG.theme}/yellow.png`,
       name: "SWFFG.Status.Upgrade.Next",
       changes: allSkillChanges['upgrade'],
       system: {
@@ -755,8 +755,8 @@ Hooks.once("init", async function () {
       }
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-success-once",
-      img: `systems/starwarsffg/images/dice/${CONFIG.FFG.theme}/success.png`,
+      id: "starwarsffg_sandbox-success-once",
+      img: `systems/starwarsffg_sandbox/images/dice/${CONFIG.FFG.theme}/success.png`,
       name: "SWFFG.Status.Success.Next",
       changes: allSkillChanges['success'],
       system: {
@@ -764,7 +764,7 @@ Hooks.once("init", async function () {
       }
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-heavy-cover",
+      id: "starwarsffg_sandbox-heavy-cover",
       img: "icons/equipment/shield/buckler-wooden-boss-lightning.webp",
       name: "SWFFG.Status.Cover.Heavy",
       changes: [
@@ -781,27 +781,27 @@ Hooks.once("init", async function () {
       ],
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-disoriented",
-      img: "systems/starwarsffg/images/status/disoriented.svg",
+      id: "starwarsffg_sandbox-disoriented",
+      img: "systems/starwarsffg_sandbox/images/status/disoriented.svg",
       name: "SWFFG.Status.Disoriented",
       changes: allSkillChanges['setback'],
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-immobilized",
-      img: "systems/starwarsffg/images/status/immobilized.svg",
+      id: "starwarsffg_sandbox-immobilized",
+      img: "systems/starwarsffg_sandbox/images/status/immobilized.svg",
       name: "SWFFG.Status.Immobilized",
       changes: [],
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-staggered",
-      img: "systems/starwarsffg/images/status/staggered.svg",
+      id: "starwarsffg_sandbox-staggered",
+      img: "systems/starwarsffg_sandbox/images/status/staggered.svg",
       name: "SWFFG.Status.Staggered",
       changes: [],
     });
     // combat-length statuses
     CONFIG.statusEffects.push({
-      id: "starwarsffg-boost-combat",
-      img: `systems/starwarsffg/images/status/blue.png`,
+      id: "starwarsffg_sandbox-boost-combat",
+      img: `systems/starwarsffg_sandbox/images/status/blue.png`,
       name: "SWFFG.Status.Boost.Combat",
       changes: allSkillChanges['boost'],
       system: {
@@ -809,8 +809,8 @@ Hooks.once("init", async function () {
       }
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-setback-combat",
-      img: `systems/starwarsffg/images/status/black.png`,
+      id: "starwarsffg_sandbox-setback-combat",
+      img: `systems/starwarsffg_sandbox/images/status/black.png`,
       name: "SWFFG.Status.Setback.Combat",
       changes: allSkillChanges['setback'],
       system: {
@@ -818,8 +818,8 @@ Hooks.once("init", async function () {
       }
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-upgrade-combat",
-      img: `systems/starwarsffg/images/status/yellow.png`,
+      id: "starwarsffg_sandbox-upgrade-combat",
+      img: `systems/starwarsffg_sandbox/images/status/yellow.png`,
       name: "SWFFG.Status.Upgrade.Combat",
       changes: allSkillChanges['upgrade'],
       system: {
@@ -827,8 +827,8 @@ Hooks.once("init", async function () {
       }
     });
     CONFIG.statusEffects.push({
-      id: "starwarsffg-success-combat",
-      img: `systems/starwarsffg/images/status/success.png`,
+      id: "starwarsffg_sandbox-success-combat",
+      img: `systems/starwarsffg_sandbox/images/status/success.png`,
       name: "SWFFG.Status.Success.Combat",
       changes: allSkillChanges['success'],
       system: {
@@ -838,7 +838,7 @@ Hooks.once("init", async function () {
 
     // custom statuses defined by the user
     try {
-      const addedStatuses = $.parseJSON(game.settings.get("starwarsffg", "additionalStatuses"));
+      const addedStatuses = $.parseJSON(game.settings.get("starwarsffg_sandbox", "additionalStatuses"));
       for (const status of addedStatuses) {
         CONFIG.statusEffects.push(status);
       }
@@ -1099,7 +1099,7 @@ registerChatMessageRender(async (message, html) => {
   content.innerHTML = await PopoutEditor.renderDiceImages(content.innerHTML);
 
   bindChatAction(html, "click", ".ffg-pool-to-player", () => {
-    const poolData = message.flags.starwarsffg;
+    const poolData = message.flags.starwarsffg_sandbox;
 
     const dicePool = new DicePoolFFG(poolData.dicePool);
 
@@ -1107,7 +1107,7 @@ registerChatMessageRender(async (message, html) => {
   });
 
   // collapse / expand item details
-  bindChatAction(html, "click", ".starwarsffg.item-card .summary", (event, summary) => {
+  bindChatAction(html, "click", ".starwarsffg_sandbox.item-card .summary", (event, summary) => {
     event.preventDefault();
     const details = summary.parentElement?.querySelector(".collapsible-content");
     const collapseButton = summary.querySelector(".collapse-toggle");
@@ -1118,7 +1118,7 @@ registerChatMessageRender(async (message, html) => {
   });
 
   // item card tooltips
-  bindChatAction(html, "mouseover", ".starwarsffg.item-card .item-pill, .starwarsffg .specials .hover-tooltip", (event) => {
+  bindChatAction(html, "mouseover", ".starwarsffg_sandbox.item-card .item-pill, .starwarsffg_sandbox .specials .hover-tooltip", (event) => {
     itemPillHover(event);
   });
 });
@@ -1140,7 +1140,7 @@ Hooks.once("ready", async () => {
   // this is intended to encourage migrating code to this file to clean up the main file
   await handleUpdate();
 
-  const currentVersion = game.settings.get("starwarsffg", "systemMigrationVersion");
+  const currentVersion = game.settings.get("starwarsffg_sandbox", "systemMigrationVersion");
 
   const version = game.system.version;
   const isAlpha = game.system.version.includes("alpha");
@@ -1182,7 +1182,7 @@ Hooks.once("ready", async () => {
         }
 
         // migrate all character to using current skill list if not default.
-        let skilllist = game.settings.get("starwarsffg", "skilltheme");
+        let skilllist = game.settings.get("starwarsffg_sandbox", "skilltheme");
 
         if (CONFIG.FFG?.alternateskilllists?.length) {
           try {
@@ -1221,9 +1221,9 @@ Hooks.once("ready", async () => {
         if (data.files.includes(`worlds/${game.world.id}/skills.json`)) {
           // if the skills.json file is found AND the skillsList in setting is the default skill list then read the data from the file.
           // This will make sure that the data from the JSON file overwrites the data in the setting.
-          if ((await game.settings.get("starwarsffg", "arraySkillList")) === defaultSkillList) {
+          if ((await game.settings.get("starwarsffg_sandbox", "arraySkillList")) === defaultSkillList) {
             const fileData = await fetch(`/worlds/${game.world.id}/skills.json`).then((response) => response.json());
-            await game.settings.set("starwarsffg", "arraySkillList", JSON.stringify(fileData));
+            await game.settings.set("starwarsffg_sandbox", "arraySkillList", JSON.stringify(fileData));
             skillList = fileData;
           }
         } else {
@@ -1231,8 +1231,8 @@ Hooks.once("ready", async () => {
         }
 
         CONFIG.FFG.alternateskilllists = skillList;
-        if (game.settings.get("starwarsffg", "skilltheme") !== "starwars") {
-          const altSkills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === game.settings.get("starwarsffg", "skilltheme")).skills));
+        if (game.settings.get("starwarsffg_sandbox", "skilltheme") !== "starwars") {
+          const altSkills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === game.settings.get("starwarsffg_sandbox", "skilltheme")).skills));
 
           let skills = {};
           Object.keys(altSkills).forEach((skillKey) => {
@@ -1350,7 +1350,7 @@ Hooks.once("ready", async () => {
       // update skill sets
       ui.notifications.info('Updating skill groupings, please be patient...');
       try {
-        const skillTheme = game.settings.get("starwarsffg", "skilltheme");
+        const skillTheme = game.settings.get("starwarsffg_sandbox", "skilltheme");
         if (skillTheme === 'starwars') {
           const skills = CONFIG.FFG.alternateskilllists.find((list) => list.id === skillTheme).skills;
           const actors = game.actors.filter(i => i.type === 'character' || i.type === 'minion');
@@ -1424,7 +1424,7 @@ Hooks.once("ready", async () => {
           const created = await actor.createEmbeddedDocuments("Item", toAdd);
           created.forEach(created_item => {
             // mark the items as coming from a species
-            created_item.update({flags: {starwarsffg: {fromSpecies: true}}});
+            created_item.update({flags: {starwarsffg_sandbox: {fromSpecies: true}}});
           });
         }
       }
@@ -1470,7 +1470,7 @@ Hooks.once("ready", async () => {
   });
 
   // Display Destiny Pool
-  let destinyPool = { light: game.settings.get("starwarsffg", "dPoolLight"), dark: game.settings.get("starwarsffg", "dPoolDark") };
+  let destinyPool = { light: game.settings.get("starwarsffg_sandbox", "dPoolLight"), dark: game.settings.get("starwarsffg_sandbox", "dPoolDark") };
 
   // future functionality to allow multiple menu items to be passed to destiny pool
   const defaultDestinyMenu = [
@@ -1509,9 +1509,9 @@ Hooks.once("ready", async () => {
   await registerCrewRoles();
   registerTokenControls();
 
-  if (game.settings.get("starwarsffg", "useGenericSlots")) {
+  if (game.settings.get("starwarsffg_sandbox", "useGenericSlots")) {
 
-    game.socket.on("system.starwarsffg", async (...args) => {
+    game.socket.on("system.starwarsffg_sandbox", async (...args) => {
       const event_type = args[0].event;
       if (game.user.id === game.users.activeGM?.id) {
         if (event_type === "combat") {
@@ -1560,17 +1560,17 @@ Hooks.once("ready", async () => {
     });
   }
 
-  const turnMarkerConfigured = game.settings.get("starwarsffg", "configuredTurnMarker");
+  const turnMarkerConfigured = game.settings.get("starwarsffg_sandbox", "configuredTurnMarker");
   const combatTrackerConfig = game.settings.get("core", "combatTrackerConfig");
   if (combatTrackerConfig.turnMarker.enabled && !turnMarkerConfigured) {
-    await game.settings.set("starwarsffg", "configuredTurnMarker", true);
+    await game.settings.set("starwarsffg_sandbox", "configuredTurnMarker", true);
     combatTrackerConfig.turnMarker.enabled = false;
     await game.settings.set("core", "combatTrackerConfig", combatTrackerConfig);
   }
 
   // handle character creation requests
   if (game.user.isGM && game.user.id === game.users.find(u => u.isGM && u.active).id) {
-    game.socket.on("system.starwarsffg", async (...args) => {
+    game.socket.on("system.starwarsffg_sandbox", async (...args) => {
       CONFIG.logger.debug("Processing PC wizard from player");
       if (args[0]?.eventType === "pcWizard") {
         const requestor = args[1];
@@ -1599,7 +1599,7 @@ Hooks.once("ready", async () => {
 
           CONFIG.logger.debug("Returning event to player");
           // notify the user that their actor is ready
-          game.socket.emit("system.starwarsffg", {
+          game.socket.emit("system.starwarsffg_sandbox", {
             eventType: "pcWizard",
             event: "createCharacterResponse",
             actorId: tempActor.id,
@@ -1615,7 +1615,7 @@ Hooks.once("ready", async () => {
 
           CONFIG.logger.debug("Returning event to player...r");
           // notify the user that the actor has been deleted
-          game.socket.emit("system.starwarsffg", {
+          game.socket.emit("system.starwarsffg_sandbox", {
             eventType: "pcWizard",
             event: "deleteCharacterResponse",
           });
@@ -1635,7 +1635,7 @@ Hooks.once("ready", async () => {
 
           CONFIG.logger.debug("Returning event to player...");
           // notify the user that their actor is ready
-          game.socket.emit("system.starwarsffg", {
+          game.socket.emit("system.starwarsffg_sandbox", {
             eventType: "pcWizard",
             event: "createFinalActorResponse",
             actorId: newActor.id,
@@ -1647,7 +1647,7 @@ Hooks.once("ready", async () => {
 });
 
 Hooks.once("diceSoNiceReady", (dice3d) => {
-  let dicetheme = game.settings.get("starwarsffg", "dicetheme");
+  let dicetheme = game.settings.get("starwarsffg_sandbox", "dicetheme");
   if (!dicetheme || dicetheme == "starwars") {
     dice3d.addSystem({ id: "swffg", name: "Star Wars FFG" }, true);
 
@@ -1869,7 +1869,7 @@ Hooks.once("diceSoNiceReady", (dice3d) => {
 });
 
 Hooks.on("renderGamePause", function (_application, element, _context, _options) {
-  const pausedImage = game.settings.get("starwarsffg", "ui-pausedImage");
+  const pausedImage = game.settings.get("starwarsffg_sandbox", "ui-pausedImage");
   if (pausedImage) {
     element.querySelector("img").src = pausedImage;
   }
@@ -1884,7 +1884,7 @@ async function registerCrewRoles() {
       "use_handling": false
     }
   ];
-  game.settings.registerMenu("starwarsffg", "arrayCrewRoles", {
+  game.settings.registerMenu("starwarsffg_sandbox", "arrayCrewRoles", {
     name: game.i18n.localize("SWFFG.Crew.Settings.Name"),
     label: game.i18n.localize("SWFFG.Crew.Settings.Label"),
     hint: game.i18n.localize("SWFFG.Crew.Settings.Hint"),
@@ -1893,8 +1893,8 @@ async function registerCrewRoles() {
     restricted: true,
   });
 
-  game.settings.register("starwarsffg", "arrayCrewRoles", {
-    module: "starwarsffg",
+  game.settings.register("starwarsffg_sandbox", "arrayCrewRoles", {
+    module: "starwarsffg_sandbox",
     name: "arrayCrewRoles",
     scope: "world",
     default: defaultArrayCrewRoles,
@@ -1907,8 +1907,8 @@ async function registerCrewRoles() {
       "use_weapons": false,
       "use_handling": false
     };
-  game.settings.register("starwarsffg", "initiativeCrewRole", {
-    module: "starwarsffg",
+  game.settings.register("starwarsffg_sandbox", "initiativeCrewRole", {
+    module: "starwarsffg_sandbox",
     name: "initiativeCrewRole",
     scope: "world",
     default: initiativeCrewRole,

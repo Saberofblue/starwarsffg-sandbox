@@ -1,11 +1,11 @@
 
-<div class="starwarsffg item-card">
+<div class="starwarsffg_sandbox item-card">
   <section class="card-header collapsible">
     <span class="title"><b>{{ item.name }}</b></span>
     <header class="summary expanded">
       <img class="icon" src="{{ item.img }}" alt="{{ item.name }}" title="{{ item.name }}"/>
       <div class="name-stacked border">
-        {{> "systems/starwarsffg/templates/chat/parts/item/ffg-header.html" item=item }}
+        {{> "systems/starwarsffg_sandbox/templates/chat/parts/item/ffg-header.html" item=item }}
       </div>
       <i class="fas fa-chevron-down fa-fw collapse-toggle"></i>
     </header>
@@ -93,6 +93,6 @@
         {{/if}}
       </div>
     </section>
-    {{> "systems/starwarsffg/templates/chat/parts/item/ffg-footer.html" item=item }}
+    {{> "systems/starwarsffg_sandbox/templates/chat/parts/item/ffg-footer.html" item=item }}
   </section>
 </div>

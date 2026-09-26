@@ -11,7 +11,7 @@ import { foundryGeneration } from "./compatibility/foundry-version.js";
  */
 export async function handleUpdate() {
   if (foundryGeneration() >= 14 && game.user?.isGM && game.users?.activeGM?.id === game.user.id) {
-    const effectVersion = game.settings.get("starwarsffg", "activeEffectMigrationVersion");
+    const effectVersion = game.settings.get("starwarsffg_sandbox", "activeEffectMigrationVersion");
     if (effectVersion < ACTIVE_EFFECT_MIGRATION_VERSION) {
       ui.notifications.warn("Back up this world before continuing: Star Wars FFG is migrating Active Effects for Foundry VTT 14.", {permanent: true});
       const report = await migrateActiveEffectsV14();
@@ -20,17 +20,17 @@ export async function handleUpdate() {
         ui.notifications.error(`Active Effect migration stopped with ${report.failed.length} failure(s). Check the console report; the migration will retry next launch.`, {permanent: true});
         return;
       }
-      await game.settings.set("starwarsffg", "activeEffectMigrationVersion", ACTIVE_EFFECT_MIGRATION_VERSION);
+      await game.settings.set("starwarsffg_sandbox", "activeEffectMigrationVersion", ACTIVE_EFFECT_MIGRATION_VERSION);
       if (report.lockedPacks.length) CONFIG.logger.warn("Locked or external compendiums were not modified", report.lockedPacks);
     }
   }
-  const registeredVersion = game.settings.get("starwarsffg", "systemMigrationVersion");
+  const registeredVersion = game.settings.get("starwarsffg_sandbox", "systemMigrationVersion");
   const runningVersion = game.system.version;
   if (registeredVersion !== runningVersion) {
     await handleMigration(registeredVersion, runningVersion);
     await sendChanges(runningVersion);
     if (parseFloat(registeredVersion) >= 2.0 || !registeredVersion) {
-      await game.settings.set("starwarsffg", "systemMigrationVersion", runningVersion);
+      await game.settings.set("starwarsffg_sandbox", "systemMigrationVersion", runningVersion);
     } else {
       // do not register the updated warning and instead throw an error every time that the world is unsupported
       await warnUnsupportedWorld();
@@ -64,7 +64,7 @@ async function handleMigration(oldVersion, newVersion) {
  * @returns {Promise<void>}
  */
 async function sendChanges(newVersion) {
-  const template = "systems/starwarsffg/templates/notifications/new_version.html";
+  const template = "systems/starwarsffg_sandbox/templates/notifications/new_version.html";
   const html = await foundry.applications.handlebars.renderTemplate(template, { version: newVersion });
   const messageData = {
     user: game.user.id,
@@ -79,7 +79,7 @@ async function sendChanges(newVersion) {
  * @returns {Promise<void>}
  */
 async function warnTheme() {
-  if (game.settings.get("starwarsffg", "ui-uitheme") === "default") {
+  if (game.settings.get("starwarsffg_sandbox", "ui-uitheme") === "default") {
     const messageData = {
       user: game.user.id,
       style: CONST.CHAT_MESSAGE_STYLES.OTHER,
@@ -97,7 +97,7 @@ async function migrateTo1_901() {
   for (const actor of game.actors) {
     for (const species of actor.items.filter(a => a.type === "species")) {
       for (const talent of Object.values(species.system.talents)) {
-        await actor.items.find(i => i.name === talent.name)?.update({flags: {starwarsffg: {fromSpecies: true}}});
+        await actor.items.find(i => i.name === talent.name)?.update({flags: {starwarsffg_sandbox: {fromSpecies: true}}});
       }
     }
   }
@@ -110,44 +110,44 @@ async function migrateTo1_901() {
 async function migrateTo1_906() {
   // specializations
   let compendiums = [];
-  for (const compendium of game.settings.get("starwarsffg", "specializationCompendiums").split(",")) {
-    if (compendium.includes("starwarsffg.")) {
-      compendiums.push(compendium.replace("starwarsffg.", "world."));
+  for (const compendium of game.settings.get("starwarsffg_sandbox", "specializationCompendiums").split(",")) {
+    if (compendium.includes("starwarsffg_sandbox.")) {
+      compendiums.push(compendium.replace("starwarsffg_sandbox.", "world."));
     } else {
       compendiums.push(compendium);
     }
   }
-  game.settings.set("starwarsffg", "specializationCompendiums", compendiums.join(","));
+  game.settings.set("starwarsffg_sandbox", "specializationCompendiums", compendiums.join(","));
   // signature abilities
   compendiums = [];
-  for (const compendium of game.settings.get("starwarsffg", "signatureAbilityCompendiums").split(",")) {
-    if (compendium.includes("starwarsffg.")) {
-      compendiums.push(compendium.replace("starwarsffg.", "world."));
+  for (const compendium of game.settings.get("starwarsffg_sandbox", "signatureAbilityCompendiums").split(",")) {
+    if (compendium.includes("starwarsffg_sandbox.")) {
+      compendiums.push(compendium.replace("starwarsffg_sandbox.", "world."));
     } else {
       compendiums.push(compendium);
     }
   }
-  game.settings.set("starwarsffg", "signatureAbilityCompendiums", compendiums.join(","));
+  game.settings.set("starwarsffg_sandbox", "signatureAbilityCompendiums", compendiums.join(","));
   // force powers
   compendiums = [];
-  for (const compendium of game.settings.get("starwarsffg", "forcePowerCompendiums").split(",")) {
-    if (compendium.includes("starwarsffg.")) {
-      compendiums.push(compendium.replace("starwarsffg.", "world."));
+  for (const compendium of game.settings.get("starwarsffg_sandbox", "forcePowerCompendiums").split(",")) {
+    if (compendium.includes("starwarsffg_sandbox.")) {
+      compendiums.push(compendium.replace("starwarsffg_sandbox.", "world."));
     } else {
       compendiums.push(compendium);
     }
   }
-  game.settings.set("starwarsffg", "forcePowerCompendiums", compendiums.join(","));
+  game.settings.set("starwarsffg_sandbox", "forcePowerCompendiums", compendiums.join(","));
   // talents
   compendiums = [];
-  for (const compendium of game.settings.get("starwarsffg", "talentCompendiums").split(",")) {
-    if (compendium.includes("starwarsffg.")) {
-      compendiums.push(compendium.replace("starwarsffg.", "world."));
+  for (const compendium of game.settings.get("starwarsffg_sandbox", "talentCompendiums").split(",")) {
+    if (compendium.includes("starwarsffg_sandbox.")) {
+      compendiums.push(compendium.replace("starwarsffg_sandbox.", "world."));
     } else {
       compendiums.push(compendium);
     }
   }
-  game.settings.set("starwarsffg", "talentCompendiums", compendiums.join(","));
+  game.settings.set("starwarsffg_sandbox", "talentCompendiums", compendiums.join(","));
 }
 
 /**
@@ -157,7 +157,7 @@ async function migrateTo1_906() {
 async function migrateTo1907() {
   try {
     for (const actor of game.actors) {
-      const xpLog = actor.getFlag("starwarsffg", "xpLog") || [];
+      const xpLog = actor.getFlag("starwarsffg_sandbox", "xpLog") || [];
       const updatedLog = [];
       const purchaseRegex = new RegExp("<b>(.*?)</b>: (.*?) <b>(.*?)</b>.*<b>(.*?)</b> \\((.*?) available, (.*?) total");
       const grantRegex = new RegExp("<b>(.*?)</b>: (\\w*) granted <b>(.*?)</b>.*: (.*?) \\((.*?) available, (.*?) total");
@@ -198,7 +198,7 @@ async function migrateTo1907() {
           }
         }
       }
-      actor.setFlag("starwarsffg", "xpLog", updatedLog);
+      actor.setFlag("starwarsffg_sandbox", "xpLog", updatedLog);
     }
     // iterate over actors to update their stats
     for (const actor of game.actors) {
@@ -446,7 +446,7 @@ async function warnUnsupportedWorld() {
       },
     },
     {
-      classes: ["dialog", "starwarsffg"],
+      classes: ["dialog", "starwarsffg_sandbox"],
     }
   ).render(true);
 }

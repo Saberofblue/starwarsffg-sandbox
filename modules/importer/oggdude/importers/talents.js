@@ -101,7 +101,7 @@ export default class Talents {
               data.data.metadata.tags.push(item.Type.toLowerCase());
             }
 
-            let imgPath = await ImportHelpers.getImageFilename(zip, "Talent", "", data.flags.starwarsffg.ffgimportid);
+            let imgPath = await ImportHelpers.getImageFilename(zip, "Talent", "", data.flags.starwarsffg_sandbox.ffgimportid);
             if (imgPath) {
               data.img = await ImportHelpers.importImage(imgPath.name, zip, pack);
             }

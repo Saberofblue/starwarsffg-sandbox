@@ -64,7 +64,7 @@ export class VehicleData extends foundry.abstract.TypeDataModel {
       itemattachment: embeddedItems(),
       spaceShip: new fields.BooleanField({ required: true, initial: false }),
       silhouetteImage: new fields.StringField({
-        required: true, initial: "systems/starwarsffg/images/shipdefence.png",
+        required: true, initial: "systems/starwarsffg_sandbox/images/shipdefence.png",
       }),
     };
   }

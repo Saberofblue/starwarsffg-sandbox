@@ -28,7 +28,7 @@ export async function record(
   page: Page, file: string, key: string,
 ): Promise<Record<string, any>> {
   const found = await page.evaluate(async ({ xml, key }) => {
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const ImportHelpers = (await load('importer/import-helpers.js')).default;
 
     const base = JXON.xmlToJs(ImportHelpers.stringToXml(xml));
@@ -78,7 +78,7 @@ async function run(
   page.on('console', onConsole);
 
   const problem = await page.evaluate(async ({ className, files, dir, skills }) => {
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const OggDude = (await load('importer/oggdude/oggdude.js')).default;
     const ImportHelpers = (await load('importer/import-helpers.js')).default;
 

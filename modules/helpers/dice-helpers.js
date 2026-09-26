@@ -16,7 +16,7 @@ export default class DiceHelpers {
     }
 
     let skills;
-    const theme = await game.settings.get("starwarsffg", "skilltheme");
+    const theme = await game.settings.get("starwarsffg_sandbox", "skilltheme");
     try {
       skills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === theme).skills));
     } catch (err) {
@@ -78,7 +78,7 @@ export default class DiceHelpers {
     }
 
     if (item && item.type === "weapon") {
-      const ammoEnabled = item.getFlag("starwarsffg", "config.enableAmmo");
+      const ammoEnabled = item.getFlag("starwarsffg_sandbox", "config.enableAmmo");
       if (ammoEnabled && item.system.ammo.value <= 0) {
         return ui.notifications.warn("Not enough ammo!");
       }
@@ -122,7 +122,7 @@ export default class DiceHelpers {
 
   static getDefenseDice(skill, itemData){
     let defenseDice = 0;
-    if (game.settings.get("starwarsffg", "useDefense")) {
+    if (game.settings.get("starwarsffg_sandbox", "useDefense")) {
       // covers the combat skill names used by every bundled skill theme (Star Wars, Genesys, Android, Terrinoth, Crucible)
       let isRanged = ["Ranged: Light", "Ranged: Heavy", "Ranged-Light", "Ranged-Heavy", "Ranged", "Gunnery"].includes(skill.value);
       let isMelee = ["Melee", "Melee-Light", "Melee-Heavy", "Brawl", "Lightsaber"].includes(skill.value);
@@ -195,7 +195,7 @@ export default class DiceHelpers {
 
     const item = actor.items.get(itemId);
     const itemData = item.system;
-    await item.setFlag("starwarsffg", "uuid", item.uuid);
+    await item.setFlag("starwarsffg_sandbox", "uuid", item.uuid);
 
     const status = this.getWeaponStatus(item);
 

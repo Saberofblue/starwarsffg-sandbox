@@ -9,9 +9,9 @@ export default class PopoutEditor extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "popout-editor",
-      classes: ["starwarsffg", "sheet"],
+      classes: ["starwarsffg_sandbox", "sheet"],
       title: "Pop-out Editor",
-      template: "systems/starwarsffg/templates/popout-editor.html",
+      template: "systems/starwarsffg_sandbox/templates/popout-editor.html",
       width: 320,
       height: 320,
       resizable:true,
@@ -70,7 +70,7 @@ export default class PopoutEditor extends FormApplication {
       }
     }
 
-    const dicetheme = game.settings.get("starwarsffg", "dicetheme");
+    const dicetheme = game.settings.get("starwarsffg_sandbox", "dicetheme");
 
     const replaceValues = [
       {

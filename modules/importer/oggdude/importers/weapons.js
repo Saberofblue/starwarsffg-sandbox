@@ -126,11 +126,11 @@ export default class Weapons {
               }
             }
 
-            let imgPath = await ImportHelpers.getImageFilename(zip, "Equipment", "Weapon", data.flags.starwarsffg.ffgimportid);
+            let imgPath = await ImportHelpers.getImageFilename(zip, "Equipment", "Weapon", data.flags.starwarsffg_sandbox.ffgimportid);
             if (imgPath) {
               data.img = await ImportHelpers.importImage(imgPath.name, zip, pack);
             } else {
-              data.img = "systems/starwarsffg/images/defaults/items/weapon.png";
+              data.img = "systems/starwarsffg_sandbox/images/defaults/items/weapon.png";
             }
             await ImportHelpers.addImportItemToCompendium("Item", data, pack);
 

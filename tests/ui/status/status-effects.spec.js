@@ -9,10 +9,10 @@ test('the system offers its own statuses in place of the core ones', async ({ pa
   const statuses = await api.readStatusEffects(page);
   const ids = statuses.map((status) => status.id);
 
-  expect(ids.filter((id) => !id.startsWith('starwarsffg-')), 'nothing from anywhere else').toEqual([]);
-  expect(ids, 'the marker the combat tracker reads').toContain('starwarsffg-defeated');
-  expect(ids, 'the condition that costs dice').toContain('starwarsffg-disoriented');
-  expect(ids, 'and the cover a GM reaches for most').toContain('starwarsffg-heavy-cover');
+  expect(ids.filter((id) => !id.startsWith('starwarsffg_sandbox-')), 'nothing from anywhere else').toEqual([]);
+  expect(ids, 'the marker the combat tracker reads').toContain('starwarsffg_sandbox-defeated');
+  expect(ids, 'the condition that costs dice').toContain('starwarsffg_sandbox-disoriented');
+  expect(ids, 'and the cover a GM reaches for most').toContain('starwarsffg_sandbox-heavy-cover');
 });
 
 test('marking a token with a status puts the effect on its actor', async ({ world, page, consumers }) => {
@@ -20,7 +20,7 @@ test('marking a token with a status puts the effect on its actor', async ({ worl
     actor: 'character',
   });
   const statuses = await api.readStatusEffects(page);
-  const cover = statuses.find((status) => status.id === 'starwarsffg-heavy-cover');
+  const cover = statuses.find((status) => status.id === 'starwarsffg_sandbox-heavy-cover');
 
   expect(await consumers.stat(ctx, 'Defence-Melee'), 'nothing to hide behind yet').toBe(0);
 
@@ -38,7 +38,7 @@ test('clearing the status takes the effect off again', async ({ world, page, con
     actor: 'character',
   });
   const statuses = await api.readStatusEffects(page);
-  const cover = statuses.find((status) => status.id === 'starwarsffg-heavy-cover');
+  const cover = statuses.find((status) => status.id === 'starwarsffg_sandbox-heavy-cover');
 
   await api.toggleStatus(page, ctx.actor, cover.id, true);
 
@@ -63,7 +63,7 @@ test('heavy cover raises defence against both melee and ranged', async ({ world,
 
   expect(await defence(), 'no defence of its own').toEqual([0, 0]);
 
-  await api.toggleStatus(page, ctx.actor, 'starwarsffg-heavy-cover', true);
+  await api.toggleStatus(page, ctx.actor, 'starwarsffg_sandbox-heavy-cover', true);
 
   expect(await defence(), 'two of each while the cover holds').toEqual([2, 2]);
 });
@@ -84,7 +84,7 @@ test('disoriented adds a setback die to every skill', async ({ world, page, cons
   expect(before.length, 'the actor has skills to be disoriented about').toBeGreaterThan(0);
   expect(before.filter(([, setback]) => setback !== 0).map(([name]) => name), 'clear-headed').toEqual([]);
 
-  await api.toggleStatus(page, ctx.actor, 'starwarsffg-disoriented', true);
+  await api.toggleStatus(page, ctx.actor, 'starwarsffg_sandbox-disoriented', true);
 
   const missed = (await setbacks()).filter(([, setback]) => setback !== 1).map(([name]) => name);
 
@@ -99,7 +99,7 @@ test('a boost status adds a boost die to the pool it was meant for', async ({ wo
 
   expect((await consumers.skillPool(ctx, 'Gunnery')).boost, 'nothing extra to start').toBe(0);
 
-  await api.toggleStatus(page, ctx.actor, 'starwarsffg-boost-once', true);
+  await api.toggleStatus(page, ctx.actor, 'starwarsffg_sandbox-boost-once', true);
 
   expect((await consumers.skillPool(ctx, 'Gunnery')).boost, 'the next check gets it').toBe(1);
   expect((await consumers.skillPool(ctx, 'Vigilance')).boost, 'whichever check that is').toBe(1);
@@ -110,8 +110,8 @@ test('two statuses at once both apply', async ({ world, page, consumers }) => {
     actor: 'character',
   });
 
-  await api.toggleStatus(page, ctx.actor, 'starwarsffg-heavy-cover', true);
-  await api.toggleStatus(page, ctx.actor, 'starwarsffg-disoriented', true);
+  await api.toggleStatus(page, ctx.actor, 'starwarsffg_sandbox-heavy-cover', true);
+  await api.toggleStatus(page, ctx.actor, 'starwarsffg_sandbox-disoriented', true);
   
   expect(await consumers.stat(ctx, 'Defence-Melee'), 'the cover counts').toBe(2);
   expect((await consumers.skillPool(ctx, 'Gunnery')).setback, 'and so does the disorientation').toBe(1);
@@ -123,7 +123,7 @@ test('immobilized carries no changes of its own', async ({ world, page, consumer
     actor: 'character',
   });
   const statuses = await api.readStatusEffects(page);
-  const immobilized = statuses.find((status) => status.id === 'starwarsffg-immobilized');
+  const immobilized = statuses.find((status) => status.id === 'starwarsffg_sandbox-immobilized');
   const reading = async () => ({
     defence: await consumers.stat(ctx, 'Defence-Melee'),
     soak: await consumers.stat(ctx, 'Soak'),
@@ -152,7 +152,7 @@ test('a status that lasts for one check is gone after the roll', async ({ world,
     equipped: true,
   });
   const statuses = await api.readStatusEffects(page);
-  const boost = statuses.find((status) => status.id === 'starwarsffg-boost-once');
+  const boost = statuses.find((status) => status.id === 'starwarsffg_sandbox-boost-once');
 
   expect(boost.duration, 'a status that lasts one check').toBe('once');
 
@@ -179,7 +179,7 @@ test('a status that lasts for the combat survives a roll', async ({ world, page,
     equipped: true,
   });
   const statuses = await api.readStatusEffects(page);
-  const boost = statuses.find((status) => status.id === 'starwarsffg-boost-combat');
+  const boost = statuses.find((status) => status.id === 'starwarsffg_sandbox-boost-combat');
 
   expect(boost.duration, 'a status that lasts the encounter').toBe('combat');
 
@@ -199,7 +199,7 @@ test('a status that lasts for the combat is removed when its actor leaves', asyn
     ],
   });
   const statuses = await api.readStatusEffects(page);
-  const boost = statuses.find((status) => status.id === 'starwarsffg-boost-combat');
+  const boost = statuses.find((status) => status.id === 'starwarsffg_sandbox-boost-combat');
   const [actor] = encounter.actors;
 
   await api.toggleStatus(page, actor, boost.id, true);
@@ -226,7 +226,7 @@ test('a status that lasts for the combat stays while the combat runs', async ({ 
     roll: true,
   });
   const statuses = await api.readStatusEffects(page);
-  const boost = statuses.find((status) => status.id === 'starwarsffg-boost-combat');
+  const boost = statuses.find((status) => status.id === 'starwarsffg_sandbox-boost-combat');
   const [actor] = encounter.actors;
 
   await api.toggleStatus(page, actor, boost.id, true);
@@ -254,7 +254,7 @@ test('a one-off status on one actor is not removed by another actor rolling', as
     label: 'bystander',
   });
   const statuses = await api.readStatusEffects(page);
-  const boost = statuses.find((status) => status.id === 'starwarsffg-boost-once');
+  const boost = statuses.find((status) => status.id === 'starwarsffg_sandbox-boost-once');
 
   await api.toggleStatus(page, roller.actor, boost.id, true);
   await api.toggleStatus(page, bystander.actor, boost.id, true);

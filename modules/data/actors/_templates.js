@@ -67,8 +67,8 @@ export function characteristics() {
  */
 let themeCache = null;
 function themeSkills() {
-  const theme = game?.settings?.settings?.has("starwarsffg.skilltheme")
-    ? game.settings.get("starwarsffg", "skilltheme")
+  const theme = game?.settings?.settings?.has("starwarsffg_sandbox.skilltheme")
+    ? game.settings.get("starwarsffg_sandbox", "skilltheme")
     : "starwars";
   if (themeCache?.theme === theme) return themeCache.skills;
   const lists = CONFIG.FFG?.alternateskilllists ?? defaultSkillList;

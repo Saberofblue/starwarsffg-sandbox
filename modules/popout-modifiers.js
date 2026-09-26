@@ -9,9 +9,9 @@ export default class PopoutModifiers extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "popout-modifiers",
-      classes: ["starwarsffg", "sheet"],
+      classes: ["starwarsffg_sandbox", "sheet"],
       title: "Pop-out Modifiers",
-      template: "systems/starwarsffg/templates/items/dialogs/ffg-popout-modifiers.html",
+      template: "systems/starwarsffg_sandbox/templates/items/dialogs/ffg-popout-modifiers.html",
       closeOnSubmit: false,
       submitOnClose: true,
       submitOnChange: true,

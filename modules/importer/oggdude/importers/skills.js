@@ -34,7 +34,7 @@ export default class Skills {
         let data = {
           name: `${item.TypeValue === "stKnowledge" ? "Knowledge: " : ""}${item.Name.replace(" - ", ": ")}`,
           flags: {
-            starwarsffg: {
+            starwarsffg_sandbox: {
               ffgimportid: item.Key,
             }
           },
@@ -47,7 +47,7 @@ export default class Skills {
             },
           }],
         };
-        const skillId = data.flags.starwarsffg.ffgimportid;
+        const skillId = data.flags.starwarsffg_sandbox.ffgimportid;
         CONFIG.temporary.skills[skillId] = ImportHelpers.oggSkillKeyToSystemKey(skillId) ?? data.name;
 
         if (createJournalCompendium) {

@@ -10,7 +10,7 @@
           <div class="container">
             <div class="grid grid-3col minion-stats">
               {{!-- Quantity Box --}}
-                {{> "systems/starwarsffg/templates/parts/shared/ffg-block.html"
+                {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-block.html"
                   (object blocktype="split" title="SWFFG.MinionQuantity" fields=(array
                     (object name="data.quantity.max" value=data.quantity.max type="Number" label="SWFFG.MinionQuantityMax")
                     (object name="data.quantity.value" value=data.quantity.value type="Number" label="SWFFG.MinionQuantityAlive" disabled=true)
@@ -18,11 +18,11 @@
                 }}
               {{#if limited}}{{else}}
                 {{!-- Soak Box --}}
-                  {{> "systems/starwarsffg/templates/parts/shared/ffg-block.html"
+                  {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-block.html"
                     (object blocktype="single" title="SWFFG.Soak" type="Number" name="data.stats.soak.value" value=data.stats.soak.value disabled=disabled)
                   }}
                 {{!-- Defence Box --}}
-                  {{> "systems/starwarsffg/templates/parts/shared/ffg-block.html"
+                  {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-block.html"
                     (object blocktype="split" title="SWFFG.Defense" fields=(array
                       (object name="data.stats.defence.melee" value=data.stats.defence.melee type="Number" label="SWFFG.DefenseMelee" disabled=disabled)
                       (object name="data.stats.defence.ranged" value=data.stats.defence.ranged type="Number" label="SWFFG.DefenseRanged" disabled=disabled)
@@ -35,16 +35,16 @@
           <div class="container">
             <div class="grid grid-3col minion-stats">
               {{!-- Wounds Box --}}
-                {{> "systems/starwarsffg/templates/parts/shared/ffg-block.html"
+                {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-block.html"
                   (object blocktype="split" title="SWFFG.Wounds" fields=(array
                     (object name="data.stats.wounds.max" value=data.stats.wounds.max type="Number" label="SWFFG.Threshold" disabled=true)
                     (object name="data.stats.wounds.value" value=data.stats.wounds.value type="Number" label="SWFFG.Current")
                   ))
                 }}
-                {{> "systems/starwarsffg/templates/parts/shared/ffg-block.html"
+                {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-block.html"
                   (object blocktype="single" title="SWFFG.MinionUnitWounds" type="Number" name="data.unit_wounds.value" value=data.unit_wounds.value )
                 }}
-                {{> "systems/starwarsffg/templates/parts/shared/ffg-block.html"
+                {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-block.html"
                   (object blocktype="split" title="SWFFG.Actors.Sheets.Token.KillMinion.Label" fields=(array
                     (object name="minion-control kill-minion" type="Button" icon='<a class="fa-solid fa-skull-crossbones"></a>' label="SWFFG.Actors.Sheets.Token.KillMinion.KillMinion")
                     (object name="minion-control kill-group" type="Button" icon='<a><i class="fa-solid fa-skull-crossbones"></i><i class="fa-solid fa-person"></i><i class="fa-solid fa-skull-crossbones"></i></a>' label="SWFFG.Actors.Sheets.Token.KillMinion.KillGroup")
@@ -65,7 +65,7 @@
   </header>
 
   {{!-- Sheet Tab Navigation --}}
-    {{> "systems/starwarsffg/templates/parts/shared/ffg-tabs.html" displayLimited=false limited=limited items=(array
+    {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-tabs.html" displayLimited=false limited=limited items=(array
       (object tab="characteristics" label="SWFFG.TabCharacteristics" icon="fas fa-user-circle" cls=classType)
       (object tab="items" label="SWFFG.TabGear" icon="fas fa-toolbox" cls=classType)
       (object tab="talents" label="SWFFG.TabTalents" icon="fab fa-superpowers" cls=classType)
@@ -93,22 +93,22 @@
         {{/each}}
       </div>
 
-      {{> "systems/starwarsffg/templates/parts/actor/ffg-skills.html"}}
+      {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-skills.html"}}
     </div>
 
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
-      {{> "systems/starwarsffg/templates/parts/actor/ffg-weapon-armor-gear.html"}}
+      {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-weapon-armor-gear.html"}}
     </div>
 
     {{!-- Talents Tab --}}
     <div class="tab talents items" data-group="primary" data-tab="talents">
       {{!-- Talents List --}}
       <!-- New talent list snippet -->
-      {{> "systems/starwarsffg/templates/parts/actor/ffg-talents.html"}}
-      {{!-- Abilities List --}} {{> "systems/starwarsffg/templates/parts/actor/ffg-abilities.html"}}
-      {{!-- Force Powers List --}} {{> "systems/starwarsffg/templates/parts/actor/ffg-forcepowers.html"}}
-      {{!-- Signature Abilities List --}} {{> "systems/starwarsffg/templates/parts/actor/ffg-signatureability.html"}}
+      {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-talents.html"}}
+      {{!-- Abilities List --}} {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-abilities.html"}}
+      {{!-- Force Powers List --}} {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-forcepowers.html"}}
+      {{!-- Signature Abilities List --}} {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-signatureability.html"}}
     </div>
 
     {{!-- Biography Tab --}}
@@ -119,7 +119,7 @@
       </div>
       {{#if this.settings.enableCriticalInjuries}}
       <div class="container flex-group-center biography-values">
-        {{> "systems/starwarsffg/templates/parts/actor/ffg-criticalinjury.html" type="criticalinjury"}}
+        {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-criticalinjury.html" type="criticalinjury"}}
         {{!-- Experience Box --}}
       </div>
       {{/if}}
@@ -127,17 +127,17 @@
 
     {{!-- Modifiers Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
-      {{> "systems/starwarsffg/templates/parts/shared/ffg-modifiers.html"}}
+      {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-modifiers.html"}}
     </div>
 
     {{!-- Long Description and Sources Tab --}}
     <div class="tab sources" data-group="primary" data-tab="sources">
-      {{> "systems/starwarsffg/templates/parts/shared/ffg-sources.html" data=data}}
+      {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-sources.html" data=data}}
     </div>
 
     {{!-- Tags Tab --}}
     <div class="tab tags" data-group="primary" data-tab="tags">
-      {{> "systems/starwarsffg/templates/parts/shared/ffg-tags.html" data=data}}
+      {{> "systems/starwarsffg_sandbox/templates/parts/shared/ffg-tags.html" data=data}}
     </div>
   </section>
 </form>

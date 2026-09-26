@@ -77,7 +77,7 @@ async function migrateEffect(effect, report) {
       report.skipped.push(effect.uuid);
       return;
     }
-    await effect.update(activeEffectMigrationUpdate(effect), {starwarsffgMigration: true});
+    await effect.update(activeEffectMigrationUpdate(effect), {starwarsffg_sandboxMigration: true});
     report.migrated.push(effect.uuid);
   } catch (error) {
     report.failed.push({uuid: effect?.uuid ?? "unknown", reason: error.message});

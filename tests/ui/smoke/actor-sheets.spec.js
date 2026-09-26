@@ -47,7 +47,7 @@ for (const { type, sheet } of ACTOR_CASES) {
 
     await expect(sheetEl).toBeVisible();
     // the system's own classes, so a core sheet rendering instead would be caught
-    await expect(sheetEl).toHaveClass(/\bstarwarsffg\b/);
+    await expect(sheetEl).toHaveClass(/\bstarwarsffg_sandbox\b/);
     await expect(sheetEl).toHaveClass(/\bactor\b/);
     // an empty window means the template failed to produce anything
     await expect(sheetEl.locator('.window-content')).not.toBeEmpty();

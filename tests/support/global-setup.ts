@@ -9,7 +9,7 @@ import { isSeeded, seed } from './seed';
  * flips belongs here, so a run that never reached teardown cannot change what the next one tests.
  */
 const WORLD_DEFAULTS: [namespace: string, key: string, value: unknown][] = [
-  ['starwarsffg', 'useGenericSlots', true],
+  ['starwarsffg_sandbox', 'useGenericSlots', true],
   // The suite runs most projects with the canvas off, and leaves it that way - see
   // `useCanvas` in fixtures.ts. Put back here so a run always starts from the same world.
   ['core', 'noCanvas', false],

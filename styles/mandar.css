@@ -180,8 +180,8 @@ span.dietype.triumph {
   visibility: hidden;
 }
 
-.starwarsffg .grid,
-.starwarsffg .grid-2col {
+.starwarsffg_sandbox .grid,
+.starwarsffg_sandbox .grid-2col {
   display: grid;
   grid-column: span 2 / span 2;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -190,59 +190,59 @@ span.dietype.triumph {
   padding: 0;
 }
 
-.starwarsffg .grid-3col {
+.starwarsffg_sandbox .grid-3col {
   grid-column: span 3 / span 3;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-4col {
+.starwarsffg_sandbox .grid-4col {
   grid-column: span 4 / span 4;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-5col {
+.starwarsffg_sandbox .grid-5col {
   grid-column: span 5 / span 5;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-6col {
+.starwarsffg_sandbox .grid-6col {
   grid-column: span 6 / span 6;
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-7col {
+.starwarsffg_sandbox .grid-7col {
   grid-column: span 7 / span 7;
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-8col {
+.starwarsffg_sandbox .grid-8col {
   grid-column: span 8 / span 8;
   grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-9col {
+.starwarsffg_sandbox .grid-9col {
   grid-column: span 9 / span 9;
   grid-template-columns: repeat(9, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-10col {
+.starwarsffg_sandbox .grid-10col {
   grid-column: span 10 / span 10;
   grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-11col {
+.starwarsffg_sandbox .grid-11col {
   grid-column: span 11 / span 11;
   grid-template-columns: repeat(11, minmax(0, 1fr));
 }
 
-.starwarsffg .grid-12col {
+.starwarsffg_sandbox .grid-12col {
   grid-column: span 12 / span 12;
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
-.starwarsffg .flex-group-center,
-.starwarsffg .flex-group-left,
-.starwarsffg .flex-group-right {
+.starwarsffg_sandbox .flex-group-center,
+.starwarsffg_sandbox .flex-group-left,
+.starwarsffg_sandbox .flex-group-right {
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -250,12 +250,12 @@ span.dietype.triumph {
   border: 1px solid #999;
 }
 
-.starwarsffg .flex-group-left {
+.starwarsffg_sandbox .flex-group-left {
   justify-content: flex-start;
   text-align: left;
 }
 
-.starwarsffg .flex-group-right {
+.starwarsffg_sandbox .flex-group-right {
   justify-content: flex-end;
   text-align: right;
 }
@@ -274,24 +274,24 @@ img {
   border: 0;
 }
 
-.starwarsffg .item-form {
+.starwarsffg_sandbox .item-form {
   font-family: "Roboto", sans-serif;
 }
 
 /* Prevent black border flash on input hover/unhover */
-.starwarsffg input,
-.starwarsffg select,
-.starwarsffg textarea {
+.starwarsffg_sandbox input,
+.starwarsffg_sandbox select,
+.starwarsffg_sandbox textarea {
   transition: none;
 }
-.starwarsffg input:hover,
-.starwarsffg select:hover,
-.starwarsffg textarea:hover {
+.starwarsffg_sandbox input:hover,
+.starwarsffg_sandbox select:hover,
+.starwarsffg_sandbox textarea:hover {
   outline: none;
   border: 0;
 }
 
-.starwarsffg .block-background {
+.starwarsffg_sandbox .block-background {
   background-color: #eeeeee;
   padding: 5px;
   --notchSize: 0.5rem;
@@ -299,98 +299,98 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .character {
+.starwarsffg_sandbox .character {
   min-width: 575px;
   flex: auto;
 }
 
-.starwarsffg .position-relative {
+.starwarsffg_sandbox .position-relative {
   position: relative;
 }
 
-.starwarsffg .resource-label {
+.starwarsffg_sandbox .resource-label {
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.starwarsffg .resource {
+.starwarsffg_sandbox .resource {
   flex: 25%;
   padding: 0;
   margin: 0.25rem;
 }
 
-.starwarsffg .resource input {
+.starwarsffg_sandbox .resource input {
   width: 100%;
   height: 1.5rem;
 }
 
-.starwarsffg.sheet.actor {
+.starwarsffg_sandbox.sheet.actor {
   min-width: 600px;
   min-height: 525px;
 }
 
-.starwarsffg.sheet.actor.adversary {
+.starwarsffg_sandbox.sheet.actor.adversary {
   min-height: 100px;
 }
 
-.starwarsffg.sheet.actor .characteristic-item .characteristic-label {
+.starwarsffg_sandbox.sheet.actor .characteristic-item .characteristic-label {
   background-color: #490c0b;
 }
 
-.starwarsffg.sheet.actor .character .header-fields {
+.starwarsffg_sandbox.sheet.actor .character .header-fields {
   flex: 1;
   height: auto;
 }
 
-.starwarsffg.sheet.actor .character .header-fields h1 {
+.starwarsffg_sandbox.sheet.actor .character .header-fields h1 {
   margin: 0;
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .header-name {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .header-name {
   margin: 0;
   position: relative;
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .header-name input {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .header-name input {
   margin: 0;
   width: 100%;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
 }
-.starwarsffg.sheet.actor .character-details-table {
+.starwarsffg_sandbox.sheet.actor .character-details-table {
   border-top: none;
   border-bottom: none;
   background: none;
 }
 
-.starwarsffg.sheet.actor .character-details-table td {
+.starwarsffg_sandbox.sheet.actor .character-details-table td {
   padding-right: 0.25rem;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .drag-note {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .drag-note {
   border: 2px dotted;
   border-radius: 10px;
   padding: 0 5px;
   width: fit-content;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .header-name input:focus {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .header-name input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .row {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .row {
   display: table-row;
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .row div {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .row div {
   display: table-cell;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .specialization-pill, .starwarsffg.sheet.actor .character .header-fields .species-pill, .starwarsffg.sheet.actor .character .header-fields .career-pill, .starwarsffg.sheet.actor .character .header-fields .signatureability-pill, .starwarsffg.sheet.actor .character .header-fields .forcepower-pill {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .specialization-pill, .starwarsffg_sandbox.sheet.actor .character .header-fields .species-pill, .starwarsffg_sandbox.sheet.actor .character .header-fields .career-pill, .starwarsffg_sandbox.sheet.actor .character .header-fields .signatureability-pill, .starwarsffg_sandbox.sheet.actor .character .header-fields .forcepower-pill {
   padding: 0.1rem 0.5rem;
   background-color: rgba(255, 255, 255, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -400,30 +400,30 @@ img {
   white-space: nowrap;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .specialization-pill .item-delete, .starwarsffg.sheet.actor .character .header-fields .species-pill .item-delete, .starwarsffg.sheet.actor .character .header-fields .career-pill .item-delete, .starwarsffg.sheet.actor .character .header-fields .signatureability-pill .item-delete, .starwarsffg.sheet.actor .character .header-fields .forcepower-pill .item-delete {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .specialization-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .species-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .career-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .signatureability-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .forcepower-pill .item-delete {
   cursor: pointer;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .row input {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .row input {
   width: 100%;
   border: 0;
   border-bottom: 1px solid black;
   border-radius: 0;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .row input:focus {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .row input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .profile-block {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .profile-block {
   margin-right: 5px;
   margin-left: 5px;
   height: 130px;
   max-width: 130px;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .profile-img {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .profile-img {
   flex: 0 0 100px;
   height: 124px;
   width: auto;
@@ -434,140 +434,140 @@ img {
   object-fit: cover;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body {
   overflow: hidden;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .grid, .starwarsffg.sheet.actor .character .sheet-body .obligation .grid {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .grid, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .grid {
   margin: 0;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .resource.full table thead, .starwarsffg.sheet.actor .character .sheet-body .obligation .resource.full table thead {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .resource.full table thead, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .resource.full table thead {
   background: #919191;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .resource.full table th, .starwarsffg.sheet.actor .character .sheet-body .obligation .resource.full table th {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .resource.full table th, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .resource.full table th {
   text-align: center;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .resource.full table .motivation.description, .starwarsffg.sheet.actor .character .sheet-body .obligation .resource.full table .motivation.description {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .resource.full table .motivation.description, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .resource.full table .motivation.description {
   width: 66%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .resource.full table input, .starwarsffg.sheet.actor .character .sheet-body .obligation .resource.full table input {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .resource.full table input, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .resource.full table input {
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .genesys.grid, .starwarsffg.sheet.actor .character .sheet-body .obligation .genesys.grid {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .genesys.grid, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .genesys.grid {
   gap: 0px;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .genesys .resource, .starwarsffg.sheet.actor .character .sheet-body .obligation .genesys .resource {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .genesys .resource, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .genesys .resource {
   min-height: 6rem;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .genesys .resource .attribute, .starwarsffg.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .genesys .resource .attribute, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute {
   height: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .genesys .resource .attribute .block-background, .starwarsffg.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute .block-background {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .genesys .resource .attribute .block-background, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute .block-background {
   height: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .genesys .resource .attribute .block-background .block-attribute, .starwarsffg.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute .block-background .block-attribute {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .genesys .resource .attribute .block-background .block-attribute, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute .block-background .block-attribute {
   height: calc(100% - 0.9375rem);
   overflow: hidden;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .genesys .resource .attribute .block-background .block-attribute .block-value, .starwarsffg.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute .block-background .block-attribute .block-value {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .genesys .resource .attribute .block-background .block-attribute .block-value, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .genesys .resource .attribute .block-background .block-attribute .block-value {
   overflow: auto;
   width: 100%;
   height: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .block-editor .resource, .starwarsffg.sheet.actor .character .sheet-body .obligation .block-editor .resource {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .block-editor .resource, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .block-editor .resource {
   min-height: 4.6875rem;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .block-editor .resource .attribute, .starwarsffg.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .block-editor .resource .attribute, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute {
   height: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .block-editor .resource .attribute .block-background, .starwarsffg.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute .block-background {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .block-editor .resource .attribute .block-background, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute .block-background {
   height: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .block-editor .resource .attribute .block-background .block-attribute, .starwarsffg.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute .block-background .block-attribute {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .block-editor .resource .attribute .block-background .block-attribute, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute .block-background .block-attribute {
   height: calc(100% - 0.9375rem);
   overflow: hidden;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .general .block-editor .resource .attribute .block-background .block-attribute .block-value, .starwarsffg.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute .block-background .block-attribute .block-value {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .general .block-editor .resource .attribute .block-background .block-attribute .block-value, .starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .block-editor .resource .attribute .block-background .block-attribute .block-value {
   overflow: auto;
   width: 100%;
   height: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .obligation .resource.full table {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .resource.full table {
   width: 97.4%;
   margin: 0 0 0 0.5rem;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .obligation .block-editor .resource {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .block-editor .resource {
   min-height: 4.6875rem;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .obligation .block-editor .popout-editor {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .obligation .block-editor .popout-editor {
   min-height: 4.6875rem;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource {
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource.full table {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource.full table {
   width: 97.4%;
   margin: 0 0 0 0.5rem;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .grid {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .grid {
   margin: 0;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource.full table th {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource.full table th {
   line-height: 0.875rem;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource.full table thead {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource.full table thead {
   background: #919191;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource.full table tr.effect-row {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource.full table tr.effect-row {
   line-height: 1rem;
   text-align: left;
   font-weight: bold;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource.full table tr.effect-row:hover {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource.full table tr.effect-row:hover {
   background: #415064;
   color: white;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource.full table tr.effect-row .expand-icon {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource.full table tr.effect-row .expand-icon {
   text-align: center;
   font-weight: bolder;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body .effects .resource.full table tr.change-row {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body .effects .resource.full table tr.change-row {
   line-height: 0.875rem;
   text-align: left;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body table.force-powers {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body table.force-powers {
   border: 0;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body table.force-powers th {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body table.force-powers th {
   text-align: left;
   padding: 3px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -577,20 +577,20 @@ img {
   font-weight: normal;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body table.force-powers td {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body table.force-powers td {
   height: 30px;
   line-height: 24px;
   padding: 3px;
   position: relative;
 }
 
-.starwarsffg.sheet.actor .character .sheet-body table.force-powers td .item-controls {
+.starwarsffg_sandbox.sheet.actor .character .sheet-body table.force-powers td .item-controls {
   text-align: right;
   width: auto;
   z-index: auto;
 }
 
-.starwarsffg .container {
+.starwarsffg_sandbox .container {
   width: 100%;
   height: auto;
   display: flex;
@@ -598,17 +598,17 @@ img {
   font-size: 11pt;
 }
 
-.starwarsffg .container.flex-group-center {
+.starwarsffg_sandbox .container.flex-group-center {
   border: 0;
   padding: 0;
   align-items: flex-start;
 }
 
-.starwarsffg.sheet.item .tab[data-tab].active {
+.starwarsffg_sandbox.sheet.item .tab[data-tab].active {
   height: 100%;
 }
 
-.starwarsffg.sheet.item .characteristic .characteristic-value.restricted::after {
+.starwarsffg_sandbox.sheet.item .characteristic .characteristic-value.restricted::after {
   content: 'R';
   position: absolute;
   font-size: 15px;
@@ -617,19 +617,19 @@ img {
   color: #8b0000;
 }
 
-.starwarsffg.sheet .window-content {
+.starwarsffg_sandbox.sheet .window-content {
   overflow-y: hidden;
 }
 
-.starwarsffg.sheet .sheet-body {
+.starwarsffg_sandbox.sheet .sheet-body {
   overflow: auto;
 }
 
-.starwarsffg.sheet .item-pill-list {
+.starwarsffg_sandbox.sheet .item-pill-list {
   padding: 0;
 }
 
-.starwarsffg.sheet .item-pill-list:after {
+.starwarsffg_sandbox.sheet .item-pill-list:after {
   content: ".";
   display: block;
   height: 0;
@@ -637,7 +637,7 @@ img {
   visibility: hidden;
 }
 
-.starwarsffg.sheet .item-pill {
+.starwarsffg_sandbox.sheet .item-pill {
   list-style-type: none;
   display: inline-block;
   cursor: pointer;
@@ -649,45 +649,45 @@ img {
   border-radius: 1rem;
 }
 
-.starwarsffg.sheet .item-pill.adjusted {
+.starwarsffg_sandbox.sheet .item-pill.adjusted {
   color: #8b0000;
 }
 
-.starwarsffg.sheet .item-pill .rank {
+.starwarsffg_sandbox.sheet .item-pill .rank {
   padding-right: 15px;
 }
 
-.starwarsffg.sheet .item-pill .rank:hover {
+.starwarsffg_sandbox.sheet .item-pill .rank:hover {
   color: green;
 }
 
-.starwarsffg.sheet .item-pill .item-delete {
+.starwarsffg_sandbox.sheet .item-pill .item-delete {
   cursor: pointer;
 }
 
-.starwarsffg.sheet .item-pill .item-delete:hover {
+.starwarsffg_sandbox.sheet .item-pill .item-delete:hover {
   color: red;
 }
 
-.starwarsffg.sheet .add-new-item {
+.starwarsffg_sandbox.sheet .add-new-item {
   cursor: pointer;
 }
 
-.starwarsffg .charname {
+.starwarsffg_sandbox .charname {
   width: 100%;
 }
 
-.starwarsffg .charname input {
+.starwarsffg_sandbox .charname input {
   color: black;
   border: 0;
 }
 
-.starwarsffg .charname input:focus {
+.starwarsffg_sandbox .charname input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg.sheet .sheet-body {
+.starwarsffg_sandbox.sheet .sheet-body {
   height: calc(100% - 15.75rem);
   min-height: 100px;
   display: flex;
@@ -702,161 +702,161 @@ img {
 }
 
 /* confirmed good */
-.starwarsffg.sheet .item-sheet-career .sheet-body {
+.starwarsffg_sandbox.sheet .item-sheet-career .sheet-body {
   height: calc(100% - 15rem);
 }
-.starwarsffg.sheet.v2 .item-sheet-career .sheet-body {
+.starwarsffg_sandbox.sheet.v2 .item-sheet-career .sheet-body {
   height: calc(100% - 12rem);
 }
 
-.starwarsffg.sheet .item-sheet-modifiers .sheet-body {
+.starwarsffg_sandbox.sheet .item-sheet-modifiers .sheet-body {
   height: calc(100% - 12.7rem);
   overflow: auto;
 }
-.starwarsffg.sheet.v2 .item-sheet-modifiers .sheet-body {
+.starwarsffg_sandbox.sheet.v2 .item-sheet-modifiers .sheet-body {
   height: calc(100% - 12.7rem);
   overflow: auto;
 }
 
-.starwarsffg.sheet .item-sheet-signatureability .sheet-body {
+.starwarsffg_sandbox.sheet .item-sheet-signatureability .sheet-body {
   height: 100%;
   overflow: auto;
 }
 
-.starwarsffg.sheet .sheet-body.gear {
+.starwarsffg_sandbox.sheet .sheet-body.gear {
   height: calc(100% - 24rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.gear {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.gear {
   height: calc(100% - 21.5rem);
 }
 
-.starwarsffg.sheet .sheet-body.weapon .editor {
+.starwarsffg_sandbox.sheet .sheet-body.weapon .editor {
   height: calc(100% - 1rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.weapon .editor {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.weapon .editor {
   height: calc(100% - 2rem);
 }
-.starwarsffg.sheet .sheet-body.weapon, .starwarsffg.sheet .sheet-body.armour {
+.starwarsffg_sandbox.sheet .sheet-body.weapon, .starwarsffg_sandbox.sheet .sheet-body.armour {
   height: calc(100% - 32rem);
 }
 
-.starwarsffg.sheet.v2 .sheet-body.armour {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.armour {
   height: calc(100% - 21rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.weapon {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.weapon {
   height: calc(100% - 21rem);
 }
 
-.starwarsffg.sheet .sheet-body.shipweapon {
+.starwarsffg_sandbox.sheet .sheet-body.shipweapon {
   height: calc(100% - 40rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.shipweapon {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.shipweapon {
   height: calc(100% - 27rem);
 }
 
-.starwarsffg.sheet .sheet-body.itemattachment {
+.starwarsffg_sandbox.sheet .sheet-body.itemattachment {
   height: calc(100% - 18rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.itemattachment {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.itemattachment {
   height: calc(100% - 15.5rem);
 }
 
-.starwarsffg.sheet .sheet-body.itemmodifier .editor {
+.starwarsffg_sandbox.sheet .sheet-body.itemmodifier .editor {
   height: calc(100% - 2rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.itemmodifier .editor {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.itemmodifier .editor {
   height: calc(100% - 4rem);
 }
 
-.starwarsffg.sheet.v2 .sheet-body.ability {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.ability {
   height: calc(100% - 12rem);
 }
 
-.starwarsffg.sheet .sheet-body.shipattachment {
+.starwarsffg_sandbox.sheet .sheet-body.shipattachment {
   height: calc(100% - 24rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.shipattachment {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.shipattachment {
   height: calc(100% - 21rem);
 }
 
-.starwarsffg.sheet .sheet-body.homesteadupgrade {
+.starwarsffg_sandbox.sheet .sheet-body.homesteadupgrade {
   height: calc(100% - 20rem);
 }
 
-.starwarsffg.sheet .sheet-body.talent {
+.starwarsffg_sandbox.sheet .sheet-body.talent {
   height: calc(100% - 26rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.talent {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.talent {
   height: calc(100% - 22rem);
 }
 
-.starwarsffg.sheet .sheet-body.species {
+.starwarsffg_sandbox.sheet .sheet-body.species {
   height: calc(100% - 24rem);
 }
-.starwarsffg.sheet.v2 .sheet-body.species {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.species {
   height: calc(100% - 22rem);
 }
 
-.starwarsffg.sheet .sheet-body.vehicle {
+.starwarsffg_sandbox.sheet .sheet-body.vehicle {
   flex: 1;
   min-height: 0;
   height: auto;
 }
-.starwarsffg.sheet.v2 .sheet-body.vehicle {
+.starwarsffg_sandbox.sheet.v2 .sheet-body.vehicle {
   height: auto;
 }
 
-.starwarsffg.sheet .sheet-body .tab {
+.starwarsffg_sandbox.sheet .sheet-body .tab {
   height: 100%;
   padding: 0;
 }
 
-.starwarsffg.sheet .sheet-body .tab.characteristics {
+.starwarsffg_sandbox.sheet .sheet-body .tab.characteristics {
   overflow: hidden;
 }
 
-.starwarsffg.sheet .sheet-body .tab.characteristics > div.grid {
+.starwarsffg_sandbox.sheet .sheet-body .tab.characteristics > div.grid {
   padding: 0 0.6rem 0.5rem 0;
 }
 
-.starwarsffg.sheet.actor form.character {
+.starwarsffg_sandbox.sheet.actor form.character {
   display: flex;
   flex-direction: column;
 }
 
-.starwarsffg.sheet.actor form.character > .sheet-header {
+.starwarsffg_sandbox.sheet.actor form.character > .sheet-header {
   flex: 0 0 auto;
 }
 
-.starwarsffg.sheet.actor form.character > .sheet-body {
+.starwarsffg_sandbox.sheet.actor form.character > .sheet-body {
   height: auto;
   flex: 1 1 auto;
 }
 
-.starwarsffg.sheet.actor form.character .tab.characteristics.active {
+.starwarsffg_sandbox.sheet.actor form.character .tab.characteristics.active {
   display: flex;
   flex-direction: column;
 }
 
-.starwarsffg.sheet.actor form.character .tab.characteristics > div.grid {
+.starwarsffg_sandbox.sheet.actor form.character .tab.characteristics > div.grid {
   flex: 0 0 auto;
 }
 
-.starwarsffg.sheet.actor form.character .tab.characteristics > .skillsTablesGrid {
+.starwarsffg_sandbox.sheet.actor form.character .tab.characteristics > .skillsTablesGrid {
   height: auto;
   min-height: 0;
   flex: 1 1 auto;
 }
 
-.starwarsffg.sheet .editor {
+.starwarsffg_sandbox.sheet .editor {
   width: 100%;
 }
 
-.starwarsffg.sheet.v2.minion .sheet-body {
+.starwarsffg_sandbox.sheet.v2.minion .sheet-body {
   height: calc(100% - 13rem);
 }
 
-.starwarsffg.sheet .sheet-header {
+.starwarsffg_sandbox.sheet .sheet-header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -864,12 +864,12 @@ img {
   flex: 0 0 100px;
 }
 
-.starwarsffg.sheet .tabs .item.active {
+.starwarsffg_sandbox.sheet .tabs .item.active {
   text-decoration: none;
   text-shadow: none;
 }
 
-.starwarsffg.sheet div.container {
+.starwarsffg_sandbox.sheet div.container {
   width: 100%;
   height: auto;
   display: flex;
@@ -877,54 +877,54 @@ img {
   font-size: 11pt;
 }
 
-.starwarsffg.sheet div.container .attributes {
+.starwarsffg_sandbox.sheet div.container .attributes {
   margin-top: 0.25rem;
 }
 
-.starwarsffg.sheet .character {
+.starwarsffg_sandbox.sheet .character {
   height: 100%;
   overflow: hidden;
 }
 
-.starwarsffg.sheet .character .resource {
+.starwarsffg_sandbox.sheet .character .resource {
   margin: 0.5rem 0.25rem 1.25rem;
 }
 
-.starwarsffg.sheet .character .tab .resource {
+.starwarsffg_sandbox.sheet .character .tab .resource {
   margin-top: 0;
 }
 
-.starwarsffg.sheet select {
+.starwarsffg_sandbox.sheet select {
   width: 100%;
 }
 
-.starwarsffg.sheet header.sheet-header h1 input {
+.starwarsffg_sandbox.sheet header.sheet-header h1 input {
   height: 3rem;
   line-height: 3rem;
   margin: 0.5rem 0;
   width: 100%;
 }
 
-.starwarsffg .item-name {
+.starwarsffg_sandbox .item-name {
   margin: 0;
   padding-bottom: 0;
 }
 
-.starwarsffg .item-name .restricted {
+.starwarsffg_sandbox .item-name .restricted {
   color: #8b0000;
 }
 
-.starwarsffg .item-quantity {
+.starwarsffg_sandbox .item-quantity {
   position: relative;
 }
 
 
-.starwarsffg .split .attribute .block-attribute {
+.starwarsffg_sandbox .split .attribute .block-attribute {
   grid-column: span 2 / span 2;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.starwarsffg .attribute {
+.starwarsffg_sandbox .attribute {
   z-index: 1;
   position: relative;
   margin: 0;
@@ -932,7 +932,7 @@ img {
   border: 0;
 }
 
-.starwarsffg .attribute .block-title {
+.starwarsffg_sandbox .attribute .block-title {
   line-height: initial;
   color: white;
   font-size: 0.75rem;
@@ -945,57 +945,57 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .attribute .attribute-value.checkbox {
+.starwarsffg_sandbox .attribute .attribute-value.checkbox {
   text-align: center;
 }
 
-.starwarsffg .attribute .block-attribute {
+.starwarsffg_sandbox .attribute .block-attribute {
   display: grid;
   gap: 0.25rem;
   margin: 0;
   padding: 0;
 }
 
-.starwarsffg .attribute .block-attribute select:focus {
+.starwarsffg_sandbox .attribute .block-attribute select:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .attribute .block-attribute .block-value.block-single {
+.starwarsffg_sandbox .attribute .block-attribute .block-value.block-single {
   width: 100%;
 }
 
-.starwarsffg .attribute .block-value textarea {
+.starwarsffg_sandbox .attribute .block-value textarea {
   resize: none;
   font-family: 'Roboto';
   border: 0;
 }
 
-.starwarsffg .attribute .block-value textarea:focus {
+.starwarsffg_sandbox .attribute .block-value textarea:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
   outline: none;
 }
 
-.starwarsffg .attribute .block-value.block-single input {
+.starwarsffg_sandbox .attribute .block-value.block-single input {
   width: 100%;
 }
 
-.starwarsffg .attribute .block-value input {
+.starwarsffg_sandbox .attribute .block-value input {
   border: 0;
   font-size: 14px;
 }
 
-.starwarsffg .attribute .block-value input:focus {
+.starwarsffg_sandbox .attribute .block-value input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .injuries .attribute .block-title {
+.starwarsffg_sandbox .injuries .attribute .block-title {
   background-color: rgba(73, 12, 11, 0.85);
 }
 
-.starwarsffg .block-background-shadow {
+.starwarsffg_sandbox .block-background-shadow {
   position: absolute;
   width: 100%;
   bottom: -0.95rem;
@@ -1008,7 +1008,7 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .shadow-text {
+.starwarsffg_sandbox .shadow-text {
   position: absolute;
   bottom: 2%;
   font-size: 9px;
@@ -1017,7 +1017,7 @@ img {
   line-height: 1rem;
 }
 
-.starwarsffg .shadow-left {
+.starwarsffg_sandbox .shadow-left {
   background-color: rgba(73, 12, 11, 0.85);
   width: 50%;
   height: 100%;
@@ -1026,12 +1026,12 @@ img {
   padding-top: 25px;
 }
 
-.starwarsffg .shadow-left .shadow-text {
+.starwarsffg_sandbox .shadow-left .shadow-text {
   color: white;
   text-transform: uppercase;
 }
 
-.starwarsffg .shadow-right {
+.starwarsffg_sandbox .shadow-right {
   background-color: #7da9c2;
   width: 50%;
   height: 100%;
@@ -1040,51 +1040,51 @@ img {
   padding-top: 25px;
 }
 
-.starwarsffg .shadow-right .shadow-text {
+.starwarsffg_sandbox .shadow-right .shadow-text {
   color: black;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.starwarsffg .tab {
+.starwarsffg_sandbox .tab {
   height: 100%;
   overflow: auto;
 }
 
-.starwarsffg form {
+.starwarsffg_sandbox form {
   overflow: hidden;
 }
 
-.starwarsffg .quantity {
+.starwarsffg_sandbox .quantity {
   position: absolute;
   top: 0;
 }
 
-.starwarsffg .quantity.increase {
+.starwarsffg_sandbox .quantity.increase {
   right: 25%;
   cursor: pointer;
 }
 
-.starwarsffg .quantity.decrease {
+.starwarsffg_sandbox .quantity.decrease {
   left: 25%;
   cursor: pointer;
 }
 
-.starwarsffg .talent-body {
+.starwarsffg_sandbox .talent-body {
   height: 90px;
 }
 
-.starwarsffg .talent-hidden {
+.starwarsffg_sandbox .talent-hidden {
   display: none;
 }
 
-.starwarsffg .talent-grid {
+.starwarsffg_sandbox .talent-grid {
   display: flex;
   flex-wrap: wrap;
   position: relative;
 }
 
-.starwarsffg .talent-grid.specialization-grid {
+.starwarsffg_sandbox .talent-grid.specialization-grid {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
@@ -1093,23 +1093,23 @@ img {
   max-height: calc(100% - 15px);
 }
 
-.starwarsffg .talent-grid .talent-tier-row {
+.starwarsffg_sandbox .talent-grid .talent-tier-row {
   flex: 1 0 16%;
   display: flex;
   flex-direction: row;
   max-height: 20%;
 }
 
-.starwarsffg .talent-grid .talent-body {
+.starwarsffg_sandbox .talent-grid .talent-body {
   height: calc(100% - 2rem);
   overflow-y: hidden;
 }
 
-.starwarsffg .talent-grid .talent-tier-row-label {
+.starwarsffg_sandbox .talent-grid .talent-tier-row-label {
   flex: 0 0 30px;
   max-width: 30px;
 }
-.starwarsffg .talent-grid .talent-tier-row-label .talent-tier-row-label-text {
+.starwarsffg_sandbox .talent-grid .talent-tier-row-label .talent-tier-row-label-text {
   transform: rotate(-90deg);
   transform-origin: bottom right;
   width: auto;
@@ -1122,33 +1122,33 @@ img {
   text-wrap: nowrap;
 }
 
-.starwarsffg .talent-grid .talent-tier-row .talent-body > input {
+.starwarsffg_sandbox .talent-grid .talent-tier-row .talent-body > input {
   background-color: rgba(0, 0, 0, 0.125);
   font-size: 0.8rem;
   height: 1.1rem;
   margin-bottom: 5px;
 }
 
-.starwarsffg .talent-upgrade {
+.starwarsffg_sandbox .talent-upgrade {
   position: relative;
   margin: 10px 10px 5px 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
 
-.starwarsffg .talent-upgrade .talent-actions {
+.starwarsffg_sandbox .talent-upgrade .talent-actions {
   display: none;
 }
 
-.starwarsffg .talent-upgrade .talent-actions .split,
-.starwarsffg .talent-upgrade .talent-actions .combine {
+.starwarsffg_sandbox .talent-upgrade .talent-actions .split,
+.starwarsffg_sandbox .talent-upgrade .talent-actions .combine {
   display: none;
 }
 
-.starwarsffg .talent-upgrade .talent-actions.talent-canSplit {
+.starwarsffg_sandbox .talent-upgrade .talent-actions.talent-canSplit {
   display: block;
 }
 
-.starwarsffg .talent-upgrade .talent-actions.talent-canSplit .split {
+.starwarsffg_sandbox .talent-upgrade .talent-actions.talent-canSplit .split {
   display: initial;
   position: absolute;
   right: 30px;
@@ -1158,15 +1158,15 @@ img {
   z-index: 20;
 }
 
-.starwarsffg .talent-upgrade .talent-actions.talent-canSplit .split i {
+.starwarsffg_sandbox .talent-upgrade .talent-actions.talent-canSplit .split i {
   transform: rotate(45deg);
 }
 
-.starwarsffg .talent-upgrade .talent-actions.talent-canCombine {
+.starwarsffg_sandbox .talent-upgrade .talent-actions.talent-canCombine {
   display: block;
 }
 
-.starwarsffg .talent-upgrade .talent-actions.talent-canCombine .combine {
+.starwarsffg_sandbox .talent-upgrade .talent-actions.talent-canCombine .combine {
   display: initial;
   position: absolute;
   right: -16px;
@@ -1174,32 +1174,32 @@ img {
   top: 15px;
 }
 
-.starwarsffg .talent-upgrade .talent-actions.talent-canCombine .combine i {
+.starwarsffg_sandbox .talent-upgrade .talent-actions.talent-canCombine .combine i {
   transform: rotate(45deg);
 }
 
-.starwarsffg .talent-upgrade.talent-single {
+.starwarsffg_sandbox .talent-upgrade.talent-single {
   flex: 1 0 21%;
 }
 
-.starwarsffg .talent-upgrade.talent-double {
+.starwarsffg_sandbox .talent-upgrade.talent-double {
   flex: 1 0 46%;
 }
 
-.starwarsffg .talent-action.talent-uplink-node {
+.starwarsffg_sandbox .talent-action.talent-uplink-node {
   width: 25%;
   height: 15px;
 }
 
-.starwarsffg .talent-upgrade.talent-triple {
+.starwarsffg_sandbox .talent-upgrade.talent-triple {
   flex: 1 0 71%;
 }
 
-.starwarsffg .talent-upgrade.talent-full {
+.starwarsffg_sandbox .talent-upgrade.talent-full {
   flex: 1 0 97%;
 }
 
-.starwarsffg .talent-background {
+.starwarsffg_sandbox .talent-background {
   position: relative;
   z-index: 10;
   background-color: #ddd;
@@ -1210,7 +1210,7 @@ img {
   clip-path: polygon(0% 0, var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .talent-background .talent-header {
+.starwarsffg_sandbox .talent-background .talent-header {
   position: relative;
   background-color: #000544;
   padding: 5px;
@@ -1219,20 +1219,20 @@ img {
   clip-path: polygon(0 0, var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .talent-background .talent-header div {
+.starwarsffg_sandbox .talent-background .talent-header div {
   display: inline-block;
   vertical-align: top;
   color: white;
 }
 
-.starwarsffg .talent-background .talent-header div.talent-name {
+.starwarsffg_sandbox .talent-background .talent-header div.talent-name {
   line-height: 0.75rem;
   height: 1.5rem;
   width: 85%;
   text-align: right;
 }
 
-.starwarsffg .talent-grid .talent-background .talent-header div.talent-name {
+.starwarsffg_sandbox .talent-grid .talent-background .talent-header div.talent-name {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -1245,20 +1245,20 @@ img {
   overflow-y: hidden;
 }
 
-.starwarsffg .talent-background .talent-header div.talent-name span {
+.starwarsffg_sandbox .talent-background .talent-header div.talent-name span {
   font-size: 0.55rem;
   position: absolute;
   bottom: 0;
   left: 0.25rem;
 }
 
-.starwarsffg .talent-background .talent-header div input[type="text"] {
+.starwarsffg_sandbox .talent-background .talent-header div input[type="text"] {
   border: 0px;
   background-color: #001e82;
   color: white;
 }
 
-.starwarsffg .talent-background .talent-header div input[type="checkbox"] {
+.starwarsffg_sandbox .talent-background .talent-header div input[type="checkbox"] {
   height: 1rem;
   margin: 0;
   padding: 0;
@@ -1266,57 +1266,57 @@ img {
   width: 1rem;
 }
 
-.starwarsffg .talent-background.talent-active .talent-header {
+.starwarsffg_sandbox .talent-background.talent-active .talent-header {
   background-color: #490c0b;
 }
 
-.starwarsffg .talent-background.talent-passive .talent-header {
+.starwarsffg_sandbox .talent-background.talent-passive .talent-header {
   background-color: #464855;
 }
 
-.starwarsffg .sheet-header .talent-background {
+.starwarsffg_sandbox .sheet-header .talent-background {
   margin: 0 0.25rem;
 }
 
-.starwarsffg .sheet-header .talent-background .talent-header .talent-name {
+.starwarsffg_sandbox .sheet-header .talent-background .talent-header .talent-name {
   height: 2rem;
 }
 
-.starwarsffg .sheet-header .talent-background .talent-header .talent-name input {
+.starwarsffg_sandbox .sheet-header .talent-background .talent-header .talent-name input {
   font-size: 2rem;
   height: 2rem;
   text-align: left;
 }
 
-.starwarsffg .talent-row {
+.starwarsffg_sandbox .talent-row {
   margin: 10px 0;
 }
 
-.starwarsffg .talent-row .talent-upgrade {
+.starwarsffg_sandbox .talent-row .talent-upgrade {
   margin: 0 3px;
 }
 
-.starwarsffg .talent-connections {
+.starwarsffg_sandbox .talent-connections {
   font-size: 15px;
 }
 
-.starwarsffg .talent-single textarea {
+.starwarsffg_sandbox .talent-single textarea {
   max-width: 145px;
 }
 
-.starwarsffg .talent-double textarea {
+.starwarsffg_sandbox .talent-double textarea {
   max-width: 315px;
 }
 
-.starwarsffg .talent-triple textarea {
+.starwarsffg_sandbox .talent-triple textarea {
   max-width: 495px;
 }
 
-.starwarsffg .talent-full textarea {
+.starwarsffg_sandbox .talent-full textarea {
   max-width: 670px;
 }
 
-.starwarsffg .talent-connection-point-top {
+.starwarsffg_sandbox .talent-connection-point-top {
   position: absolute;
   top: -7px;
   left: 50%;
@@ -1325,7 +1325,7 @@ img {
   display: flex;
 }
 
-.starwarsffg .talent-connection-point-top.talent-single {
+.starwarsffg_sandbox .talent-connection-point-top.talent-single {
   position: relative;
   text-align: center;
   transform: initial;
@@ -1333,7 +1333,7 @@ img {
   display: inline-block;
 }
 
-.starwarsffg .talent-connection-point-top.talent-double {
+.starwarsffg_sandbox .talent-connection-point-top.talent-double {
   position: relative;
   display: inline-block;
   width: 50%;
@@ -1342,7 +1342,7 @@ img {
   text-align: center;
 }
 
-.starwarsffg .talent-connection-point-top.talent-triple {
+.starwarsffg_sandbox .talent-connection-point-top.talent-triple {
   position: relative;
   display: inline-block;
   width: 33%;
@@ -1351,7 +1351,7 @@ img {
   text-align: center;
 }
 
-.starwarsffg .talent-connection-point-top.talent-full {
+.starwarsffg_sandbox .talent-connection-point-top.talent-full {
   position: relative;
   display: inline-block;
   width: 25%;
@@ -1360,27 +1360,27 @@ img {
   text-align: center;
 }
 
-.starwarsffg .talent-connection-point-top .talent-connector-up {
+.starwarsffg_sandbox .talent-connection-point-top .talent-connector-up {
   display: none;
 }
 
-.starwarsffg .talent-connection-point-right {
+.starwarsffg_sandbox .talent-connection-point-right {
   position: absolute;
   right: -15px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.starwarsffg .talent-connection-point-right .talent-connector-side {
+.starwarsffg_sandbox .talent-connection-point-right .talent-connector-side {
   display: none;
 }
 
-.starwarsffg .talent-connector i {
+.starwarsffg_sandbox .talent-connector i {
   display: none;
 }
 
-.starwarsffg .talent-connector .talent-connector-up,
-.starwarsffg .talent-connector .talent-connector-side {
+.starwarsffg_sandbox .talent-connector .talent-connector-up,
+.starwarsffg_sandbox .talent-connector .talent-connector-side {
   display: inline-block;
   width: 34px;
   height: 12px;
@@ -1405,63 +1405,63 @@ img {
 }
 
 
-.starwarsffg .talent-connector .talent-connector-up i,
-.starwarsffg .talent-connector .talent-connector-side i {
+.starwarsffg_sandbox .talent-connector .talent-connector-up i,
+.starwarsffg_sandbox .talent-connector .talent-connector-side i {
   display: initial;
   color: black;
 }
 
-.starwarsffg .talent-connector .talent-connector-up {
+.starwarsffg_sandbox .talent-connector .talent-connector-up {
   height: 35px;
   width: 20px;
   top: -10px;
   z-index: 5;
 }
 
-.starwarsffg .talent-connector .talent-connector-up i {
+.starwarsffg_sandbox .talent-connector .talent-connector-up i {
   position: absolute;
   top: 25%;
   left: 0;
   width: 20px;
 }
 
-.starwarsffg .talent-connector .talent-connector-side {
+.starwarsffg_sandbox .talent-connector .talent-connector-side {
   width: 35px;
   height: 20px;
   left: -15px;
 }
 
-.starwarsffg .talent-disable-edit .talent-actions {
+.starwarsffg_sandbox .talent-disable-edit .talent-actions {
   display: none !important;
 }
 
-.starwarsffg .talent-disable-edit .talent-connections i {
+.starwarsffg_sandbox .talent-disable-edit .talent-connections i {
   display: none !important;
 }
 
-.starwarsffg .talent-disable-edit i.talent-button {
+.starwarsffg_sandbox .talent-disable-edit i.talent-button {
   display: none !important;
 }
-.starwarsffg .talent-action {
+.starwarsffg_sandbox .talent-action {
   cursor: pointer;
 }
 
-.starwarsffg .talent-disable-edit .talent-connector.talent-action {
+.starwarsffg_sandbox .talent-disable-edit .talent-connector.talent-action {
   cursor: default;
 }
 
-.starwarsffg .header-fields {
+.starwarsffg_sandbox .header-fields {
   position: relative;
 }
 
-.starwarsffg .header-fields .talent-actions {
+.starwarsffg_sandbox .header-fields .talent-actions {
   position: absolute;
   right: 10px;
   top: 14px;
   color: white;
 }
 
-.starwarsffg .dice-pool-dialog .dice-pool {
+.starwarsffg_sandbox .dice-pool-dialog .dice-pool {
   margin-top: 10px;
   min-height: 54px;
   text-align: center;
@@ -1469,12 +1469,12 @@ img {
   justify-content: center;
 }
 
-.starwarsffg .dice-pool-dialog .pool-value {
+.starwarsffg_sandbox .dice-pool-dialog .pool-value {
   border: 1px solid black;
   background-color: #ddd;
 }
 
-.starwarsffg .dice-pool-dialog .pool-value input {
+.starwarsffg_sandbox .dice-pool-dialog .pool-value input {
   border: 0;
   font-size: 25px;
   text-align: center;
@@ -1482,89 +1482,89 @@ img {
   width: 100%;
 }
 
-.starwarsffg .dice-pool-dialog .pool-text {
+.starwarsffg_sandbox .dice-pool-dialog .pool-text {
   text-align: left;
 }
 
-.starwarsffg .dice-pool-dialog .pool-text label {
+.starwarsffg_sandbox .dice-pool-dialog .pool-text label {
   margin-left: 1.2em;
 }
 
-.starwarsffg .dice-pool-dialog .upgrade-buttons {
+.starwarsffg_sandbox .dice-pool-dialog .upgrade-buttons {
   display: flex;
 }
 
-.starwarsffg .dice-pool-dialog .upgrade-buttons button {
+.starwarsffg_sandbox .dice-pool-dialog .upgrade-buttons button {
   line-height: 20px;
   font-size: 12px;
   text-align: left;
 }
 
-.starwarsffg .dice-pool-dialog .pool-dice-pool {
+.starwarsffg_sandbox .dice-pool-dialog .pool-dice-pool {
   padding: 5px 1px;
   width: calc(100% - 2px);
 }
 
-.starwarsffg .dice-pool-dialog .pool-additional-container {
+.starwarsffg_sandbox .dice-pool-dialog .pool-additional-container {
   padding: 0 1px;
   width: calc(100% - 2px);
   min-width: 300px;
 }
 
-.starwarsffg .dice-pool-dialog .pool-additional-container .pool-additional {
+.starwarsffg_sandbox .dice-pool-dialog .pool-additional-container .pool-additional {
   text-align: left;
 }
 
-.starwarsffg .dice-pool-dialog .pool-additional-container .pool-additional input[type="button"] {
+.starwarsffg_sandbox .dice-pool-dialog .pool-additional-container .pool-additional input[type="button"] {
   margin: 0 3px;
 }
 
-.starwarsffg .dice-pool-dialog .pool-roll-options {
+.starwarsffg_sandbox .dice-pool-dialog .pool-roll-options {
   margin-top: 10px;
 }
 
-.starwarsffg .dice-pool-dialog .pool-roll-options select, .starwarsffg .dice-pool-dialog .pool-roll-options input {
+.starwarsffg_sandbox .dice-pool-dialog .pool-roll-options select, .starwarsffg_sandbox .dice-pool-dialog .pool-roll-options input {
   margin-top: 1px;
   margin-right: 1px;
 }
 
-.starwarsffg .dice-pool-dialog .roll-button {
+.starwarsffg_sandbox .dice-pool-dialog .roll-button {
   margin-top: 15px;
 }
 
-.starwarsffg .dice-pool-dialog table {
+.starwarsffg_sandbox .dice-pool-dialog table {
   width: 300px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.starwarsffg .dice-pool-dialog .hide {
+.starwarsffg_sandbox .dice-pool-dialog .hide {
   display: none;
 }
 
-.starwarsffg .dice-pool-dialog .minimize {
+.starwarsffg_sandbox .dice-pool-dialog .minimize {
   max-width: 20%;
 }
 
-.starwarsffg .dice-pool-dialog .maximize {
+.starwarsffg_sandbox .dice-pool-dialog .maximize {
   width: 100%;
 }
 
-.starwarsffg .ffgDiceArray {
+.starwarsffg_sandbox .ffgDiceArray {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
-.starwarsffg .ffgDiceArray .dice-rolls {
+.starwarsffg_sandbox .ffgDiceArray .dice-rolls {
   list-style: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-.starwarsffg .ffgDiceArray .dice-rolls .roll {
+.starwarsffg_sandbox .ffgDiceArray .dice-rolls .roll {
   width: 40px;
   float: left;
 }
@@ -1574,32 +1574,32 @@ img {
   float: left;
 }
 
-.starwarsffg .dice-result .roll-success {
+.starwarsffg_sandbox .dice-result .roll-success {
   color: darkgreen;
 }
 
-.starwarsffg .dice-result .roll-failure {
+.starwarsffg_sandbox .dice-result .roll-failure {
   color: darkred;
 }
 
-.starwarsffg .dice-additional-flavor {
+.starwarsffg_sandbox .dice-additional-flavor {
   font-style: oblique;
   font-size: 12px;
 }
 
-.starwarsffg .item-display {
+.starwarsffg_sandbox .item-display {
   margin: 0.5rem 0 0.8rem 0;
   padding: 0.5rem;
   border: 1px solid #782e22;
   background: rgba(255, 255, 255, 0.75);
 }
 
-.starwarsffg .item-display img {
+.starwarsffg_sandbox .item-display img {
   height: 50px;
   width: auto;
 }
 
-.starwarsffg .item-display h4 {
+.starwarsffg_sandbox .item-display h4 {
   margin: 0 0 0.25rem 0;
   font-size: 18px;
   display: flex;
@@ -1608,22 +1608,22 @@ img {
   justify-content: space-around;
 }
 
-.starwarsffg .item-display h4 input {
+.starwarsffg_sandbox .item-display h4 input {
   width: 70%;
 }
 
-.starwarsffg .item-display h5 {
+.starwarsffg_sandbox .item-display h5 {
   font-size: 16px;
 }
 
-.starwarsffg .item-display .item-miss {
+.starwarsffg_sandbox .item-display .item-miss {
   text-align: center;
   font-size: 20px;
   font-style: italic;
   color: darkred;
 }
 
-.starwarsffg .item-display .item-pill {
+.starwarsffg_sandbox .item-display .item-pill {
   list-style-type: none;
   padding: 0 5px;
   background-color: #aaa;
@@ -1637,84 +1637,84 @@ img {
   white-space: nowrap;
 }
 
-.starwarsffg .item-display .item-pill.adjusted {
+.starwarsffg_sandbox .item-display .item-pill.adjusted {
   color: #8b0000;
 }
 
-.starwarsffg .item-display .item-pill .rank {
+.starwarsffg_sandbox .item-display .item-pill .rank {
   padding-right: 15px;
 }
 
-.starwarsffg .item-display .item-pill .rank:hover {
+.starwarsffg_sandbox .item-display .item-pill .rank:hover {
   color: green;
 }
 
-.starwarsffg .item-display .item-pill .item-delete {
+.starwarsffg_sandbox .item-display .item-pill .item-delete {
   cursor: pointer;
 }
 
-.starwarsffg .item-display .item-pill .item-delete:hover {
+.starwarsffg_sandbox .item-display .item-pill .item-delete:hover {
   color: red;
 }
 
-.starwarsffg span.dietype {
+.starwarsffg_sandbox span.dietype {
   position: relative;
   font-size: 1rem;
 }
 
-.starwarsffg span.dietype.ability {
+.starwarsffg_sandbox span.dietype.ability {
   color: green;
 }
 
-.starwarsffg span.dietype.advantage {
+.starwarsffg_sandbox span.dietype.advantage {
   color: black;
 }
 
-.starwarsffg span.dietype.boost {
+.starwarsffg_sandbox span.dietype.boost {
   color: lightskyblue;
 }
 
-.starwarsffg span.dietype.challenge {
+.starwarsffg_sandbox span.dietype.challenge {
   color: red;
 }
 
-.starwarsffg span.dietype.dark {
+.starwarsffg_sandbox span.dietype.dark {
   color: black;
 }
 
-.starwarsffg span.dietype.despair {
+.starwarsffg_sandbox span.dietype.despair {
   color: black;
 }
 
-.starwarsffg span.dietype.difficulty {
+.starwarsffg_sandbox span.dietype.difficulty {
   color: purple;
 }
 
-.starwarsffg span.dietype.forcepoint {
+.starwarsffg_sandbox span.dietype.forcepoint {
   color: black;
 }
 
-.starwarsffg span.dietype.failure {
+.starwarsffg_sandbox span.dietype.failure {
   color: black;
 }
 
-.starwarsffg span.dietype.force {
+.starwarsffg_sandbox span.dietype.force {
   color: black;
 }
 
-.starwarsffg span.dietype.light {
+.starwarsffg_sandbox span.dietype.light {
   color: black;
 }
 
-.starwarsffg span.dietype.proficiency {
+.starwarsffg_sandbox span.dietype.proficiency {
   color: yellow;
 }
 
-.starwarsffg span.dietype.remsetback {
+.starwarsffg_sandbox span.dietype.remsetback {
   color: black;
 }
 
-.starwarsffg span.dietype.remsetback::after {
+.starwarsffg_sandbox span.dietype.remsetback::after {
   content: "-";
   color: white;
   position: absolute;
@@ -1722,11 +1722,11 @@ img {
   transform: translateX(-50%);
 }
 
-.starwarsffg span.dietype.restricted {
+.starwarsffg_sandbox span.dietype.restricted {
   color: #8b0000;
 }
 
-.starwarsffg span.dietype.restricted::after {
+.starwarsffg_sandbox span.dietype.restricted::after {
   content: "-";
   color: white;
   position: absolute;
@@ -1734,27 +1734,27 @@ img {
   transform: translateX(-50%);
 }
 
-.starwarsffg span.dietype.setback {
+.starwarsffg_sandbox span.dietype.setback {
   color: black;
 }
 
-.starwarsffg span.dietype.success {
+.starwarsffg_sandbox span.dietype.success {
   color: black;
 }
 
-.starwarsffg span.dietype.threat {
+.starwarsffg_sandbox span.dietype.threat {
   color: black;
 }
 
-.starwarsffg span.dietype.triumph {
+.starwarsffg_sandbox span.dietype.triumph {
   color: black;
 }
 
-.starwarsffg span.dietype.adddifficulty {
+.starwarsffg_sandbox span.dietype.adddifficulty {
   color: purple;
 }
 
-.starwarsffg span.dietype.adddifficulty::after {
+.starwarsffg_sandbox span.dietype.adddifficulty::after {
   content: "+";
   color: white;
   position: absolute;
@@ -1763,11 +1763,11 @@ img {
   transform: translateX(-50%);
 }
 
-.starwarsffg span.dietype.updifficulty {
+.starwarsffg_sandbox span.dietype.updifficulty {
   color: purple;
 }
 
-.starwarsffg span.dietype.updifficulty::after {
+.starwarsffg_sandbox span.dietype.updifficulty::after {
   content: "\2191";
   color: white;
   position: absolute;
@@ -1776,11 +1776,11 @@ img {
   transform: translateX(-50%);
 }
 
-.starwarsffg span.dietype.cancelthreat {
+.starwarsffg_sandbox span.dietype.cancelthreat {
   color: black;
 }
 
-.starwarsffg span.dietype.cancelthreat::after {
+.starwarsffg_sandbox span.dietype.cancelthreat::after {
   content: "\2716";
   color: red;
   position: absolute;
@@ -1789,15 +1789,15 @@ img {
   transform: translateX(-50%);
 }
 
-.starwarsffg span.bold {
+.starwarsffg_sandbox span.bold {
   font-weight: bold;
 }
 
-.starwarsffg span.italic {
+.starwarsffg_sandbox span.italic {
   font-style: italic;
 }
 
-.starwarsffg .popout-editor {
+.starwarsffg_sandbox .popout-editor {
   text-align: left;
   font-size: 12px;
   overflow: auto;
@@ -1810,11 +1810,11 @@ img {
   border-radius: 0.25rem;
 }
 
-.starwarsffg .popout-editor p {
+.starwarsffg_sandbox .popout-editor p {
   line-height: .875rem;
 }
 
-.starwarsffg .popout-editor .popout-editor-button {
+.starwarsffg_sandbox .popout-editor .popout-editor-button {
   display: none;
   position: absolute;
   right: 0;
@@ -1822,40 +1822,40 @@ img {
   cursor: pointer;
 }
 
-.starwarsffg .popout-editor-window .sheet-body {
+.starwarsffg_sandbox .popout-editor-window .sheet-body {
   height: 100%;
 }
 
-.starwarsffg .popout-editor-window .editor {
+.starwarsffg_sandbox .popout-editor-window .editor {
   width: 100%;
   height: 100%;
 }
 
-.starwarsffg .editor {
+.starwarsffg_sandbox .editor {
   width: 100%;
   height: 100%;
   min-height: 2rem;
 }
 
-.starwarsffg .tox.tox-tinymce {
+.starwarsffg_sandbox .tox.tox-tinymce {
   height: 100% !important;
 }
 
-.starwarsffg .item-sheet-gear .tabs, .starwarsffg .item-sheet-talent .tabs, .starwarsffg .item-sheet-weapon .tabs, .starwarsffg .item-sheet-armor .tabs, .starwarsffg .item-sheet-vehicle-weapon .tabs, .starwarsffg .item-sheet-vehicle-attachment .tabs {
+.starwarsffg_sandbox .item-sheet-gear .tabs, .starwarsffg_sandbox .item-sheet-talent .tabs, .starwarsffg_sandbox .item-sheet-weapon .tabs, .starwarsffg_sandbox .item-sheet-armor .tabs, .starwarsffg_sandbox .item-sheet-vehicle-weapon .tabs, .starwarsffg_sandbox .item-sheet-vehicle-attachment .tabs {
   margin-top: 0.5rem;
 }
 
-.starwarsffg .item-sheet-gear .tabs .item, .starwarsffg .item-sheet-talent .tabs .item, .starwarsffg .item-sheet-weapon .tabs .item, .starwarsffg .item-sheet-armor .tabs .item, .starwarsffg .item-sheet-vehicle-weapon .tabs .item, .starwarsffg .item-sheet-vehicle-attachment .tabs .item {
+.starwarsffg_sandbox .item-sheet-gear .tabs .item, .starwarsffg_sandbox .item-sheet-talent .tabs .item, .starwarsffg_sandbox .item-sheet-weapon .tabs .item, .starwarsffg_sandbox .item-sheet-armor .tabs .item, .starwarsffg_sandbox .item-sheet-vehicle-weapon .tabs .item, .starwarsffg_sandbox .item-sheet-vehicle-attachment .tabs .item {
   height: auto;
   -webkit-clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% 100%, 0 100%, 0% 0%, 0% 100%);
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% 100%, 0 100%, 0% 0%, 0% 100%);
 }
 
-.starwarsffg .tabs {
+.starwarsffg_sandbox .tabs {
   line-height: 1rem;
 }
 
-.starwarsffg .tabs .item {
+.starwarsffg_sandbox .tabs .item {
   line-height: 1.5rem;
   height: 2rem;
   width: 100%;
@@ -1870,13 +1870,13 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .tabs .item:hover {
+.starwarsffg_sandbox .tabs .item:hover {
   background-color: rgba(0, 0, 0, 0.75);
   color: white;
   text-shadow: black 1px 2px 0;
 }
 
-.starwarsffg .tabs .item.active {
+.starwarsffg_sandbox .tabs .item.active {
   height: 2.5rem;
   line-height: 2rem;
   background-color: rgba(73, 12, 11, 0.85);
@@ -1885,12 +1885,12 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% 100%, 0 100%, 0% 0%, 0% 100%);
 }
 
-.starwarsffg .tabs .item.active:hover {
+.starwarsffg_sandbox .tabs .item.active:hover {
   background-color: rgba(73, 12, 11, 0.85);
   cursor: default;
 }
 
-.starwarsffg.v2 .tabs {
+.starwarsffg_sandbox.v2 .tabs {
   position: absolute;
   width: 2.5rem;
   right: -2rem;
@@ -1898,7 +1898,7 @@ img {
   flex-direction: column;
 }
 
-.starwarsffg.v2 .tabs .item {
+.starwarsffg_sandbox.v2 .tabs .item {
   line-height: 2rem;
   font-size: 1.5rem;
   margin: 0.25rem;
@@ -1910,18 +1910,18 @@ img {
   clip-path: polygon(0% 0, var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg.v2 .tabs .item.active {
+.starwarsffg_sandbox.v2 .tabs .item.active {
   flex: 0 0 3rem;
   height: 3rem;
   line-height: 2.5rem;
   background-color: rgba(73, 12, 11, 0.85);
 }
 
-.starwarsffg.v2.minimized nav.sheet-tabs {
+.starwarsffg_sandbox.v2.minimized nav.sheet-tabs {
   display: none;
 }
 
-.starwarsffg.sheet nav.sheet-tabs {
+.starwarsffg_sandbox.sheet nav.sheet-tabs {
   flex: 0 0 auto;
   height: auto;
   line-height: auto;
@@ -1929,25 +1929,25 @@ img {
   border: 0 none;
 }
 
-.starwarsffg .header-fields {
+.starwarsffg_sandbox .header-fields {
   flex: 1;
   height: auto;
   padding: 0.25rem;
   margin: 0;
 }
 
-.starwarsffg .header-fields h1, .starwarsffg .header-fields h2, .starwarsffg .header-fields h3, .starwarsffg .header-fields h4 {
+.starwarsffg_sandbox .header-fields h1, .starwarsffg_sandbox .header-fields h2, .starwarsffg_sandbox .header-fields h3, .starwarsffg_sandbox .header-fields h4 {
   margin: 0 0 0.25rem;
   padding: 0;
   font-weight: normal;
 }
 
-.starwarsffg .header-fields h1 {
+.starwarsffg_sandbox .header-fields h1 {
   margin: 0;
   width: 100%;
 }
 
-.starwarsffg .header-fields .header-name, .starwarsffg .header-fields .minion-name {
+.starwarsffg_sandbox .header-fields .header-name, .starwarsffg_sandbox .header-fields .minion-name {
   margin: 0;
   padding: 0.25rem 0.5rem;
   position: relative;
@@ -1958,7 +1958,7 @@ img {
   clip-path: polygon(0% 0, 0 0%, 0 0%, 100% 0, 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .header-fields .header-name input, .starwarsffg .header-fields .minion-name input {
+.starwarsffg_sandbox .header-fields .header-name input, .starwarsffg_sandbox .header-fields .minion-name input {
   width: 100%;
   margin: 0;
   background-color: rgba(0, 0, 0, 0);
@@ -1968,30 +1968,30 @@ img {
   font-size: 1rem;
 }
 
-.starwarsffg .header-fields .header-name input:focus, .starwarsffg .header-fields .minion-name input:focus {
+.starwarsffg_sandbox .header-fields .header-name input:focus, .starwarsffg_sandbox .header-fields .minion-name input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .header-fields .header-name h2, .starwarsffg .header-fields .minion-name h2 {
+.starwarsffg_sandbox .header-fields .header-name h2, .starwarsffg_sandbox .header-fields .minion-name h2 {
   border: 0 none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   -o-border-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) 1%;
   border-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) 1%;
 }
 
-.starwarsffg .header-fields .header-name h2 input, .starwarsffg .header-fields .minion-name h2 input {
+.starwarsffg_sandbox .header-fields .header-name h2 input, .starwarsffg_sandbox .header-fields .minion-name h2 input {
   font-size: 1.5rem;
   color: #781428;
 }
 
-.starwarsffg .header-fields .header-description-block {
+.starwarsffg_sandbox .header-fields .header-description-block {
   margin: 0;
   height: 170px;
   overflow-y: auto;
 }
 
-.starwarsffg .header-fields .header-description {
+.starwarsffg_sandbox .header-fields .header-description {
   background-color: #c3dce6;
   padding: 0.25rem;
   --notchSize: 0.5rem;
@@ -1999,12 +1999,12 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .header-fields .table {
+.starwarsffg_sandbox .header-fields .table {
   display: table;
   width: 100%;
 }
 
-.starwarsffg .header-fields .row {
+.starwarsffg_sandbox .header-fields .row {
   display: flex;
   width: 100%;
   padding: 0.2rem 0 0;
@@ -2014,11 +2014,11 @@ img {
   border-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) 1%;
 }
 
-.starwarsffg .header-fields .row:last-child {
+.starwarsffg_sandbox .header-fields .row:last-child {
   border: 0 none;
 }
 
-.starwarsffg .header-fields .row div {
+.starwarsffg_sandbox .header-fields .row div {
   float: left;
   padding: 0.25rem;
   line-height: 1rem;
@@ -2027,20 +2027,20 @@ img {
   color: rgba(0, 0, 0, 0.5);
 }
 
-.starwarsffg .header-fields .row.card {
+.starwarsffg_sandbox .header-fields .row.card {
   position: absolute;
   top: 2rem;
   right: 1rem;
   width: auto !important;
 }
 
-.starwarsffg .header-fields .profile-block {
+.starwarsffg_sandbox .header-fields .profile-block {
   margin: 0 0.25rem 0 0;
   height: 130px;
   max-width: 130px;
 }
 
-.starwarsffg .header-fields .profile-img {
+.starwarsffg_sandbox .header-fields .profile-img {
   flex: 0 0 100px;
   height: 130px;
   width: auto;
@@ -2054,45 +2054,45 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .item-sheet-weapon .header-fields .profile-img {
+.starwarsffg_sandbox .item-sheet-weapon .header-fields .profile-img {
   max-width: 500px;
 }
 
-.starwarsffg .item-sheet-armor .header-fields .profile-img, .starwarsffg .item-sheet-gear .header-fields .profile-img {
+.starwarsffg_sandbox .item-sheet-armor .header-fields .profile-img, .starwarsffg_sandbox .item-sheet-gear .header-fields .profile-img {
   max-width: 300px;
 }
 
-.starwarsffg .header-fields .resource {
+.starwarsffg_sandbox .header-fields .resource {
   flex: 4;
 }
 
-.starwarsffg .header-fields .resource:first-child {
+.starwarsffg_sandbox .header-fields .resource:first-child {
   margin-left: 0;
 }
 
-.starwarsffg .header-fields .resource:last-child {
+.starwarsffg_sandbox .header-fields .resource:last-child {
   margin-right: 0;
 }
 
-.starwarsffg .header-fields .full .resource.double {
+.starwarsffg_sandbox .header-fields .full .resource.double {
   flex: 100%;
 }
 
-.starwarsffg .item-sheet-talent .header-fields h1, .starwarsffg .item-sheet-gear .header-fields h1, .starwarsffg .item-sheet-weapon .header-fields h1, .starwarsffg .item-sheet-armor .header-fields h1, .starwarsffg .item-sheet-vehicle-weapon .header-fields h1, .starwarsffg .item-sheet-vehicle-attachment .header-fields h1, .starwarsffg .item-sheet-criticalinjury .header-fields h1 {
+.starwarsffg_sandbox .item-sheet-talent .header-fields h1, .starwarsffg_sandbox .item-sheet-gear .header-fields h1, .starwarsffg_sandbox .item-sheet-weapon .header-fields h1, .starwarsffg_sandbox .item-sheet-armor .header-fields h1, .starwarsffg_sandbox .item-sheet-vehicle-weapon .header-fields h1, .starwarsffg_sandbox .item-sheet-vehicle-attachment .header-fields h1, .starwarsffg_sandbox .item-sheet-criticalinjury .header-fields h1 {
   font-size: 1rem;
 }
 
-.starwarsffg .item-sheet-criticalinjury .crit-label {
+.starwarsffg_sandbox .item-sheet-criticalinjury .crit-label {
   padding-top: 5px;
 }
 
-.starwarsffg .item-sheet-talent .header-fields h1 input, .starwarsffg .item-sheet-gear .header-fields h1 input, .starwarsffg .item-sheet-weapon .header-fields h1 input, .starwarsffg .item-sheet-armor .header-fields h1 input, .starwarsffg .item-sheet-vehicle-weapon .header-fields h1 input, .starwarsffg .item-sheet-vehicle-attachment .header-fields h1 input, .starwarsffg .item-sheet-criticalinjury .header-fields h1 input {
+.starwarsffg_sandbox .item-sheet-talent .header-fields h1 input, .starwarsffg_sandbox .item-sheet-gear .header-fields h1 input, .starwarsffg_sandbox .item-sheet-weapon .header-fields h1 input, .starwarsffg_sandbox .item-sheet-armor .header-fields h1 input, .starwarsffg_sandbox .item-sheet-vehicle-weapon .header-fields h1 input, .starwarsffg_sandbox .item-sheet-vehicle-attachment .header-fields h1 input, .starwarsffg_sandbox .item-sheet-criticalinjury .header-fields h1 input {
   margin: 0;
   width: 100%;
   text-align: center;
 }
 
-.starwarsffg .item-sheet-talent .header-fields .profile-img, .starwarsffg .item-sheet-gear .header-fields .profile-img, .starwarsffg .item-sheet-weapon .header-fields .profile-img, .starwarsffg .item-sheet-armor .header-fields .profile-img, .starwarsffg .item-sheet-vehicle-weapon .header-fields .profile-img, .starwarsffg .item-sheet-vehicle-attachment .header-fields .profile-img, .starwarsffg .item-sheet-criticalinjury .header-fields .profile-img {
+.starwarsffg_sandbox .item-sheet-talent .header-fields .profile-img, .starwarsffg_sandbox .item-sheet-gear .header-fields .profile-img, .starwarsffg_sandbox .item-sheet-weapon .header-fields .profile-img, .starwarsffg_sandbox .item-sheet-armor .header-fields .profile-img, .starwarsffg_sandbox .item-sheet-vehicle-weapon .header-fields .profile-img, .starwarsffg_sandbox .item-sheet-vehicle-attachment .header-fields .profile-img, .starwarsffg_sandbox .item-sheet-criticalinjury .header-fields .profile-img {
   left: 0.5rem;
   top: 0.5rem;
   height: 124px;
@@ -2104,20 +2104,20 @@ img {
   object-position: 50% 0;
 }
 
-.starwarsffg .item-sheet-talent .header-fields .item-name, .starwarsffg .item-sheet-gear .header-fields .item-name, .starwarsffg .item-sheet-weapon .header-fields .item-name, .starwarsffg .item-sheet-armor .header-fields .item-name, .starwarsffg .item-sheet-vehicle-weapon .header-fields .item-name, .starwarsffg .item-sheet-vehicle-attachment .header-fields .item-name, .starwarsffg .item-sheet-criticalinjury .header-fields .item-name {
+.starwarsffg_sandbox .item-sheet-talent .header-fields .item-name, .starwarsffg_sandbox .item-sheet-gear .header-fields .item-name, .starwarsffg_sandbox .item-sheet-weapon .header-fields .item-name, .starwarsffg_sandbox .item-sheet-armor .header-fields .item-name, .starwarsffg_sandbox .item-sheet-vehicle-weapon .header-fields .item-name, .starwarsffg_sandbox .item-sheet-vehicle-attachment .header-fields .item-name, .starwarsffg_sandbox .item-sheet-criticalinjury .header-fields .item-name {
   padding: 0;
   text-align: left;
 }
 
-.starwarsffg .characteristics {
+.starwarsffg_sandbox .characteristics {
   height: 6rem;
 }
 
-.starwarsffg .characteristics fieldset.skillfilter {
+.starwarsffg_sandbox .characteristics fieldset.skillfilter {
   display: none;
 }
 
-.starwarsffg .characteristics .characteristic-item {
+.starwarsffg_sandbox .characteristics .characteristic-item {
   position: relative;
   background-color: rgba(84, 106, 83, 0.85);
   border: 0;
@@ -2126,7 +2126,7 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .characteristics .characteristic-item .characteristic-label {
+.starwarsffg_sandbox .characteristics .characteristic-item .characteristic-label {
   margin-top: 0.25rem;
   width: 100%;
   text-align: center;
@@ -2140,7 +2140,7 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .characteristic {
+.starwarsffg_sandbox .characteristic {
   position: relative;
   width: 55px;
   height: 55px;
@@ -2150,18 +2150,18 @@ img {
   background: rgba(255, 255, 255, 0.9);
 }
 
-.starwarsffg .characteristic select {
+.starwarsffg_sandbox .characteristic select {
   width: 100px;
 }
 
-.starwarsffg .characteristic .characteristic-value input {
+.starwarsffg_sandbox .characteristic .characteristic-value input {
   height: 40px;
   border: 0;
   font-size: 30px;
   text-align: center;
 }
 
-.starwarsffg .characteristic .characteristic-value input {
+.starwarsffg_sandbox .characteristic .characteristic-value input {
   height: 49px;
   font-size: 2rem;
   text-align: center;
@@ -2170,12 +2170,12 @@ img {
   margin: 1px 0 0;
 }
 
-.starwarsffg .characteristic .characteristic-value input:focus {
+.starwarsffg_sandbox .characteristic .characteristic-value input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item, .starwarsffg .item-sheet-talent .characteristic-item, .starwarsffg .item-sheet-weapon .characteristic-item, .starwarsffg .item-sheet-armor .characteristic-item, .starwarsffg .item-sheet-vehicle-weapon .characteristic-item, .starwarsffg .item-sheet-vehicle-attachment .characteristic-item {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item, .starwarsffg_sandbox .item-sheet-talent .characteristic-item, .starwarsffg_sandbox .item-sheet-weapon .characteristic-item, .starwarsffg_sandbox .item-sheet-armor .characteristic-item, .starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item, .starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item {
   position: relative;
   border: 0;
   padding: 0.25rem;
@@ -2185,7 +2185,7 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item .characteristic-label, .starwarsffg .item-sheet-talent .characteristic-item .characteristic-label, .starwarsffg .item-sheet-weapon .characteristic-item .characteristic-label, .starwarsffg .item-sheet-armor .characteristic-item .characteristic-label, .starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic-label, .starwarsffg .item-sheet-vehicle-attachment .characteristic-item .characteristic-label {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item .characteristic-label, .starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic-label, .starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic-label, .starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic-label, .starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic-label, .starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item .characteristic-label {
   width: 100%;
   text-align: center;
   text-transform: uppercase;
@@ -2193,7 +2193,7 @@ img {
   margin: 0.25rem 0 0;
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item .characteristic, .starwarsffg .item-sheet-talent .characteristic-item .characteristic, .starwarsffg .item-sheet-weapon .characteristic-item .characteristic, .starwarsffg .item-sheet-armor .characteristic-item .characteristic, .starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic, .starwarsffg .item-sheet-vehicle-attachment .characteristic-item .characteristic {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item .characteristic, .starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic, .starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic, .starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic, .starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic, .starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item .characteristic {
   position: relative;
   width: 3rem;
   height: 3rem;
@@ -2203,18 +2203,18 @@ img {
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.starwarsffg .item-sheet-weapon .resource.single  {
+.starwarsffg_sandbox .item-sheet-weapon .resource.single  {
   position: relative;
   width: 3rem;
   height: 3rem;
   margin: auto;
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item .characteristic .characteristic-value, .starwarsffg .item-sheet-talent .characteristic-item .characteristic .characteristic-value, .starwarsffg .item-sheet-weapon .characteristic-item .characteristic .characteristic-value, .starwarsffg .item-sheet-armor .characteristic-item .characteristic .characteristic-value, .starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic .characteristic-value, .starwarsffg .item-sheet-vehicle-attachment .characteristic-item .characteristic .characteristic-value {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item .characteristic .characteristic-value, .starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic .characteristic-value, .starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic .characteristic-value, .starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic .characteristic-value, .starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic .characteristic-value, .starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item .characteristic .characteristic-value {
   height: 100%;
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item .characteristic .characteristic-value input, .starwarsffg .item-sheet-talent .characteristic-item .characteristic .characteristic-value input, .starwarsffg .item-sheet-weapon .characteristic-item .characteristic .characteristic-value input, .starwarsffg .item-sheet-armor .characteristic-item .characteristic .characteristic-value input, .starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic .characteristic-value input, .starwarsffg .item-sheet-vehicle-attachment .characteristic-item .characteristic .characteristic-value input {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item .characteristic .characteristic-value input, .starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic .characteristic-value input, .starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic .characteristic-value input, .starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic .characteristic-value input, .starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic .characteristic-value input, .starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item .characteristic .characteristic-value input {
   height: 100%;
   border: 0;
   font-size: 2rem;
@@ -2223,28 +2223,28 @@ img {
   margin: 1px 0 0;
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg .item-sheet-talent .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg .item-sheet-weapon .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg .item-sheet-armor .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg .item-sheet-vehicle-attachment .characteristic-item .characteristic .characteristic-value input:focus {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic .characteristic-value input:focus, .starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item .characteristic .characteristic-value input:focus {
   box-shadow: 0 0 5px rgba(125, 170, 195, 0.5);
   background-color: rgba(125, 170, 195, 0.25);
   border-radius: 50%;
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item .characteristic select, .starwarsffg .item-sheet-talent .characteristic-item .characteristic select, .starwarsffg .item-sheet-weapon .characteristic-item .characteristic select, .starwarsffg .item-sheet-armor .characteristic-item .characteristic select, .starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic select, .starwarsffg .item-sheet-vehicle-attachment .characteristic-item .characteristic select {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item .characteristic select, .starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic select, .starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic select, .starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic select, .starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic select, .starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item .characteristic select {
   width: 100px;
 }
 
-.starwarsffg .item-sheet-gear .item-name, .starwarsffg .item-sheet-talent .item-name, .starwarsffg .item-sheet-weapon .item-name, .starwarsffg .item-sheet-armor .item-name, .starwarsffg .item-sheet-vehicle-weapon .item-name, .starwarsffg .item-sheet-vehicle-attachment .item-name {
+.starwarsffg_sandbox .item-sheet-gear .item-name, .starwarsffg_sandbox .item-sheet-talent .item-name, .starwarsffg_sandbox .item-sheet-weapon .item-name, .starwarsffg_sandbox .item-sheet-armor .item-name, .starwarsffg_sandbox .item-sheet-vehicle-weapon .item-name, .starwarsffg_sandbox .item-sheet-vehicle-attachment .item-name {
   margin: 0;
   padding-bottom: 0 !important;
 }
 
-.starwarsffg .skill-name {
+.starwarsffg_sandbox .skill-name {
   position: relative;
   font-size: 0.75rem;
   padding-right: 1.5rem;
 }
 
-.starwarsffg .skill-characteristic {
+.starwarsffg_sandbox .skill-characteristic {
   display: inline;
   font-size: 0.65rem;
   font-style: italic;
@@ -2253,34 +2253,34 @@ img {
   right: 0;
 }
 
-.starwarsffg .skill-characteristic-select-dialog {
+.starwarsffg_sandbox .skill-characteristic-select-dialog {
   display: inline-block;
   margin: auto;
 }
 
-.starwarsffg .skill-characteristic-select-dialog li {
+.starwarsffg_sandbox .skill-characteristic-select-dialog li {
   list-style: none;
 }
 
-.starwarsffg .skill-create-dialog {
+.starwarsffg_sandbox .skill-create-dialog {
   display: inline-flex;
   margin: auto;
 }
 
-.starwarsffg .tableWithHeader {
+.starwarsffg_sandbox .tableWithHeader {
   overflow-y: auto;
   margin: 0;
   height: calc(100% - 6.5rem);
   display: flex;
 }
 
-.starwarsffg .tableWithHeader .tableWithHeader-container {
+.starwarsffg_sandbox .tableWithHeader .tableWithHeader-container {
   flex: 1;
   margin: 0 0.25rem 0 0;
   position: relative;
 }
 
-.starwarsffg .skillsTablesGrid {
+.starwarsffg_sandbox .skillsTablesGrid {
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -2290,27 +2290,27 @@ img {
   padding: 0.25rem 0.25rem 0.25rem 0;
 }
 
-.starwarsffg .skill-name .skill-purchase {
+.starwarsffg_sandbox .skill-name .skill-purchase {
   cursor: pointer;
 }
 
-.starwarsffg .skillsGrid {
+.starwarsffg_sandbox .skillsGrid {
   display: flex;
   align-content: flex-start;
   width: 100%;
   padding: 0;
 }
 
-.starwarsffg .skillsGrid > .skillTypeGrid {
+.starwarsffg_sandbox .skillsGrid > .skillTypeGrid {
   margin-left: 0.25rem;
 }
 
-.starwarsffg .skillsGrid > .skillTypeGrid:first-child {
+.starwarsffg_sandbox .skillsGrid > .skillTypeGrid:first-child {
   margin-left: 0;
   margin-right: 0.25rem;
 }
 
-.starwarsffg .skillsGrid .skillTypeGrid {
+.starwarsffg_sandbox .skillsGrid .skillTypeGrid {
   flex: 0 1 auto;
   flex-direction: column;
   margin: 0 0 0.5rem;
@@ -2321,21 +2321,21 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% 100%, 0 100%, 0% 0%, 0% 100%);
 }
 
-.starwarsffg .skillsGrid .skillTypeGrid.skillColumnGrid {
+.starwarsffg_sandbox .skillsGrid .skillTypeGrid.skillColumnGrid {
   border: 1px solid #7a7971;
   background: rgba(255, 255, 255, 0.5);
   flex: calc(50% - 0.25rem);
 }
 
-.starwarsffg .skillsGrid .pure-g {
+.starwarsffg_sandbox .skillsGrid .pure-g {
   letter-spacing: initial;
 }
 
-.starwarsffg .skillsGrid .skillTable .skillsHeader {
+.starwarsffg_sandbox .skillsGrid .skillTable .skillsHeader {
   line-height: 1.313rem;
 }
 
-.starwarsffg .skillsGrid .skillTable .skillsHeader div {
+.starwarsffg_sandbox .skillsGrid .skillTable .skillsHeader div {
   text-align: left;
   padding: 0.25rem 0 0.25rem 0.5rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -2345,45 +2345,45 @@ img {
   font-weight: normal;
 }
 
-.starwarsffg .skillsGrid .skillTable .skillsHeader div:last-child {
+.starwarsffg_sandbox .skillsGrid .skillTable .skillsHeader div:last-child {
   text-align: center;
   padding-right: 0.75rem;
 }
 
-.starwarsffg .skillsGrid .skillTable div.skill {
+.starwarsffg_sandbox .skillsGrid .skillTable div.skill {
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.starwarsffg .skillsGrid .skillTable div.skill > div {
+.starwarsffg_sandbox .skillsGrid .skillTable div.skill > div {
   text-align: center;
 }
 
-.starwarsffg .skillsGrid .skillTable div.skill > div:first-of-type {
+.starwarsffg_sandbox .skillsGrid .skillTable div.skill > div:first-of-type {
   text-align: left;
   padding-left: 0.25rem;
   padding-top: 0.25rem;
 }
 
-.starwarsffg .skillsGrid .skillTable div.skill input[type="checkbox"] {
+.starwarsffg_sandbox .skillsGrid .skillTable div.skill input[type="checkbox"] {
   width: 1rem;
   height: 1rem;
   margin: 0.25rem;
 }
 
-.starwarsffg .skillsGrid .skillTable .careerskill-toggle {
+.starwarsffg_sandbox .skillsGrid .skillTable .careerskill-toggle {
   margin: 0;
   padding: 0;
 }
 
-.starwarsffg .skillsGrid .skillTable .careerskill-rank {
+.starwarsffg_sandbox .skillsGrid .skillTable .careerskill-rank {
   margin-top: 0.25rem;
   height: 1.5rem;
   width: 1.75rem;
   text-align: center;
 }
 
-.starwarsffg .skillsGrid .dice-pool {
+.starwarsffg_sandbox .skillsGrid .dice-pool {
   margin: 0.5em 0;
   cursor: pointer;
   display: flex;
@@ -2391,19 +2391,19 @@ img {
   flex-wrap: wrap;
 }
 
-.starwarsffg .skillsGrid .dice-pool img {
+.starwarsffg_sandbox .skillsGrid .dice-pool img {
   max-width: 1em;
   max-height: 1em;
   border: 0;
 }
 
-.starwarsffg .items {
+.starwarsffg_sandbox .items {
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-.starwarsffg .items .items-header {
+.starwarsffg_sandbox .items .items-header {
   text-align: center;
   padding: 3px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -2413,24 +2413,24 @@ img {
   font-weight: normal;
 }
 
-.starwarsffg .items .items-header .header-name {
+.starwarsffg_sandbox .items .items-header .header-name {
   flex: 1 0 120px;
   text-align: left;
 }
 
-.starwarsffg .items li {
+.starwarsffg_sandbox .items li {
   padding: 3px;
 }
 
-.starwarsffg .items h1 {
+.starwarsffg_sandbox .items h1 {
   font-size: 1rem;
 }
 
-.starwarsffg .items h1 input {
+.starwarsffg_sandbox .items h1 input {
   padding-left: 130px;
 }
 
-.starwarsffg .items .skillsTablesGrid .skillsHeader {
+.starwarsffg_sandbox .items .skillsTablesGrid .skillsHeader {
   text-align: left;
   padding: 0.25rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -2440,27 +2440,27 @@ img {
   font-weight: normal;
 }
 
-.starwarsffg .items .skillsTablesGrid .skill {
+.starwarsffg_sandbox .items .skillsTablesGrid .skill {
   padding: 0.25rem;
 }
 
-.starwarsffg .items .resource {
+.starwarsffg_sandbox .items .resource {
   line-height: 1rem;
 }
 
-.starwarsffg .items .item-values {
+.starwarsffg_sandbox .items .item-values {
   border: 0;
 }
 
-.starwarsffg .items .items-list {
+.starwarsffg_sandbox .items .items-list {
   padding: 0;
 }
 
-.starwarsffg .character .items .items-list {
+.starwarsffg_sandbox .character .items .items-list {
   padding-bottom: 7px;
 }
 
-.starwarsffg .items .items-list .item {
+.starwarsffg_sandbox .items .items-list .item {
   line-height: 24px;
   padding: 3px 0;
   border-bottom: 1px solid #bbb;
@@ -2468,54 +2468,54 @@ img {
 }
 
 /* a modified value in the gear lists anchors its own sources popup, which stays out of the way of clicks */
-.starwarsffg .adjusted-value {
+.starwarsffg_sandbox .adjusted-value {
   position: relative;
 }
 
-.starwarsffg .adjusted-value .tooltip2 {
+.starwarsffg_sandbox .adjusted-value .tooltip2 {
   pointer-events: none;
   text-align: left;
 }
 
-.starwarsffg .items .items-list .item:hover {
+.starwarsffg_sandbox .items .items-list .item:hover {
   background: rgba(25, 24, 19, 0.12);
 }
 
-.starwarsffg .items .items-list .item img {
+.starwarsffg_sandbox .items .items-list .item img {
   flex: 0 0 24px;
   margin-right: 5px;
 }
 
-.starwarsffg .items .items-list .item .crew img {
+.starwarsffg_sandbox .items .items-list .item .crew img {
   flex: 0 0 24px;
   margin-right: 0;
 }
 
-.starwarsffg .items .items-list .item .toggle-equipped {
+.starwarsffg_sandbox .items .items-list .item .toggle-equipped {
   color: #888;
 }
 
-.starwarsffg .items .items-list .item .toggle-equipped.active {
+.starwarsffg_sandbox .items .items-list .item .toggle-equipped.active {
   color: #191813;
 }
 
-.starwarsffg .items .items-list .force-power {
+.starwarsffg_sandbox .items .items-list .force-power {
   line-height: 24px;
   padding: 3px 0;
   border-bottom: 1px solid #bbb;
   text-align: center;
 }
 
-.starwarsffg .items .items-list .force-power:hover {
+.starwarsffg_sandbox .items .items-list .force-power:hover {
   background: rgba(25, 24, 19, 0.12);
 }
 
-.starwarsffg .items .items-list .force-power img {
+.starwarsffg_sandbox .items .items-list .force-power img {
   flex: 0 0 24px;
   margin-right: 5px;
 }
 
-.starwarsffg .items .items-list .item-name {
+.starwarsffg_sandbox .items .items-list .item-name {
   margin: 0;
   cursor: pointer;
   flex: 1 0 120px;
@@ -2523,18 +2523,18 @@ img {
   display: flex;
 }
 
-.starwarsffg .items .items-list .item-controls {
+.starwarsffg_sandbox .items .items-list .item-controls {
   z-index: 500;
   width: 20px;
   text-align: end;
   margin: auto;
 }
 
-.starwarsffg .items .items-list .item-controls .item-control {
+.starwarsffg_sandbox .items .items-list .item-controls .item-control {
   padding: 5px;
 }
 
-.starwarsffg .item-details {
+.starwarsffg_sandbox .item-details {
   flex: 0 0 100%;
   text-align: left;
   line-height: 16px;
@@ -2544,7 +2544,7 @@ img {
   grid-area: inherit;
 }
 
-.starwarsffg .item-details .item-properties {
+.starwarsffg_sandbox .item-details .item-properties {
   position: relative;
   flex: 0 0 120px;
   margin: 5px 5px 5px 0;
@@ -2553,7 +2553,7 @@ img {
   color: rgba(0, 0, 0, 0.75);
 }
 
-.starwarsffg .item-details .item-properties .tag {
+.starwarsffg_sandbox .item-details .item-properties .tag {
   display: inline-block;
   margin: 0 2px 0 0;
   padding: 0 3px;
@@ -2564,16 +2564,16 @@ img {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.starwarsffg .item-details .item-properties ul {
+.starwarsffg_sandbox .item-details .item-properties ul {
   padding: 0;
   margin: 0.25rem 0;
 }
 
-.starwarsffg .item-details .restricted {
+.starwarsffg_sandbox .item-details .restricted {
   color: #8b0000;
 }
 
-.starwarsffg .item-rollable {
+.starwarsffg_sandbox .item-rollable {
   height: 24px;
   width: 48px;
   background-size: contain;
@@ -2583,14 +2583,14 @@ img {
   border: none;
 }
 
-.starwarsffg .item-rollable.rollable:hover {
-  background-image: url(/systems/starwarsffg/images/generic-die.svg) !important;
+.starwarsffg_sandbox .item-rollable.rollable:hover {
+  background-image: url(/systems/starwarsffg_sandbox/images/generic-die.svg) !important;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.starwarsffg.item-medical {
+.starwarsffg_sandbox.item-medical {
   height: 24px;
   width: 48px;
   background-size: contain;
@@ -2600,24 +2600,24 @@ img {
   border: none;
   position: relative;
 }
-.starwarsffg.item-medical img
+.starwarsffg_sandbox.item-medical img
 {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-.starwarsffg.item-medical:hover img {
+.starwarsffg_sandbox.item-medical:hover img {
   display: none;
 }
 
-.starwarsffg.item-medical[data-medical-type="1"]:hover {
-  background-image: url(/systems/starwarsffg/images/medical.png);
+.starwarsffg_sandbox.item-medical[data-medical-type="1"]:hover {
+  background-image: url(/systems/starwarsffg_sandbox/images/medical.png);
 }
-.starwarsffg.item-medical[data-medical-type="2"]:hover {
-  background-image: url(/systems/starwarsffg/images/repair-patch.webp);
+.starwarsffg_sandbox.item-medical[data-medical-type="2"]:hover {
+  background-image: url(/systems/starwarsffg_sandbox/images/repair-patch.webp);
 }
 
-.starwarsffg.item-card .item-details .item-properties .item-pill {
+.starwarsffg_sandbox.item-card .item-details .item-properties .item-pill {
   list-style-type: none;
   display: inline-block;
   cursor: pointer;
@@ -2629,7 +2629,7 @@ img {
   border-radius: 1rem;
 }
 
-.starwarsffg .xp-controls {
+.starwarsffg_sandbox .xp-controls {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2676,19 +2676,19 @@ img {
   background: none;
 }
 
-.starwarsffg.item-card .item-details .item-properties .item-pill.adjusted {
+.starwarsffg_sandbox.item-card .item-details .item-properties .item-pill.adjusted {
   color: #8b0000;
 }
 
-.starwarsffg .talents {
+.starwarsffg_sandbox .talents {
   margin: 0;
 }
 
-.starwarsffg table.force-powers {
+.starwarsffg_sandbox table.force-powers {
   border: 0;
 }
 
-.starwarsffg table.force-powers th {
+.starwarsffg_sandbox table.force-powers th {
   text-align: left;
   padding: 3px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -2698,30 +2698,30 @@ img {
   font-weight: normal;
 }
 
-.starwarsffg table.force-powers td {
+.starwarsffg_sandbox table.force-powers td {
   height: 30px;
   line-height: 24px;
   padding: 3px;
   position: relative;
 }
 
-.starwarsffg table.force-powers td .item-controls {
+.starwarsffg_sandbox table.force-powers td .item-controls {
   text-align: right;
   width: auto;
   z-index: auto;
 }
 
-.starwarsffg .talent-list {
+.starwarsffg_sandbox .talent-list {
   border: 0;
   padding: 0;
   margin: 1em 0 0 0;
 }
 
-.starwarsffg .talent-list .item:hover {
+.starwarsffg_sandbox .talent-list .item:hover {
   background: rgba(25, 24, 19, 0.12);
 }
 
-.starwarsffg .talent-list .talents-header {
+.starwarsffg_sandbox .talent-list .talents-header {
   text-align: center;
   padding: 3px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
@@ -2731,45 +2731,45 @@ img {
   font-weight: normal;
 }
 
-.starwarsffg .talent-list .talents-header .header-name {
+.starwarsffg_sandbox .talent-list .talents-header .header-name {
   flex: 1 0 120px;
   text-align: left;
 }
 
-.starwarsffg .talent-list .force-powers {
+.starwarsffg_sandbox .talent-list .force-powers {
   flex: 1 0 150px;
 }
 
-.starwarsffg .talent-list .item-controls {
+.starwarsffg_sandbox .talent-list .item-controls {
   z-index: 500;
   width: 20px;
   text-align: end;
   margin: auto;
 }
 
-.starwarsffg .talent-list .item-controls .item-control {
+.starwarsffg_sandbox .talent-list .item-controls .item-control {
   padding: 5px;
 }
 
-.starwarsffg .sheet-header .header-fields .talents-header .header-name {
+.starwarsffg_sandbox .sheet-header .header-fields .talents-header .header-name {
   font-size: 2rem;
   text-align: left;
 }
 
-.starwarsffg .biography .biography-editor {
+.starwarsffg_sandbox .biography .biography-editor {
   height: 83%;
 }
 
-.starwarsffg .biography .bio-grid {
+.starwarsffg_sandbox .biography .bio-grid {
   grid-column: span 5 / span 5;
   grid-template-columns: auto auto auto auto auto;
 }
 
-.starwarsffg .biography .resource.split {
+.starwarsffg_sandbox .biography .resource.split {
   width: 10rem;
 }
 
-.starwarsffg.actor .tab .container.biography-values {
+.starwarsffg_sandbox.actor .tab .container.biography-values {
   height: auto;
   display: flex;
   flex-direction: column-reverse;
@@ -2777,47 +2777,47 @@ img {
   padding-bottom: 10px;
 }
 
-.starwarsffg .sheet-body .biography .editor {
+.starwarsffg_sandbox .sheet-body .biography .editor {
   height: 100%;
 }
 
-.starwarsffg.actor .vehicle .biography .biography-editor {
+.starwarsffg_sandbox.actor .vehicle .biography .biography-editor {
   height: 100%;
 }
 
-.starwarsffg.actor .vehicle .tab .container.biography-values {
+.starwarsffg_sandbox.actor .vehicle .tab .container.biography-values {
   display: flex;
   flex-wrap: wrap;
   flex-direction: initial;
 }
 
-.starwarsffg.actor .vehicle .tab .container.biography-values .block-title {
+.starwarsffg_sandbox.actor .vehicle .tab .container.biography-values .block-title {
   font-size: 0.6rem;
 }
 
-.starwarsffg.actor .vehicle .tab .container.biography-values .resource {
+.starwarsffg_sandbox.actor .vehicle .tab .container.biography-values .resource {
   flex: 15%;
 }
 
-.starwarsffg .item-sheet-weapon .charname {
+.starwarsffg_sandbox .item-sheet-weapon .charname {
   width: 100%;
 }
 
-.starwarsffg .item-sheet-weapon .charname input {
+.starwarsffg_sandbox .item-sheet-weapon .charname input {
   color: #134103;
   border: 0;
 }
 
-.starwarsffg .item-sheet-weapon .charname input:focus {
+.starwarsffg_sandbox .item-sheet-weapon .charname input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .item-sheet-weapon .characteristic-item, .starwarsffg .item-sheet-weapon .block-background {
+.starwarsffg_sandbox .item-sheet-weapon .characteristic-item, .starwarsffg_sandbox .item-sheet-weapon .block-background {
   background-color: #bffebf;
 }
 
-.starwarsffg .item-sheet-weapon .characteristic-item .characteristic .adjustedvalues-left {
+.starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic .adjustedvalues-left {
   position: absolute;
   top: 0;
   right: 0;
@@ -2828,120 +2828,120 @@ img {
   border: 1px solid transparent;
 }
 
-.starwarsffg .item-sheet-weapon .characteristic-item .characteristic .adjustedvalues-left.positive {
+.starwarsffg_sandbox .item-sheet-weapon .characteristic-item .characteristic .adjustedvalues-left.positive {
   background: green;
 }
 
-.starwarsffg .item-sheet-weapon .adjustedvalue {
+.starwarsffg_sandbox .item-sheet-weapon .adjustedvalue {
   color: red;
 }
 
-.starwarsffg .item-sheet-weapon .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-weapon .attribute .block-title {
   background-color: #134103;
 }
 
-.starwarsffg .item-sheet-weapon .pills.itemmodifier, .starwarsffg .item-sheet-weapon .pills.itemattachment {
+.starwarsffg_sandbox .item-sheet-weapon .pills.itemmodifier, .starwarsffg_sandbox .item-sheet-weapon .pills.itemattachment {
   width: auto;
   max-width: 50%;
   width: 50%;
 }
 
-.starwarsffg .item-sheet-weapon .pills.itemmodifier .item-pill-list, .starwarsffg .item-sheet-weapon .pills.itemattachment .item-pill-list {
+.starwarsffg_sandbox .item-sheet-weapon .pills.itemmodifier .item-pill-list, .starwarsffg_sandbox .item-sheet-weapon .pills.itemattachment .item-pill-list {
   max-height: 75px;
   height: 75px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-weapon .container.flex-group-center {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-weapon .container.flex-group-center {
   padding: 0 5px 0 5px;
   margin-bottom: 0;
 }
-.starwarsffg.sheet.item.v2 .item-sheet-weapon .container.special {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-weapon .container.special {
   padding: 0 0 15px 5px;
   margin-bottom: 0;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-weapon .weapon-values {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-weapon .weapon-values {
   margin: 0 5px;
   padding: 0 5px 0 5px;
 }
 
-.starwarsffg .item-sheet-armor .charname input {
+.starwarsffg_sandbox .item-sheet-armor .charname input {
   color: #553113;
 }
 
-.starwarsffg .item-sheet-armor .characteristic-item .characteristic {
+.starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic {
   border: 5px double #553113;
 }
 
-.starwarsffg .item-sheet-armor .characteristic-item .characteristic .adjustedvalues-left {
+.starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic .adjustedvalues-left {
   position: absolute;
   top: 0;
   right: 2px;
   color: red;
 }
 
-.starwarsffg .item-sheet-armor .characteristic-item .characteristic .adjustedvalues-left.positive {
+.starwarsffg_sandbox .item-sheet-armor .characteristic-item .characteristic .adjustedvalues-left.positive {
   color: green;
 }
 
-.starwarsffg .item-sheet-armor .adjustedvalue {
+.starwarsffg_sandbox .item-sheet-armor .adjustedvalue {
   color: red;
 }
 
-.starwarsffg .item-sheet-armor .characteristic-item, .starwarsffg .item-sheet-armor .block-background {
+.starwarsffg_sandbox .item-sheet-armor .characteristic-item, .starwarsffg_sandbox .item-sheet-armor .block-background {
   background-color: #e9c09e;
 }
 
-.starwarsffg .item-sheet-armor .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-armor .attribute .block-title {
   background-color: #553113;
 }
 
-.starwarsffg .item-sheet-armor .pills.itemmodifier, .starwarsffg .item-sheet-armor .pills.itemattachment {
+.starwarsffg_sandbox .item-sheet-armor .pills.itemmodifier, .starwarsffg_sandbox .item-sheet-armor .pills.itemattachment {
   width: auto;
   max-width: 50%;
   width: 50%;
 }
 
-.starwarsffg .item-sheet-armor .pills.itemmodifier .item-pill-list, .starwarsffg .item-sheet-armor .pills.itemattachment .item-pill-list {
+.starwarsffg_sandbox .item-sheet-armor .pills.itemmodifier .item-pill-list, .starwarsffg_sandbox .item-sheet-armor .pills.itemattachment .item-pill-list {
   max-height: 75px;
   height: 75px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-armor .container.flex-group-center {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-armor .container.flex-group-center {
   padding: 0 5px 0 5px;
   margin-bottom: 0;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-armor .weapon-values {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-armor .weapon-values {
   margin: 0 5px;
   padding: 0 5px 0 5px;
 }
 
-.starwarsffg .item-sheet-gear .charname input {
+.starwarsffg_sandbox .item-sheet-gear .charname input {
   color: #2c0344;
 }
 
-.starwarsffg .item-sheet-gear .characteristic-item, .starwarsffg .item-sheet-gear .block-background {
+.starwarsffg_sandbox .item-sheet-gear .characteristic-item, .starwarsffg_sandbox .item-sheet-gear .block-background {
   background-color: #e9c6fd;
 }
 
-.starwarsffg .item-sheet-gear .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-gear .attribute .block-title {
   background-color: #2c0344;
 }
 
-.starwarsffg .item-sheet-talent .charname input {
+.starwarsffg_sandbox .item-sheet-talent .charname input {
   color: #821517;
 }
 
-.starwarsffg .item-sheet-talent .characteristic-item .characteristic-label {
+.starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic-label {
   background-color: #821517;
 }
 
-.starwarsffg .item-sheet-talent .characteristic-item .characteristic {
+.starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic {
   position: relative;
   width: 55px;
   height: 55px;
@@ -2951,11 +2951,11 @@ img {
   border: 2px solid rgba(0, 0, 0, 0.5);
 }
 
-.starwarsffg .item-sheet-talent .characteristic-item .characteristic .characteristic-value {
+.starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic .characteristic-value {
   height: 100%;
 }
 
-.starwarsffg .item-sheet-talent .characteristic-item .characteristic .characteristic-value input {
+.starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic .characteristic-value input {
   height: 100%;
   border: 0;
   font-size: 2rem;
@@ -2964,86 +2964,86 @@ img {
   margin: 1px 0 0;
 }
 
-.starwarsffg .item-sheet-talent .characteristic-item .characteristic .characteristic-value input:focus {
+.starwarsffg_sandbox .item-sheet-talent .characteristic-item .characteristic .characteristic-value input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
   border-radius: 5px;
 }
 
-.starwarsffg .item-sheet-talent .block-background {
+.starwarsffg_sandbox .item-sheet-talent .block-background {
   background-color: #f2ebde;
 }
 
-.starwarsffg .item-sheet-talent .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-talent .attribute .block-title {
   background-color: #821517;
 }
 
-.starwarsffg .minion {
+.starwarsffg_sandbox .minion {
   flex: auto;
 }
 
-.starwarsffg .minion .sheet-header .minion-name {
+.starwarsffg_sandbox .minion .sheet-header .minion-name {
   flex: 1;
   flex-wrap: wrap;
 }
 
-.starwarsffg .minion .sheet-header .minion-name h1 {
+.starwarsffg_sandbox .minion .sheet-header .minion-name h1 {
   font-size: 1.5rem;
   padding-left: 2rem;
 }
 
-.starwarsffg .minion .sheet-header .minion-name h1 input {
+.starwarsffg_sandbox .minion .sheet-header .minion-name h1 input {
   margin: 0;
   color: rgba(73, 12, 11, 0.85);
 }
 
-.starwarsffg .minion .sheet-header .minion-name input {
+.starwarsffg_sandbox .minion .sheet-header .minion-name input {
   border: 0;
 }
 
-.starwarsffg .minion .sheet-header .minion-name input:focus {
+.starwarsffg_sandbox .minion .sheet-header .minion-name input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .minion .sheet-header .tab {
+.starwarsffg_sandbox .minion .sheet-header .tab {
   height: 100%;
   padding: 0;
 }
 
-.starwarsffg .minion .sheet-header .tab.characteristics {
+.starwarsffg_sandbox .minion .sheet-header .tab.characteristics {
   overflow: hidden;
 }
 
-.starwarsffg .minion .sheet-header .tab.characteristics > div.grid {
+.starwarsffg_sandbox .minion .sheet-header .tab.characteristics > div.grid {
   padding: 0.25rem 0;
 }
 
-.starwarsffg .minion .sheet-header .profile-block .block-background {
+.starwarsffg_sandbox .minion .sheet-header .profile-block .block-background {
   background: rgba(255, 255, 255, 0.5);
 }
 
-.starwarsffg .minion .minion-stats {
+.starwarsffg_sandbox .minion .minion-stats {
   width: 100%;
   margin: 0 0 1em;
 }
 
-.starwarsffg .minion table.items {
+.starwarsffg_sandbox .minion table.items {
   margin: 1em 0;
 }
 
-.starwarsffg .minion .biography-editor {
+.starwarsffg_sandbox .minion .biography-editor {
   height: 100%;
 }
 
-.starwarsffg .minion .profile-block {
+.starwarsffg_sandbox .minion .profile-block {
   margin-right: 5px;
   margin-left: 5px;
   height: 130px;
   max-width: 130px;
 }
 
-.starwarsffg .minion .profile-img {
+.starwarsffg_sandbox .minion .profile-img {
   flex: 0 0 100px;
   height: 124px;
   width: auto;
@@ -3053,70 +3053,70 @@ img {
   object-fit: contain;
 }
 
-.starwarsffg .minion .sheet-body.double {
+.starwarsffg_sandbox .minion .sheet-body.double {
   width: 235px;
 }
 
-.starwarsffg .minion table.items {
+.starwarsffg_sandbox .minion table.items {
   margin: 1em 0;
 }
 
-.starwarsffg .minion .biography-editor {
+.starwarsffg_sandbox .minion .biography-editor {
   height: 100%;
 }
 
-.starwarsffg .minion .header-fields .resource:first-child {
+.starwarsffg_sandbox .minion .header-fields .resource:first-child {
   margin-left: 0;
 }
 
-.starwarsffg .minion .header-fields .resource:last-child {
+.starwarsffg_sandbox .minion .header-fields .resource:last-child {
   margin-right: 0;
 }
 
-.starwarsffg .minion .header-fields .resource.single {
+.starwarsffg_sandbox .minion .header-fields .resource.single {
   flex: auto;
 }
 
-.starwarsffg .minion.v2 .sheet-body {
+.starwarsffg_sandbox .minion.v2 .sheet-body {
   height: calc(100% - 13.5rem);
 }
 
-.starwarsffg.sheet.actor .vehicle {
+.starwarsffg_sandbox.sheet.actor .vehicle {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.starwarsffg.sheet.actor .vehicle .grid {
+.starwarsffg_sandbox.sheet.actor .vehicle .grid {
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .vehicle .header-fields .container.flex-group-center {
+.starwarsffg_sandbox.sheet.actor .vehicle .header-fields .container.flex-group-center {
   padding: 0;
   margin-bottom: 0.25rem;
 }
 
-.starwarsffg.sheet.actor .vehicle .header-fields .block-background {
+.starwarsffg_sandbox.sheet.actor .vehicle .header-fields .block-background {
   position: relative;
 }
 
-.starwarsffg.sheet.actor .vehicle .header-fields .block-background.defense-group, .starwarsffg.sheet.actor .vehicle .header-fields .block-background.vehicle-img {
+.starwarsffg_sandbox.sheet.actor .vehicle .header-fields .block-background.defense-group, .starwarsffg_sandbox.sheet.actor .vehicle .header-fields .block-background.vehicle-img {
   background: rgba(255, 255, 255, 0.5);
 }
 
-.starwarsffg.sheet.actor .vehicle .header-fields .flex-group-right {
+.starwarsffg_sandbox.sheet.actor .vehicle .header-fields .flex-group-right {
   border: 0;
   padding: 0 0.25rem;
 }
 
-.starwarsffg.sheet.actor .vehicle .header-fields .profile-block {
+.starwarsffg_sandbox.sheet.actor .vehicle .header-fields .profile-block {
   width: 100%;
   height: 100%;
   display: grid;
   max-width: 100%;
 }
 
-.starwarsffg.sheet.actor .vehicle .header-fields .profile-block .profile-img {
+.starwarsffg_sandbox.sheet.actor .vehicle .header-fields .profile-block .profile-img {
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -3126,11 +3126,11 @@ img {
   max-height: 200px;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-group {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-group {
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-group .defense-decoration {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-group .defense-decoration {
   position: absolute;
   width: 175px;
   height: 175px;
@@ -3141,7 +3141,7 @@ img {
   background: conic-gradient(#c7794b 0% 25%, #dbc48e 25% 50%, #c7794b 50% 75%, #dbc48e 75% 100%);
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-group img {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-group img {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -3149,13 +3149,13 @@ img {
   border: 0;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block {
   height: 200px;
   width: 100%;
   position: relative;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-block-title {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-block-title {
   position: absolute;
   top: 0;
   left: 0;
@@ -3169,7 +3169,7 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value {
   border-radius: 10px;
   border: 5px double #1f1c39;
   margin: auto;
@@ -3177,7 +3177,7 @@ img {
   background-color: white;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value .defense-value-label {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value .defense-value-label {
   position: absolute;
   text-transform: uppercase;
   background-color: #490c0b;
@@ -3192,51 +3192,51 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.fore {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.fore {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.fore .defense-value-label {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.fore .defense-value-label {
   bottom: -20px;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.aft {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.aft {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.aft .defense-value-label {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.aft .defense-value-label {
   top: -20px;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.port {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.port {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.port .defense-value-label {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.port .defense-value-label {
   left: 50px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.starboard {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.starboard {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value.starboard .defense-value-label {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value.starboard .defense-value-label {
   left: -50px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value input {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value input {
   height: 40px;
   width: 40px;
   border: 0;
@@ -3244,69 +3244,69 @@ img {
   text-align: center;
 }
 
-.starwarsffg.sheet.actor .vehicle .defense-block .defense-value input:focus {
+.starwarsffg_sandbox.sheet.actor .vehicle .defense-block .defense-value input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
   border-radius: 5px;
 }
 
-.starwarsffg.sheet.actor .vehicle .characteristic-item {
+.starwarsffg_sandbox.sheet.actor .vehicle .characteristic-item {
   width: 100%;
 }
 
-.starwarsffg.sheet.actor .vehicle .characteristic-item .characteristic-label {
+.starwarsffg_sandbox.sheet.actor .vehicle .characteristic-item .characteristic-label {
   background-color: #226cc5;
 }
 
-.starwarsffg.sheet.actor .vehicle .characteristic-item .characteristic .characteristic-value input:focus {
+.starwarsffg_sandbox.sheet.actor .vehicle .characteristic-item .characteristic .characteristic-value input:focus {
   border-radius: 5px;
 }
 
-.starwarsffg.sheet.actor .vehicle .attribute .block-title {
+.starwarsffg_sandbox.sheet.actor .vehicle .attribute .block-title {
   background-color: #1f1c39;
 }
 
-.starwarsffg.sheet.actor .vehicle .biography-values {
+.starwarsffg_sandbox.sheet.actor .vehicle .biography-values {
   border: 0;
   bottom: 1rem;
 }
 
-.starwarsffg.sheet.actor .vehicle .injuries .resource.full {
+.starwarsffg_sandbox.sheet.actor .vehicle .injuries .resource.full {
   flex: 100%;
 }
 
-.starwarsffg.sheet.actor .vehicle nav.sheet-tabs {
+.starwarsffg_sandbox.sheet.actor .vehicle nav.sheet-tabs {
   margin-top: 1rem;
 }
 
-.starwarsffg.sheet.actor .vehicle .injuries {
+.starwarsffg_sandbox.sheet.actor .vehicle .injuries {
   position: initial;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .popout-editor {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .popout-editor {
   height: 100%;
   width: 100%;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .characteristic-item {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item {
   width: 100%;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .characteristic-item input {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item input {
   color: #1f1c37;
   border: 0;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .characteristic-item input:focus {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic {
   border: 5px double #bffebf;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic .adjustedvalues-left {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic .adjustedvalues-left {
   position: absolute;
   top: 0;
   right: 0;
@@ -3317,37 +3317,37 @@ img {
   border: 1px solid transparent;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .characteristic-item .characteristic .adjustedvalues-left.positive {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item .characteristic .adjustedvalues-left.positive {
   color: green;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .adjustedvalue {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .adjustedvalue {
   color: red;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .characteristic-item, .starwarsffg .item-sheet-vehicle-weapon .block-background {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .characteristic-item, .starwarsffg_sandbox .item-sheet-vehicle-weapon .block-background {
   background-color: #bffebf;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .attribute .block-title {
   background-color: #134103;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .firing-arcs {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .firing-arcs {
   gap: 0px;
   text-align: left;
   padding: 0 10px;
   line-height: 20px;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .firing-arcs label {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .firing-arcs label {
   display: inline-block;
   padding-left: 15px;
   text-indent: -15px;
   font-size: .675rem;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .firing-arcs input[type="checkbox"] {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .firing-arcs input[type="checkbox"] {
   position: relative;
   padding: 0;
   margin: 0;
@@ -3355,66 +3355,66 @@ img {
   height: 13px;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .pills.itemmodifier, .starwarsffg .item-sheet-vehicle-weapon .pills.itemattachment {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .pills.itemmodifier, .starwarsffg_sandbox .item-sheet-vehicle-weapon .pills.itemattachment {
   width: auto;
   max-width: 50%;
   width: 50%;
 }
 
-.starwarsffg .item-sheet-vehicle-weapon .pills.itemmodifier .item-pill-list, .starwarsffg .item-sheet-vehicle-weapon .pills.itemattachment .item-pill-list {
+.starwarsffg_sandbox .item-sheet-vehicle-weapon .pills.itemmodifier .item-pill-list, .starwarsffg_sandbox .item-sheet-vehicle-weapon .pills.itemattachment .item-pill-list {
   max-height: 75px;
   height: 75px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.starwarsffg .vehicle .items.active v1 {
+.starwarsffg_sandbox .vehicle .items.active v1 {
   max-height: 200px;
   height: 200px;
 }
 
-.starwarsffg .vehicle .items.active {
+.starwarsffg_sandbox .vehicle .items.active {
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.starwarsffg.sheet.item.v2 {
+.starwarsffg_sandbox.sheet.item.v2 {
   background-color: #1f1c37;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-vehicle-weapon .container.flex-group-center {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-vehicle-weapon .container.flex-group-center {
   padding: 0 5px 0 5px;
   margin-bottom: 0;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-vehicle-weapon .weapon-values {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-vehicle-weapon .weapon-values {
   margin: 0 5px;
   padding: 0 5px 0 5px;
 }
 
-.starwarsffg .item-sheet-vehicle-attachment .charname {
+.starwarsffg_sandbox .item-sheet-vehicle-attachment .charname {
   width: 100%;
 }
 
-.starwarsffg .item-sheet-vehicle-attachment .charname input {
+.starwarsffg_sandbox .item-sheet-vehicle-attachment .charname input {
   color: #c87b4d;
   border: 0;
 }
 
-.starwarsffg .item-sheet-vehicle-attachment .charname input:focus {
+.starwarsffg_sandbox .item-sheet-vehicle-attachment .charname input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .item-sheet-vehicle-attachment .characteristic-item, .starwarsffg .item-sheet-vehicle-attachment .block-background {
+.starwarsffg_sandbox .item-sheet-vehicle-attachment .characteristic-item, .starwarsffg_sandbox .item-sheet-vehicle-attachment .block-background {
   background-color: #dfc68d;
 }
 
-.starwarsffg .item-sheet-vehicle-attachment .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-vehicle-attachment .attribute .block-title {
   background-color: #c87b4d;
 }
 
-.starwarsffg .group-manager {
+.starwarsffg_sandbox .group-manager {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -3426,39 +3426,39 @@ img {
   position: relative;
 }
 
-.starwarsffg .group-manager .PC-list {
+.starwarsffg_sandbox .group-manager .PC-list {
   margin: 20px 0;
 }
 
-.starwarsffg .group-manager .initiative-mode {
+.starwarsffg_sandbox .group-manager .initiative-mode {
   width: 100%;
 }
 
-.starwarsffg .group-manager .player-character:hover {
+.starwarsffg_sandbox .group-manager .player-character:hover {
   background: rgba(25, 24, 19, 0.03);
   margin: +2px;
 }
 
-.starwarsffg .item:hover .hover {
+.starwarsffg_sandbox .item:hover .hover {
   text-decoration: underline;
 }
 
-.starwarsffg .hover:hover .tooltip {
+.starwarsffg_sandbox .hover:hover .tooltip {
   opacity: 1;
   z-index: 500;
 }
 
-.starwarsffg .hover:hover .tooltip2 {
+.starwarsffg_sandbox .hover:hover .tooltip2 {
   opacity: 1;
   z-index: 500;
 }
 
-.starwarsffg .hover:focus .tooltip2 {
+.starwarsffg_sandbox .hover:focus .tooltip2 {
   opacity: 1;
   z-index: 500;
 }
 
-.starwarsffg .hover .tooltip {
+.starwarsffg_sandbox .hover .tooltip {
   position: absolute;
   top: 100%;
   margin: 0;
@@ -3473,7 +3473,7 @@ img {
   pointer-events: none;
 }
 
-.starwarsffg .hover .tooltip2 {
+.starwarsffg_sandbox .hover .tooltip2 {
   width: 100%;
   height: -webkit-max-content;
   height: -moz-max-content;
@@ -3492,30 +3492,30 @@ img {
   padding: 5px 10px;
 }
 
-.starwarsffg .hover .tooltip2 li {
+.starwarsffg_sandbox .hover .tooltip2 li {
   text-align: left;
 }
 
-.starwarsffg .hover .tooltip2 .dietype {
+.starwarsffg_sandbox .hover .tooltip2 .dietype {
   background-color: white;
 }
 
-.starwarsffg .ffg-sendtochat.hover:hover .tooltip2 {
+.starwarsffg_sandbox .ffg-sendtochat.hover:hover .tooltip2 {
   background: #fff;
   border: 1px solid #23221d;
   color: #23221d;
 }
 
-.starwarsffg .skillsGrid .skillTable div.skill:last-child .tooltip2 {
+.starwarsffg_sandbox .skillsGrid .skillTable div.skill:last-child .tooltip2 {
   bottom: 2rem;
 }
 
-.starwarsffg .attributes {
+.starwarsffg_sandbox .attributes {
   margin: 0;
   border: 0;
 }
 
-.starwarsffg .attributes .attributes-header {
+.starwarsffg_sandbox .attributes .attributes-header {
   padding: 5px;
   margin: 0 0 5px 0;
   background: rgba(0, 0, 0, 0.05);
@@ -3524,21 +3524,21 @@ img {
   font-weight: bold;
 }
 
-.starwarsffg .attributes .attribute-label {
+.starwarsffg_sandbox .attributes .attribute-label {
   flex: 1.5;
 }
 
-.starwarsffg .attributes .attribute-control {
+.starwarsffg_sandbox .attributes .attribute-control {
   flex: 0 0 20px;
 }
 
-.starwarsffg .attributes .attributes-list {
+.starwarsffg_sandbox .attributes .attributes-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.starwarsffg .attributes .attributes-list tr > * {
+.starwarsffg_sandbox .attributes .attributes-list tr > * {
   margin: 0 3px;
   height: 28px;
   line-height: 24px;
@@ -3549,111 +3549,111 @@ img {
   overflow: auto;
 }
 
-.starwarsffg .attributes .attributes-list .attribute.item {
+.starwarsffg_sandbox .attributes .attributes-list .attribute.item {
   position: relative;
 }
 
-.starwarsffg .attributes .attributes-list .attribute.item:hover {
+.starwarsffg_sandbox .attributes .attributes-list .attribute.item:hover {
   background: rgba(25, 24, 19, 0.12);
   margin: +2px;
 }
 
-.starwarsffg .attributes .attribute-value.checkbox {
+.starwarsffg_sandbox .attributes .attribute-value.checkbox {
   text-align: center;
 }
 
-.starwarsffg .item-sheet-criticalinjury .sheet-header {
+.starwarsffg_sandbox .item-sheet-criticalinjury .sheet-header {
   overflow: visible;
 }
 
-.starwarsffg .item-sheet-criticalinjury .header-fields .container.flex-group-center.full {
+.starwarsffg_sandbox .item-sheet-criticalinjury .header-fields .container.flex-group-center.full {
   margin-top: 1rem;
 }
 
-.starwarsffg .item-sheet-criticalinjury .charname input {
+.starwarsffg_sandbox .item-sheet-criticalinjury .charname input {
   color: #830707;
   border: 0 none;
 }
 
-.starwarsffg .item-sheet-criticalinjury .charname input:focus {
+.starwarsffg_sandbox .item-sheet-criticalinjury .charname input:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .item-sheet-criticalinjury .block-background {
+.starwarsffg_sandbox .item-sheet-criticalinjury .block-background {
   background-color: #da9797;
 }
 
-.starwarsffg .item-sheet-criticalinjury .block-background .block-title {
+.starwarsffg_sandbox .item-sheet-criticalinjury .block-background .block-title {
   background-color: #830707;
 }
 
-.starwarsffg .item-sheet-criticalinjury .severity-img {
+.starwarsffg_sandbox .item-sheet-criticalinjury .severity-img {
   max-height: 15px;
   max-width: 15px;
   border: 0;
 }
 
-.starwarsffg .item-sheet-criticalinjury .resource {
+.starwarsffg_sandbox .item-sheet-criticalinjury .resource {
   flex: 100%;
 }
 
-.starwarsffg .item-sheet-criticalinjury select:focus {
+.starwarsffg_sandbox .item-sheet-criticalinjury select:focus {
   box-shadow: 0 0 5px #7da9c2;
   background-color: #7da9c2;
 }
 
-.starwarsffg .item-sheet-criticalinjury .editor-wrapper {
+.starwarsffg_sandbox .item-sheet-criticalinjury .editor-wrapper {
   display: block;
 }
 
-.starwarsffg .item-sheet-criticalinjury .block-background.block-editor {
+.starwarsffg_sandbox .item-sheet-criticalinjury .block-background.block-editor {
   background-color: #da9797;
   height: 12.5rem;
 }
 
-.starwarsffg .item-sheet-criticalinjury .severity-block {
+.starwarsffg_sandbox .item-sheet-criticalinjury .severity-block {
   position: relative;
 }
 
-.starwarsffg .injuries {
+.starwarsffg_sandbox .injuries {
   width: calc(100% - 0.25rem);
   overflow-y: scroll;
   margin-left: 0.25rem;
 }
 
-.starwarsffg .injuries .grid, .starwarsffg .injuries .grid-2col {
+.starwarsffg_sandbox .injuries .grid, .starwarsffg_sandbox .injuries .grid-2col {
   margin: 0;
 }
 
-.starwarsffg .injuries div.item {
+.starwarsffg_sandbox .injuries div.item {
   cursor: pointer;
   border-bottom: 1px solid #bbb;
 }
 
-.starwarsffg .injuries div.item:nth-last-of-type(1) {
+.starwarsffg_sandbox .injuries div.item:nth-last-of-type(1) {
   border-bottom: none;
 }
 
-.starwarsffg .injuries div.item:hover {
+.starwarsffg_sandbox .injuries div.item:hover {
   background: rgba(25, 24, 19, 0.12);
 }
 
-.starwarsffg .injuries .severity {
+.starwarsffg_sandbox .injuries .severity {
   position: relative;
 }
 
-.starwarsffg .injuries .severity-img {
+.starwarsffg_sandbox .injuries .severity-img {
   max-height: 15px;
   max-width: 15px;
   border: 0;
 }
 
-.starwarsffg .injuries .resource.full {
+.starwarsffg_sandbox .injuries .resource.full {
   margin: 0;
 }
 
-.starwarsffg .injuries .block-header > div:first-child {
+.starwarsffg_sandbox .injuries .block-header > div:first-child {
   line-height: initial;
   background-color: #415064;
   color: white;
@@ -3666,7 +3666,7 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .injuries .block-header > div:last-child {
+.starwarsffg_sandbox .injuries .block-header > div:last-child {
   background-color: rgba(73, 12, 11, 0.85);
   margin: 0.25rem 0;
   color: white;
@@ -3674,27 +3674,27 @@ img {
   line-height: 1.25rem;
 }
 
-.starwarsffg .injuries .item-controls {
+.starwarsffg_sandbox .injuries .item-controls {
   z-index: 500;
   text-align: end;
   margin: auto;
 }
 
-.starwarsffg .injuries .item-controls .item-control {
+.starwarsffg_sandbox .injuries .item-controls .item-control {
   padding: 5px;
 }
 
-.starwarsffg.sheet.item .item-sheet-forcepower .popout-editor {
+.starwarsffg_sandbox.sheet.item .item-sheet-forcepower .popout-editor {
   height: 100%;
   width: 100%;
   min-height: 2rem;
   position: relative;
 }
-.starwarsffg .item-sheet-forcepower .required_fr input[type=text] {
+.starwarsffg_sandbox .item-sheet-forcepower .required_fr input[type=text] {
   width: 10px;
 }
 
-.starwarsffg .item-sheet-forcepower {
+.starwarsffg_sandbox .item-sheet-forcepower {
   min-width: 700px;
   min-height: 600px;
   display: flex;
@@ -3702,36 +3702,36 @@ img {
   height: 100%;
 }
 
-.starwarsffg .item-sheet-forcepower .talent-background .talent-header {
+.starwarsffg_sandbox .item-sheet-forcepower .talent-background .talent-header {
   background-color: #0e4400;
 }
 
-.starwarsffg .item-sheet-forcepower .talent-background .talent-header div input[type="text"] {
+.starwarsffg_sandbox .item-sheet-forcepower .talent-background .talent-header div input[type="text"] {
   background-color: #1a8200;
 }
 
-.starwarsffg .item-sheet-forcepower .header-fields .talent-body {
+.starwarsffg_sandbox .item-sheet-forcepower .header-fields .talent-body {
   margin-top: 0.25rem;
   padding: 0;
 }
 
-.starwarsffg .item-sheet-forcepower .header-fields {
+.starwarsffg_sandbox .item-sheet-forcepower .header-fields {
   position: relative;
   padding-bottom: 0;
 }
 
-.starwarsffg .item-sheet-forcepower .header-fields .talent-actions {
+.starwarsffg_sandbox .item-sheet-forcepower .header-fields .talent-actions {
   position: absolute;
   right: 0.5rem;
   top: 15px;
   color: white;
 }
 
-.starwarsffg .item-sheet-forcepower .header-fields textarea {
+.starwarsffg_sandbox .item-sheet-forcepower .header-fields textarea {
   max-width: 695px;
 }
 
-.starwarsffg .item-sheet-forcepower .sheet-body {
+.starwarsffg_sandbox .item-sheet-forcepower .sheet-body {
   flex: 1;
   min-height: 0;
   height: auto;
@@ -3741,7 +3741,7 @@ img {
   background: transparent;
 }
 
-.starwarsffg .item-sheet-forcepower .talent-cost {
+.starwarsffg_sandbox .item-sheet-forcepower .talent-cost {
   bottom: 0;
   left: 0;
   position: absolute;
@@ -3757,7 +3757,7 @@ img {
   clip-path: polygon(0 0, var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .item-sheet-forcepower .talent-cost input {
+.starwarsffg_sandbox .item-sheet-forcepower .talent-cost input {
   width: 1rem;
   height: 0.75rem;
   border: 0;
@@ -3765,55 +3765,55 @@ img {
   color: #0e4400;
 }
 
-.starwarsffg .item-sheet-forcepower .sheet-body .talent-background > .talent-cost {
+.starwarsffg_sandbox .item-sheet-forcepower .sheet-body .talent-background > .talent-cost {
   position: static;
   width: fit-content;
   margin-left: -5px;
 }
 
-.starwarsffg .item-sheet-forcepower .sheet-body .talent-background > .talent-body {
+.starwarsffg_sandbox .item-sheet-forcepower .sheet-body .talent-background > .talent-body {
   height: calc(100% - 2.75rem);
 }
 
-.starwarsffg .item-sheet-forcepower .talent-modifiers {
+.starwarsffg_sandbox .item-sheet-forcepower .talent-modifiers {
   position: absolute;
   right: 5px;
   bottom: 2px;
   z-index: 10;
 }
 
-.starwarsffg .talent-list .item.forcepower #context-menu {
+.starwarsffg_sandbox .talent-list .item.forcepower #context-menu {
   max-width: none;
 }
 
-.starwarsffg.sheet.item .item-sheet-specialization .popout-editor {
+.starwarsffg_sandbox.sheet.item .item-sheet-specialization .popout-editor {
   height: 100%;
   width: 100%;
   min-height: 2rem;
   position: relative;
 }
 
-.starwarsffg.sheet.item .item-sheet-specialization .talent-grid .popout-editor {
+.starwarsffg_sandbox.sheet.item .item-sheet-specialization .talent-grid .popout-editor {
   height: calc(100% - 1.3rem);
 }
 
-.starwarsffg .item-sheet-specialization {
+.starwarsffg_sandbox .item-sheet-specialization {
   min-width: 700px;
   min-height: 600px;
 }
 
-.starwarsffg .item-sheet-specialization .talent-upgrade {
+.starwarsffg_sandbox .item-sheet-specialization .talent-upgrade {
   margin: 5px 10px 10px 10px;
 }
 
-.starwarsffg .item-sheet-specialization .talent-modifiers {
+.starwarsffg_sandbox .item-sheet-specialization .talent-modifiers {
   position: absolute;
   right: 5px;
   bottom: 2px;
   z-index: 10;
 }
 
-.starwarsffg .item-sheet-specialization .sheet-body {
+.starwarsffg_sandbox .item-sheet-specialization .sheet-body {
   height: calc(100% - 9.5rem);
   margin: 0;
   padding: 0;
@@ -3822,20 +3822,20 @@ img {
   background: transparent;
 }
 
-.starwarsffg .item-sheet-specialization input.conflict {
+.starwarsffg_sandbox .item-sheet-specialization input.conflict {
   opacity: .5;
 }
 
-.starwarsffg .item-sheet-specialization input.conflict:after {
+.starwarsffg_sandbox .item-sheet-specialization input.conflict:after {
   content: "";
   background-color: red;
 }
 
-.starwarsffg .item-sheet-specialization .header-fields {
+.starwarsffg_sandbox .item-sheet-specialization .header-fields {
   padding-bottom: 0;
 }
 
-.starwarsffg .burst-8 {
+.starwarsffg_sandbox .burst-8 {
   z-index: -1;
   left: 0.4rem;
   background: rgba(255, 255, 255, 0.5);
@@ -3846,7 +3846,7 @@ img {
   transform: rotate(20deg);
 }
 
-.starwarsffg .burst-8:before {
+.starwarsffg_sandbox .burst-8:before {
   content: "";
   position: absolute;
   top: 0;
@@ -3857,7 +3857,7 @@ img {
   transform: rotate(135deg);
 }
 
-.starwarsffg div.conflict {
+.starwarsffg_sandbox div.conflict {
   height: 1rem;
   width: 1rem;
   position: absolute;
@@ -3867,92 +3867,92 @@ img {
   z-index: -1;
 }
 
-.starwarsffg.data-import .import-file-selector div {
+.starwarsffg_sandbox.data-import .import-file-selector div {
   display: inline-block;
 }
 
-.starwarsffg.data-import .import-invalid {
+.starwarsffg_sandbox.data-import .import-invalid {
   display: none;
 }
 
-.starwarsffg.data-import .import-hidden {
+.starwarsffg_sandbox.data-import .import-hidden {
   visibility: hidden;
 }
 
-.starwarsffg.data-import .import-progress {
+.starwarsffg_sandbox.data-import .import-progress {
   background-color: #f1f1f1;
   margin: 0.25rem 0.25rem;
   width: 100%;
 }
 
-.starwarsffg.data-import .import-progress.current {
+.starwarsffg_sandbox.data-import .import-progress.current {
   width: inherit;
 }
 
-.starwarsffg.data-import .import-progress.overall {
+.starwarsffg_sandbox.data-import .import-progress.overall {
   width: inherit;
 }
 
-.starwarsffg.data-import .import-progress .import-progress-bar {
+.starwarsffg_sandbox.data-import .import-progress .import-progress-bar {
   height: 24px;
   background-color: green;
   text-align: center;
 }
 
-.starwarsffg.data-import .import-progress .import-progress-bar span {
+.starwarsffg_sandbox.data-import .import-progress .import-progress-bar span {
   line-height: 24px;
 }
 
-.starwarsffg.data-import .skilllist table {
+.starwarsffg_sandbox.data-import .skilllist table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
 }
 
-.starwarsffg.data-import .skilllist th, .starwarsffg.data-import .skilllist td {
+.starwarsffg_sandbox.data-import .skilllist th, .starwarsffg_sandbox.data-import .skilllist td {
   padding: 0.3125rem;
   text-align: center;
   width: 7.8125rem;
 }
 
-.starwarsffg.data-import .skilllist tbody {
+.starwarsffg_sandbox.data-import .skilllist tbody {
   display: block;
   overflow: auto;
   height: 4.5rem;
   width: 100%;
 }
 
-.starwarsffg.data-import .skilllist thead tr {
+.starwarsffg_sandbox.data-import .skilllist thead tr {
   display: block;
 }
 
-.starwarsffg.data-import .skilllist .skilltheme {
+.starwarsffg_sandbox.data-import .skilllist .skilltheme {
   text-align: left;
 }
 
-.starwarsffg.data-import .skilllist .fa-download {
+.starwarsffg_sandbox.data-import .skilllist .fa-download {
   cursor: pointer;
 }
 
-.starwarsffg.data-import .skilllist .skillactive {
+.starwarsffg_sandbox.data-import .skilllist .skillactive {
   text-align: center;
 }
 
-.starwarsffg.data-import .skilllist .skillactive .fa-check-circle {
+.starwarsffg_sandbox.data-import .skilllist .skillactive .fa-check-circle {
   color: green;
 }
 
-.starwarsffg.data-import .skilllist .skillactive .fa-times-circle {
+.starwarsffg_sandbox.data-import .skilllist .skillactive .fa-times-circle {
   color: red;
 }
 
-.starwarsffg .debug label {
+.starwarsffg_sandbox .debug label {
   display: block;
   padding-left: 15px;
   text-indent: -15px;
 }
 
-.starwarsffg .debug input[type="checkbox"] {
+.starwarsffg_sandbox .debug input[type="checkbox"] {
   position: relative;
   padding: 0;
   margin: 0;
@@ -3960,7 +3960,7 @@ img {
   height: 13px;
 }
 
-.starwarsffg .item-sheet-species .sheet-header img.profile-img {
+.starwarsffg_sandbox .item-sheet-species .sheet-header img.profile-img {
   flex: 0 0 100px;
   height: 124px;
   width: auto;
@@ -3971,24 +3971,24 @@ img {
   object-fit: contain;
 }
 
-.starwarsffg .item-sheet-species .characteristics .characteristic-item .characteristic-label {
+.starwarsffg_sandbox .item-sheet-species .characteristics .characteristic-item .characteristic-label {
   background-color: #490c0b;
 }
 
-.starwarsffg .item-sheet-species .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-species .attribute .block-title {
   background-color: #490c0b;
 }
 
-.starwarsffg .item-sheet-species .sheet-body {
+.starwarsffg_sandbox .item-sheet-species .sheet-body {
   height: calc(100% - 25.25rem);
 }
 
-.starwarsffg .attributes {
+.starwarsffg_sandbox .attributes {
   margin: 0;
   border: 0;
 }
 
-.starwarsffg .attributes .attributes-header {
+.starwarsffg_sandbox .attributes .attributes-header {
   padding: 5px;
   margin: 0 0 5px 0;
   background: rgba(0, 0, 0, 0.05);
@@ -3997,21 +3997,21 @@ img {
   font-weight: bold;
 }
 
-.starwarsffg .attributes .attribute-label {
+.starwarsffg_sandbox .attributes .attribute-label {
   flex: 1.5;
 }
 
-.starwarsffg .attributes .attribute-control {
+.starwarsffg_sandbox .attributes .attribute-control {
   flex: 0 0 20px;
 }
 
-.starwarsffg .attributes .attributes-list {
+.starwarsffg_sandbox .attributes .attributes-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.starwarsffg .attributes .attributes-list tr > * {
+.starwarsffg_sandbox .attributes .attributes-list tr > * {
   margin: 0 3px;
   height: 28px;
   line-height: 24px;
@@ -4022,25 +4022,25 @@ img {
   overflow: auto;
 }
 
-.starwarsffg .attributes .attributes-list .attribute.item {
+.starwarsffg_sandbox .attributes .attributes-list .attribute.item {
   position: relative;
 }
 
-.starwarsffg .attributes .attributes-list .attribute.item:hover {
+.starwarsffg_sandbox .attributes .attributes-list .attribute.item:hover {
   background: rgba(25, 24, 19, 0.12);
   margin: +2px;
 }
 
-.starwarsffg .attributes .attribute-value.checkbox {
+.starwarsffg_sandbox .attributes .attribute-value.checkbox {
   text-align: center;
 }
 
-.starwarsffg .attributes {
+.starwarsffg_sandbox .attributes {
   margin: 0;
   border: 0;
 }
 
-.starwarsffg .attributes .attributes-header {
+.starwarsffg_sandbox .attributes .attributes-header {
   padding: 5px;
   margin: 0 0 5px 0;
   background: rgba(0, 0, 0, 0.05);
@@ -4049,21 +4049,21 @@ img {
   font-weight: bold;
 }
 
-.starwarsffg .attributes .attribute-label {
+.starwarsffg_sandbox .attributes .attribute-label {
   flex: 1.5;
 }
 
-.starwarsffg .attributes .attribute-control {
+.starwarsffg_sandbox .attributes .attribute-control {
   flex: 0 0 20px;
 }
 
-.starwarsffg .attributes .attributes-list {
+.starwarsffg_sandbox .attributes .attributes-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.starwarsffg .attributes .attributes-list tr > * {
+.starwarsffg_sandbox .attributes .attributes-list tr > * {
   margin: 0 3px;
   height: 28px;
   line-height: 24px;
@@ -4074,59 +4074,59 @@ img {
   overflow: auto;
 }
 
-.starwarsffg .attributes .attributes-list .attribute.item {
+.starwarsffg_sandbox .attributes .attributes-list .attribute.item {
   position: relative;
 }
 
-.starwarsffg .attributes .attributes-list .attribute.item:hover {
+.starwarsffg_sandbox .attributes .attributes-list .attribute.item:hover {
   background: rgba(25, 24, 19, 0.12);
   margin: +2px;
 }
 
-.starwarsffg .attributes .attribute-value.checkbox {
+.starwarsffg_sandbox .attributes .attribute-value.checkbox {
   text-align: center;
 }
 
-.starwarsffg.sheet.item .item-sheet-signatureability .popout-editor {
+.starwarsffg_sandbox.sheet.item .item-sheet-signatureability .popout-editor {
   height: 100%;
   width: 100%;
   min-height: 2rem;
   position: relative;
 }
 
-.starwarsffg .item-sheet-signatureability .talent-background .talent-header {
+.starwarsffg_sandbox .item-sheet-signatureability .talent-background .talent-header {
   background-color: #630000;
 }
 
-.starwarsffg .item-sheet-signatureability .talent-background .talent-header div input[type="text"] {
+.starwarsffg_sandbox .item-sheet-signatureability .talent-background .talent-header div input[type="text"] {
   background-color: #fcadad;
 }
 
-.starwarsffg .item-sheet-signatureability .sheet-header .talent-header {
+.starwarsffg_sandbox .item-sheet-signatureability .sheet-header .talent-header {
   padding-right: 3.5rem;
 }
 
-.starwarsffg .item-sheet-signatureability .header-fields {
+.starwarsffg_sandbox .item-sheet-signatureability .header-fields {
   position: relative;
 }
 
-.starwarsffg .item-sheet-signatureability .header-fields .talent-actions {
+.starwarsffg_sandbox .item-sheet-signatureability .header-fields .talent-actions {
   position: absolute;
   right: 10px;
   top: 14px;
   color: white;
 }
 
-.starwarsffg .item-sheet-signatureability .header-fields textarea {
+.starwarsffg_sandbox .item-sheet-signatureability .header-fields textarea {
   max-width: 695px;
 }
 
-.starwarsffg .item-sheet-signatureability .sheet-body {
+.starwarsffg_sandbox .item-sheet-signatureability .sheet-body {
   margin: 0;
   overflow: hidden;
 }
 
-.starwarsffg .item-sheet-signatureability .talent-cost {
+.starwarsffg_sandbox .item-sheet-signatureability .talent-cost {
   bottom: 0;
   left: 0;
   position: absolute;
@@ -4142,7 +4142,7 @@ img {
   clip-path: polygon(0 0, var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg .item-sheet-signatureability .talent-cost input {
+.starwarsffg_sandbox .item-sheet-signatureability .talent-cost input {
   width: 1rem;
   height: 0.75rem;
   border: 0;
@@ -4150,81 +4150,81 @@ img {
   color: #630000;
 }
 
-.starwarsffg .item-sheet-signatureability .sheet-body .talent-background > .talent-cost {
+.starwarsffg_sandbox .item-sheet-signatureability .sheet-body .talent-background > .talent-cost {
   position: static;
   width: fit-content;
   margin-left: -5px;
 }
 
-.starwarsffg .item-sheet-signatureability .sheet-body .talent-background > .talent-body {
+.starwarsffg_sandbox .item-sheet-signatureability .sheet-body .talent-background > .talent-body {
   height: calc(100% - 2.75rem);
 }
 
-.starwarsffg .item-sheet-signatureability .talent-modifiers {
+.starwarsffg_sandbox .item-sheet-signatureability .talent-modifiers {
   position: absolute;
   right: 5px;
   bottom: 2px;
   z-index: 10;
 }
 
-.starwarsffg .item-sheet-modifiers .charname input {
+.starwarsffg_sandbox .item-sheet-modifiers .charname input {
   color: #2c0344;
 }
 
-.starwarsffg .item-sheet-modifiers .characteristic-item .characteristic-label {
+.starwarsffg_sandbox .item-sheet-modifiers .characteristic-item .characteristic-label {
   background-color: #2c0344;
 }
 
-.starwarsffg .item-sheet-modifiers .block-background {
+.starwarsffg_sandbox .item-sheet-modifiers .block-background {
   background-color: #e9c6fd;
 }
 
-.starwarsffg .item-sheet-modifiers .attribute .block-title {
+.starwarsffg_sandbox .item-sheet-modifiers .attribute .block-title {
   background-color: #2c0344;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-modifiers .container.flex-group-center {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-modifiers .container.flex-group-center {
   padding: 0 5px 0 5px;
   margin-bottom: 0;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-modifiers .weapon-values {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-modifiers .weapon-values {
   margin: 0 5px;
   padding: 0 5px 0 5px;
 }
 
-.starwarsffg.sheet.item.v2 .item-sheet-modifiers .sheet-body {
+.starwarsffg_sandbox.sheet.item.v2 .item-sheet-modifiers .sheet-body {
   height: calc(100% - 8.6rem);
 }
 
-.starwarsffg .item-sheet-itemattachment .profile-img-field {
+.starwarsffg_sandbox .item-sheet-itemattachment .profile-img-field {
   width: 25%;
 }
 
-.starwarsffg .item-sheet-itemattachment .profile-img-field img.profile-img {
+.starwarsffg_sandbox .item-sheet-itemattachment .profile-img-field img.profile-img {
   width: 100%;
   height: auto;
 }
 
-.starwarsffg .item-sheet-itemattachment .sheet-body table th:first-child {
+.starwarsffg_sandbox .item-sheet-itemattachment .sheet-body table th:first-child {
   text-align: left;
   padding-left: 3px;
 }
 
-.starwarsffg .item-sheet-itemattachment .sheet-body table td:not(:first-child) {
+.starwarsffg_sandbox .item-sheet-itemattachment .sheet-body table td:not(:first-child) {
   position: relative;
   text-align: center;
 }
 
-.starwarsffg .item-sheet-itemattachment .sheet-body table td:not(:first-child) .quantity {
+.starwarsffg_sandbox .item-sheet-itemattachment .sheet-body table td:not(:first-child) .quantity {
   top: 3px;
 }
 
-.starwarsffg .item-sheet-itemattachment .sheet-body table td .modifier-active i {
+.starwarsffg_sandbox .item-sheet-itemattachment .sheet-body table td .modifier-active i {
   cursor: pointer;
 }
 
-.starwarsffg .item-sheet-itemattachment .sheet-body table td.add-modifier i {
+.starwarsffg_sandbox .item-sheet-itemattachment .sheet-body table td.add-modifier i {
   padding: 0 2px;
   cursor: pointer;
 }
@@ -4416,45 +4416,45 @@ img {
 .ffg-destiny-roll {
   cursor: pointer;
 }
-.starwarsffg .skillsGrid.crew .dice-pool.crew {
+.starwarsffg_sandbox .skillsGrid.crew .dice-pool.crew {
   margin: 0;
 }
-.starwarsffg .skillsGrid.crew {
+.starwarsffg_sandbox .skillsGrid.crew {
   justify-content: center;
   height: 24px;
 }
 
-.starwarsffg #combat-tracker .slot-Friendly {
+.starwarsffg_sandbox #combat-tracker .slot-Friendly {
   background: rgba(21, 87, 134, 0.3);
   color: #f0f0e0;
 }
-.starwarsffg #combat-tracker .slot-Friendly.slot-unused-true {
+.starwarsffg_sandbox #combat-tracker .slot-Friendly.slot-unused-true {
   background: rgba(4, 37, 61, 0.3);
 }
-.starwarsffg #combat-tracker .slot-Enemy {
+.starwarsffg_sandbox #combat-tracker .slot-Enemy {
   background: rgba(146, 52, 20, 0.3);
   color: #f0f0e0;
 }
-.starwarsffg #combat-tracker .slot-Enemy.slot-unused-true {
+.starwarsffg_sandbox #combat-tracker .slot-Enemy.slot-unused-true {
   background: rgba(87, 9, 9, 0.3);
 }
 
-.starwarsffg #combat-tracker .slot-claimed {
+.starwarsffg_sandbox #combat-tracker .slot-claimed {
   opacity: 20%;
 }
-.starwarsffg #combat-tracker .token-image.actor-header.defeated {
+.starwarsffg_sandbox #combat-tracker .token-image.actor-header.defeated {
   filter: blur(1px) grayscale(50%);
 }
-.starwarsffg #combat-tracker .encounter-controls .actor-header {
+.starwarsffg_sandbox #combat-tracker .encounter-controls .actor-header {
   font-size: 14px;
 }
-.starwarsffg #combat-tracker .token-image.actor-header {
+.starwarsffg_sandbox #combat-tracker .token-image.actor-header {
   width: 24px;
   height: 24px;
   max-width: 24px;
   max-height: 24px;
 }
-.starwarsffg.sheet.item .item-sheet-career .signatureability-pill.item-pill2, .starwarsffg.sheet.item .item-sheet-career .specialization-pill.item-pill2, .starwarsffg.sheet.item .item-sheet-species .talent-pill.item-pill2 {
+.starwarsffg_sandbox.sheet.item .item-sheet-career .signatureability-pill.item-pill2, .starwarsffg_sandbox.sheet.item .item-sheet-career .specialization-pill.item-pill2, .starwarsffg_sandbox.sheet.item .item-sheet-species .talent-pill.item-pill2 {
   padding: 0.1rem 0.5rem;
   background-color: rgba(255, 255, 255, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -4463,39 +4463,39 @@ img {
   width: fit-content;
 }
 
-.starwarsffg.sheet.item .item-sheet-career .signatureability-pill.item-pill2.link-broken, .starwarsffg.sheet.item .item-sheet-career .specialization-pill.item-pill2.link-broken, .starwarsffg.sheet.item .item-sheet-species .talent-pill.item-pill2.link-broken {
+.starwarsffg_sandbox.sheet.item .item-sheet-career .signatureability-pill.item-pill2.link-broken, .starwarsffg_sandbox.sheet.item .item-sheet-career .specialization-pill.item-pill2.link-broken, .starwarsffg_sandbox.sheet.item .item-sheet-species .talent-pill.item-pill2.link-broken {
   color: darkred;
 }
 
-.starwarsffg.sheet.item .item-sheet-career .signatureability-pill.item-pill2 .item-delete, .starwarsffg.sheet.item .item-sheet-career .specialization-pill.item-pill2 .item-delete, .starwarsffg.sheet.item .item-sheet-species .talent-pill.item-pill2 .item-delete {
+.starwarsffg_sandbox.sheet.item .item-sheet-career .signatureability-pill.item-pill2 .item-delete, .starwarsffg_sandbox.sheet.item .item-sheet-career .specialization-pill.item-pill2 .item-delete, .starwarsffg_sandbox.sheet.item .item-sheet-species .talent-pill.item-pill2 .item-delete {
   cursor: pointer;
 }
 
-.starwarsffg.sheet.actor .character .header-fields .ffg-purchase {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .ffg-purchase {
   cursor: pointer;
 }
 
-.starwarsffg.sheet.actor .character .ffg-purchase {
+.starwarsffg_sandbox.sheet.actor .character .ffg-purchase {
   cursor: pointer;
 }
 
-.starwarsffg .dice-tooltip .dice-rolls .roll {
+.starwarsffg_sandbox .dice-tooltip .dice-rolls .roll {
   width: 24px;
   float: left;
 }
 
-.starwarsffg.sheet.actor .title-card.rival {
+.starwarsffg_sandbox.sheet.actor .title-card.rival {
   background: rgba(73, 12, 11, 0.85);
   color:#ffffff
 }
 
-.starwarsffg.dice-roll {
+.starwarsffg_sandbox.dice-roll {
   border: 1px solid #9f9275;
   border-radius: 3px;
   background: #d8cbc0;
 }
 
-.starwarsffg.item-card .card-header {
+.starwarsffg_sandbox.item-card .card-header {
   padding: 0.5rem;
   border: 1px solid #9f9275;
   border-radius: 3px;
@@ -4503,7 +4503,7 @@ img {
   overflow: hidden;
 }
 
-.starwarsffg.item-card .title {
+.starwarsffg_sandbox.item-card .title {
   background-color: #415064;
   color: white;
   text-transform: uppercase;
@@ -4514,18 +4514,18 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
 
-.starwarsffg.item-card .title b {
+.starwarsffg_sandbox.item-card .title b {
   padding-left: 4px;
 }
 
-.starwarsffg.item-card .summary {
+.starwarsffg_sandbox.item-card .summary {
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.starwarsffg.item-card .icon {
+.starwarsffg_sandbox.item-card .icon {
   width: 32px;
   height: 32px;
   border: 2px solid #919275;
@@ -4536,50 +4536,50 @@ img {
   object-position: top;
 }
 
-.starwarsffg.item-card .name-stacked {
+.starwarsffg_sandbox.item-card .name-stacked {
   border-right: 1px solid #ddd;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.starwarsffg.item-card .stat {
+.starwarsffg_sandbox.item-card .stat {
   border-right: 0 groove #8060554C;
   padding: 0 2px 0 2px;
 }
 
-.starwarsffg.item-card .stat.stat-right, .starwarsffg .item-details .stat-right {
+.starwarsffg_sandbox.item-card .stat.stat-right, .starwarsffg_sandbox .item-details .stat-right {
   border-right: 2px groove #8060554C;
 }
 
-.starwarsffg.item-card .stat.not-present {
+.starwarsffg_sandbox.item-card .stat.not-present {
   color: gray;
 }
 
-.starwarsffg.item-card .subtitle {
+.starwarsffg_sandbox.item-card .subtitle {
   color: #781428;
 }
 
-.starwarsffg.item-card .stat .restricted {
+.starwarsffg_sandbox.item-card .stat .restricted {
   color: #8b0000;
 }
 
-.starwarsffg.item-card .collapse-toggle {
+.starwarsffg_sandbox.item-card .collapse-toggle {
   margin-right: 0.25rem;
 }
 
-.starwarsffg.item-card .card-content {
+.starwarsffg_sandbox.item-card .card-content {
   padding: 0;
   display: grid;
   grid-template-rows: 1fr;
 }
 
-.starwarsffg.item-card .properties {
+.starwarsffg_sandbox.item-card .properties {
   margin: 5px 5px 5px 0;
   padding-right: 5px;
 }
 
-.starwarsffg.item-card .properties .tag {
+.starwarsffg_sandbox.item-card .properties .tag {
   display: inline-block;
   margin: 0 2px 0 0;
   padding: 0 3px;
@@ -4591,7 +4591,7 @@ img {
   color: rgba(0, 0, 0, 0.75);
 }
 
-.starwarsffg.item-card .properties .tag .item-pill2 {
+.starwarsffg_sandbox.item-card .properties .tag .item-pill2 {
   list-style-type: none;
   display: inline-block;
   cursor: pointer;
@@ -4602,7 +4602,7 @@ img {
   border-radius: 1rem;
 }
 
-.starwarsffg .hover-tooltip, .starwarsffg .item-pill-hover {
+.starwarsffg_sandbox .hover-tooltip, .starwarsffg_sandbox .item-pill-hover {
   display: inline-block;
   margin: 0.1rem;
   border-bottom: 2px dotted black;
@@ -4641,67 +4641,67 @@ img {
 }
 
 /* TODO: this is a fixed height scroll, which it should not be. but I couldn't get "calc" to work */
-.starwarsffg .tab.flat_editor.modifications {
+.starwarsffg_sandbox .tab.flat_editor.modifications {
   overflow-y: auto;
   max-height: 340px;
 }
 
-.starwarsffg.flat_editor .form-group .tox-editor-container {
+.starwarsffg_sandbox.flat_editor .form-group .tox-editor-container {
   min-height: 150px;
 }
 
-.starwarsffg.flat_editor {
+.starwarsffg_sandbox.flat_editor {
   min-height: 300px;
 }
 
-.starwarsffg.flat_editor .modification_header {
+.starwarsffg_sandbox.flat_editor .modification_header {
   border-left: 2px solid var(--color-underline-header);
   padding-left: 5px;
 }
 
-.starwarsffg .flat_editor.modifications.active {
+.starwarsffg_sandbox .flat_editor.modifications.active {
   overflow-x: hidden;
 }
 
-.starwarsffg .popout-modifiers-window {
+.starwarsffg_sandbox .popout-modifiers-window {
   max-height: 312px;
   overflow-y: auto;
 }
 
-.starwarsffg .xp.purchase {
+.starwarsffg_sandbox .xp.purchase {
   color: #490c0b;
 }
-.starwarsffg .xp.refunded {
+.starwarsffg_sandbox .xp.refunded {
   color: rgb(27, 106, 24);
 }
-.starwarsffg .xp.grant {
+.starwarsffg_sandbox .xp.grant {
   color: rgb(27, 106, 24);
 }
-.starwarsffg .xp.adjusted, .starwarsffg .xp.undid {
+.starwarsffg_sandbox .xp.adjusted, .starwarsffg_sandbox .xp.undid {
   color: rgb(159, 47, 172);
 }
-.starwarsffg .tab.xp .resource {
+.starwarsffg_sandbox .tab.xp .resource {
   width: 100%;
 }
-.starwarsffg .tab.xp .resource.split .block-background-shadow {
+.starwarsffg_sandbox .tab.xp .resource.split .block-background-shadow {
   height: 45px;
 }
-.starwarsffg .tab.crits .resource {
+.starwarsffg_sandbox .tab.crits .resource {
   width: 100%;
 }
-.starwarsffg .tab.crits .injuries .severity {
+.starwarsffg_sandbox .tab.crits .injuries .severity {
   display: flex;
   justify-content: center;
 }
 
-.starwarsffg .simulation {
+.starwarsffg_sandbox .simulation {
   padding: 5px;
   text-align: center;
 }
-.starwarsffg .simulation .likely {
+.starwarsffg_sandbox .simulation .likely {
   color: rgb(27, 106, 24);
 }
-.starwarsffg .simulation .unlikely {
+.starwarsffg_sandbox .simulation .unlikely {
   color: #490c0b;
 }
 
@@ -4711,50 +4711,50 @@ img {
   flex-direction: column;
 }
 
-.starwarsffg .resetMedical {
+.starwarsffg_sandbox .resetMedical {
   height: 20px;
   display: flex;
 }
 
-.starwarsffg .resetMedical>i {
+.starwarsffg_sandbox .resetMedical>i {
   height: 14px;
 }
 
-.starwarsffg .tag_tooltip_h3 {
+.starwarsffg_sandbox .tag_tooltip_h3 {
   display: flex;
 }
 
-.starwarsffg .attribute .block-title .block-title-tooltip {
+.starwarsffg_sandbox .attribute .block-title .block-title-tooltip {
   margin-left: 0.25rem;
   opacity: 0.7;
 }
 
-.starwarsffg .container .tag_tooltip {
+.starwarsffg_sandbox .container .tag_tooltip {
   align-content: center;
 }
 
-.starwarsffg.wizard .background-container {
+.starwarsffg_sandbox.wizard .background-container {
   display: flex;
   flex-direction: row;
 }
 
-.starwarsffg.wizard .background-container  .background-content {
+.starwarsffg_sandbox.wizard .background-container  .background-content {
   flex: 1;
 }
 
-.starwarsffg.wizard .xp_spend .actor_summary .fa-minus-square, .starwarsffg.wizard .xp_spend .actor_summary .fa-plus-square, .starwarsffg.wizard .credit-spend, .starwarsffg.wizard .species-spend, .starwarsffg.wizard .motivation-spend  {
+.starwarsffg_sandbox.wizard .xp_spend .actor_summary .fa-minus-square, .starwarsffg_sandbox.wizard .xp_spend .actor_summary .fa-plus-square, .starwarsffg_sandbox.wizard .credit-spend, .starwarsffg_sandbox.wizard .species-spend, .starwarsffg_sandbox.wizard .motivation-spend  {
   cursor: pointer;
 }
 
-.starwarsffg.wizard .career-spend, .starwarsffg.wizard .fa-minus-square, .starwarsffg.wizard .fa-plus-square  {
+.starwarsffg_sandbox.wizard .career-spend, .starwarsffg_sandbox.wizard .fa-minus-square, .starwarsffg_sandbox.wizard .fa-plus-square  {
   cursor: pointer;
 }
 
-.starwarsffg.wizard .obligation-control, .starwarsffg.wizard .obligation-spend, .starwarsffg.wizard .specialization-spend  {
+.starwarsffg_sandbox.wizard .obligation-control, .starwarsffg_sandbox.wizard .obligation-spend, .starwarsffg_sandbox.wizard .specialization-spend  {
   cursor: pointer;
 }
 
-.starwarsffg.wizard .forcePower-summary .talent-cost {
+.starwarsffg_sandbox.wizard .forcePower-summary .talent-cost {
   bottom: 0;
   left: 0;
   position: absolute;
@@ -4769,49 +4769,49 @@ img {
   -webkit-clip-path: polygon(0 0, var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0 100%, 0% calc(100% - var(--notchSize)));
   clip-path: polygon(0 0, var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, 0 100%, 0% calc(100% - var(--notchSize)));
 }
-.starwarsffg.wizard .forcePower-summary .talent-background .talent-header {
+.starwarsffg_sandbox.wizard .forcePower-summary .talent-background .talent-header {
   background-color: #0e4400;
 }
 
-.starwarsffg.wizard .forcePower-summary .talent-background .talent-header div input[type="text"] {
+.starwarsffg_sandbox.wizard .forcePower-summary .talent-background .talent-header div input[type="text"] {
   background-color: #1a8200;
 }
 
-.starwarsffg.wizard input:disabled{
+.starwarsffg_sandbox.wizard input:disabled{
   border: none;
 }
 
-.starwarsffg.wizard .remove-purchase, .starwarsffg.wizard .credit-refund, .starwarsffg.wizard .motivation-refund {
+.starwarsffg_sandbox.wizard .remove-purchase, .starwarsffg_sandbox.wizard .credit-refund, .starwarsffg_sandbox.wizard .motivation-refund {
   cursor: pointer;
 }
 
-.starwarsffg.wizard table img {
+.starwarsffg_sandbox.wizard table img {
   max-width: 64px;
   max-height: 64px;
 }
 
-.starwarsffg .item-type-highlight {
+.starwarsffg_sandbox .item-type-highlight {
   background: rgba(73, 12, 11, 0.85);
   color:#ffffff;
   flex-grow: 1;
 }
 
-.starwarsffg .control-inactive {
+.starwarsffg_sandbox .control-inactive {
   display: none;
 }
 
-.starwarsffg .state_good {
+.starwarsffg_sandbox .state_good {
   color: #0e4400;
 }
-.starwarsffg .state_bad {
+.starwarsffg_sandbox .state_bad {
   color: #8b0000;
 }
 
-.starwarsffg .morality-controls {
+.starwarsffg_sandbox .morality-controls {
   display: flex;
 }
 
-.starwarsffg-dialog {
+.starwarsffg_sandbox-dialog {
   z-index: 500 !important;
 }
 
@@ -4839,7 +4839,7 @@ img {
 }
 
 /** item pills **/
-.starwarsffg.wizard .item-pill {
+.starwarsffg_sandbox.wizard .item-pill {
   list-style-type: none;
   display: inline-block;
   white-space: nowrap;
@@ -4852,107 +4852,107 @@ img {
   cursor: default;
 }
 
-.starwarsffg.wizard .career_tab-container .item-pill,
-.starwarsffg.wizard .specialization-container .item-pill,
-.starwarsffg.wizard .forcePower-container .item-pill {
+.starwarsffg_sandbox.wizard .career_tab-container .item-pill,
+.starwarsffg_sandbox.wizard .specialization-container .item-pill,
+.starwarsffg_sandbox.wizard .forcePower-container .item-pill {
   background-color: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.35);
   color: white;
 }
 
 /** shared elements like buttons **/
-.starwarsffg.wizard .fa-cart-shopping,
-.starwarsffg.wizard .species-spend,
-.starwarsffg.wizard .career-spend,
-.starwarsffg.wizard .specialization-spend,
-.starwarsffg.wizard .obligation-spend,
-.starwarsffg.wizard .motivation-spend,
-.starwarsffg.wizard .credit-spend {
+.starwarsffg_sandbox.wizard .fa-cart-shopping,
+.starwarsffg_sandbox.wizard .species-spend,
+.starwarsffg_sandbox.wizard .career-spend,
+.starwarsffg_sandbox.wizard .specialization-spend,
+.starwarsffg_sandbox.wizard .obligation-spend,
+.starwarsffg_sandbox.wizard .motivation-spend,
+.starwarsffg_sandbox.wizard .credit-spend {
   color: #535d60;
   font-size: 1rem;
   transition: color 0.15s;
 }
-.starwarsffg.wizard .fa-cart-shopping:hover,
-.starwarsffg.wizard .species-spend:hover,
-.starwarsffg.wizard .career-spend:hover,
-.starwarsffg.wizard .specialization-spend:hover,
-.starwarsffg.wizard .obligation-spend:hover,
-.starwarsffg.wizard .motivation-spend:hover,
-.starwarsffg.wizard .credit-spend:hover {
+.starwarsffg_sandbox.wizard .fa-cart-shopping:hover,
+.starwarsffg_sandbox.wizard .species-spend:hover,
+.starwarsffg_sandbox.wizard .career-spend:hover,
+.starwarsffg_sandbox.wizard .specialization-spend:hover,
+.starwarsffg_sandbox.wizard .obligation-spend:hover,
+.starwarsffg_sandbox.wizard .motivation-spend:hover,
+.starwarsffg_sandbox.wizard .credit-spend:hover {
   color: #7da9c2;
 }
-.starwarsffg.wizard .fa-trash,
-.starwarsffg.wizard .remove-purchase,
-.starwarsffg.wizard .credit-refund,
-.starwarsffg.wizard .motivation-refund,
-.starwarsffg.wizard .obligation-refund {
+.starwarsffg_sandbox.wizard .fa-trash,
+.starwarsffg_sandbox.wizard .remove-purchase,
+.starwarsffg_sandbox.wizard .credit-refund,
+.starwarsffg_sandbox.wizard .motivation-refund,
+.starwarsffg_sandbox.wizard .obligation-refund {
   color: #535d60;
   font-size: 0.9rem;
   transition: color 0.15s;
 }
-.starwarsffg.wizard .fa-trash:hover,
-.starwarsffg.wizard .remove-purchase:hover,
-.starwarsffg.wizard .credit-refund:hover,
-.starwarsffg.wizard .motivation-refund:hover,
-.starwarsffg.wizard .obligation-refund:hover {
+.starwarsffg_sandbox.wizard .fa-trash:hover,
+.starwarsffg_sandbox.wizard .remove-purchase:hover,
+.starwarsffg_sandbox.wizard .credit-refund:hover,
+.starwarsffg_sandbox.wizard .motivation-refund:hover,
+.starwarsffg_sandbox.wizard .obligation-refund:hover {
   color: #8b0000;
 }
-.starwarsffg.wizard .fa-plus-square,
-.starwarsffg.wizard .fa-minus-square {
+.starwarsffg_sandbox.wizard .fa-plus-square,
+.starwarsffg_sandbox.wizard .fa-minus-square {
   font-size: 0.85rem;
   transition: color 0.15s;
 }
-.starwarsffg.wizard .fa-plus-square:hover {
+.starwarsffg_sandbox.wizard .fa-plus-square:hover {
   color: #0e4400;
 }
-.starwarsffg.wizard .fa-minus-square:hover {
+.starwarsffg_sandbox.wizard .fa-minus-square:hover {
   color: #8b0000;
 }
-.starwarsffg.wizard .fa-edit,
-.starwarsffg.wizard .obligation-edit {
+.starwarsffg_sandbox.wizard .fa-edit,
+.starwarsffg_sandbox.wizard .obligation-edit {
   color: #535d60;
   font-size: 0.9rem;
   transition: color 0.15s;
 }
-.starwarsffg.wizard .fa-edit:hover,
-.starwarsffg.wizard .obligation-edit:hover {
+.starwarsffg_sandbox.wizard .fa-edit:hover,
+.starwarsffg_sandbox.wizard .obligation-edit:hover {
   color: #7da9c2;
 }
-.starwarsffg.wizard .fa-save,
-.starwarsffg.wizard .obligation-save {
+.starwarsffg_sandbox.wizard .fa-save,
+.starwarsffg_sandbox.wizard .obligation-save {
   color: #535d60;
   font-size: 0.9rem;
   transition: color 0.15s;
 }
-.starwarsffg.wizard .fa-save:hover,
-.starwarsffg.wizard .obligation-save:hover {
+.starwarsffg_sandbox.wizard .fa-save:hover,
+.starwarsffg_sandbox.wizard .obligation-save:hover {
   color: #0e4400;
 }
-.starwarsffg.wizard .fa-circle-check,
-.starwarsffg.wizard .fa-circle-x {
+.starwarsffg_sandbox.wizard .fa-circle-check,
+.starwarsffg_sandbox.wizard .fa-circle-x {
   font-size: 1rem;
 }
-.starwarsffg.wizard .specialization-remove,
-.starwarsffg.wizard .forcePower-remove {
+.starwarsffg_sandbox.wizard .specialization-remove,
+.starwarsffg_sandbox.wizard .forcePower-remove {
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.85rem;
   margin-left: 0.5rem;
   transition: color 0.15s;
 }
-.starwarsffg.wizard .specialization-remove:hover,
-.starwarsffg.wizard .forcePower-remove:hover {
+.starwarsffg_sandbox.wizard .specialization-remove:hover,
+.starwarsffg_sandbox.wizard .forcePower-remove:hover {
   color: #ff6666;
 }
 
 /** datatables within the character creator **/
-.starwarsffg.wizard table.dataTable {
+.starwarsffg_sandbox.wizard table.dataTable {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8rem;
   color: #191813;
 }
-.starwarsffg.wizard table.dataTable thead td,
-.starwarsffg.wizard table.dataTable thead th {
+.starwarsffg_sandbox.wizard table.dataTable thead td,
+.starwarsffg_sandbox.wizard table.dataTable thead th {
   background-color: #415064;
   color: white;
   text-transform: uppercase;
@@ -4963,42 +4963,42 @@ img {
   white-space: nowrap;
   text-align: left;
 }
-.starwarsffg.wizard table.dataTable tbody tr {
+.starwarsffg_sandbox.wizard table.dataTable tbody tr {
   background-color: rgba(255, 255, 255, 0.35);
   border-bottom: 1px solid #bbb;
   transition: background-color 0.1s;
 }
-.starwarsffg.wizard table.dataTable tbody td {
+.starwarsffg_sandbox.wizard table.dataTable tbody td {
   padding: 0.3rem 0.5rem;
   vertical-align: middle;
   border: none;
 }
-.starwarsffg.wizard table.dataTable tbody tr.odd {
+.starwarsffg_sandbox.wizard table.dataTable tbody tr.odd {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.starwarsffg.wizard table.dataTable tbody tr.even {
+.starwarsffg_sandbox.wizard table.dataTable tbody tr.even {
   background-color: rgba(255, 255, 255, 0.45);
 }
 
-.starwarsffg.wizard table.dataTable tbody tr:hover {
+.starwarsffg_sandbox.wizard table.dataTable tbody tr:hover {
   background-color: rgba(125, 169, 194, 0.25);
   cursor: pointer;
 }
-.starwarsffg.wizard .dt-container label, .starwarsffg.wizard .dt-container .dt-info, .starwarsffg.wizard .dt-container .dt-input {
+.starwarsffg_sandbox.wizard .dt-container label, .starwarsffg_sandbox.wizard .dt-container .dt-info, .starwarsffg_sandbox.wizard .dt-container .dt-input {
   font-size: 0.75rem;
   color: #191813;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.starwarsffg.wizard .dt-container input {
+.starwarsffg_sandbox.wizard .dt-container input {
   background-color: #eeeeee;
   border: 1px solid #999;
   padding: 0.2rem 0.4rem;
   color: #191813;
   font-size: 0.75rem;
 }
-.starwarsffg.wizard .dt-paging-button {
+.starwarsffg_sandbox.wizard .dt-paging-button {
   padding: 0.15rem 0.5rem;
   background-color: #535d60;
   color: rgba(255, 255, 255, 0.9);
@@ -5007,23 +5007,23 @@ img {
   -webkit-clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
-.starwarsffg.wizard .dt-paging-button.disabled {
+.starwarsffg_sandbox.wizard .dt-paging-button.disabled {
   background-color: #888;
   color: rgba(255, 255, 255, 0.4);
   cursor: default;
 }
-.starwarsffg.wizard .dt-paging-button.current {
+.starwarsffg_sandbox.wizard .dt-paging-button.current {
   background-color: rgba(73, 12, 11, 0.85) !important;
   color: white !important;
 }
-.starwarsffg.wizard .ellipsis {
+.starwarsffg_sandbox.wizard .ellipsis {
   margin-left: 3px;
   padding: 0.15rem 0.5rem;
   background-color: #535d60;
   color: #ffffff;
 }
 /** labels **/
-.starwarsffg.wizard label {
+.starwarsffg_sandbox.wizard label {
   display: block;
   font-weight: bold;
   font-size: 0.75rem;
@@ -5036,14 +5036,14 @@ img {
 }
 
 /* background for the whole window */
-.starwarsffg.wizard .window-content {
+.starwarsffg_sandbox.wizard .window-content {
   font-family: "Roboto", sans-serif;
   background: #d8cbc0 url(../images/bgWindow.jpg);
   background-size: cover;
 }
 
 /* header bar */
-.starwarsffg.wizard .wizard-header {
+.starwarsffg_sandbox.wizard .wizard-header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -5062,7 +5062,7 @@ img {
 }
 
 /* nav bar */
-.starwarsffg.wizard .tabs {
+.starwarsffg_sandbox.wizard .tabs {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -5076,7 +5076,7 @@ img {
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   border-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) 1%;
 }
-.starwarsffg.wizard .tabs [data-action="tab"] {
+.starwarsffg_sandbox.wizard .tabs [data-action="tab"] {
   flex: 1 1 0;
   min-width: 0;
   padding: 0.2rem 0.3rem;
@@ -5098,12 +5098,12 @@ img {
   cursor: pointer;
   text-decoration: none;
 }
-.starwarsffg.wizard .tabs [data-action="tab"]:hover {
+.starwarsffg_sandbox.wizard .tabs [data-action="tab"]:hover {
   background-color: rgba(0, 0, 0, 0.75);
   color: white;
   text-shadow: black 1px 2px 0;
 }
-.starwarsffg.wizard .tabs [data-action="tab"].active {
+.starwarsffg_sandbox.wizard .tabs [data-action="tab"].active {
   height: 2.5rem;
   line-height: 2rem;
   background-color: rgba(73, 12, 11, 0.85);
@@ -5111,16 +5111,16 @@ img {
   text-shadow: none;
   cursor: default;
 }
-.starwarsffg.wizard .tabs [data-action="tab"].active:hover {
+.starwarsffg_sandbox.wizard .tabs [data-action="tab"].active:hover {
   background-color: rgba(73, 12, 11, 0.85);
   cursor: default;
 }
 
 /* rules selection */
-.starwarsffg.wizard .tab.rules .form-group {
+.starwarsffg_sandbox.wizard .tab.rules .form-group {
   padding: 1rem;
 }
-.starwarsffg.wizard .tab.rules .form-group > label {
+.starwarsffg_sandbox.wizard .tab.rules .form-group > label {
   display: block;
   font-weight: bold;
   font-size: 0.85rem;
@@ -5129,12 +5129,12 @@ img {
   margin-bottom: 0.75rem;
   letter-spacing: 0.04em;
 }
-.starwarsffg.wizard .tab.rules .form-fields {
+.starwarsffg_sandbox.wizard .tab.rules .form-fields {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-.starwarsffg.wizard .tab.rules .form-fields label {
+.starwarsffg_sandbox.wizard .tab.rules .form-fields label {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -5151,7 +5151,7 @@ img {
 }
 
 /* background tab */
-.starwarsffg.wizard .background-container label {
+.starwarsffg_sandbox.wizard .background-container label {
   display: block;
   font-weight: bold;
   font-size: 0.75rem;
@@ -5162,14 +5162,14 @@ img {
   border: 0 none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
-.starwarsffg.wizard .background-container .description {
+.starwarsffg_sandbox.wizard .background-container .description {
   display: block;
   font-size: 0.75rem;
   color: #000000;
 }
 
 /* species tab */
-.starwarsffg.wizard #species tbody td img {
+.starwarsffg_sandbox.wizard #species tbody td img {
   max-width: 48px;
   max-height: 48px;
   border: 1px solid #bbb;
@@ -5179,7 +5179,7 @@ img {
 }
 
 /* career tab */
-.starwarsffg.wizard .career_tab-container {
+.starwarsffg_sandbox.wizard .career_tab-container {
   background-color: #415064;
   color: white;
   text-transform: uppercase;
@@ -5194,13 +5194,13 @@ img {
   user-select: none;
   letter-spacing: 0.04em;
 }
-.starwarsffg.wizard .career_tab-container:hover {
+.starwarsffg_sandbox.wizard .career_tab-container:hover {
   background-color: rgba(73, 12, 11, 0.85);
 }
-.starwarsffg.wizard tr:hover .career-spend, .starwarsffg.wizard tr:hover .specialization-spend {
+.starwarsffg_sandbox.wizard tr:hover .career-spend, .starwarsffg_sandbox.wizard tr:hover .specialization-spend {
   color: #ffffff
 }
-.starwarsffg.wizard .careerskill-rank {
+.starwarsffg_sandbox.wizard .careerskill-rank {
   background-color: rgba(255, 255, 255, 0.6);
   border: 1px solid #bbb;
   text-align: center;
@@ -5208,7 +5208,7 @@ img {
   font-weight: bold;
   font-size: 0.8rem;
 }
-.starwarsffg.wizard .skillsGrid .skillTable .skillsHeader div {
+.starwarsffg_sandbox.wizard .skillsGrid .skillTable .skillsHeader div {
   background-color: #415064;
   color: white;
   font-size: 0.7rem;
@@ -5216,54 +5216,54 @@ img {
   padding: 0.2rem 0.4rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
-.starwarsffg.wizard .skillsGrid .skillTable div.skill {
+.starwarsffg_sandbox.wizard .skillsGrid .skillTable div.skill {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.1rem 0;
 }
-.starwarsffg.wizard .skillsGrid .skillTable div.skill:hover {
+.starwarsffg_sandbox.wizard .skillsGrid .skillTable div.skill:hover {
   background-color: rgba(125, 169, 194, 0.15);
 }
-.starwarsffg.wizard .skillsGrid .skillTable div.skill .skill-name {
+.starwarsffg_sandbox.wizard .skillsGrid .skillTable div.skill .skill-name {
   font-size: 0.75rem;
   color: #191813;
 }
-.starwarsffg.wizard .skillsGrid .skillColumnGrid {
+.starwarsffg_sandbox.wizard .skillsGrid .skillColumnGrid {
   border: 1px solid #7a7971;
   background: rgba(255, 255, 255, 0.5);
 }
 /** needed to avoid it floating into the button below it **/
-.starwarsffg.wizard .skillsTablesGrid {
+.starwarsffg_sandbox.wizard .skillsTablesGrid {
   height: auto;
   float: none;
   overflow-y: visible;
 }
 
 /* xp spend tab */
-.starwarsffg.wizard .actor_summary .characteristic-item .fa-plus-square:hover,
-.starwarsffg.wizard .actor_summary .characteristic-item .fa-minus-square:hover {
+.starwarsffg_sandbox.wizard .actor_summary .characteristic-item .fa-plus-square:hover,
+.starwarsffg_sandbox.wizard .actor_summary .characteristic-item .fa-minus-square:hover {
   color: #7da9c2;
 }
-.starwarsffg.wizard .actor_summary .stats {
+.starwarsffg_sandbox.wizard .actor_summary .stats {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
   justify-content: center;
 }
-.starwarsffg.wizard .actor_summary .stats .attribute {
+.starwarsffg_sandbox.wizard .actor_summary .stats .attribute {
   z-index: 1;
   position: relative;
   margin: 0;
   padding: 0;
   flex: 0 1 80px;
 }
-.starwarsffg.wizard .actor_summary .stats .block-background {
+.starwarsffg_sandbox.wizard .actor_summary .stats .block-background {
   background-color: #eeeeee;
   padding: 4px;
   --notchSize: 0.5rem;
   -webkit-clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
-.starwarsffg.wizard .actor_summary .stats .block-value input {
+.starwarsffg_sandbox.wizard .actor_summary .stats .block-value input {
   text-align: center;
   border: 0;
   font-size: 1.5rem;
@@ -5271,7 +5271,7 @@ img {
   width: 100%;
   color: #191813;
 }
-.starwarsffg.wizard .actor_summary .specialization-container {
+.starwarsffg_sandbox.wizard .actor_summary .specialization-container {
   background-color: #415064;
   color: white;
   padding: 0.3rem 0.6rem;
@@ -5287,15 +5287,15 @@ img {
   -webkit-clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
-.starwarsffg.wizard .actor_summary .specialization-container:hover {
+.starwarsffg_sandbox.wizard .actor_summary .specialization-container:hover {
   background-color: rgba(73, 12, 11, 0.85);
 }
-.starwarsffg.wizard .actor_summary .specialization-summary {
+.starwarsffg_sandbox.wizard .actor_summary .specialization-summary {
   margin-bottom: 0.5rem;
   overflow-x: auto;
   color: black;
 }
-.starwarsffg.wizard .actor_summary .forcePower-container {
+.starwarsffg_sandbox.wizard .actor_summary .forcePower-container {
   background-color: #0e4400;
   color: black;
   padding: 0.3rem 0.6rem;
@@ -5310,27 +5310,27 @@ img {
   -webkit-clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
-.starwarsffg.wizard .actor_summary .forcePower-container .forcePower-name {
+.starwarsffg_sandbox.wizard .actor_summary .forcePower-container .forcePower-name {
   color: white;
 }
-.starwarsffg.wizard .actor_summary .forcePower-container:hover {
+.starwarsffg_sandbox.wizard .actor_summary .forcePower-container:hover {
   background-color: #1a6600;
 }
-.starwarsffg.wizard .actor_summary .forcePower-summary {
+.starwarsffg_sandbox.wizard .actor_summary .forcePower-summary {
   margin-bottom: 0.5rem;
   overflow-x: auto;
   color: black;
 }
 
 /* gear tab */
-.starwarsffg.wizard .dt-buttons {
+.starwarsffg_sandbox.wizard .dt-buttons {
   display: flex;
   flex-direction: row;
   gap: 0.25rem;
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
 }
-.starwarsffg.wizard .dt-button {
+.starwarsffg_sandbox.wizard .dt-button {
   padding: 0.25rem 0.75rem;
   background-color: #535d60;
   color: rgba(255, 255, 255, 0.9);
@@ -5342,20 +5342,20 @@ img {
   -webkit-clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
 }
-.starwarsffg.wizard .dt-button:hover {
+.starwarsffg_sandbox.wizard .dt-button:hover {
   background-color: rgba(0, 0, 0, 0.75);
   color: white;
 }
 
 /* motivation tab */
-.starwarsffg.wizard .motivation-container {
+.starwarsffg_sandbox.wizard .motivation-container {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
 /* review tab */
-.starwarsffg.wizard .review-item {
+.starwarsffg_sandbox.wizard .review-item {
   background-color: rgba(255, 255, 255, 0.4);
   border: 1px solid #bbb;
   border-left: 4px solid #535d60;
@@ -5366,13 +5366,13 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
   color: #000000;
 }
-.starwarsffg.wizard .review-item:has(.state_good) {
+.starwarsffg_sandbox.wizard .review-item:has(.state_good) {
   border-left-color: #0e4400;
 }
-.starwarsffg.wizard .review-item:has(.state_bad) {
+.starwarsffg_sandbox.wizard .review-item:has(.state_bad) {
   border-left-color: #8b0000;
 }
-.starwarsffg.wizard .review-item .status {
+.starwarsffg_sandbox.wizard .review-item .status {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -5381,19 +5381,19 @@ img {
   letter-spacing: 0.04em;
   margin-bottom: 0.25rem;
 }
-.starwarsffg.wizard .review-item .state_good,
-.starwarsffg.wizard .review-item .state_bad {
+.starwarsffg_sandbox.wizard .review-item .state_good,
+.starwarsffg_sandbox.wizard .review-item .state_bad {
   font-size: 1rem;
   vertical-align: middle;
 }
-.starwarsffg.wizard .review-item img {
+.starwarsffg_sandbox.wizard .review-item img {
   max-height: 48px;
   max-width: 48px;
   vertical-align: middle;
   margin-right: 0.35rem;
   border: 1px solid #bbb;
 }
-.starwarsffg.wizard .review-item .item-pill {
+.starwarsffg_sandbox.wizard .review-item .item-pill {
   display: inline-block;
   padding: 0.1rem 0.5rem;
   background-color: rgba(255, 255, 255, 0.25);
@@ -5402,7 +5402,7 @@ img {
   font-size: 0.75rem;
   margin: 0.1rem;
 }
-.starwarsffg.wizard .create-actor {
+.starwarsffg_sandbox.wizard .create-actor {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -5419,13 +5419,13 @@ img {
   clip-path: polygon(0% var(--notchSize), var(--notchSize) 0%, calc(100% - var(--notchSize)) 0%, 100% var(--notchSize), 100% calc(100% - var(--notchSize)), calc(100% - var(--notchSize)) 100%, var(--notchSize) 100%, 0% calc(100% - var(--notchSize)));
   margin-top: 1rem;
 }
-.starwarsffg.wizard .create-actor:hover {
+.starwarsffg_sandbox.wizard .create-actor:hover {
   background-color: #1a6600;
   color: white;
 }
 
-/* ==== Compendium Browser (starwarsffg.compendium-browser) ==== */
-.starwarsffg.compendium-browser .window-content {
+/* ==== Compendium Browser (starwarsffg_sandbox.compendium-browser) ==== */
+.starwarsffg_sandbox.compendium-browser .window-content {
   display: flex;
   flex-direction: row;
   padding: 0;
@@ -5433,23 +5433,23 @@ img {
   overflow: hidden;
   align-items: stretch;
 }
-.starwarsffg.compendium-browser .window-content > [data-application-part] {
+.starwarsffg_sandbox.compendium-browser .window-content > [data-application-part] {
   display: flex;
   min-width: 0;
   min-height: 0;
 }
-.starwarsffg.compendium-browser .window-content > [data-application-part=tabs] {
+.starwarsffg_sandbox.compendium-browser .window-content > [data-application-part=tabs] {
   flex: 0 0 auto;
 }
-.starwarsffg.compendium-browser .window-content > [data-application-part=sidebar] {
+.starwarsffg_sandbox.compendium-browser .window-content > [data-application-part=sidebar] {
   flex: 0 0 260px;
   overflow-y: auto;
 }
-.starwarsffg.compendium-browser .window-content > [data-application-part=results] {
+.starwarsffg_sandbox.compendium-browser .window-content > [data-application-part=results] {
   flex: 1 1 auto;
   overflow-y: auto;
 }
-.starwarsffg.compendium-browser .cb-tabs-nav {
+.starwarsffg_sandbox.compendium-browser .cb-tabs-nav {
   display: flex;
   flex-direction: column;
   width: 48px;
@@ -5459,7 +5459,7 @@ img {
   padding: 4px 0;
   gap: 2px;
 }
-.starwarsffg.compendium-browser .cb-tabs-nav .cb-tab {
+.starwarsffg_sandbox.compendium-browser .cb-tabs-nav .cb-tab {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5470,10 +5470,10 @@ img {
   border-left: 3px solid transparent;
   transition: all 120ms ease;
 }
-.starwarsffg.compendium-browser .cb-tabs-nav .cb-tab i {
+.starwarsffg_sandbox.compendium-browser .cb-tabs-nav .cb-tab i {
   font-size: 18px;
 }
-.starwarsffg.compendium-browser .cb-tabs-nav .cb-tab .cb-tab-img {
+.starwarsffg_sandbox.compendium-browser .cb-tabs-nav .cb-tab .cb-tab-img {
   width: 26px;
   height: 26px;
   object-fit: contain;
@@ -5481,16 +5481,16 @@ img {
   -webkit-user-select: none;
   user-select: none;
 }
-.starwarsffg.compendium-browser .cb-tabs-nav .cb-tab:hover {
+.starwarsffg_sandbox.compendium-browser .cb-tabs-nav .cb-tab:hover {
   color: var(--color-text-primary);
   background: var(--color-bg-btn-hover);
 }
-.starwarsffg.compendium-browser .cb-tabs-nav .cb-tab.active {
+.starwarsffg_sandbox.compendium-browser .cb-tabs-nav .cb-tab.active {
   color: var(--color-text-primary);
   background: var(--color-bg-option);
   border-left-color: var(--color-border-highlight);
 }
-.starwarsffg.compendium-browser .cb-sidebar {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -5498,25 +5498,25 @@ img {
   padding: 8px;
   gap: 8px;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-search-input {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-search-input {
   display: flex;
   align-items: center;
   gap: 6px;
   position: relative;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-search-input > i {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-search-input > i {
   position: absolute;
   left: 8px;
   color: var(--color-text-dark-secondary);
   font-size: 12px;
   pointer-events: none;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-search-input input {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-search-input input {
   width: 100%;
   padding: 6px 28px 6px 28px;
   box-sizing: border-box;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-search-input .cb-clear-search {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-search-input .cb-clear-search {
   position: absolute;
   right: 4px;
   background: transparent;
@@ -5525,26 +5525,26 @@ img {
   cursor: pointer;
   padding: 2px 6px;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-search-input .cb-clear-search:hover {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-search-input .cb-clear-search:hover {
   color: var(--color-text-primary);
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-count {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-count {
   font-size: 12px;
   color: var(--color-text-dark-primary);
   padding: 2px;
   border-bottom: 1px solid var(--color-border-light-tertiary);
   min-height: 22px;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-count .cb-filtered-note {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-count .cb-filtered-note {
   color: var(--color-text-dark-secondary);
   margin-left: 4px;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-filters-header {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-filters-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -5553,7 +5553,7 @@ img {
   text-transform: uppercase;
   color: var(--color-text-dark-secondary);
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-filters-header .cb-clear-tags {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-filters-header .cb-clear-tags {
   background: transparent;
   border: none;
   color: var(--color-text-hyperlink);
@@ -5563,12 +5563,12 @@ img {
   text-decoration: underline;
   padding: 0;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-tag-list {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-tag-list {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -5578,84 +5578,84 @@ img {
   font-size: 12px;
   text-transform: capitalize;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice:hover {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice:hover {
   background: var(--color-bg-btn-hover);
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice.selected {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice.selected {
   background: var(--color-bg-option);
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice input {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice input {
   margin: 0;
 }
-.starwarsffg.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice span {
+.starwarsffg_sandbox.compendium-browser .cb-sidebar .cb-filters .cb-tag-list .cb-tag-choice span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.starwarsffg.compendium-browser .cb-results {
+.starwarsffg_sandbox.compendium-browser .cb-results {
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 4px 8px 8px;
 }
-.starwarsffg.compendium-browser .cb-results .cb-empty-note {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-empty-note {
   text-align: center;
   color: var(--color-text-dark-secondary);
   padding: 40px 0;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry {
   border-bottom: 1px solid var(--color-border-light-secondary);
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 6px 4px;
   cursor: pointer;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row:hover {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row:hover {
   background: var(--color-bg-btn-hover);
   box-shadow: inset 0 0 0 1px var(--color-border-highlight);
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-img {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-img {
   width: 32px;
   height: 32px;
   object-fit: cover;
   border-radius: 3px;
   flex: 0 0 auto;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-name {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-name {
   display: flex;
   flex-direction: column;
   min-width: 0;
   flex: 1 1 auto;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-name .cb-entry-title {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-name .cb-entry-title {
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-name .cb-entry-subtitle {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-name .cb-entry-subtitle {
   font-size: 11px;
   color: var(--color-text-dark-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-tags {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 3px;
   justify-content: flex-end;
   max-width: 35%;
 }
-.starwarsffg.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-tags .cb-entry-tag {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-list .cb-entry .cb-entry-row .cb-entry-tags .cb-entry-tag {
   font-size: 10px;
   background: var(--color-bg-option);
   border: 1px solid var(--color-border-dark-primary);
@@ -5665,7 +5665,7 @@ img {
   text-transform: capitalize;
   white-space: nowrap;
 }
-.starwarsffg.compendium-browser .cb-results .cb-load-more {
+.starwarsffg_sandbox.compendium-browser .cb-results .cb-load-more {
   text-align: center;
   padding: 12px 0;
   color: var(--color-text-dark-secondary);

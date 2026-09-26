@@ -8,15 +8,15 @@ export class AdversarySheetFFG extends ActorSheetFFG {
 
   /** @override */
   get template() {
-    const path = "systems/starwarsffg/templates/actors";
+    const path = "systems/starwarsffg_sandbox/templates/actors";
     return `${path}/ffg-adversary-sheet.html`;
   }
 
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["starwarsffg", "sheet", "actor", "adversary"],
-      template: "systems/starwarsffg/templates/actors/ffg-adversary-sheet.html",
+      classes: ["starwarsffg_sandbox", "sheet", "actor", "adversary"],
+      template: "systems/starwarsffg_sandbox/templates/actors/ffg-adversary-sheet.html",
       width: 710,
       height: 650,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "characteristics" }],
@@ -35,7 +35,7 @@ export class AdversarySheetFFG extends ActorSheetFFG {
         }
 
         // we need to update all specialization talents with the latest talent information
-        if (!this.actor.flags.starwarsffg?.loaded) {
+        if (!this.actor.flags.starwarsffg_sandbox?.loaded) {
           super._updateSpecialization(data);
         }
 

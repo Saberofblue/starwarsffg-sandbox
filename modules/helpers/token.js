@@ -1,5 +1,5 @@
 export function registerTokenControls() {
-  game.settings.register("starwarsffg", "showMinionCount", {
+  game.settings.register("starwarsffg_sandbox", "showMinionCount", {
     name: game.i18n.localize("SWFFG.Settings.showMinionCount.Name"),
     hint: game.i18n.localize("SWFFG.Settings.showMinionCount.Hint"),
     scope: "world",
@@ -8,7 +8,7 @@ export function registerTokenControls() {
     type: Boolean,
     onChange: (rule) => window.location.reload()
   });
-  game.settings.register("starwarsffg", "showAdversaryCount", {
+  game.settings.register("starwarsffg_sandbox", "showAdversaryCount", {
     name: game.i18n.localize("SWFFG.Settings.showAdversaryCount.Name"),
     hint: game.i18n.localize("SWFFG.Settings.showAdversaryCount.Hint"),
     scope: "world",
@@ -17,7 +17,7 @@ export function registerTokenControls() {
     type: Boolean,
     onChange: (rule) => window.location.reload()
   });
-    game.settings.register("starwarsffg", "adversaryItemName", {
+    game.settings.register("starwarsffg_sandbox", "adversaryItemName", {
     name: game.i18n.localize("SWFFG.Settings.AdversaryItemName.Name"),
     hint: game.i18n.localize("SWFFG.Settings.AdversaryItemName.Hint"),
     scope: "world",
@@ -29,7 +29,7 @@ export function registerTokenControls() {
 }
 
 export function drawMinionCount(token) {
-  if (!game.settings.get("starwarsffg", "showMinionCount")) {
+  if (!game.settings.get("starwarsffg_sandbox", "showMinionCount")) {
     return;
   }
   const borderWidth = 0.35;
@@ -110,11 +110,11 @@ export function drawMinionCount(token) {
 }
 
 export function drawAdversaryCount(token) {
-  if (!game.settings.get("starwarsffg", "showAdversaryCount")) {
+  if (!game.settings.get("starwarsffg_sandbox", "showAdversaryCount")) {
     return;
   }
   const overflowColor = "0xDAA520";
-  const itemName = game.settings.get("starwarsffg", "adversaryItemName");
+  const itemName = game.settings.get("starwarsffg_sandbox", "adversaryItemName");
   const adversaryItems = token?.actor?.items?.filter(i => i.name === itemName) || [];
   let adversaryLevel = 0;
   adversaryItems.forEach(function (item) {
@@ -130,7 +130,7 @@ export function drawAdversaryCount(token) {
     } else {
       token.adversaryLevel.removeChildren().forEach(i => i.destroy());
     }
-    const sprite = PIXI.Sprite.from(`systems/starwarsffg/images/adversary/adversary-${adversaryLevel}.png`);
+    const sprite = PIXI.Sprite.from(`systems/starwarsffg_sandbox/images/adversary/adversary-${adversaryLevel}.png`);
     sprite.width = token.w / 1.5;
     sprite.height = token.h / 2;
     sprite.x = (token.w / 2) - (sprite.width / 2);

@@ -81,11 +81,11 @@ export default class Gear {
               data.data.metadata.tags.push(item.Type.toLowerCase());
             }
 
-            let imgPath = await ImportHelpers.getImageFilename(zip, "Equipment", "Gear", data.flags.starwarsffg.ffgimportid);
+            let imgPath = await ImportHelpers.getImageFilename(zip, "Equipment", "Gear", data.flags.starwarsffg_sandbox.ffgimportid);
             if (imgPath) {
               data.img = await ImportHelpers.importImage(imgPath.name, zip, pack);
             } else {
-              data.img = "systems/starwarsffg/images/defaults/items/gear.png";
+              data.img = "systems/starwarsffg_sandbox/images/defaults/items/gear.png";
             }
 
             await ImportHelpers.addImportItemToCompendium("Item", data, pack);

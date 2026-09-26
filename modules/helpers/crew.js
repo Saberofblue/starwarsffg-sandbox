@@ -49,7 +49,7 @@ export async function register_crew(...args) {
  */
 export async function deregister_crew(vehicle_actor, crew_member, crew_role) {
     CONFIG.logger.debug("Got deregister crew request");
-    const flag_data = vehicle_actor.getFlag('starwarsffg', 'crew') ?? [];
+    const flag_data = vehicle_actor.getFlag('starwarsffg_sandbox', 'crew') ?? [];
     let new_flag_data = [];
 
     for (let i = 0; i < flag_data.length; i++) {
@@ -65,9 +65,9 @@ export async function deregister_crew(vehicle_actor, crew_member, crew_role) {
     CONFIG.logger.debug("Final updated flag data: ", new_flag_data);
     if (new_flag_data.length === 0) {
       // the last crew member was removed, delete the data
-      await vehicle_actor.unsetFlag('starwarsffg', 'crew');
+      await vehicle_actor.unsetFlag('starwarsffg_sandbox', 'crew');
     } else {
-      await vehicle_actor.setFlag('starwarsffg', 'crew', new_flag_data);
+      await vehicle_actor.setFlag('starwarsffg_sandbox', 'crew', new_flag_data);
     }
 }
 
@@ -82,7 +82,7 @@ export async function change_role(vehicle_actor, crew_member, old_crew_role, new
     CONFIG.logger.debug(
       `Got role change request: vehicle ID: ${vehicle_actor} | crew ID: ${crew_member} | old role: ${old_crew_role} | new role: ${new_crew_role}`
     );
-    const flag_data = vehicle_actor.getFlag('starwarsffg', 'crew') ?? [];
+    const flag_data = vehicle_actor.getFlag('starwarsffg_sandbox', 'crew') ?? [];
     let new_flag_data = [];
 
     if (flag_data.filter(i => i.actor_id === crew_member && i.role === new_crew_role).length > 0) {
@@ -102,7 +102,7 @@ export async function change_role(vehicle_actor, crew_member, old_crew_role, new
 
     CONFIG.logger.debug("Final updated flag data: ", new_flag_data);
     // set the updated flag data
-    await vehicle_actor.setFlag('starwarsffg', 'crew', new_flag_data);
+    await vehicle_actor.setFlag('starwarsffg_sandbox', 'crew', new_flag_data);
 }
 
 /**
@@ -113,7 +113,7 @@ export async function change_role(vehicle_actor, crew_member, old_crew_role, new
  * @returns {Promise<void>}
  */
 export async function updateRoles(vehicle_actor, crew_member_id, new_crew_roles) {
-  const flag_data = vehicle_actor.getFlag('starwarsffg', 'crew') || [];
+  const flag_data = vehicle_actor.getFlag('starwarsffg_sandbox', 'crew') || [];
   let new_flag_data = [];
   const crew_member = game.actors.get(crew_member_id);
 
@@ -140,7 +140,7 @@ export async function updateRoles(vehicle_actor, crew_member_id, new_crew_roles)
 
   CONFIG.logger.debug("Final updated flag data: ", new_flag_data);
   // set the updated flag data
-  vehicle_actor.setFlag('starwarsffg', 'crew', new_flag_data);
+  vehicle_actor.setFlag('starwarsffg_sandbox', 'crew', new_flag_data);
 }
 
 /**
@@ -160,9 +160,9 @@ export function build_crew_roll(vehicle, crew_id, crew_role) {
     return false;
   }
   const starting_pool = {'difficulty': 0};
-  const registeredRoles = game.settings.get('starwarsffg', 'arrayCrewRoles');
+  const registeredRoles = game.settings.get('starwarsffg_sandbox', 'arrayCrewRoles');
   // don't attempt to draw a roll for the initiative role
-  const initiativeRole = game.settings.get('starwarsffg', 'initiativeCrewRole');
+  const initiativeRole = game.settings.get('starwarsffg_sandbox', 'initiativeCrewRole');
   if (crew_role === initiativeRole.role_name) {
     return false;
   }
@@ -266,14 +266,14 @@ export async function handlePilotCheck(vehicle, pilot_id) {
 
 export async function selectRoles(vehicle, crew_member_id) {
   const crew_member = game.actors.get(crew_member_id);
-  const registeredRoles = game.settings.get('starwarsffg', 'arrayCrewRoles');
-  const vehicleRoles = vehicle.getFlag('starwarsffg', 'crew') || [];
+  const registeredRoles = game.settings.get('starwarsffg_sandbox', 'arrayCrewRoles');
+  const vehicleRoles = vehicle.getFlag('starwarsffg_sandbox', 'crew') || [];
 
   const crewMemberRoles = vehicleRoles.filter(role => role.actor_id === crew_member_id);
   const rolesInUse = crewMemberRoles.map(role => role.role);
 
   const content = await foundry.applications.handlebars.renderTemplate(
-    "systems/starwarsffg/templates/dialogs/ffg-crew-change.html",
+    "systems/starwarsffg_sandbox/templates/dialogs/ffg-crew-change.html",
     {
       actor: crew_member,
       roles: registeredRoles,

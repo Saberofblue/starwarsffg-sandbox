@@ -6,10 +6,10 @@ export default class ItemOptions {
   }
 
   init(html) {
-      const options = $(`.starwarsffg.sheet.item[data-appid='${this.data.appId}'] .ffg-sheet-options`);
+      const options = $(`.starwarsffg_sandbox.sheet.item[data-appid='${this.data.appId}'] .ffg-sheet-options`);
       if (options.length === 0) {
         const button = $(`<a class="ffg-sheet-options"><i class="fas fa-wrench"></i>${game.i18n.localize("SWFFG.SheetOptions")}</a>`);
-        button.insertBefore(`.starwarsffg.sheet.item[data-appid='${this.data.appId}'] header a:first`);
+        button.insertBefore(`.starwarsffg_sandbox.sheet.item[data-appid='${this.data.appId}'] header a:first`);
         button.on("click", this.handler.bind(this));
       }
   }
@@ -50,7 +50,7 @@ export default class ItemOptions {
                 return ui.notifications.warn("Unable to find item");
               }
               for (const flag of Object.keys(updateObject)) {
-                await item.setFlag("starwarsffg", flag, updateObject[flag]);
+                await item.setFlag("starwarsffg_sandbox", flag, updateObject[flag]);
               }
 
               this.data.object.update(updateObject);
@@ -64,8 +64,8 @@ export default class ItemOptions {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
-        template: "systems/starwarsffg/templates/dialogs/ffg-sheet-options.html",
+        classes: ["dialog", "starwarsffg_sandbox"],
+        template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-sheet-options.html",
       }
     ).render(true);
   }
@@ -74,12 +74,12 @@ export default class ItemOptions {
     if (!this.options[optionName]) {
       this.options[optionName] = { ...options };
     }
-    if (typeof this.data.object.flags?.starwarsffg?.config == "undefined") {
-      await this.data.object.setFlag("starwarsffg", "config", {});
+    if (typeof this.data.object.flags?.starwarsffg_sandbox?.config == "undefined") {
+      await this.data.object.setFlag("starwarsffg_sandbox", "config", {});
     }
 
-    if (typeof this.data.object.flags?.starwarsffg?.config[optionName] !== "undefined") {
-      this.options[optionName].value = this.data.object.flags?.starwarsffg?.config[optionName];
+    if (typeof this.data.object.flags?.starwarsffg_sandbox?.config[optionName] !== "undefined") {
+      this.options[optionName].value = this.data.object.flags?.starwarsffg_sandbox?.config[optionName];
     } else {
       this.options[optionName].value = this.options[optionName].default;
     }

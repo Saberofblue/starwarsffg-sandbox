@@ -1,19 +1,19 @@
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 export const SWFFG_COMPENDIUM_BROWSER_TABS = [
-  { id: "weapons", img: "systems/starwarsffg/images/defaults/items/weapon.png", label: "SWFFG.CompendiumBrowser.Tabs.Weapons", documentClass: "Item", types: ["weapon", "shipweapon"] },
-  { id: "armour", img: "systems/starwarsffg/images/defaults/items/armor.png", label: "SWFFG.ItemsArmor", documentClass: "Item", types: ["armour"] },
-  { id: "gear", img: "systems/starwarsffg/images/defaults/items/gear.png", label: "SWFFG.CompendiumBrowser.Tabs.Gear", documentClass: "Item", types: ["gear"] },
-  { id: "attachments", img: "systems/starwarsffg/images/defaults/items/attachment.png", label: "SWFFG.CompendiumBrowser.Tabs.Attachments", documentClass: "Item", types: ["itemattachment", "shipattachment"] },
-  { id: "mods", img: "systems/starwarsffg/images/defaults/items/itemmodifier.png", label: "SWFFG.CompendiumBrowser.Tabs.Mods", documentClass: "Item", types: ["itemmodifier"] },
+  { id: "weapons", img: "systems/starwarsffg_sandbox/images/defaults/items/weapon.png", label: "SWFFG.CompendiumBrowser.Tabs.Weapons", documentClass: "Item", types: ["weapon", "shipweapon"] },
+  { id: "armour", img: "systems/starwarsffg_sandbox/images/defaults/items/armor.png", label: "SWFFG.ItemsArmor", documentClass: "Item", types: ["armour"] },
+  { id: "gear", img: "systems/starwarsffg_sandbox/images/defaults/items/gear.png", label: "SWFFG.CompendiumBrowser.Tabs.Gear", documentClass: "Item", types: ["gear"] },
+  { id: "attachments", img: "systems/starwarsffg_sandbox/images/defaults/items/attachment.png", label: "SWFFG.CompendiumBrowser.Tabs.Attachments", documentClass: "Item", types: ["itemattachment", "shipattachment"] },
+  { id: "mods", img: "systems/starwarsffg_sandbox/images/defaults/items/itemmodifier.png", label: "SWFFG.CompendiumBrowser.Tabs.Mods", documentClass: "Item", types: ["itemmodifier"] },
   { id: "talents", icon: "fas fa-star", label: "SWFFG.CompendiumBrowser.Tabs.Talents", documentClass: "Item", types: ["talent"] },
   { id: "specializations", icon: "fas fa-code-branch", label: "SWFFG.CompendiumBrowser.Tabs.Specializations", documentClass: "Item", types: ["specialization"] },
-  { id: "species", img: "systems/starwarsffg/images/defaults/actors/character.png", label: "SWFFG.CompendiumBrowser.Tabs.Species", documentClass: "Item", types: ["species"] },
+  { id: "species", img: "systems/starwarsffg_sandbox/images/defaults/actors/character.png", label: "SWFFG.CompendiumBrowser.Tabs.Species", documentClass: "Item", types: ["species"] },
   { id: "careers", icon: "fas fa-briefcase", label: "SWFFG.CompendiumBrowser.Tabs.Careers", documentClass: "Item", types: ["career"] },
   { id: "forcepowers", icon: "fas fa-wand-sparkles", label: "SWFFG.CompendiumBrowser.Tabs.ForcePowers", documentClass: "Item", types: ["forcepower"] },
   { id: "signatureabilities", icon: "fas fa-medal", label: "SWFFG.CompendiumBrowser.Tabs.SignatureAbilities", documentClass: "Item", types: ["signatureability"] },
-  { id: "vehicles", img: "systems/starwarsffg/images/defaults/actors/vehicle.png", label: "SWFFG.CompendiumBrowser.Tabs.Vehicles", documentClass: "Actor", types: ["vehicle"] },
-  { id: "adversaries", img: "systems/starwarsffg/images/defaults/actors/nemesis.png", label: "SWFFG.CompendiumBrowser.Tabs.Adversaries", documentClass: "Actor", types: ["minion", "rival", "nemesis"] },
+  { id: "vehicles", img: "systems/starwarsffg_sandbox/images/defaults/actors/vehicle.png", label: "SWFFG.CompendiumBrowser.Tabs.Vehicles", documentClass: "Actor", types: ["vehicle"] },
+  { id: "adversaries", img: "systems/starwarsffg_sandbox/images/defaults/actors/nemesis.png", label: "SWFFG.CompendiumBrowser.Tabs.Adversaries", documentClass: "Actor", types: ["minion", "rival", "nemesis"] },
   { id: "other", icon: "fas fa-ellipsis", label: "SWFFG.CompendiumBrowser.Tabs.Other", documentClass: "Item", types: ["ability", "background", "obligation", "motivation", "criticaldamage", "criticalinjury", "homesteadupgrade"] },
 ];
 
@@ -25,7 +25,7 @@ const IGNORED_TAG_HINTS = new Set(["weapon", "shipweapon", "armour", "armor", "g
 export default class CompendiumBrowser extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     id: "swffg-compendium-browser",
-    classes: ["starwarsffg", "compendium-browser"],
+    classes: ["starwarsffg_sandbox", "compendium-browser"],
     tag: "form",
     window: {
       title: "SWFFG.CompendiumBrowser.Title",
@@ -46,9 +46,9 @@ export default class CompendiumBrowser extends HandlebarsApplicationMixin(Applic
   };
 
   static PARTS = {
-    tabs: { template: "systems/starwarsffg/templates/compendium/browser-tabs.html" },
-    sidebar: { template: "systems/starwarsffg/templates/compendium/browser-sidebar.html" },
-    results: { template: "systems/starwarsffg/templates/compendium/browser-results.html", scrollable: [""] },
+    tabs: { template: "systems/starwarsffg_sandbox/templates/compendium/browser-tabs.html" },
+    sidebar: { template: "systems/starwarsffg_sandbox/templates/compendium/browser-sidebar.html" },
+    results: { template: "systems/starwarsffg_sandbox/templates/compendium/browser-results.html", scrollable: [""] },
   };
 
   constructor(options) {

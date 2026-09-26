@@ -66,18 +66,18 @@ export class rulesetSettings extends ffgSettings {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "ruleset-settings",
-      classes: ["starwarsffg", "ruleset-settings"],
+      classes: ["starwarsffg_sandbox", "ruleset-settings"],
       title: `${game.i18n.localize("SWFFG.Settings.ruleset.Title")}`,
-      template: "systems/starwarsffg/templates/dialogs/ffg-ui-settings.html",
+      template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-ui-settings.html",
     });
   }
 
   getData(options) {
     const includeSettingsNames = [
-        "starwarsffg.dicetheme",
-        "starwarsffg.vehicleRangeBand",
-        "starwarsffg.skilltheme",
-        "starwarsffg.enableForceDie",
+        "starwarsffg_sandbox.dicetheme",
+        "starwarsffg_sandbox.vehicleRangeBand",
+        "starwarsffg_sandbox.skilltheme",
+        "starwarsffg_sandbox.enableForceDie",
     ];
     return super.getData(includeSettingsNames);
   }
@@ -87,24 +87,24 @@ export class uiSettings extends ffgSettings {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "ui-settings",
-      classes: ["starwarsffg", "ui-settings"],
+      classes: ["starwarsffg_sandbox", "ui-settings"],
       title: `${game.i18n.localize("SWFFG.Settings.ui.Title")}`,
-      template: "systems/starwarsffg/templates/dialogs/ffg-ui-settings.html",
+      template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-ui-settings.html",
     });
   }
 
   getData(options) {
     const includeSettingsNames = [
-      "starwarsffg.ui-uitheme",
-      "starwarsffg.ui-pausedImage",
-      "starwarsffg.ui-token-healthy",
-      "starwarsffg.ui-token-wounded",
-      "starwarsffg.ui-token-overwounded",
-      "starwarsffg.ui-token-stamina-ok",
-      "starwarsffg.ui-token-stamina-damaged",
-      "starwarsffg.ui-token-stamina-over",
-      "starwarsffg.displaySimulation",
-      "starwarsffg.rollSimulation",
+      "starwarsffg_sandbox.ui-uitheme",
+      "starwarsffg_sandbox.ui-pausedImage",
+      "starwarsffg_sandbox.ui-token-healthy",
+      "starwarsffg_sandbox.ui-token-wounded",
+      "starwarsffg_sandbox.ui-token-overwounded",
+      "starwarsffg_sandbox.ui-token-stamina-ok",
+      "starwarsffg_sandbox.ui-token-stamina-damaged",
+      "starwarsffg_sandbox.ui-token-stamina-over",
+      "starwarsffg_sandbox.displaySimulation",
+      "starwarsffg_sandbox.rollSimulation",
     ];
     return super.getData(includeSettingsNames);
   }
@@ -114,19 +114,19 @@ export class combatSettings extends ffgSettings {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "combat-settings",
-      classes: ["starwarsffg", "combat-settings"],
+      classes: ["starwarsffg_sandbox", "combat-settings"],
       title: `${game.i18n.localize("SWFFG.Settings.combat.Title")}`,
-      template: "systems/starwarsffg/templates/dialogs/ffg-ui-settings.html",
+      template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-ui-settings.html",
     });
   }
 
   getData(options) {
     const includeSettingsNames = [
-      "starwarsffg.useGenericSlots",
-      "starwarsffg.initiativeRule",
-      "starwarsffg.removeCombatantAction",
-      "starwarsffg.useDefense",
-      "starwarsffg.additionalStatuses",
+      "starwarsffg_sandbox.useGenericSlots",
+      "starwarsffg_sandbox.initiativeRule",
+      "starwarsffg_sandbox.removeCombatantAction",
+      "starwarsffg_sandbox.useDefense",
+      "starwarsffg_sandbox.additionalStatuses",
     ];
     return super.getData(includeSettingsNames);
   }
@@ -136,25 +136,25 @@ export class actorSettings extends ffgSettings {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "actor-settings",
-      classes: ["starwarsffg", "actor-settings"],
+      classes: ["starwarsffg_sandbox", "actor-settings"],
       title: `${game.i18n.localize("SWFFG.Settings.actor.Title")}`,
-      template: "systems/starwarsffg/templates/dialogs/ffg-ui-settings.html",
+      template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-ui-settings.html",
     });
   }
 
   getData(options) {
     const includeSettingsNames = [
-      "starwarsffg.enableSoakCalc",
-      "starwarsffg.talentSorting",
-      "starwarsffg.showMinionCount",
-      "starwarsffg.showAdversaryCount",
-      "starwarsffg.adversaryItemName",
-      "starwarsffg.maxAttribute",
-      "starwarsffg.maxSkill",
-      "starwarsffg.medItemName",
-      "starwarsffg.HealingItemAction",
-      "starwarsffg.consumeHealingItem",
-      "starwarsffg.RivalTokenPrepend",
+      "starwarsffg_sandbox.enableSoakCalc",
+      "starwarsffg_sandbox.talentSorting",
+      "starwarsffg_sandbox.showMinionCount",
+      "starwarsffg_sandbox.showAdversaryCount",
+      "starwarsffg_sandbox.adversaryItemName",
+      "starwarsffg_sandbox.maxAttribute",
+      "starwarsffg_sandbox.maxSkill",
+      "starwarsffg_sandbox.medItemName",
+      "starwarsffg_sandbox.HealingItemAction",
+      "starwarsffg_sandbox.consumeHealingItem",
+      "starwarsffg_sandbox.RivalTokenPrepend",
     ];
     return super.getData(includeSettingsNames);
   }
@@ -164,31 +164,31 @@ export class xpSpendingSettings extends ffgSettings {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "xpSpending",
-      classes: ["starwarsffg", "xpSpending"],
+      classes: ["starwarsffg_sandbox", "xpSpending"],
       title: `${game.i18n.localize("SWFFG.Settings.xpSpending.Title")}`,
-      template: "systems/starwarsffg/templates/dialogs/ffg-ui-settings.html",
+      template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-ui-settings.html",
     });
   }
 
   getData(options) {
     const includeSettingsNames = [
-      "starwarsffg.specializationCompendiums",
-      "starwarsffg.signatureAbilityCompendiums",
-      "starwarsffg.forcePowerCompendiums",
-      "starwarsffg.talentCompendiums",
-      "starwarsffg.backgroundCompendiums",
-      "starwarsffg.obligationCompendiums",
-      "starwarsffg.speciesCompendiums",
-      "starwarsffg.careerCompendiums",
-      "starwarsffg.motivationCompendiums",
-      "starwarsffg.itemCompendiums",
-      "starwarsffg.notifyOnXpSpend",
-      "starwarsffg.defaultObligation",
-      "starwarsffg.defaultDuty",
-      "starwarsffg.defaultMorality",
-      "starwarsffg.maxRarity",
-      "starwarsffg.allowRestricted",
-      "starwarsffg.defaultCredits",
+      "starwarsffg_sandbox.specializationCompendiums",
+      "starwarsffg_sandbox.signatureAbilityCompendiums",
+      "starwarsffg_sandbox.forcePowerCompendiums",
+      "starwarsffg_sandbox.talentCompendiums",
+      "starwarsffg_sandbox.backgroundCompendiums",
+      "starwarsffg_sandbox.obligationCompendiums",
+      "starwarsffg_sandbox.speciesCompendiums",
+      "starwarsffg_sandbox.careerCompendiums",
+      "starwarsffg_sandbox.motivationCompendiums",
+      "starwarsffg_sandbox.itemCompendiums",
+      "starwarsffg_sandbox.notifyOnXpSpend",
+      "starwarsffg_sandbox.defaultObligation",
+      "starwarsffg_sandbox.defaultDuty",
+      "starwarsffg_sandbox.defaultMorality",
+      "starwarsffg_sandbox.maxRarity",
+      "starwarsffg_sandbox.allowRestricted",
+      "starwarsffg_sandbox.defaultCredits",
     ];
     return super.getData(includeSettingsNames);
   }
@@ -198,17 +198,17 @@ export class localizationSettings extends ffgSettings {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "localization",
-      classes: ["starwarsffg", "localization"],
+      classes: ["starwarsffg_sandbox", "localization"],
       title: `${game.i18n.localize("SWFFG.Settings.localization.Title")}`,
-      template: "systems/starwarsffg/templates/dialogs/ffg-ui-settings.html",
+      template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-ui-settings.html",
     });
   }
 
   getData(options) {
     const includeSettingsNames = [
-      "starwarsffg.skillSorting",
-      "starwarsffg.destiny-pool-light",
-      "starwarsffg.destiny-pool-dark",
+      "starwarsffg_sandbox.skillSorting",
+      "starwarsffg_sandbox.destiny-pool-light",
+      "starwarsffg_sandbox.destiny-pool-dark",
     ];
     return super.getData(includeSettingsNames);
   }
@@ -218,17 +218,17 @@ export class groupManagerSettings extends ffgSettings {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "group-manager",
-      classes: ["starwarsffg", "group-manager"],
+      classes: ["starwarsffg_sandbox", "group-manager"],
       title: `${game.i18n.localize("SWFFG.Settings.groupManager.Title")}`,
-      template: "systems/starwarsffg/templates/dialogs/ffg-ui-settings.html",
+      template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-ui-settings.html",
     });
   }
 
   getData(options) {
     const includeSettingsNames = [
-      "starwarsffg.pcListMode",
-      "starwarsffg.privateTriggers",
-      "starwarsffg.GMCharactersInGroupManager"
+      "starwarsffg_sandbox.pcListMode",
+      "starwarsffg_sandbox.privateTriggers",
+      "starwarsffg_sandbox.GMCharactersInGroupManager"
     ];
     return super.getData(includeSettingsNames);
   }

@@ -69,7 +69,7 @@ test("preserves direct, transferred, disabled, status, skill, force, and inheren
     disabled: true,
     transfer: true,
     statuses: ["stunned"],
-    flags: {starwarsffg: {inherent: true}},
+    flags: {starwarsffg_sandbox: {inherent: true}},
     changes: [
       {key: "system.skills.astrogation.rank", mode: 2, value: 1},
       {key: "system.forceRating.max", type: "upgrade", value: 2},

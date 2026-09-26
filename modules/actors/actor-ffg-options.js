@@ -8,10 +8,10 @@ export default class ActorOptions {
   }
 
   init(html) {
-      const options = $(`.starwarsffg.sheet.actor[data-appid='${this.data.appId}'] .ffg-sheet-options`);
+      const options = $(`.starwarsffg_sandbox.sheet.actor[data-appid='${this.data.appId}'] .ffg-sheet-options`);
       if (options.length === 0) {
         const button = $(`<a class="ffg-sheet-options"><i class="fas fa-wrench"></i>${game.i18n.localize("SWFFG.SheetOptions")}</a>`);
-        button.insertBefore(`.starwarsffg.sheet.actor[data-appid='${this.data.appId}'] header a:first`);
+        button.insertBefore(`.starwarsffg_sandbox.sheet.actor[data-appid='${this.data.appId}'] header a:first`);
         button.on("click", this.handler.bind(this));
       }
   }
@@ -43,22 +43,22 @@ export default class ActorOptions {
                   value = control.value;
                 }
 
-                updateObject[`flags.starwarsffg.${control.name}`] = value;
+                updateObject[`flags.starwarsffg_sandbox.${control.name}`] = value;
                 this.options[control.id].value = value;
               }
 
               // read the most recent version, not the registered flag version
-              const editMode = updateObject['flags.starwarsffg.config.enableEditMode'];
+              const editMode = updateObject['flags.starwarsffg_sandbox.config.enableEditMode'];
               if (editMode) {
                 if (!this.data.object.suspendedEffects) {
                   // suspend AEs
                   await ActorHelpers.beginEditMode(this.data.object);
-                  updateObject[`flags.starwarsffg.config.editModeActor`] = game.user.id;
+                  updateObject[`flags.starwarsffg_sandbox.config.editModeActor`] = game.user.id;
                 }
               } else {
                 // unsuspend AEs
                 await ActorHelpers.endEditMode(this.data.object);
-                updateObject[`flags.starwarsffg.config.editModeActor`] = "";
+                updateObject[`flags.starwarsffg_sandbox.config.editModeActor`] = "";
               }
 
               this.data.object.update(updateObject);
@@ -72,8 +72,8 @@ export default class ActorOptions {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
-        template: "systems/starwarsffg/templates/dialogs/ffg-sheet-options.html",
+        classes: ["dialog", "starwarsffg_sandbox"],
+        template: "systems/starwarsffg_sandbox/templates/dialogs/ffg-sheet-options.html",
       }
     ).render(true);
   }
@@ -82,12 +82,12 @@ export default class ActorOptions {
     if (!this.options[optionName]) {
       this.options[optionName] = { ...options };
     }
-    if (typeof this.data.object.flags?.starwarsffg?.config == "undefined") {
-      await this.data.object.setFlag("starwarsffg", "config", {});
+    if (typeof this.data.object.flags?.starwarsffg_sandbox?.config == "undefined") {
+      await this.data.object.setFlag("starwarsffg_sandbox", "config", {});
     }
 
-    if (typeof this.data.object.flags?.starwarsffg?.config[optionName] !== "undefined") {
-      this.options[optionName].value = this.data.object.flags?.starwarsffg?.config[optionName];
+    if (typeof this.data.object.flags?.starwarsffg_sandbox?.config[optionName] !== "undefined") {
+      this.options[optionName].value = this.data.object.flags?.starwarsffg_sandbox?.config[optionName];
     } else {
       this.options[optionName].value = this.options[optionName].default;
     }

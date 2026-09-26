@@ -32,7 +32,7 @@ export async function createFFGMacro(bar, data, slot) {
     }
     if (entity.type === "weapon") {
       let command;
-      if (!entity?.flags?.starwarsffg?.ffgIsOwned) {
+      if (!entity?.flags?.starwarsffg_sandbox?.ffgIsOwned) {
         command = `await ui.hotbar.constructor.toggleDocumentSheet("${data.uuid}");`;
       } else {
         command = `

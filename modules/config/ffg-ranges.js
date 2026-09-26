@@ -22,7 +22,7 @@ export const personal_ranges = {
 };
 
 export function configureVehicleRange() {
-  const rangeBands = game.settings.get("starwarsffg", "vehicleRangeBand");
+  const rangeBands = game.settings.get("starwarsffg_sandbox", "vehicleRangeBand");
   CONFIG.FFG.rangeTheme = rangeBands;
 
   if (rangeBands === "starwars") {

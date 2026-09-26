@@ -66,7 +66,7 @@ test('a modifier referenced by Key resolves to the descriptor it names', async (
   const descriptor = await world.imported('itemmodifier');
 
   const carried = await api.read(page, weapon, 'system.itemmodifier');
-  const pierce = carried.find((mod) => mod.flags?.starwarsffg?.ffgimportid === quality.Key);
+  const pierce = carried.find((mod) => mod.flags?.starwarsffg_sandbox?.ffgimportid === quality.Key);
 
   expect(pierce, 'the quality the weapon names is on it').toBeTruthy();
   expect(pierce.name, 'as the descriptor it names').toBe(await api.read(page, descriptor, 'name'));

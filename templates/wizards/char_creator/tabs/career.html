@@ -64,7 +64,7 @@
     {{ localize "SWFFG.CharacterCreator.buttons.career.skillRanks" }} ({{ keylen careerSkillPurchases }}/4 selected)
   </div>
   <div class="career_skill_rank_select-selection" style="display: none;">
-    {{> "systems/starwarsffg/templates/wizards/char_creator/preview/skills.html" (
+    {{> "systems/starwarsffg_sandbox/templates/wizards/char_creator/preview/skills.html" (
       object skillsList=skillsList actor=actor mode="career" purchases=careerSkillPurchases keys=careerKeys
     )}}
   </div>
@@ -113,7 +113,7 @@
     {{ localize "SWFFG.CharacterCreator.buttons.specialization.skillRanks" }} ({{ keylen specializationSkillPurchases }}/2 selected)
   </div>
   <div class="specialization_skill_rank_select-selection" style="display: none;">
-    {{> "systems/starwarsffg/templates/wizards/char_creator/preview/skills.html" (
+    {{> "systems/starwarsffg_sandbox/templates/wizards/char_creator/preview/skills.html" (
       object skillsList=skillsList actor=actor mode="specialization" purchases=specializationSkillPurchases keys=specializationKeys
     )}}
   </div>

@@ -53,7 +53,7 @@ export default class ActorHelpers {
     formData.data.attributes = attributes;
 
     // Update the Actor
-    foundry.utils.setProperty(formData, `flags.starwarsffg.loaded`, false);
+    foundry.utils.setProperty(formData, `flags.starwarsffg_sandbox.loaded`, false);
 
     // as of v12, "data" is no longer shimmed into "system" for you, so we must do it ourselves
     formData = migrateDataToSystem(formData);
@@ -197,7 +197,7 @@ export default class ActorHelpers {
  * @returns {Promise<void>}
  */
 export async function xpLogSpend(actor, action, cost, available, total, statusId=undefined) {
-  const xpLog = actor.getFlag("starwarsffg", "xpLog") || [];
+  const xpLog = actor.getFlag("starwarsffg_sandbox", "xpLog") || [];
   const date = new Date().toISOString().slice(0, 10);
   const newEntry = {
     action: 'purchased',
@@ -210,7 +210,7 @@ export async function xpLogSpend(actor, action, cost, available, total, statusId
     date: date,
     description: action,
   };
-  await actor.setFlag("starwarsffg", "xpLog", [newEntry, ...xpLog]);
+  await actor.setFlag("starwarsffg_sandbox", "xpLog", [newEntry, ...xpLog]);
   await notifyXpSpend(actor, action);
 }
 
@@ -221,7 +221,7 @@ export async function xpLogSpend(actor, action, cost, available, total, statusId
  * @returns {Promise<void>}
  */
 async function notifyXpSpend(actor, action) {
-  if (game.settings.get("starwarsffg", "notifyOnXpSpend")) {
+  if (game.settings.get("starwarsffg_sandbox", "notifyOnXpSpend")) {
     const chatData = {
       speaker: {
         actor: actor,
@@ -244,7 +244,7 @@ async function notifyXpSpend(actor, action) {
  * @returns {Promise<void>}
  */
 export async function xpLogEarn(actor, grant, available, total, note, granter="GM", statusId=undefined) {
-  const xpLog = actor.getFlag("starwarsffg", "xpLog") || [];
+  const xpLog = actor.getFlag("starwarsffg_sandbox", "xpLog") || [];
   const date = new Date().toISOString().slice(0, 10);
   let action;
   if (granter === "GM") {
@@ -263,7 +263,7 @@ export async function xpLogEarn(actor, grant, available, total, note, granter="G
     date: date,
     description: note,
   };
-  await actor.setFlag("starwarsffg", "xpLog", [newEntry, ...xpLog]);
+  await actor.setFlag("starwarsffg_sandbox", "xpLog", [newEntry, ...xpLog]);
 }
 
 /**
@@ -275,7 +275,7 @@ export async function xpLogEarn(actor, grant, available, total, note, granter="G
  * @returns {Promise<void>}
  */
 export async function xpLogUndo(actor, undone, available, total) {
-  const xpLog = actor.getFlag("starwarsffg", "xpLog") || [];
+  const xpLog = actor.getFlag("starwarsffg_sandbox", "xpLog") || [];
   const date = new Date().toISOString().slice(0, 10);
   const newEntry = {
     action: "undid",
@@ -288,5 +288,5 @@ export async function xpLogUndo(actor, undone, available, total) {
     date: date,
     description: "Species XP",
   };
-  await actor.setFlag("starwarsffg", "xpLog", [newEntry, ...xpLog]);
+  await actor.setFlag("starwarsffg_sandbox", "xpLog", [newEntry, ...xpLog]);
 }

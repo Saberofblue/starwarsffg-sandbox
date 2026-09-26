@@ -46,9 +46,9 @@ export async function applyProfile(page: Page, name: ProfileName): Promise<void>
   await page.evaluate(async (settings) => {
     for (const [key, value] of Object.entries(settings)) {
       // a setting the world doesn't have registered would throw and take the run with it
-      if (!game.settings.settings.has(`starwarsffg.${key}`)) continue;
-      if (game.settings.get('starwarsffg', key) === value) continue;
-      await game.settings.set('starwarsffg', key, value);
+      if (!game.settings.settings.has(`starwarsffg_sandbox.${key}`)) continue;
+      if (game.settings.get('starwarsffg_sandbox', key) === value) continue;
+      await game.settings.set('starwarsffg_sandbox', key, value);
     }
   }, settings);
 }
@@ -59,8 +59,8 @@ export async function currentProfile(page: Page): Promise<Record<string, unknown
     const keys = ['dicetheme', 'skilltheme', 'enableSoakCalc', 'enableForceDie'];
     return Object.fromEntries(
       keys
-        .filter((k) => game.settings.settings.has(`starwarsffg.${k}`))
-        .map((k) => [k, game.settings.get('starwarsffg', k)]),
+        .filter((k) => game.settings.settings.has(`starwarsffg_sandbox.${k}`))
+        .map((k) => [k, game.settings.get('starwarsffg_sandbox', k)]),
     );
   });
 }

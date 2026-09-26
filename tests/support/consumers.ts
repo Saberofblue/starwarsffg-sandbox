@@ -343,7 +343,7 @@ export class Consumers {
       const crew = await fromUuid(crewUuid);
       if (!vehicle || !crew) return { error: 'the vehicle or the crew member is gone' };
 
-      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
       const { build_crew_roll } = await load('helpers/crew.js');
 
       const original = window.DicePoolFFG.prototype.renderPreview;
@@ -390,14 +390,14 @@ export class Consumers {
       const pilot = await fromUuid(pilotUuid);
       if (!vehicle || !pilot) return { error: 'the vehicle or the pilot is gone' };
 
-      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
       const { buildPilotRoll } = await load('helpers/crew.js');
 
       let pool;
       try {
         pool = await buildPilotRoll(vehicle.id, pilot.id);
       } catch (err: any) {
-        const theme = game.settings.get('starwarsffg', 'skilltheme');
+        const theme = game.settings.get('starwarsffg_sandbox', 'skilltheme');
         return {
           error: `${err?.message ?? err} (the skill theme is "${theme}", and the pilot has: `
             + `${Object.keys(pilot.system?.skills ?? {}).filter((s) => s.startsWith('Piloting')).join(', ')})`,
@@ -437,7 +437,7 @@ export class Consumers {
       const skill = item.system?.skill?.value;
       if (!skill) return { error: `${item.name} names no skill to roll` };
 
-      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
       const { get_dice_pool } = await load('helpers/dice-helpers.js');
       // it converts from the label the sheet shows, not the key the item stores
       const label = game.i18n.localize(CONFIG.FFG.skills[skill]?.label ?? skill);
@@ -484,7 +484,7 @@ export class Consumers {
       const actor = await fromUuid(actorUuid);
       if (!actor) return { error: `No actor at ${actorUuid}` };
 
-      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+      const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
       const { get_dice_pool } = await load('helpers/dice-helpers.js');
 
       let pool;
@@ -586,7 +586,7 @@ export class Consumers {
   async xpLog(ctx: Ctx): Promise<{
     action: string; description: string; cost: number; available: number; total: number;
   }[]> {
-    const entries = await api.read(this.page, ctx.actor, 'flags.starwarsffg.xpLog');
+    const entries = await api.read(this.page, ctx.actor, 'flags.starwarsffg_sandbox.xpLog');
     return ((entries ?? []) as any[]).map((e) => ({
       action: String(e?.action ?? ''),
       description: String(e?.description ?? ''),

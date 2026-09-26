@@ -18,8 +18,8 @@ export default class RollBuilderFFG extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "roll-builder",
-      classes: ["starwarsffg", "roll-builder-dialog"],
-      template: "systems/starwarsffg/templates/dice/roll-options-ffg.html",
+      classes: ["starwarsffg_sandbox", "roll-builder-dialog"],
+      template: "systems/starwarsffg_sandbox/templates/dice/roll-options-ffg.html",
       width: 350
     });
   }
@@ -45,14 +45,14 @@ export default class RollBuilderFFG extends FormApplication {
       dark: await foundry.applications.ux.TextEditor.enrichHTML("[DA]"),
     };
 
-    let canUserAddAudio = await game.settings.get("starwarsffg", "allowUsersAddRollAudio");
+    let canUserAddAudio = await game.settings.get("starwarsffg_sandbox", "allowUsersAddRollAudio");
     let canUserAddFlavor = game.user.isGM || !this?.roll?.flavor;
 
     if (game.user.isGM) {
       game.playlists.contents.forEach((playlist) => {
         playlist.sounds.forEach((sound) => {
           let selected = false;
-          const s = this.roll?.sound ?? this.roll?.item?.flags?.starwarsffg?.ffgsound;
+          const s = this.roll?.sound ?? this.roll?.item?.flags?.starwarsffg_sandbox?.ffgsound;
           if (s === sound.path) {
             selected = true;
           }
@@ -60,13 +60,13 @@ export default class RollBuilderFFG extends FormApplication {
         });
       });
     } else if (canUserAddAudio) {
-      const playlistId = await game.settings.get("starwarsffg", "allowUsersAddRollAudioPlaylist");
+      const playlistId = await game.settings.get("starwarsffg_sandbox", "allowUsersAddRollAudioPlaylist");
       const playlist = await game.playlists.get(playlistId);
 
       if (playlist) {
         playlist.sounds.forEach((sound) => {
           let selected = false;
-          const s = this.roll?.sound ?? this.roll?.item?.flags?.starwarsffg?.ffgsound;
+          const s = this.roll?.sound ?? this.roll?.item?.flags?.starwarsffg_sandbox?.ffgsound;
           if (s === sound.path) {
             selected = true;
           }
@@ -87,14 +87,14 @@ export default class RollBuilderFFG extends FormApplication {
       });
     }
 
-    const enableForceDie = game.settings.get("starwarsffg", "enableForceDie");
+    const enableForceDie = game.settings.get("starwarsffg_sandbox", "enableForceDie");
     const labels = {
-      light: game.settings.get("starwarsffg", "destiny-pool-light"),
-      dark: game.settings.get("starwarsffg", "destiny-pool-dark"),
+      light: game.settings.get("starwarsffg_sandbox", "destiny-pool-light"),
+      dark: game.settings.get("starwarsffg_sandbox", "destiny-pool-dark"),
     };
 
     let display = false;
-    const displaySimulation = game.settings.get("starwarsffg", "displaySimulation");
+    const displaySimulation = game.settings.get("starwarsffg_sandbox", "displaySimulation");
     if (displaySimulation === "GM" && game.user.isGM || displaySimulation === "All") {
       display = true;
     }
@@ -109,7 +109,7 @@ export default class RollBuilderFFG extends FormApplication {
       labels,
       diceSymbols,
       simDisplay: display,
-      simCount: game.settings.get("starwarsffg", "rollSimulation")
+      simCount: game.settings.get("starwarsffg_sandbox", "rollSimulation")
     };
   }
 
@@ -129,13 +129,13 @@ export default class RollBuilderFFG extends FormApplication {
           if (this?.roll?.item) {
             let entity;
             let entityData;
-            if (!this?.roll?.item?.flags?.starwarsffg?.uuid) {
+            if (!this?.roll?.item?.flags?.starwarsffg_sandbox?.uuid) {
               entity = game.actors.get(this.roll.data.actor._id);
               entityData = {
                 _id: this.roll.item.id,
               };
             } else {
-              const parts = this.roll.item.flags.starwarsffg?.uuid.split(".");
+              const parts = this.roll.item.flags.starwarsffg_sandbox?.uuid.split(".");
               const [sceneName, sceneId, entityName, entityId, embeddedName, embeddedId] = parts;
               entity = game.actors.tokens[entityId].items.get(embeddedId);
               if (parts.length === 6) {
@@ -144,7 +144,7 @@ export default class RollBuilderFFG extends FormApplication {
                 };
               }
             }
-            foundry.utils.setProperty(entityData, "flags.starwarsffg.ffgsound", sound);
+            foundry.utils.setProperty(entityData, "flags.starwarsffg_sandbox.ffgsound", sound);
             entity.update(entityData);
           }
         }
@@ -158,10 +158,10 @@ export default class RollBuilderFFG extends FormApplication {
       }
 
       // validate that required data is present
-      if (this.roll.item?.uuid && !this.roll.item.flags?.starwarsffg?.uuid) {
+      if (this.roll.item?.uuid && !this.roll.item.flags?.starwarsffg_sandbox?.uuid) {
         // uuid flag is missing, look up the item and set it, so it's fixed going forward
         const tmp_item = await fromUuid(this.roll.item.uuid);
-        await tmp_item.setFlag("starwarsffg", "uuid", this.roll.item.uuid);
+        await tmp_item.setFlag("starwarsffg_sandbox", "uuid", this.roll.item.uuid);
       }
 
 
@@ -193,7 +193,7 @@ export default class RollBuilderFFG extends FormApplication {
         if (this?.roll?.item && this.roll.item.type === "weapon") {
           const item = await foundry.utils.fromUuid(this.roll.item.uuid);
           if (item) {
-            const ammoEnabled = item.getFlag("starwarsffg", "config.enableAmmo");
+            const ammoEnabled = item.getFlag("starwarsffg_sandbox", "config.enableAmmo");
             if (ammoEnabled) {
               await item.update({"system.ammo.value": item.system.ammo.value - 1});
             }
@@ -218,7 +218,7 @@ export default class RollBuilderFFG extends FormApplication {
           user: game.user.id,
           content: messageText,
           flags: {
-            starwarsffg: {
+            starwarsffg_sandbox: {
               roll: this.roll,
               dicePool: this.dicePool,
               description: this.description,
@@ -238,7 +238,7 @@ export default class RollBuilderFFG extends FormApplication {
         const roll = new game.ffg.RollFFG(this.dicePool.renderDiceExpression(), this.roll.item, this.dicePool, this.roll.flavor);
         // check if this is a crew roll - and it's a roll for a weapon
         if (this.roll.item && this.roll.item.hasOwnProperty('crew') && Object.keys(this.roll.item).length > 1) {
-          await this.roll.item.update({"flags": {"starwarsffg": {"crew": this.roll.item.crew}}})
+          await this.roll.item.update({"flags": {"starwarsffg_sandbox": {"crew": this.roll.item.crew}}})
         }
         await roll.toMessage({
           user: game.user.id,
@@ -379,7 +379,7 @@ export default class RollBuilderFFG extends FormApplication {
           boostDice: this.dicePool.boost,
           setbackDice: this.dicePool.setback,
         },
-        iterations: game.settings.get("starwarsffg", "rollSimulation"),
+        iterations: game.settings.get("starwarsffg_sandbox", "rollSimulation"),
         runSimulate: false,
         modifiers: {
           automaticSuccesses: this.dicePool.success,

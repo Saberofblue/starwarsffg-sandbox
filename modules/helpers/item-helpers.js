@@ -38,7 +38,7 @@ export default class ItemHelpers {
     let updated_id = formData._id;
     delete formData._id;
 
-    foundry.utils.setProperty(formData, `flags.starwarsffg.loaded`, false);
+    foundry.utils.setProperty(formData, `flags.starwarsffg_sandbox.loaded`, false);
     await this.object.update(formData);
     // sync the active effect state (if applicable). needs to be after the update so we have the updated state
     await ItemHelpers.syncAEStatus(this.object, this.object.getEmbeddedCollection("ActiveEffect"));
@@ -72,11 +72,11 @@ export default class ItemHelpers {
               const ids = parent.id.split(".OwnedItem.");
               const actor = await fromUuid(ids[0]);
               const item = await actor.items.get(ids[1]);
-              foundry.utils.setProperty(updateData, `flags.starwarsffg.loaded`, false);
+              foundry.utils.setProperty(updateData, `flags.starwarsffg_sandbox.loaded`, false);
               await item.update(updateData);
               await item.sheet.render(true);
             } else {
-              foundry.utils.setProperty(updateData, `flags.starwarsffg.loaded`, false);
+              foundry.utils.setProperty(updateData, `flags.starwarsffg_sandbox.loaded`, false);
               await spec.update(updateData);
               await spec.sheet.render(true);
             }

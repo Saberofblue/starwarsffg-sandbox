@@ -50,7 +50,7 @@
 
   <div class="skills">
     <div class="skills skills-container">
-      {{> "systems/starwarsffg/templates/wizards/char_creator/preview/skills.html" (
+      {{> "systems/starwarsffg_sandbox/templates/wizards/char_creator/preview/skills.html" (
         object skillsList=skillsList actor=actor mode="purchase" purchases=combinedPurchases combinedPurchases=combinedPurchases
       )}}
     </div>
@@ -61,7 +61,7 @@
       {{ data.selected.specialization.name }}
     </div>
     <div class="specialization-summary" style="display: none;">
-      {{> "systems/starwarsffg/templates/wizards/char_creator/preview/specialization.html" (
+      {{> "systems/starwarsffg_sandbox/templates/wizards/char_creator/preview/specialization.html" (
         object specialization=data.selected.specialization purchased=false
       )}}
     </div>
@@ -72,7 +72,7 @@
           <i class="fas fa-trash specialization-remove remove-purchase" data-name="{{ purchase.item.name }}"></i>
         </div>
         <div class="specialization-summary" style="display: none;">
-          {{> "systems/starwarsffg/templates/wizards/char_creator/preview/specialization.html" (
+          {{> "systems/starwarsffg_sandbox/templates/wizards/char_creator/preview/specialization.html" (
             object specialization=purchase.item purchased=true
           )}}
         </div>
@@ -88,7 +88,7 @@
           <i class="fas fa-trash forcePower-remove remove-purchase" data-name="{{ purchase.item.name }}"></i>
         </div>
         <div class="forcePower-summary" style="display: none;">
-          {{> "systems/starwarsffg/templates/wizards/char_creator/preview/forcepower.html" (
+          {{> "systems/starwarsffg_sandbox/templates/wizards/char_creator/preview/forcepower.html" (
             object forcePower=purchase.item enrichedDescription=purchase.enrichedDescription purchased=true
           )}}
         </div>

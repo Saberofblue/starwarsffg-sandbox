@@ -237,7 +237,7 @@ export class DicePoolFFG {
    * @returns {string} a dice expression that can be used to roll the dice pool
    */
   renderDiceExpression() {
-    let setbackDice = game.settings.get("starwarsffg", "ApplyRemoveSetbackMods")
+    let setbackDice = game.settings.get("starwarsffg_sandbox", "ApplyRemoveSetbackMods")
       ? Math.max(0, this.setback - this.remsetback)
       : this.setback;
 

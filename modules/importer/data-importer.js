@@ -24,8 +24,8 @@ export default class DataImporter extends HandlebarsApplicationMixin(Application
 
   static PARTS = {
     importer: {
-      template: "systems/starwarsffg/templates/importer/data-importer.html",
-      classes: ["starwarsffg", "data-import"],
+      template: "systems/starwarsffg_sandbox/templates/importer/data-importer.html",
+      classes: ["starwarsffg_sandbox", "data-import"],
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
@@ -201,7 +201,7 @@ export default class DataImporter extends HandlebarsApplicationMixin(Application
         this._importLogger("Skills not selected for import - loading skills from world compendium");
         const skillDocs = await skillsPack.getDocuments();
         for (const doc of skillDocs) {
-          const importId = doc.flags?.starwarsffg?.ffgimportid;
+          const importId = doc.flags?.starwarsffg_sandbox?.ffgimportid;
           if (importId) {
             CONFIG.temporary.skills[importId] = ImportHelpers.oggSkillKeyToSystemKey(importId) ?? doc.name;
           }

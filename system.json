@@ -1,6 +1,6 @@
 {
-  "id": "starwarsffg",
-  "title": "Star Wars FFG",
+  "id": "starwarsffg_sandbox",
+  "title": "Star Wars FFG (Sandbox)",
   "description": "A system for playing Star Wars FFG games.",
   "version": "2.0.4.1",
   "compatibility": {
@@ -8,10 +8,37 @@
     "verified": 14,
     "maximum": 14
   },
-  "authors": [{"name": "Esrin"}, {"name": "CStadther"}, {"name": "Wrycu"}, {"name": "Jaxxa"}],
-  "esmodules": ["modules/dice-pool-ffg.js", "modules/swffg-main.js", "lib/slimselect/slimselect.js", "lib/datatables/datatables.min.js"],
-  "styles": ["styles/starwarsffg.css", "lib/pure/grids-min.css", "lib/slimselect/slimselect.css", "lib/datatables/datatables.min.css"],
-  "scripts": ["lib/jszip/jszip.min.js", "lib/jxon/jxon.min.js", "lib/slimselect/slimselect.js"],
+  "authors": [
+    {
+      "name": "Esrin"
+    },
+    {
+      "name": "CStadther"
+    },
+    {
+      "name": "Wrycu"
+    },
+    {
+      "name": "Jaxxa"
+    }
+  ],
+  "esmodules": [
+    "modules/dice-pool-ffg.js",
+    "modules/swffg-main.js",
+    "lib/slimselect/slimselect.js",
+    "lib/datatables/datatables.min.js"
+  ],
+  "styles": [
+    "styles/starwarsffg_sandbox.css",
+    "lib/pure/grids-min.css",
+    "lib/slimselect/slimselect.css",
+    "lib/datatables/datatables.min.css"
+  ],
+  "scripts": [
+    "lib/jszip/jszip.min.js",
+    "lib/jxon/jxon.min.js",
+    "lib/slimselect/slimselect.js"
+  ],
   "socket": true,
   "packs": [],
   "packFolders": [],
@@ -90,8 +117,8 @@
   },
   "primaryTokenAttribute": "wounds",
   "secondaryTokenAttribute": "strain",
-  "url": "https://github.com/Saberofblue/StarWarsFFG",
-  "manifest": "https://github.com/Saberofblue/StarWarsFFG/releases/latest/download/system.json",
-  "download": "https://github.com/Saberofblue/StarWarsFFG/releases/download/v2.0.4.1/system.zip",
+  "url": "https://github.com/Saberofblue/starwarsffg-sandbox",
+  "manifest": "https://github.com/Saberofblue/starwarsffg-sandbox/releases/latest/download/system.json",
+  "download": "https://github.com/Saberofblue/starwarsffg-sandbox/releases/download/v2.0.4.1/system.zip",
   "license": "LICENSE.txt"
 }

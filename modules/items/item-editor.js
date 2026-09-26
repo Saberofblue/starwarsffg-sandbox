@@ -21,12 +21,12 @@ export class itemEditor extends FormApplication  {
         title: `Embedded Item Editor`, // should not be seen by anyone, as it is dynamically set on getData()
         //height: 720,
         width: 520,
-        template: "systems/starwarsffg/templates/items/dialogs/ffg-embedded-itemattachment.html",
+        template: "systems/starwarsffg_sandbox/templates/items/dialogs/ffg-embedded-itemattachment.html",
         closeOnSubmit: false,
         submitOnClose: true,
         submitOnChange: true,
         resizable: true,
-        classes: ["starwarsffg", "flat_editor", "sheet"],
+        classes: ["starwarsffg_sandbox", "flat_editor", "sheet"],
         tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "tab1"}],
         scrollY: [".modification_container"],
       }
@@ -35,7 +35,7 @@ export class itemEditor extends FormApplication  {
 
   /** @override */
   get template() {
-    const path = "systems/starwarsffg/templates/items/dialogs";
+    const path = "systems/starwarsffg_sandbox/templates/items/dialogs";
     return `${path}/ffg-embedded-${this.data.clickedObject.type}.html`;
   }
 
@@ -88,7 +88,7 @@ export class itemEditor extends FormApplication  {
     if (this.data.clickedObject.type === "itemattachment") {
       const dragDrop = new foundry.applications.ux.DragDrop({
         dragSelector: ".item",
-        dropSelector: ".starwarsffg.flat_editor",
+        dropSelector: ".starwarsffg_sandbox.flat_editor",
         permissions: { dragstart: this._canDragStart.bind(this), drop: this._canDragDrop.bind(this) },
         callbacks: { drop: this.onDropMod.bind(this) },
       });
@@ -156,7 +156,7 @@ export class itemEditor extends FormApplication  {
       CONFIG.logger.debug(`expected new mod mod is ${modifierChoices[Object.keys(modifierTypes)[0]]}`);
 
       let rendered = await foundry.applications.handlebars.renderTemplate(
-        'systems/starwarsffg/templates/items/dialogs/ffg-mod.html',
+        'systems/starwarsffg_sandbox/templates/items/dialogs/ffg-mod.html',
         {
           modifierTypes: modifierTypes,
           modifierChoices: modifierChoices,
@@ -205,7 +205,7 @@ export class itemEditor extends FormApplication  {
       const modTypeChoices = CONFIG.FFG.allowableModifierTypes;
       const modChoices = CONFIG.FFG.allowableModifierChoices;
       let rendered = await foundry.applications.handlebars.renderTemplate(
-        'systems/starwarsffg/templates/items/dialogs/ffg-modification.html',
+        'systems/starwarsffg_sandbox/templates/items/dialogs/ffg-modification.html',
         {
           modTypeChoices: modTypeChoices,
           modChoices: modChoices,
@@ -553,7 +553,7 @@ export class talentEditor extends itemEditor {
         submitOnClose: true,
         submitOnChange: true,
         resizable: true,
-        classes: ["starwarsffg", "flat_editor"],
+        classes: ["starwarsffg_sandbox", "flat_editor"],
         tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "tab1"}],
         scrollY: [".modification_container"],
       }
@@ -562,7 +562,7 @@ export class talentEditor extends itemEditor {
 
   /** @override */
   get template() {
-    const path = "systems/starwarsffg/templates/items/dialogs";
+    const path = "systems/starwarsffg_sandbox/templates/items/dialogs";
     return `${path}/ffg-embedded-talent.html`;
   }
 
@@ -611,7 +611,7 @@ export class talentEditor extends itemEditor {
       CONFIG.logger.debug(`expected new mod mod is ${modifierChoices[Object.keys(modifierTypes)[0]]}`);
 
       let rendered = await foundry.applications.handlebars.renderTemplate(
-        'systems/starwarsffg/templates/items/dialogs/ffg-mod.html',
+        'systems/starwarsffg_sandbox/templates/items/dialogs/ffg-mod.html',
         { // TODO: this should probably be a new item of the correct type so it assumes any changes to the data model automatically
           modifierTypes: modifierTypes,
           modifierChoices: modifierChoices,
@@ -767,7 +767,7 @@ export class forcePowerEditor extends itemEditor {
         submitOnClose: true,
         submitOnChange: true,
         resizable: true,
-        classes: ["starwarsffg", "flat_editor"],
+        classes: ["starwarsffg_sandbox", "flat_editor"],
         tabs: [{ navSelector: ".tabs", contentSelector: ".content", initial: "tab1"}],
         scrollY: [".modification_container"],
       }
@@ -776,7 +776,7 @@ export class forcePowerEditor extends itemEditor {
 
   /** @override */
   get template() {
-    const path = "systems/starwarsffg/templates/items/dialogs";
+    const path = "systems/starwarsffg_sandbox/templates/items/dialogs";
     return `${path}/ffg-embedded-upgrade.html`;
   }
 
@@ -830,7 +830,7 @@ export class forcePowerEditor extends itemEditor {
       CONFIG.logger.debug(`expected new mod mod is ${modifierChoices[Object.keys(modifierTypes)[0]]}`);
 
       let rendered = await foundry.applications.handlebars.renderTemplate(
-        'systems/starwarsffg/templates/items/dialogs/ffg-mod.html',
+        'systems/starwarsffg_sandbox/templates/items/dialogs/ffg-mod.html',
         {
           modifierTypes: modifierTypes,
           modifierChoices: modifierChoices,

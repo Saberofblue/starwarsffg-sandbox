@@ -19,7 +19,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["starwarsffg", "sheet", "item"],
+      classes: ["starwarsffg_sandbox", "sheet", "item"],
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
       scrollY: [".sheet-body", ".tab"],
       action: null,
@@ -29,7 +29,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
 
   /** @override */
   get template() {
-    const path = "systems/starwarsffg/templates/items";
+    const path = "systems/starwarsffg_sandbox/templates/items";
     return `${path}/ffg-${this.item.type}-sheet.html`;
   }
 
@@ -110,10 +110,10 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
     }
 
     data.isTemp = false;
-    if (this.object.flags?.starwarsffg?.ffgIsOwned || this.object.flags?.starwarsffg?.ffgIsTemp) {
+    if (this.object.flags?.starwarsffg_sandbox?.ffgIsOwned || this.object.flags?.starwarsffg_sandbox?.ffgIsTemp) {
       data.isTemp = true;
     }
-    data.isOwned = this.object.flags?.starwarsffg?.ffgIsOwned;
+    data.isOwned = this.object.flags?.starwarsffg_sandbox?.ffgIsOwned;
     data.modTypeSelected = "all";
 
     switch (this.object.type) {
@@ -214,13 +214,13 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
           data.isReadOnly = true;
         }
 
-        if (!this.item.flags?.starwarsffg?.loaded) {
+        if (!this.item.flags?.starwarsffg_sandbox?.loaded) {
           CONFIG.logger.debug(`Running Item initial load`);
-          if (!Object.keys(this.item.flags).includes('starwarsffg')) {
+          if (!Object.keys(this.item.flags).includes('starwarsffg_sandbox')) {
               // the object is not properly set up yet; bail to let it finish
               return;
           }
-          this.item.flags.starwarsffg.loaded = true;
+          this.item.flags.starwarsffg_sandbox.loaded = true;
         }
         for (let x = 0; x < 20; x++) {
           data.data.talents[`talent${x}`].enrichedDescription = await foundry.applications.ux.TextEditor.enrichHTML(data.data.talents[`talent${x}`].description);
@@ -1036,8 +1036,8 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
             },
           },
           {
-            classes: ["dialog", "starwarsffg"],
-            template: `systems/starwarsffg/templates/items/dialogs/ffg-edit-${itemType}.html`,
+            classes: ["dialog", "starwarsffg_sandbox"],
+            template: `systems/starwarsffg_sandbox/templates/items/dialogs/ffg-edit-${itemType}.html`,
           }
         ).render(true);
       }
@@ -1066,7 +1066,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
       let temp = {
         ...item,
         flags: {
-          starwarsffg: {
+          starwarsffg_sandbox: {
             ffgTempId: this.object.id,
             ffgTempItemType: itemType,
             ffgTempItemIndex: itemIndex,
@@ -1085,7 +1085,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         temp = {
           ...item,
           flags: {
-            starwarsffg: {
+            starwarsffg_sandbox: {
               ffgTempId: this.object.id,
               ffgTempItemType: itemType,
               ffgTempItemIndex: itemIndex,
@@ -1122,11 +1122,11 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
       const item = this.object.system[itemType][itemIndex];
       item.system.active = !item.system.active;
 
-      if (this.object.flags.starwarsffg.ffgTempId && this.object.flags.starwarsffg.ffgTempId !== this.object._id) {
+      if (this.object.flags.starwarsffg_sandbox.ffgTempId && this.object.flags.starwarsffg_sandbox.ffgTempId !== this.object._id) {
         // this is a temporary sheet for an embedded item
 
         item.flags = {
-          starwarsffg: {
+          starwarsffg_sandbox: {
             ffgTempId: this.object.id,                // here, this represents the ID of the item this is on
             ffgTempItemType: itemType,                // modified item type
             ffgTempItemIndex: itemIndex,              // modified item index
@@ -1158,11 +1158,11 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         name: "Item Mod",
         type: itemType,
         flags: {
-          starwarsffg: {
+          starwarsffg_sandbox: {
             ffgTempId: this.object.id,                  // here, this represents the ID of the item this was added to
             ffgTempItemType: itemType,                  // added item type
             ffgTempItemIndex: -1,                       // index of the added item within the parent
-            ffgParent: this.object.flags.starwarsffg,   // flags from the parent
+            ffgParent: this.object.flags.starwarsffg_sandbox,   // flags from the parent
             ffgIsTemp: true,                            // this is a temporary item
             ffgUuid: this.object.uuid,                  // UUID for the parent (if available) TODO: check if this is needed
             ffgParentApp: this.appId,                   // not sure what this is x.x
@@ -1192,7 +1192,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
   }
 
   async _buyHandleClick(cost, desired_item_type) {
-    const owned = this.object.flags?.starwarsffg?.ffgIsOwned;
+    const owned = this.object.flags?.starwarsffg_sandbox?.ffgIsOwned;
     const type = this.object.type;
     if (type !== desired_item_type || !owned) {
       // you can't buy talents for any old item!
@@ -1200,7 +1200,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
       CONFIG.logger.warn(`Refused to buy talent for non-${desired_item_type} or unowned item`);
       throw new Error(`Refused to buy talent for non-${desired_item_type} or unowned item`);
     }
-    const ownerFlag = this.object.flags?.starwarsffg?.ffgUuid;
+    const ownerFlag = this.object.flags?.starwarsffg_sandbox?.ffgUuid;
     if (!ownerFlag) {
       // bad flag data, move along, citizen
       CONFIG.logger.warn("Refused to buy for item with no owner flag set");
@@ -1275,7 +1275,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -1312,7 +1312,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         },
         default: "submit",
       });
-      addSource.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg-dialog"]});
+      addSource.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg_sandbox-dialog"]});
     } else if (action === "remove") {
       const sources = foundry.utils.deepClone(this.item.system.metadata.sources);
       sources.splice(sourceIndex, 1);
@@ -1352,7 +1352,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         },
         default: "submit",
       });
-      addTag.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg-dialog"]});
+      addTag.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg_sandbox-dialog"]});
     } else if (action === "remove") {
       const tags = foundry.utils.deepClone(this.item.system.metadata.tags);
       tags.splice(tagIndex, 1);
@@ -1421,7 +1421,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -1475,7 +1475,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -1527,7 +1527,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -1538,7 +1538,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
   async _updateObject(event, formData) {
     if(this.actor && !this.actor?.verifyEditModeIsNotEnabled()) return;
     // temporary items are not in any collection, so do not update
-    if (this.object.flags?.starwarsffg?.ffgIsTemp) return;
+    if (this.object.flags?.starwarsffg_sandbox?.ffgIsTemp) return;
 
     const itemUpdate = ItemHelpers.itemUpdate.bind(this);
     // closing the sheet submits the form, and an update still running once the window is
@@ -1942,7 +1942,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
       }
 
       const foundItem = items.find((i) => {
-        return i?.name === itemObject.name || (i?.flags?.starwarsffg?.ffgimportid?.length ? i?.flags.starwarsffg.ffgimportid === itemObject.flags.starwarsffg.ffgimportid : false);
+        return i?.name === itemObject.name || (i?.flags?.starwarsffg_sandbox?.ffgimportid?.length ? i?.flags.starwarsffg_sandbox.ffgimportid === itemObject.flags.starwarsffg_sandbox.ffgimportid : false);
       });
 
       switch (itemObject.type) {

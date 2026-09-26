@@ -925,7 +925,7 @@ test('a vehicle rolls initiative on its pilot rather than on itself', async ({ w
       {
         actor: 'vehicle',
         flags: {
-          starwarsffg: { crew: [{ role: 'Pilot', actor_id: await api.read(page, pilot, 'id') }] },
+          starwarsffg_sandbox: { crew: [{ role: 'Pilot', actor_id: await api.read(page, pilot, 'id') }] },
         },
       },
     ],

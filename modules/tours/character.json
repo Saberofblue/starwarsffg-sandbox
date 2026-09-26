@@ -8,7 +8,7 @@
       "id": "welcome",
       "title": "SWFFG.Tours.Character.welcome.title",
       "content": "SWFFG.Tours.Character.welcome.content",
-      "selector": ".starwarsffg.actor",
+      "selector": ".starwarsffg_sandbox.actor",
       "position": "center"
     },
     {

@@ -9,7 +9,7 @@ const APP = '__qaCreator';
 
 export async function open(page: Page): Promise<void> {
   await page.evaluate(async (key) => {
-    const load = (path: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${path}`);
+    const load = (path: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${path}`);
     const module = await load('helpers/character-creator.js');
 
     const app = new module.CharacterCreator();

@@ -80,7 +80,7 @@ export async function seed(page: Page, { skillsFile = 'Skills.xml' } = {}): Prom
 
     // resolved by the browser against the running server; the indirection stops TypeScript
     // trying to resolve a path that only exists at runtime
-    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${p}`);
+    const load = (p: string) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${p}`);
     const OggDude = (await load('importer/oggdude/oggdude.js')).default;
     const ImportHelpers = (await load('importer/import-helpers.js')).default;
 

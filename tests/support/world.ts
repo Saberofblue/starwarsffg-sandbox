@@ -219,12 +219,12 @@ export class World {
   async assertReady(): Promise<void> {
     const s = await api.status(this.page);
     if (!s.ready) throw new Error('Foundry is not ready.');
-    if (s.system !== 'starwarsffg') {
-      throw new Error(`Wrong system: expected "starwarsffg", world is running "${s.system}".`);
+    if (s.system !== 'starwarsffg_sandbox') {
+      throw new Error(`Wrong system: expected "starwarsffg_sandbox", world is running "${s.system}".`);
     }
     if (!s.systemLoaded) {
       throw new Error(
-        'The starwarsffg system did not initialise - `game.ffg` is absent.\n' +
+        'The starwarsffg_sandbox system did not initialise - `game.ffg` is absent.\n' +
         'Usually a module in the system failed to load, which aborts the whole ESM graph while ' +
         'leaving core Foundry healthy. Check the browser console for a resolution error.',
       );
@@ -837,7 +837,7 @@ export class World {
   /**
    * Change a system setting for the length of the test. Teardown puts it back.
    */
-  async setSetting(key: string, value: unknown, namespace = 'starwarsffg'): Promise<void> {
+  async setSetting(key: string, value: unknown, namespace = 'starwarsffg_sandbox'): Promise<void> {
     const before = await this.applySetting(key, value, namespace);
     this.settings.push([key, before, namespace]);
   }
@@ -846,7 +846,7 @@ export class World {
    * Write a setting and wait out the page reload if it causes one.
    */
   private async applySetting(
-    key: string, value: unknown, namespace = 'starwarsffg', grace = 2000,
+    key: string, value: unknown, namespace = 'starwarsffg_sandbox', grace = 2000,
   ): Promise<unknown> {
     await this.page.evaluate(() => { (window as any).__qaSettingMark = true; });
     const before = await api.setSetting(this.page, key, value, namespace);

@@ -41,7 +41,7 @@ export default class ItemDescriptors {
 
         item.Description = ImportHelpers.cleanDescription(item.Description?.length ? item.Description : item.ModDesc);
 
-        data.img = `/systems/starwarsffg/images/mod-${item.Type ? item.Type.toLowerCase() : "all"}.png`;
+        data.img = `/systems/starwarsffg_sandbox/images/mod-${item.Type ? item.Type.toLowerCase() : "all"}.png`;
         data.data = {
           description: item.Description,
           attributes: {},

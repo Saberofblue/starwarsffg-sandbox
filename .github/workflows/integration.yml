@@ -102,7 +102,7 @@ jobs:
       - name: Lay out the world
         run: |
           # Foundry writes a README into /data/Data/systems as it builds its user data structure
-          mkdir -p "${RUNNER_TEMP}/foundry-data/worlds" "${RUNNER_TEMP}/foundry-data/systems/starwarsffg"
+          mkdir -p "${RUNNER_TEMP}/foundry-data/worlds" "${RUNNER_TEMP}/foundry-data/systems/starwarsffg_sandbox"
           cp -r .github/foundry-world/qa "${RUNNER_TEMP}/foundry-data/worlds/qa"
           # Foundry runs as uid 1000 in the container and the runner is uid 1001.
           chmod -R 777 "${RUNNER_TEMP}/foundry-data"
@@ -156,7 +156,7 @@ jobs:
             --name foundry-ci \
             --hostname foundry-ci \
             --publish 127.0.0.1:30000:30000 \
-            --volume "${RUNNER_TEMP}/foundry-system:/data/Data/systems/starwarsffg:ro" \
+            --volume "${RUNNER_TEMP}/foundry-system:/data/Data/systems/starwarsffg_sandbox:ro" \
             --volume "${RUNNER_TEMP}/foundry-data:/data/Data" \
             --volume "${RUNNER_TEMP}/foundry-config:/data/Config" \
             --env FOUNDRY_LICENSE_KEY \

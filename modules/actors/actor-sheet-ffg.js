@@ -34,8 +34,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
     this._filters = {
       skills: new Set(),
     };
-    this.object.setFlag("starwarsffg", "config.enableEditMode", false);
-    this.object.setFlag("starwarsffg", "config.editModeActor", "");
+    this.object.setFlag("starwarsffg_sandbox", "config.enableEditMode", false);
+    this.object.setFlag("starwarsffg_sandbox", "config.editModeActor", "");
   }
 
   pools = new Map();
@@ -48,8 +48,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       await ActorHelpers.endEditMode(this.actor);
       // a deleted actor closes its own sheet and has no flags left to clear
       if (fromUuidSync(this.actor.uuid)) {
-        await this.actor.setFlag("starwarsffg", "config.enableEditMode", false);
-        await this.actor.setFlag("starwarsffg", "config.editModeActor", "");
+        await this.actor.setFlag("starwarsffg_sandbox", "config.enableEditMode", false);
+        await this.actor.setFlag("starwarsffg_sandbox", "config.editModeActor", "");
       }
     }
     return closed;
@@ -58,8 +58,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["starwarsffg", "sheet", "actor"],
-      template: "systems/starwarsffg/templates/actors/ffg-character-sheet.html",
+      classes: ["starwarsffg_sandbox", "sheet", "actor"],
+      template: "systems/starwarsffg_sandbox/templates/actors/ffg-character-sheet.html",
       width: 710,
       height: 650,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "characteristics" }],
@@ -69,7 +69,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
 
   /** @override */
   get template() {
-    const path = "systems/starwarsffg/templates/actors";
+    const path = "systems/starwarsffg_sandbox/templates/actors";
     return `${path}/ffg-${this.actor.type}-sheet.html`;
   }
 
@@ -169,7 +169,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
               },
             },
           {
-            classes: ["dialog", "starwarsffg"],
+            classes: ["dialog", "starwarsffg_sandbox"],
           }
         ).render(true);
         return false;
@@ -225,7 +225,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       } else {
         return -1;
       }
-    } else if (itemData.type === "talent" && game.settings.get("starwarsffg", "dicetheme") === "genesys") {
+    } else if (itemData.type === "talent" && game.settings.get("starwarsffg_sandbox", "dicetheme") === "genesys") {
       const talents = this.actor.talentList.filter(i => i.name === itemData.name);
         if (talents.length > 0) {
           cost = Math.min((talents[0].tier + 1), 5) * 5;
@@ -268,15 +268,15 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
 
     let autoSoakCalculation = true;
 
-    if (typeof this.actor.flags?.starwarsffg?.config?.enableAutoSoakCalculation === "undefined") {
-      autoSoakCalculation = game.settings.get("starwarsffg", "enableSoakCalc");
+    if (typeof this.actor.flags?.starwarsffg_sandbox?.config?.enableAutoSoakCalculation === "undefined") {
+      autoSoakCalculation = game.settings.get("starwarsffg_sandbox", "enableSoakCalc");
     } else {
-      autoSoakCalculation = this.actor.flags?.starwarsffg?.config?.enableAutoSoakCalculation;
+      autoSoakCalculation = this.actor.flags?.starwarsffg_sandbox?.config?.enableAutoSoakCalculation;
     }
 
     data.settings = {
       enableSoakCalculation: autoSoakCalculation,
-      enableCriticalInjuries: this.actor.flags?.starwarsffg?.config?.enableCriticalInjuries,
+      enableCriticalInjuries: this.actor.flags?.starwarsffg_sandbox?.config?.enableCriticalInjuries,
     };
 
     // Establish sheet width and height using either saved persistent values or default values defined in swffg-config.js
@@ -291,7 +291,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
           this.position.height = 165;
         }
         // we need to update all specialization talents with the latest talent information
-        if (!this.actor.flags.starwarsffg?.loaded && this.actor.type !== "rival") {
+        if (!this.actor.flags.starwarsffg_sandbox?.loaded && this.actor.type !== "rival") {
           // TODO: is this actually needed?
           await this._updateSpecialization(data);
           await this.object._prepareCharacterData(data);
@@ -303,7 +303,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         data.data.enrichedBio = await foundry.applications.ux.TextEditor.enrichHTML(this.actor.system.biography, {secrets: !data.limited});
         data.data.general.enrichedNotes = await foundry.applications.ux.TextEditor.enrichHTML(this.actor.system.general?.notes) || "";
         data.data.general.enrichedFeatures = await foundry.applications.ux.TextEditor.enrichHTML(this.actor.system.general?.features) || "";
-        data.maxAttribute = game.settings.get("starwarsffg", "maxAttribute");
+        data.maxAttribute = game.settings.get("starwarsffg_sandbox", "maxAttribute");
         data.obligationItems = {
           obligations: data.items.filter(i => i.system?.type === "obligation"),
           duties: data.items.filter(i => i.system?.type === "duty"),
@@ -315,7 +315,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         // add the crew to the items of the vehicle
         data.crew = [];
         // look up the flag data
-        const crew = this.actor.getFlag('starwarsffg', 'crew');
+        const crew = this.actor.getFlag('starwarsffg_sandbox', 'crew');
         if (crew) {
           for (let i = 0; i < crew.length; i++) {
             try {
@@ -374,13 +374,13 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       data.data.skilllist = this._createSkillColumns(data);
     }
 
-    if (this.actor.flags?.starwarsffg?.xpLog) {
-      data.xpLog = this.object.getFlag("starwarsffg", "xpLog") || [];
+    if (this.actor.flags?.starwarsffg_sandbox?.xpLog) {
+      data.xpLog = this.object.getFlag("starwarsffg_sandbox", "xpLog") || [];
     }
 
     data.actor.items = ActorSheetFFG.sortForActorSheet(data.actor.items);
-    const editModeEnabled = this.object.getFlag("starwarsffg", "config.enableEditMode");
-    const editModeActor = this.object.getFlag("starwarsffg", "config.editModeActor");
+    const editModeEnabled = this.object.getFlag("starwarsffg_sandbox", "config.enableEditMode");
+    const editModeActor = this.object.getFlag("starwarsffg_sandbox", "config.editModeActor");
     data.disabled = !(editModeEnabled && editModeActor === game.user.id);
 
     data.modTypeSelected = "all"; // TODO: should this be something else?
@@ -657,7 +657,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         name: game.i18n.localize("SWFFG.MedicalItemName"),
         hint: game.i18n.localize("SWFFG.MedicalItemNameHint"),
         type: "String",
-        default: game.settings.get("starwarsffg", "medItemName"),
+        default: game.settings.get("starwarsffg_sandbox", "medItemName"),
       });
       this.sheetoptions.register("enableForcePool", {
         name: game.i18n.localize("SWFFG.EnableForcePool"),
@@ -741,7 +741,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       let prevUses = (this.object.system?.stats?.medical?.uses === undefined) ? 0 : this.object.system.stats.medical.uses;
       let updateData = {};
       let newUses = 0;
-      const item_name = this.object?.flags?.starwarsffg?.config?.medicalItemName || game.i18n.localize("SWFFG.DefaultMedicalItemName");
+      const item_name = this.object?.flags?.starwarsffg_sandbox?.config?.medicalItemName || game.i18n.localize("SWFFG.DefaultMedicalItemName");
       let msg_content;
       if (item[0].className === "fas fa-plus-circle medical") {
         newUses = prevUses + 1;
@@ -763,7 +763,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
     });
 
     html.find(".resetMedical").click(async (ev) => {
-      if (game.settings.get("starwarsffg", "HealingItemAction") === '0') {
+      if (game.settings.get("starwarsffg_sandbox", "HealingItemAction") === '0') {
           // prompt
           // show a prompt asking what the user wants to do
           new Dialog(
@@ -794,7 +794,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
                               let updateData = {};
                               foundry.utils.setProperty(updateData, `system.stats.medical.uses`, 0);
                               this.object.update(updateData);
-                              const item_name = this.object?.flags?.starwarsffg?.config?.medicalItemName || game.i18n.localize("SWFFG.DefaultMedicalItemName");
+                              const item_name = this.object?.flags?.starwarsffg_sandbox?.config?.medicalItemName || game.i18n.localize("SWFFG.DefaultMedicalItemName");
                               CONFIG.ChatMessage.documentClass.create({
                                 speaker: { alias: this.object.name },
                                 content: `<i>${game.i18n.localize("SWFFG.MedicalItemResetStart")} ${item_name} ${game.i18n.localize("SWFFG.MedicalItemResetEnd")}</i>`,
@@ -804,17 +804,17 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
                   },
               },
               {
-                  classes: ["dialog", "starwarsffg"],
+                  classes: ["dialog", "starwarsffg_sandbox"],
               }
           ).render(true);
-      } else if (game.settings.get("starwarsffg", "HealingItemAction") === '1') {
+      } else if (game.settings.get("starwarsffg_sandbox", "HealingItemAction") === '1') {
         // rest
         let updateData = {};
         foundry.utils.setProperty(updateData, `system.stats.medical.uses`, 0);
         foundry.utils.setProperty(updateData, `system.stats.strain.value`, 0);
         foundry.utils.setProperty(updateData, `system.stats.wounds.value`, Math.max(0, this.object.system.stats.wounds.value - 1));
         this.object.update(updateData);
-      } else if (game.settings.get("starwarsffg", "HealingItemAction") === '2') {
+      } else if (game.settings.get("starwarsffg_sandbox", "HealingItemAction") === '2') {
         // reset
         let updateData = {};
         foundry.utils.setProperty(updateData, `system.stats.medical.uses`, 0);
@@ -1036,15 +1036,15 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       }
       const crew_member_id = $(ev.currentTarget).parents(".item").data("actor-id");
       const crew_member = game.actors.get(crew_member_id);
-      const registeredRoles = game.settings.get('starwarsffg', 'arrayCrewRoles');
+      const registeredRoles = game.settings.get('starwarsffg_sandbox', 'arrayCrewRoles');
       const actor = this.actor;
-      const vehicleRoles = actor.getFlag('starwarsffg', 'crew');
+      const vehicleRoles = actor.getFlag('starwarsffg_sandbox', 'crew');
 
       const crewMemberRoles = vehicleRoles.filter(role => role.actor_id === crew_member_id);
       const rolesInUse = crewMemberRoles.map(role => role.role);
 
       const content = await foundry.applications.handlebars.renderTemplate(
-        "systems/starwarsffg/templates/dialogs/ffg-crew-change.html",
+        "systems/starwarsffg_sandbox/templates/dialogs/ffg-crew-change.html",
         {
           actor: crew_member,
           roles: registeredRoles,
@@ -1118,8 +1118,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
           },
         },
         {
-          classes: ["dialog", "starwarsffg"],
-          template: "systems/starwarsffg/templates/actors/dialogs/ffg-talent-selector.html",
+          classes: ["dialog", "starwarsffg_sandbox"],
+          template: "systems/starwarsffg_sandbox/templates/actors/dialogs/ffg-talent-selector.html",
         }
       ).render(true);
     });
@@ -1181,7 +1181,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         const li = $(event.currentTarget).parents(".item");
         const itemId = li.data("itemId");
         const item = this.actor.items.get(itemId);
-        const consumeHealingItemSetting = game.settings.get("starwarsffg", "consumeHealingItem");
+        const consumeHealingItemSetting = game.settings.get("starwarsffg_sandbox", "consumeHealingItem");
         // Check that current item is not empty of uses/quantity
         if (item && (item.system.quantity.value > 0 || !consumeHealingItemSetting)) {
           // Check that already used number of *stimpacks* is not maxed out
@@ -1194,10 +1194,10 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
           const newUses = prevUses + 1;
           const currentWounds = this.actor.system?.stats?.wounds?.value ?? 0;
           let woundsHealing = 0;
-          if (item.flags.starwarsffg.config.medicalType == 1) { // stimpack
+          if (item.flags.starwarsffg_sandbox.config.medicalType == 1) { // stimpack
             woundsHealing = Math.max(5 - prevUses, 0);
           }
-          else if (item.flags.starwarsffg.config.medicalType == 2) { // emergency droid patch
+          else if (item.flags.starwarsffg_sandbox.config.medicalType == 2) { // emergency droid patch
             woundsHealing = 3;
           }
           const newWounds = Math.max(currentWounds - woundsHealing, 0);
@@ -1205,7 +1205,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
             ["system.stats.medical.uses"]: newUses,
             ["system.stats.wounds.value"]: newWounds,
           });
-          const itemName = this.actor?.flags?.starwarsffg?.config?.medicalItemName || game.i18n.localize("SWFFG.DefaultMedicalItemName");
+          const itemName = this.actor?.flags?.starwarsffg_sandbox?.config?.medicalItemName || game.i18n.localize("SWFFG.DefaultMedicalItemName");
           CONFIG.ChatMessage.documentClass.create({
             speaker: { alias: this.actor.name },
             content: `<i>${game.i18n.localize("SWFFG.MedicalItemUse")} ${itemName} #${newUses}</i>`,
@@ -1235,7 +1235,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       const crewSheet = game.actors.get(crew_id)?.sheet;
       const starting_pool = {'difficulty': 2};
 
-      const registeredRoles = await game.settings.get('starwarsffg', 'arrayCrewRoles');
+      const registeredRoles = await game.settings.get('starwarsffg_sandbox', 'arrayCrewRoles');
       // look up the defined metadata for the assigned role
       const role_info = registeredRoles.filter(i => i.role_name === crew_role);
       // validate the role still exists in our settings
@@ -1329,8 +1329,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         return;
       }
       const weaponSkill = weapon.system.skill.value;
-      const crew = await ship.getFlag("starwarsffg", "crew");
-      const skillRoles = game.settings.get("starwarsffg", "arrayCrewRoles").filter(role => role.role_skill === weaponSkill);
+      const crew = await ship.getFlag("starwarsffg_sandbox", "crew");
+      const skillRoles = game.settings.get("starwarsffg_sandbox", "arrayCrewRoles").filter(role => role.role_skill === weaponSkill);
       // validate the vehicle has a crew and there is a role that matches the weapon skill
       if (!crew || crew.length === 0) {
         CONFIG.logger.warn("Could not find crew for vehicle or could not find relevant skill; presenting default roller");
@@ -1511,7 +1511,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
 
     html.find(".force-conflict .enable-dice-pool").on("click", async (event) => {
       event.preventDefault();
-      await this.actor.setFlag('starwarsffg', 'config', {enableForcePool: true});
+      await this.actor.setFlag('starwarsffg_sandbox', 'config', {enableForcePool: true});
     });
 
     html.find(".force-conflict .remove-force-powers").on("click", async (event) => {
@@ -1670,7 +1670,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       itemDetails.longDesc = hasContent(item.system.longDesc) ? await PopoutEditor.renderDiceImages(item.system.longDesc, this.actor) : "";
     }
 
-    const template = "systems/starwarsffg/templates/chat/item-card.html";
+    const template = "systems/starwarsffg_sandbox/templates/chat/item-card.html";
     const html = await foundry.applications.handlebars.renderTemplate(template, { itemDetails, item });
 
     const messageData = {
@@ -1700,7 +1700,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
     }
 
     const itemDetails = { "desc": desc, "name": name };
-    const template = "systems/starwarsffg/templates/chat/force-power-card.html";
+    const template = "systems/starwarsffg_sandbox/templates/chat/force-power-card.html";
     const html = await foundry.applications.handlebars.renderTemplate(template, { itemDetails, item });
 
     const messageData = {
@@ -1758,8 +1758,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
-        template: "systems/starwarsffg/templates/actors/dialogs/ffg-skill-characteristic-selector.html",
+        classes: ["dialog", "starwarsffg_sandbox"],
+        template: "systems/starwarsffg_sandbox/templates/actors/dialogs/ffg-skill-characteristic-selector.html",
       }
     ).render(true);
   }
@@ -1791,7 +1791,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
                 characteristic,
                 groupskill: false,
                 label: name,
-                max: game.settings.get("starwarsffg", "maxSkill"),
+                max: game.settings.get("starwarsffg_sandbox", "maxSkill"),
                 rank: 0,
                 type: group,
                 custom: true,
@@ -1814,8 +1814,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
-        template: "systems/starwarsffg/templates/actors/dialogs/ffg-skill-new.html",
+        classes: ["dialog", "starwarsffg_sandbox"],
+        template: "systems/starwarsffg_sandbox/templates/actors/dialogs/ffg-skill-new.html",
       }
     ).render(true);
   }
@@ -1860,7 +1860,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -1927,7 +1927,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
 
                 await this.object.deleteEmbeddedDocuments("ActiveEffect", [purchasedEffect.id]);
                 CONFIG.logger.debug("deleted AE, updating log");
-                let logEntries = this.object.getFlag("starwarsffg", "xpLog") || [];
+                let logEntries = this.object.getFlag("starwarsffg_sandbox", "xpLog") || [];
                 let cost = 0;
                 let description = 'unknown';
                 for (const entry of logEntries) {
@@ -1949,7 +1949,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
                   date: date,
                   description: description,
                 });
-                await this.object.setFlag("starwarsffg", "xpLog", logEntries);
+                await this.object.setFlag("starwarsffg_sandbox", "xpLog", logEntries);
                 CONFIG.logger.debug(`completed refund for ${purchaseId}!`);
               },
             },
@@ -1960,7 +1960,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
           },
         },
         {
-          classes: ["dialog", "starwarsffg"],
+          classes: ["dialog", "starwarsffg_sandbox"],
         }
       ).render(true);
     } else {
@@ -2113,10 +2113,10 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
    */
   async _updateSpecialization(data) {
     CONFIG.logger.debug(`Running Actor initial load`);
-    if (this.actor.flags.starwarsffg === undefined) {
-        this.actor.flags.starwarsffg = {};
+    if (this.actor.flags.starwarsffg_sandbox === undefined) {
+        this.actor.flags.starwarsffg_sandbox = {};
     }
-    this.actor.flags.starwarsffg.loaded = true;
+    this.actor.flags.starwarsffg_sandbox.loaded = true;
 
     const specializations = this.actor.items.filter((item) => {
       return item.type === "specialization";
@@ -2215,7 +2215,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         if (a.toLowerCase() < b.toLowerCase()) return -1;
         return 0;
       };
-      if (game.settings.get("starwarsffg", "skillSorting")) {
+      if (game.settings.get("starwarsffg_sandbox", "skillSorting")) {
         sortFunction = (a, b) => {
           return data.data.skills[a].label.localeCompare(data.data.skills[b].label, game.i18n.lang);
         };
@@ -2260,7 +2260,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
     if(!this.actor.verifyEditModeIsNotEnabled()) return;
 
     const action = $(event.target).data("buy-action");
-    const template = "systems/starwarsffg/templates/dialogs/ffg-confirm-purchase.html";
+    const template = "systems/starwarsffg_sandbox/templates/dialogs/ffg-confirm-purchase.html";
     let content;
     const availableXP = this.object.system.experience.available;
     const totalXP = this.object.system.experience.total;
@@ -2273,7 +2273,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         return;
       }
       const inCareerNames = Object.values(inCareer).map(i => i.name);
-      const sources = game.settings.get("starwarsffg", "specializationCompendiums").split(",");
+      const sources = game.settings.get("starwarsffg_sandbox", "specializationCompendiums").split(",");
       let outCareer = [];
       let universal = [];
       for (const source of sources) {
@@ -2314,7 +2314,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       groups.push("Out of Career");
       content = await foundry.applications.handlebars.renderTemplate(template, { inCareer, outCareer, universal, baseCost, increasedCost, itemType: itemType, itemCategory: "specialization", groups: groups });
     } else if (action === "signatureability") {
-      const sources = game.settings.get("starwarsffg", "signatureAbilityCompendiums").split(",");
+      const sources = game.settings.get("starwarsffg_sandbox", "signatureAbilityCompendiums").split(",");
       const career = this.object.items.find(i => i.type === "career");
       if (!career) {
         ui.notifications.warn(game.i18n.localize("SWFFG.Actors.Sheets.Purchase.CareerNotSet"));
@@ -2400,7 +2400,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       itemType = game.i18n.localize("TYPES.Item.signatureability");
       content = await foundry.applications.handlebars.renderTemplate(template, { selectableItems, itemType: itemType, itemCategory: "signatureability" });
     } else if (action === "forcepower") {
-      const sources = game.settings.get("starwarsffg", "forcePowerCompendiums").split(",");
+      const sources = game.settings.get("starwarsffg_sandbox", "forcePowerCompendiums").split(",");
       let selectableItems = [];
       const worldItems = game.items.filter(i => i.type === "forcepower");
       for (const worldItem of worldItems) {
@@ -2436,7 +2436,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       content = await foundry.applications.handlebars.renderTemplate(template, { selectableItems, itemType: itemType, itemCategory: "forcepower", groups: groups });
     } else if (action === "talent") {
       const purchasedItems = this.object.talentList;
-      const sources = game.settings.get("starwarsffg", "talentCompendiums").split(",");
+      const sources = game.settings.get("starwarsffg_sandbox", "talentCompendiums").split(",");
       let selectableItems = [];
       const worldItems = game.items.filter(i => i.type === "talent");
       let worldItemsPack = [];
@@ -2541,7 +2541,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -2552,7 +2552,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
     // this is the value without items that modify it
     const characteristicWithoutAEs =  this.object.toObject().system.characteristics[characteristic].value;
 
-    if (characteristicValue >= game.settings.get("starwarsffg", "maxAttribute")) {
+    if (characteristicValue >= game.settings.get("starwarsffg_sandbox", "maxAttribute")) {
       ui.notifications.warn(game.i18n.localize("SWFFG.Actors.Sheets.Purchase.Characteristic.Max"));
       return;
     }
@@ -2586,7 +2586,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -2662,7 +2662,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
   async _xpExport(event) {
     event.preventDefault();
     event.stopPropagation();
-    const existingLog = this.actor.getFlag("starwarsffg", "xpLog");
+    const existingLog = this.actor.getFlag("starwarsffg_sandbox", "xpLog");
     const downloadLog = [];
     for (const entry of existingLog) {
       if (Object.keys(entry).includes("id")) {
@@ -2705,7 +2705,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
             reader.onload = async ({ target }) => {
               const parsedLog = JSON.parse(target.result);
               CONFIG.logger.debug(`Loading processed XP log: ${JSON.stringify(parsedLog)}`);
-              await this.actor.setFlag("starwarsffg", "xpLog", parsedLog);
+              await this.actor.setFlag("starwarsffg_sandbox", "xpLog", parsedLog);
             }
             reader.onerror = function() {
               ui.notifications.error("Failed to load file contents");
@@ -2785,7 +2785,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         },
         default: "submit",
       });
-      addSource.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg-dialog"]});
+      addSource.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg_sandbox-dialog"]});
     } else if (action === "remove") {
       const sources = foundry.utils.deepClone(this.object.system.metadata.sources);
       sources.splice(sourceIndex, 1);
@@ -2831,7 +2831,7 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         },
         default: "submit",
       });
-      addTag.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg-dialog"]});
+      addTag.render(true, {focus: true, classes: ["app", "window-app", "dialog", "themed", "theme-light", "starwarsffg_sandbox-dialog"]});
     } else if (action === "remove") {
       const tags = foundry.utils.deepClone(this.object.system.metadata.tags);
       tags.splice(tagIndex, 1);

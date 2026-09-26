@@ -41,7 +41,7 @@ for (const { type, sheet } of ITEM_CASES) {
     const sheetEl = page.locator(`#${windowId}`);
 
     await expect(sheetEl).toBeVisible();
-    await expect(sheetEl).toHaveClass(/\bstarwarsffg\b/);
+    await expect(sheetEl).toHaveClass(/\bstarwarsffg_sandbox\b/);
     await expect(sheetEl).toHaveClass(/\bitem\b/);
     await expect(sheetEl.locator('.window-content')).not.toBeEmpty();
 

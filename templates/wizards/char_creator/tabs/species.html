@@ -71,7 +71,7 @@
       </div>
       <div class="species_skill_rank_select-selection" style="display: none;">
         {{#if picker.ready}}
-          {{> "systems/starwarsffg/templates/wizards/char_creator/preview/skills.html" (
+          {{> "systems/starwarsffg_sandbox/templates/wizards/char_creator/preview/skills.html" (
             object skillsList=../skillsList actor=../tempActor mode="species" purchases=picker.purchases keys=picker.keys cap=picker.count speciesIndex=picker.index
           )}}
         {{else}}

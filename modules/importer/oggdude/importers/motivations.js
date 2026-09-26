@@ -43,7 +43,7 @@ export default class Motivations {
             },
           };
 
-          let imgPath = await ImportHelpers.getImageFilename(zip, "Talent", "", data.flags.starwarsffg.ffgimportid);
+          let imgPath = await ImportHelpers.getImageFilename(zip, "Talent", "", data.flags.starwarsffg_sandbox.ffgimportid);
           if (imgPath) {
             data.img = await ImportHelpers.importImage(imgPath.name, zip, pack);
           } else {

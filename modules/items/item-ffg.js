@@ -15,11 +15,11 @@ export class ItemFFG extends ItemBaseFFG {
   /** @override **/
   async _preCreate(data, operation, user) {
     const defaultImages = {
-      armour: "systems/starwarsffg/images/defaults/items/armor.png",
-      itemattachment: "systems/starwarsffg/images/defaults/items/attachment.png",
-      gear: "systems/starwarsffg/images/defaults/items/gear.png",
-      itemmodifier: "systems/starwarsffg/images/defaults/items/itemmodifier.png",
-      weapon: "systems/starwarsffg/images/defaults/items/weapon.png",
+      armour: "systems/starwarsffg_sandbox/images/defaults/items/armor.png",
+      itemattachment: "systems/starwarsffg_sandbox/images/defaults/items/attachment.png",
+      gear: "systems/starwarsffg_sandbox/images/defaults/items/gear.png",
+      itemmodifier: "systems/starwarsffg_sandbox/images/defaults/items/itemmodifier.png",
+      weapon: "systems/starwarsffg_sandbox/images/defaults/items/weapon.png",
     }
     if (game.user.id === user.id && (!data?.img || data?.img === "icons/svg/mystery-man.svg")) {
       if (Object.keys(defaultImages).includes(data.type)) {
@@ -270,10 +270,10 @@ export class ItemFFG extends ItemBaseFFG {
     const actor = this.actor ? this.actor : {};
     const data = item.system;
 
-    if (!item.flags.starwarsffg) {
+    if (!item.flags.starwarsffg_sandbox) {
       await item.updateSource({
         flags: {
-          starwarsffg: {
+          starwarsffg_sandbox: {
             isCompendium: !!this.compendium,
             ffgUuid: this.parent?.system ? this.uuid : null,
             ffgIsOwned: this.isEmbedded,
@@ -283,18 +283,18 @@ export class ItemFFG extends ItemBaseFFG {
       });
     } else {
       if (this.compendium) {
-        item.flags.starwarsffg.isCompendium = true;
+        item.flags.starwarsffg_sandbox.isCompendium = true;
         // Temporary check on this.parent.data to avoid initialisation failing in Foundry VTT 0.8.6
-        if (this.uuid) item.flags.starwarsffg.ffgUuid = this.uuid;
+        if (this.uuid) item.flags.starwarsffg_sandbox.ffgUuid = this.uuid;
       } else {
-        item.flags.starwarsffg.isCompendium = false;
-        item.flags.starwarsffg.ffgIsOwned = false;
+        item.flags.starwarsffg_sandbox.isCompendium = false;
+        item.flags.starwarsffg_sandbox.ffgIsOwned = false;
         if (this.isEmbedded) {
-          item.flags.starwarsffg.ffgIsOwned = true;
+          item.flags.starwarsffg_sandbox.ffgIsOwned = true;
           // Temporary check on this.parent.data to avoid initialisation failing in Foundry VTT 0.8.6
-          if (this.parent) item.flags.starwarsffg.ffgUuid = this.uuid;
+          if (this.parent) item.flags.starwarsffg_sandbox.ffgUuid = this.uuid;
         } else if (item._id) {
-          item.flags.starwarsffg.ffgTempId = item._id;
+          item.flags.starwarsffg_sandbox.ffgTempId = item._id;
         }
       }
     }
@@ -700,7 +700,7 @@ export class ItemFFG extends ItemBaseFFG {
     }
 
     if (this.type === "weapon") {
-      const ammoEnabled = this.getFlag("starwarsffg", "config.enableAmmo");
+      const ammoEnabled = this.getFlag("starwarsffg_sandbox", "config.enableAmmo");
       if (ammoEnabled) {
         props.push(`Ammo: ${data.ammo.value}/${data.ammo.max}`);
       }

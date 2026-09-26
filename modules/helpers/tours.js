@@ -164,8 +164,8 @@ class EditModeTour extends foundry.nue.Tour {
  */
 export async function register_system_tours() {
   try {
-    game.tours.register("starwarsffg", 'character', await CharacterTour.fromJSON('/systems/starwarsffg/modules/tours/character.json'));
-    game.tours.register("starwarsffg", 'edit-mode', await EditModeTour.fromJSON('/systems/starwarsffg/modules/tours/edit-mode.json'));
+    game.tours.register("starwarsffg_sandbox", 'character', await CharacterTour.fromJSON('/systems/starwarsffg_sandbox/modules/tours/character.json'));
+    game.tours.register("starwarsffg_sandbox", 'edit-mode', await EditModeTour.fromJSON('/systems/starwarsffg_sandbox/modules/tours/edit-mode.json'));
   } catch (error) {
     console.error("MyTour | Error registering tours: ",error);
   }

@@ -47,8 +47,8 @@ export class CombatFFG extends foundry.documents.Combat {
 
     const createdSlotId = (await this.createEmbeddedDocuments("Combatant", [data]))[0].id;
     const createdSlot = this.combatants.get(createdSlotId);
-    await createdSlot.setFlag("starwarsffg", "fake", true);
-    await createdSlot.setFlag("starwarsffg", "disposition", disposition);
+    await createdSlot.setFlag("starwarsffg_sandbox", "fake", true);
+    await createdSlot.setFlag("starwarsffg_sandbox", "disposition", disposition);
     return createdSlotId;
   }
 
@@ -76,7 +76,7 @@ export class CombatFFG extends foundry.documents.Combat {
 
     const createdSlot = (await this.createEmbeddedDocuments("Combatant", [data]))[0];
     // the disposition passed in is not persisted by the create, so record it where the getter can find it again
-    await createdSlot.setFlag("starwarsffg", "disposition", disposition);
+    await createdSlot.setFlag("starwarsffg_sandbox", "disposition", disposition);
     return createdSlot.id;
   }
 
@@ -124,7 +124,7 @@ export class CombatFFG extends foundry.documents.Combat {
             this.debounceRender();
             await this.addExtraSlot(this.round, disposition, parseInt(initiative));
             this.setupTurns();
-            game.socket.emit("system.starwarsffg", {event: "trackerRender", combatId: this.id});
+            game.socket.emit("system.starwarsffg_sandbox", {event: "trackerRender", combatId: this.id});
           }
         }
       },
@@ -244,7 +244,7 @@ export class CombatFFG extends foundry.documents.Combat {
       };
 
       const title = game.i18n.localize("SWFFG.InitiativeRoll") + ` ${whosInitiative}...`;
-      const content = await foundry.applications.handlebars.renderTemplate("systems/starwarsffg/templates/dialogs/ffg-initiative.html", {
+      const content = await foundry.applications.handlebars.renderTemplate("systems/starwarsffg_sandbox/templates/dialogs/ffg-initiative.html", {
         id,
         dicePools,
         addDicePool,
@@ -366,7 +366,7 @@ export class CombatFFG extends foundry.documents.Combat {
    * @returns {undefined|*}
    */
   getSlotClaims(round, slot_id) {
-    const claims = this.getFlag('starwarsffg', 'combatClaims') || undefined;
+    const claims = this.getFlag('starwarsffg_sandbox', 'combatClaims') || undefined;
     if (!claims) {
       return undefined;
     }
@@ -381,7 +381,7 @@ export class CombatFFG extends foundry.documents.Combat {
    * @returns {string|undefined} - an array of
    */
   findSlotClaims(round, combatantId) {
-    const claims = this.getFlag('starwarsffg', 'combatClaims') || undefined;
+    const claims = this.getFlag('starwarsffg_sandbox', 'combatClaims') || undefined;
     if (!claims) {
       return undefined;
     }
@@ -400,7 +400,7 @@ export class CombatFFG extends foundry.documents.Combat {
    * @returns {*|*[]} - a list of combatant IDs (NOT token IDs, NOT actor IDs)
    */
   getClaims(round) {
-    const combatClaims = this.getFlag('starwarsffg', 'combatClaims');
+    const combatClaims = this.getFlag('starwarsffg_sandbox', 'combatClaims');
     if (combatClaims) {
       return combatClaims[round] || [];
     }
@@ -431,7 +431,7 @@ export class CombatFFG extends foundry.documents.Combat {
       await this.removeCombatantOnly(combatant.id);
     }
 
-    let action = game.settings.get("starwarsffg", "removeCombatantAction")
+    let action = game.settings.get("starwarsffg_sandbox", "removeCombatantAction")
     if (action === "prompt") {
       new Dialog({
         title: game.i18n.localize("SWFFG.CombatantRemoval.Title"),
@@ -524,7 +524,7 @@ export class CombatFFG extends foundry.documents.Combat {
     this.prepareDerivedData();
     this.setupTurns();
     // emit a socket event
-    game.socket.emit("system.starwarsffg", {event: "trackerRender", combatId: this.id});
+    game.socket.emit("system.starwarsffg_sandbox", {event: "trackerRender", combatId: this.id});
   }
 
   async removeLastSlot(combatantId) {
@@ -661,17 +661,17 @@ export class CombatFFG extends foundry.documents.Combat {
         slot: slot_id,
         combatantId: combatantId,
       }
-      game.socket.emit("system.starwarsffg", {event: "combat", data: data});
+      game.socket.emit("system.starwarsffg_sandbox", {event: "combat", data: data});
       return;
     }
     const claims = {
-      ...this.getFlag('starwarsffg', 'combatClaims')
+      ...this.getFlag('starwarsffg_sandbox', 'combatClaims')
     };
     if (!claims[round]) {
       claims[round] = {};
     }
     claims[round][slot_id] = combatantId;
-    await this.setFlag('starwarsffg', 'combatClaims', claims);
+    await this.setFlag('starwarsffg_sandbox', 'combatClaims', claims);
   }
 
   /**
@@ -685,7 +685,7 @@ export class CombatFFG extends foundry.documents.Combat {
       // only the GM can un-claim a slot
       return;
     }
-    await this.unsetFlag('starwarsffg', `combatClaims.${round}.${slot_id}`);
+    await this.unsetFlag('starwarsffg_sandbox', `combatClaims.${round}.${slot_id}`);
   }
 
   /**
@@ -715,7 +715,7 @@ export class CombatFFG extends foundry.documents.Combat {
               return;
             }
             await combatant.update({initiative: initiative});
-            game.socket.emit("system.starwarsffg", {event: "trackerRender", combatId: this.id});
+            game.socket.emit("system.starwarsffg_sandbox", {event: "trackerRender", combatId: this.id});
           }
         }
       },
@@ -774,7 +774,7 @@ export class CombatFFG extends foundry.documents.Combat {
     CONFIG.logger.debug("Re-rendering the tracker and emitting a socket event for other clients");
     this.setupTurns();
     // emit a socket event
-    game.socket.emit("system.starwarsffg", {event: "trackerRender", combatId: this.id});
+    game.socket.emit("system.starwarsffg_sandbox", {event: "trackerRender", combatId: this.id});
   }
 
   /** @override */
@@ -788,7 +788,7 @@ export class CombatFFG extends foundry.documents.Combat {
   /** @override */
   async prepareDerivedData() {
     super.prepareDerivedData();
-    if (!game.settings.get("starwarsffg", "useGenericSlots")) {
+    if (!game.settings.get("starwarsffg_sandbox", "useGenericSlots")) {
       // the core tracker renders the combatants directly and never reads customTurns
       return;
     }
@@ -1050,7 +1050,7 @@ function _findActorForInitiative(c) {
   CONFIG.logger.debug("Attempting to find initiative data for actor in combat");
   if (c.actor.type === "vehicle") {
     CONFIG.logger.debug("Actor is a vehicle, looking for initiative crew role.");
-    const crew = c.actor.getFlag("starwarsffg", "crew") ?? [];
+    const crew = c.actor.getFlag("starwarsffg_sandbox", "crew") ?? [];
     const initiativeCrew = crew.find((member) => member.role === "Pilot");
     const realActor = initiativeCrew ? game.actors.get(initiativeCrew.actor_id) : undefined;
     if (!realActor?.system) {
@@ -1083,13 +1083,13 @@ export class CombatTrackerFFG extends foundry.applications.sidebar.tabs.CombatTr
   /** @inheritdoc */
   static PARTS = {
     header: {
-      template: "systems/starwarsffg/templates/combat/ffg-combat-tracker-header.html",
+      template: "systems/starwarsffg_sandbox/templates/combat/ffg-combat-tracker-header.html",
     },
     tracker: {
-      template: "systems/starwarsffg/templates/combat/ffg-combat-tracker-body.html",
+      template: "systems/starwarsffg_sandbox/templates/combat/ffg-combat-tracker-body.html",
     },
     footer: {
-      template: "systems/starwarsffg/templates/combat/ffg-combat-tracker-footer.html",
+      template: "systems/starwarsffg_sandbox/templates/combat/ffg-combat-tracker-footer.html",
     },
   };
 
@@ -1381,11 +1381,11 @@ export class CombatTrackerFFG extends foundry.applications.sidebar.tabs.CombatTr
 
 export default class CombatantFFG extends Combatant {
   get disposition() {
-    if (this.getFlag("starwarsffg", "fake")) {
-      return this.getFlag("starwarsffg", "disposition");
+    if (this.getFlag("starwarsffg_sandbox", "fake")) {
+      return this.getFlag("starwarsffg_sandbox", "disposition");
     } else {
       // the token and the actor can both be gone, so fall back to the side the slot was created with
-      return this?.token?.disposition ?? this?.actor?.prototypeToken?.disposition ?? this.getFlag("starwarsffg", "disposition");
+      return this?.token?.disposition ?? this?.actor?.prototypeToken?.disposition ?? this.getFlag("starwarsffg_sandbox", "disposition");
     }
   }
 
@@ -1434,7 +1434,7 @@ export default class CombatantFFG extends Combatant {
  */
 export function updateCombatTracker() {
   // Used to force the tracker to re-render based on updated visibility state
-  if (game.combat && game.settings.get("starwarsffg", "useGenericSlots")) {
+  if (game.combat && game.settings.get("starwarsffg_sandbox", "useGenericSlots")) {
     ui.combat.render(true);
   }
 }

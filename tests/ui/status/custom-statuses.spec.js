@@ -18,7 +18,7 @@ test('a status added through the setting is offered alongside the built-in ones'
   const ids = (await api.readStatusEffects(page)).map((status) => status.id);
 
   expect(ids, 'the GM\'s own status is offered').toContain('qa-winded');
-  expect(ids, 'next to the ones the system built').toContain('starwarsffg-defeated');
+  expect(ids, 'next to the ones the system built').toContain('starwarsffg_sandbox-defeated');
 });
 
 test('a status added through the setting applies its changes', async ({ world, page, consumers }) => {
@@ -52,14 +52,14 @@ test('bad JSON in the setting leaves the built-in statuses alone', async ({ worl
   const thrown = consoleGuard.errors.join(' | ') || 'nothing';
 
   expect(thrown, 'the bad JSON is reported rather than thrown').toBe('nothing');
-  expect(ids, 'the system\'s own are still offered').toContain('starwarsffg-defeated');
-  expect(ids.filter((id) => !id.startsWith('starwarsffg-')), 'and nothing half-read got in').toEqual([]);
+  expect(ids, 'the system\'s own are still offered').toContain('starwarsffg_sandbox-defeated');
+  expect(ids.filter((id) => !id.startsWith('starwarsffg_sandbox-')), 'and nothing half-read got in').toEqual([]);
 });
 
 test('a custom status taking a built-in id does not replace it', async ({ world, page, consumers }) => {
   await world.setSetting('additionalStatuses', JSON.stringify([
     {
-      id: 'starwarsffg-defeated',
+      id: 'starwarsffg_sandbox-defeated',
       name: 'QA Impostor',
       img: 'icons/svg/skull.svg',
       changes: [
@@ -72,9 +72,9 @@ test('a custom status taking a built-in id does not replace it', async ({ world,
     actor: 'character',
   });
   const claiming = (await api.readStatusEffects(page))
-    .filter((status) => status.id === 'starwarsffg-defeated');
+    .filter((status) => status.id === 'starwarsffg_sandbox-defeated');
 
-  await api.toggleStatus(page, ctx.actor, 'starwarsffg-defeated', true);
+  await api.toggleStatus(page, ctx.actor, 'starwarsffg_sandbox-defeated', true);
 
   const effects = (await api.readEffects(page, ctx.actor)).map((effect) => effect.name);
 

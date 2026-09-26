@@ -6,9 +6,9 @@ export default class SWAImporter extends FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "swa-importer",
-      classes: ["starwarsffg", "data-import"],
+      classes: ["starwarsffg_sandbox", "data-import"],
       title: "Adversaries Importer",
-      template: "systems/starwarsffg/templates/importer/swa-importer.html",
+      template: "systems/starwarsffg_sandbox/templates/importer/swa-importer.html",
     });
   }
 
@@ -372,10 +372,10 @@ export default class SWAImporter extends FormApplication {
                   },
                 };
 
-                const skilltheme = await game.settings.get("starwarsffg", "skilltheme");
+                const skilltheme = await game.settings.get("starwarsffg_sandbox", "skilltheme");
 
                 if (skilltheme !== "starwars") {
-                  skills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === game.settings.get("starwarsffg", "skilltheme")).skills));
+                  skills = JSON.parse(JSON.stringify(CONFIG.FFG.alternateskilllists.find((list) => list.id === game.settings.get("starwarsffg_sandbox", "skilltheme")).skills));
                 }
 
                 let importType;
@@ -391,7 +391,7 @@ export default class SWAImporter extends FormApplication {
                   name: item.name,
                   type: importType,
                   flags: {
-                    starwarsffg: {
+                    starwarsffg_sandbox: {
                       ffgimportid: `${f.name}-${item.type}-${item.name}`,
                       config: {
                         enableAutoSoakCalculation: false,

@@ -11,3 +11,4 @@ state.json
 .foundry-data/
 /tests/.auth/
 .env
+system.zip

@@ -11,39 +11,39 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
   _openCareerSection = "career-select-container";
 
   static PARTS = {
-    header: { template: 'systems/starwarsffg/templates/wizards/char_creator/header.html' },
+    header: { template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/header.html' },
     tabs: { template: 'templates/generic/tab-navigation.hbs' },
     rules: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/rules.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/rules.html'
     },
     background: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/background.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/background.html'
     },
     startingBonus: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/startingBonus.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/startingBonus.html'
     },
     obligation: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/obligation.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/obligation.html'
     },
     species: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/species.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/species.html'
     },
     career: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/career.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/career.html'
     },
     xp_spend: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/xp_spend.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/xp_spend.html'
     },
     motivation: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/motivation.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/motivation.html'
     },
     gear: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/gear.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/gear.html'
     },
     review: {
-      template: 'systems/starwarsffg/templates/wizards/char_creator/tabs/review.html'
+      template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/tabs/review.html'
     },
-    //footer: { template: 'systems/starwarsffg/templates/wizards/char_creator/footer.html' },
+    //footer: { template: 'systems/starwarsffg_sandbox/templates/wizards/char_creator/footer.html' },
   }
 
   /** @type {Record<string, foundry.applications.types.ApplicationTabsConfiguration>} */
@@ -111,7 +111,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
       width: 950,
       height: 800,
     },
-    classes: ["starwarsffg", "wizard", "charCreator"],
+    classes: ["starwarsffg_sandbox", "wizard", "charCreator"],
   }
 
   constructor(options={}) {
@@ -120,7 +120,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
       // items granted - either by the GM or by the starting bonus, etc
       grants: {
         gm: {
-          credits: game.settings.get("starwarsffg", "defaultCredits"),
+          credits: game.settings.get("starwarsffg_sandbox", "defaultCredits"),
         },
         bonus: {
           xp: 0,
@@ -168,9 +168,9 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
         credits: [],
       },
       initial: {
-        duty: game.settings.get("starwarsffg", "defaultDuty"),             // decreased with starting bonuses
-        obligation: game.settings.get("starwarsffg", "defaultObligation"), // increased with starting bonuses
-        morality: game.settings.get("starwarsffg", "defaultMorality"),     // increased or decreased with starting bonuses
+        duty: game.settings.get("starwarsffg_sandbox", "defaultDuty"),             // decreased with starting bonuses
+        obligation: game.settings.get("starwarsffg_sandbox", "defaultObligation"), // increased with starting bonuses
+        morality: game.settings.get("starwarsffg_sandbox", "defaultMorality"),     // increased or decreased with starting bonuses
       },
       spendingCredits: Math.floor(Math.random() * 100) + 1,
     };
@@ -189,7 +189,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
       return this.close();
     }
     // configure socket events
-    game.socket.on("system.starwarsffg", async (...args) => {
+    game.socket.on("system.starwarsffg_sandbox", async (...args) => {
       if (args[0]?.eventType === "pcWizard" && args[0]?.event === "createCharacterResponse") {
         await this.showCharacterStatus(args[0].actorId);
       } else if (args[0]?.eventType === "pcWizard" && args[0]?.event === "createFinalActorResponse") {
@@ -322,7 +322,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
       await this.handleSpecializationSelect(event);
     });
 
-    $(".starwarsffg.wizard").find(".skill").each(async (_, elem) => {
+    $(".starwarsffg_sandbox.wizard").find(".skill").each(async (_, elem) => {
       const skillData = foundry.utils.deepClone(
         this.tempActor.system
       );
@@ -759,8 +759,8 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
   async getItems() {
     const sources = this.getSources("item");
     const preparedItems = [];
-    const maxRarity = game.settings.get("starwarsffg", "maxRarity");
-    const allowRestricted = game.settings.get("starwarsffg", "allowRestricted");
+    const maxRarity = game.settings.get("starwarsffg_sandbox", "maxRarity");
+    const allowRestricted = game.settings.get("starwarsffg_sandbox", "allowRestricted");
 
     for (const source of sources) {
       const pack = game.packs.get(source);
@@ -946,7 +946,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
    * @returns {*}
    */
   getSources(sourcesType) {
-    return game.settings.get("starwarsffg", `${sourcesType}Compendiums`).split(',');
+    return game.settings.get("starwarsffg_sandbox", `${sourcesType}Compendiums`).split(',');
   }
 
   /**
@@ -1174,7 +1174,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
       );
       await this.showCharacterStatus(tempActor.id);
     } else {
-      game.socket.emit("system.starwarsffg", {
+      game.socket.emit("system.starwarsffg_sandbox", {
         eventType: "pcWizard",
         event: "createCharacterRequest",
       });
@@ -1435,7 +1435,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
 
   async handleSpecializationPurchase(event) {
     const availableXP = this.calcXp()['available'];
-    const template = "systems/starwarsffg/templates/dialogs/ffg-confirm-purchase.html";
+    const template = "systems/starwarsffg_sandbox/templates/dialogs/ffg-confirm-purchase.html";
     const groups = [];
     // prepare the items list
     const inCareer = this.data.selected.career?.system?.specializations;
@@ -1444,7 +1444,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
         return;
       }
       const inCareerNames = Object.values(inCareer).map(i => i.name);
-      const sources = game.settings.get("starwarsffg", "specializationCompendiums").split(",");
+      const sources = game.settings.get("starwarsffg_sandbox", "specializationCompendiums").split(",");
       let outCareer = [];
       let universal = [];
       for (const source of sources) {
@@ -1489,8 +1489,8 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
 
   async handleForcePowerPurchase(event) {
     const groups = [];
-    const template = "systems/starwarsffg/templates/dialogs/ffg-confirm-purchase.html";
-    const sources = game.settings.get("starwarsffg", "forcePowerCompendiums").split(",");
+    const template = "systems/starwarsffg_sandbox/templates/dialogs/ffg-confirm-purchase.html";
+    const sources = game.settings.get("starwarsffg_sandbox", "forcePowerCompendiums").split(",");
       let selectableItems = [];
       const worldItems = game.items.filter(i => i.type === "forcepower");
       for (const worldItem of worldItems) {
@@ -1680,7 +1680,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
         },
       },
       {
-        classes: ["dialog", "starwarsffg"],
+        classes: ["dialog", "starwarsffg_sandbox"],
       }
     ).render(true);
   }
@@ -1846,7 +1846,7 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
       );
       await this.createActor(finalActor.id);
     } else {
-      game.socket.emit("system.starwarsffg", {
+      game.socket.emit("system.starwarsffg_sandbox", {
         eventType: "pcWizard",
         event: "createFinalActorRequest",
       });

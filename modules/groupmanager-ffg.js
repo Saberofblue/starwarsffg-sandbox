@@ -41,7 +41,7 @@ export class GroupManager extends FormApplication {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["starwarsffg", "form", "group-manager"],
+      classes: ["starwarsffg_sandbox", "form", "group-manager"],
       closeOnSubmit: false,
       submitOnChange: true,
       submitOnClose: true,
@@ -50,7 +50,7 @@ export class GroupManager extends FormApplication {
       resizable: true,
       width: 330,
       height: 900,
-      template: "systems/starwarsffg/templates/group-manager.html",
+      template: "systems/starwarsffg_sandbox/templates/group-manager.html",
       id: "group-manager",
       title: "Group Manager",
     });
@@ -63,9 +63,9 @@ export class GroupManager extends FormApplication {
    * @return {Object}   The data provided to the template when rendering the form
    */
   getData() {
-    const pcListMode = game.settings.get("starwarsffg", "pcListMode");
+    const pcListMode = game.settings.get("starwarsffg_sandbox", "pcListMode");
     const players = game.users.contents.filter((u) => {
-    const isValidUser = !u.isGM || game.settings.get("starwarsffg", "GMCharactersInGroupManager");
+    const isValidUser = !u.isGM || game.settings.get("starwarsffg_sandbox", "GMCharactersInGroupManager");
     //if active mode is selected, only return users actively playing a character, otherwise return all valid users
     if (pcListMode === "active") {
       return isValidUser && u.active;
@@ -119,7 +119,7 @@ export class GroupManager extends FormApplication {
       });
     }
 
-    const dPool = { light: game.settings.get("starwarsffg", "dPoolLight"), dark: game.settings.get("starwarsffg", "dPoolDark") };
+    const dPool = { light: game.settings.get("starwarsffg_sandbox", "dPoolLight"), dark: game.settings.get("starwarsffg_sandbox", "dPoolDark") };
     const initiative = CONFIG.Combat.initiative.formula;
     const isGM = game.user.isGM;
     const theme = CONFIG.FFG.theme;
@@ -130,8 +130,8 @@ export class GroupManager extends FormApplication {
     if (!isGM) this.position.height = 470;
 
     const labels = {
-      light: game.settings.get("starwarsffg", "destiny-pool-light"),
-      dark: game.settings.get("starwarsffg", "destiny-pool-dark"),
+      light: game.settings.get("starwarsffg_sandbox", "destiny-pool-light"),
+      dark: game.settings.get("starwarsffg_sandbox", "destiny-pool-dark"),
     };
 
     return { dPool, players, initiative, isGM, pcListMode, characters, obligations, duties, theme, labels };
@@ -173,7 +173,7 @@ export class GroupManager extends FormApplication {
     // Listen for initiative dropdown change and update initiative formula accordingly.
     html.find(".initiative-mode").change((ev) => {
       const init_value = ev.target.value.charAt(0).toLowerCase();
-      game.settings.set("starwarsffg", "initiativeRule", init_value);
+      game.settings.set("starwarsffg_sandbox", "initiativeRule", init_value);
       ui.notifications.info(`Initiative mode changed to: ${ev.target.value}`);
     });
 
@@ -240,8 +240,8 @@ export class GroupManager extends FormApplication {
    */
   _updateObject(event, formData) {
     const formDPool = foundry.utils.expandObject(formData).dPool || {};
-    game.settings.set("starwarsffg", "dPoolLight", formDPool.light);
-    game.settings.set("starwarsffg", "dPoolDark", formDPool.dark);
+    game.settings.set("starwarsffg_sandbox", "dPoolLight", formDPool.light);
+    game.settings.set("starwarsffg_sandbox", "dPoolDark", formDPool.dark);
     return formData;
   }
 
@@ -276,7 +276,7 @@ export class GroupManager extends FormApplication {
   async _rollTable(table, type) {
     let r = new foundry.dice.Roll("1d100");
     await r.evaluate();
-    let rollOptions = game.settings.get("starwarsffg", "privateTriggers") ? messageModeOptions("gm") : {};
+    let rollOptions = game.settings.get("starwarsffg_sandbox", "privateTriggers") ? messageModeOptions("gm") : {};
     r.toMessage(
       {
         flavor: `${game.i18n.localize("SWFFG.Rolling")} ${type}...`,
@@ -289,7 +289,7 @@ export class GroupManager extends FormApplication {
       user: game.user.id,
       content: tableResult,
     };
-    if (game.settings.get("starwarsffg", "privateTriggers")) {
+    if (game.settings.get("starwarsffg_sandbox", "privateTriggers")) {
       messageOptions.whisper = CONFIG.ChatMessage.documentClass.getWhisperRecipients("GM");
     }
     CONFIG.ChatMessage.documentClass.create(messageOptions);
@@ -345,7 +345,7 @@ export class GroupManager extends FormApplication {
     }
     const id = foundry.utils.randomID();
     const description = game.i18n.localize("SWFFG.GrantXPTo") + ` ${character.name}...`;
-    const content = await foundry.applications.handlebars.renderTemplate("systems/starwarsffg/templates/grant-xp.html", {
+    const content = await foundry.applications.handlebars.renderTemplate("systems/starwarsffg_sandbox/templates/grant-xp.html", {
       id,
     });
 
@@ -383,7 +383,7 @@ export class GroupManager extends FormApplication {
   async _bulkXP(characters) {
     const id = foundry.utils.randomID();
     const description = game.i18n.localize("SWFFG.GrantXPToAllCharacters");
-    const content = await foundry.applications.handlebars.renderTemplate("systems/starwarsffg/templates/grant-xp.html", {
+    const content = await foundry.applications.handlebars.renderTemplate("systems/starwarsffg_sandbox/templates/grant-xp.html", {
       id,
     });
 
