@@ -1,7 +1,8 @@
 /**
  * Turn the integration build into the separately-installable sandbox system.
- * Idempotent: re-run after every merge from integration/v14, then commit.
- *   node scripts/sandbox-rename.mjs
+ * Idempotent. Refresh the branch with:
+ *   git merge -X theirs integration/v14   (integration is the source of truth; the rename is re-applied)
+ *   node scripts/sandbox-rename.mjs && git add -A && git commit
  */
 import { execSync } from "node:child_process";
 import fs from "node:fs";
@@ -12,7 +13,7 @@ const TITLE = "Star Wars FFG (Sandbox)";
 const REPO = "https://github.com/Saberofblue/starwarsffg-sandbox";
 const SKIP = /^(lib|fonts|images)\//;
 const TEXT = /\.(js|mjs|ts|html|hbs|json|css|scss|yml|yaml|md)$/i;
-const re = new RegExp(`${FROM}(?!_sandbox)`, "g");
+const re = new RegExp(`${FROM}(?![_-]sandbox)`, "g"); // skip the id itself and the repo name
 
 const files = execSync("git ls-files", { encoding: "utf8" }).split("\n").filter(Boolean);
 let edited = 0;
