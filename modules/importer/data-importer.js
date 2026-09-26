@@ -184,21 +184,6 @@ export default class DataImporter extends HandlebarsApplicationMixin(Application
         return;
       }
 
-<<<<<<< HEAD
-    // If skills are not selected for import, pre-populate the skills cache so other importers
-    // (weapons, species, careers, etc.) can still resolve skill keys without errors.
-    if (!this.shouldImport["skills"]) {
-      CONFIG.temporary["skills"] = {};
-      const skillsPack = game.packs.get("world.oggdudeskilldescriptions");
-      if (skillsPack) {
-        this._importLogger("Skills not selected for import - loading skills from world compendium");
-        const skillDocs = await skillsPack.getDocuments();
-        for (const doc of skillDocs) {
-          const importId = doc.flags?.starwarsffg_sandbox?.ffgimportid;
-          if (importId) {
-            CONFIG.temporary.skills[importId] = ImportHelpers.oggSkillKeyToSystemKey(importId) ?? doc.name;
-          }
-=======
       let importFiles = Array.from(document.querySelectorAll("input[type='checkbox'][name='imports']:checked")).map(el => (
         el.dataset.itemtype
       ));
@@ -211,7 +196,6 @@ export default class DataImporter extends HandlebarsApplicationMixin(Application
       if (document.querySelector("#deleteExisting").checked) {
         for (const itemType of importFiles) {
           await this._deleteCompendium(itemType);
->>>>>>> integration/v14
         }
       }
 
