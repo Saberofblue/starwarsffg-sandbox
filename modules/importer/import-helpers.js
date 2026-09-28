@@ -370,19 +370,25 @@ export default class ImportHelpers {
 
       let skill = CONFIG.temporary.skills[mod.Key];
 
-      if (skill.includes(":") && !skill.includes(": ")) {
-        skill = skill.replace(":", ": ");
-      }
+      // not every base mod is a skill mod (ENCTADD below, for one): an unknown key must not
+      // throw here, or the whole item loses all of its attributes
+      if (typeof skill === "string") {
+        if (skill.includes(":") && !skill.includes(": ")) {
+          skill = skill.replace(":", ": ");
+        }
 
-      if (Object.keys(CONFIG.FFG.skills).includes(skill)) {
-        type = skill;
+        if (Object.keys(CONFIG.FFG.skills).includes(skill)) {
+          type = skill;
+        }
       }
     }
 
     if (mod.Key === "ENCTADD") {
+      // encumbrance THRESHOLD bonus (Backpack +4, Modular Backpack +3, Utility Belt +1, ...):
+      // "Encumbrance" resolves to system.stats.encumbrance.value (what is carried), so the bonus
+      // used to raise the load instead of the limit
       modtype = "Stat";
-      type = "Encumbrance";
-      value = value;
+      type = "EncumbranceMax";
     }
 
     if (type) {
@@ -2474,7 +2480,11 @@ export default class ImportHelpers {
             // don't re-import items for existing vehicles, in order to avoid duplicating them
             updateData.items = [];
           }
-          await pack.get(updateData._id).update(updateData);
+          // ffgSkipEffectSync: the effects are deleted and rebuilt just below, so ItemFFG._onUpdate
+
+          // must not sync them concurrently
+
+          await pack.get(updateData._id).update(updateData, { ffgSkipEffectSync: true });
           // update here does not return the UUID, so retrieve the item from the pack to get it
           const updatedItem = await pack.get(updateData._id);
           upd.uuid = updatedItem.uuid;
@@ -2837,6 +2847,15 @@ export default class ImportHelpers {
     return output;
   }
 
+  /**
+   * Base-mod descriptor keys that are plain stat bonuses (per Count), mapped onto the system's
+   * Stat modifiers. ENCTADD = "Increases Encumbrance Threshold" (Backpack +4, Modular Backpack +3,
+   * Utility Belt +1, ...).
+   */
+  static STAT_BASE_MODS = {
+    ENCTADD: { modtype: "Stat", mod: "EncumbranceMax" },
+  };
+
   static async processModsData(modifiersData) {
     let output = {
       attributes: {},
@@ -2869,6 +2888,16 @@ export default class ImportHelpers {
             const attribute = ImportHelpers.processCharacteristicMod(modifier);
 
             output.attributes[attribute.type] = attribute.value;
+          } else if (ImportHelpers.STAT_BASE_MODS[modifier.Key]) {
+            // a stat bonus OggDude describes only by its descriptor name (no structured data), so
+            // the installed-modifier path below would carry it as an empty modifier that nothing
+            // applies: store it as the item's own attribute instead, scaled by its Count
+            const statMod = ImportHelpers.STAT_BASE_MODS[modifier.Key];
+            output.attributes[statMod.mod] = {
+              modtype: statMod.modtype,
+              mod: statMod.mod,
+              value: parseInt(modifier.Count, 10) || 1,
+            };
           } else {
             const compendiumEntry = await ImportHelpers.findCompendiumEntityByImportId("Item", modifier.Key);
             if (compendiumEntry) {
@@ -3208,6 +3237,14 @@ export default class ImportHelpers {
             } else {
               inherentChanges[inherentEffectChangeIndex].value = formData.system.attributes[k].value;
             }
+          } else {
+            // a stat the item type's inherent template does not declare (e.g. a backpack's
+            // EncumbranceMax): carry it on the inherent effect too, so it transfers to the actor
+            inherentChanges.push({
+              key: modPath,
+              type: "add",
+              value: formData.system.attributes[k].value,
+            });
           }
         }
       }

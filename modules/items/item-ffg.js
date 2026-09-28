@@ -192,6 +192,11 @@ export class ItemFFG extends ItemBaseFFG {
       // only run onCreate for the user actually performing the update
       return;
     }
+    if (options.ffgSkipEffectSync) {
+      // the OggDude importer rebuilds this item's effects itself right after the update; syncing
+      // them here as well races that rebuild (updates landing on effects it has just deleted)
+      return;
+    }
 
     const existingEffects = this.getEmbeddedCollection("ActiveEffect");
     CONFIG.logger.debug(`On item ${this.name} update, found the following active effects:`);
