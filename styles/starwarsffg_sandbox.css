@@ -264,7 +264,8 @@ img {
 .starwarsffg_sandbox .block-background-shadow {
   position: absolute;
   width: 100%;
-  top: 30px;
+  top: auto;
+  bottom: -16px;
   height: 30px;
   background-color: #7da9c2;
   padding: 5px;
@@ -297,8 +298,9 @@ img {
 .starwarsffg_sandbox.sheet.actor .character .header-fields .specialization-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .species-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .career-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .signatureability-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .forcepower-pill .item-delete {
   cursor: pointer;
 }
-.starwarsffg_sandbox.sheet.actor .character .header-fields .block-background-shadow {
-  top: 36px;
+.starwarsffg.sheet.actor .character .header-fields .block-background-shadow {
+  top: auto;
+  bottom: -16px;
 }
 .starwarsffg_sandbox.sheet.actor .character .header-fields h1 {
   margin: 0;
@@ -674,8 +676,9 @@ img {
   z-index: 1;
   border: 0;
 }
-.starwarsffg_sandbox .attribute .block-background-shadow {
-  top: 36px;
+.starwarsffg .attribute .block-background-shadow {
+  top: auto;
+  bottom: -16px;
 }
 .starwarsffg_sandbox .attribute .block-background {
   padding: 5px 5px;
@@ -731,7 +734,9 @@ img {
 }
 .starwarsffg_sandbox .attribute .shadow-text {
   position: absolute;
-  top: 5px;
+  top: auto;
+  bottom: 0;
+  line-height: 16px;
   font-size: 9px;
   left: 50%;
   transform: translateX(-50%);

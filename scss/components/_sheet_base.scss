@@ -80,7 +80,8 @@
   border: 0;
 
   .block-background-shadow {
-    top: 36px;
+    top: auto;
+    bottom: -16px;
   }
 
   .block-background {
@@ -157,7 +158,10 @@
 
   .shadow-text {
     position: absolute;
-    top: 5px;
+    // sit in the visible 16px band below the box, glyphs centred in it
+    top: auto;
+    bottom: 0;
+    line-height: 16px;
     font-size: 9px;
     left: 50%;
     transform: translateX(-50%);

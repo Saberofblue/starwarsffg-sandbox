@@ -34,7 +34,8 @@ $swffg-table-header-color: rgb(145, 145, 145);
         }
 
         .block-background-shadow {
-          top: 36px;
+          top: auto;
+          bottom: -16px;
         }
 
         h1 {

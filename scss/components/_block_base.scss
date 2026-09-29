@@ -11,7 +11,10 @@
 .block-background-shadow {
   position: absolute;
   width: 100%;
-  top: 30px;
+  // anchored to the bottom of the block rather than a fixed offset from its top, so the label
+  // strip always shows the same 16px below the box whatever height core styles give the inputs
+  top: auto;
+  bottom: -16px;
   height: 30px;
   background-color: $swffg-input-background;
   padding: 5px;
