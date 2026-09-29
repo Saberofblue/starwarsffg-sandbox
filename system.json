@@ -2,7 +2,7 @@
   "id": "starwarsffg_sandbox",
   "title": "Star Wars FFG (Sandbox)",
   "description": "A system for playing Star Wars FFG games.",
-  "version": "2.0.4.4",
+  "version": "2.0.4.5",
   "compatibility": {
     "minimum": 13,
     "verified": 14,
@@ -117,8 +117,8 @@
   },
   "primaryTokenAttribute": "wounds",
   "secondaryTokenAttribute": "strain",
-  "url": "https://github.com/Saberofblue/starwarsffg-sandbox",
-  "manifest": "https://github.com/Saberofblue/starwarsffg-sandbox/releases/latest/download/system.json",
-  "download": "https://github.com/Saberofblue/starwarsffg-sandbox/releases/download/v2.0.4.4/system.zip",
+  "url": "https://github.com/Saberofblue/StarWarsFFG",
+  "manifest": "https://github.com/Saberofblue/StarWarsFFG/releases/latest/download/system.json",
+  "download": "https://github.com/Saberofblue/StarWarsFFG/releases/download/v2.0.4.5/system.zip",
   "license": "LICENSE.txt"
 }
