@@ -1646,6 +1646,26 @@ Hooks.once("ready", async () => {
   }
 });
 
+/* Dice Tray (module id dice-calculator) ships a Star Wars FFG dice layout keyed to this system's
+ * upstream id. When the system runs under another id (the sandbox build), that lookup misses and the
+ * tray falls back to generic d20 dice. Register the same layout under our own id, with the dice images
+ * pointed at our own path. The upstream id is spelled in two parts so the sandbox rename script does
+ * not rewrite it. */
+Hooks.on("dice-calculator.keymaps", (maps) => {
+  const upstreamId = "starwars" + "ffg";
+  const ownId = game.system.id;
+  if (ownId === upstreamId || !maps?.[upstreamId] || maps[ownId]) return;
+  maps[ownId] = class extends maps[upstreamId] {
+    get dice() {
+      const dice = super.dice;
+      for (const die of Object.values(dice)) {
+        if (typeof die?.img === "string") die.img = die.img.replace(`systems/${upstreamId}/`, `systems/${ownId}/`);
+      }
+      return dice;
+    }
+  };
+});
+
 Hooks.once("diceSoNiceReady", (dice3d) => {
   let dicetheme = game.settings.get("starwarsffg_sandbox", "dicetheme");
   if (!dicetheme || dicetheme == "starwars") {
