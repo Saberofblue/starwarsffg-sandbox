@@ -298,7 +298,7 @@ img {
 .starwarsffg_sandbox.sheet.actor .character .header-fields .specialization-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .species-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .career-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .signatureability-pill .item-delete, .starwarsffg_sandbox.sheet.actor .character .header-fields .forcepower-pill .item-delete {
   cursor: pointer;
 }
-.starwarsffg.sheet.actor .character .header-fields .block-background-shadow {
+.starwarsffg_sandbox.sheet.actor .character .header-fields .block-background-shadow {
   top: auto;
   bottom: -16px;
 }
@@ -676,7 +676,7 @@ img {
   z-index: 1;
   border: 0;
 }
-.starwarsffg .attribute .block-background-shadow {
+.starwarsffg_sandbox .attribute .block-background-shadow {
   top: auto;
   bottom: -16px;
 }
