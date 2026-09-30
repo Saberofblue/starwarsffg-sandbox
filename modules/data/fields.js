@@ -57,6 +57,11 @@ class DefaultedObjectField extends fields.ObjectField {
   /** @override */
   _cleanType(value, options) {
     const cleaned = super._cleanType(value, options);
+    // A partial update carries only the keys being changed. Merging the defaults into it would
+    // make every value the update did not mention look like a change back to its default -
+    // ObjectField diffs the cleaned value against the stored one - so closing a sheet whose rank
+    // inputs are disabled, or writing a single skill, wiped every other rank and career flag.
+    if (options?.partial) return cleaned;
     return foundry.utils.mergeObject(this.getInitialValue({}), cleaned);
   }
 }
