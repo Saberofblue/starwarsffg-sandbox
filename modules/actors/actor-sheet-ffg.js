@@ -7,6 +7,7 @@ import DiceHelpers from "../helpers/dice-helpers.js";
 import ActorOptions from "./actor-ffg-options.js";
 import ImportHelpers from "../importer/import-helpers.js";
 import ModifierHelpers from "../helpers/modifiers.js";
+import { chooseStorage } from "../helpers/storage.js";
 import ActorHelpers, {xpLogEarn, xpLogSpend} from "../helpers/actor-helpers.js";
 import ItemHelpers from "../helpers/item-helpers.js";
 import EmbeddedItemHelpers from "../helpers/embeddeditem-helpers.js";
@@ -87,7 +88,9 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       // Handle item sorting within the same Actor
       if ( this.actor.uuid === item.parent?.uuid ) return this._onSortItem(event, itemData);
       for (const key of ["_id", "folder", "ownership", "_stats"]) delete itemData[key];
-      itemData.effects = itemData.effects?.map(effect => activeEffectCreateData(effect)) ?? [];
+      // the effects come from their source form: the prepared form carries derived duration
+      // fields that do not pass validation when the copy is created
+      itemData.effects = item.effects.map(effect => activeEffectCreateData(effect.toObject()));
 
       if (["character", "minion", "rival"].includes(this.actor.type) && ["itemmodifier", "itemattachment"].includes(itemData.type)) {
         ui.notifications.warn("You cannot add Item Modifiers or Attachments directly to actors.");
@@ -173,15 +176,6 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
           }
         ).render(true);
         return false;
-      }
-
-      if (Object.keys(itemData).includes("effects") && ["armour", "weapon"].includes(itemData.type)) {
-        // make sure all non-inherent AEs are disabled on the item before the drag-and-drop
-        for (const effect of itemData.effects) {
-          if (effect.name !== "(inherent)") {
-            effect.disabled = true;
-          }
-        }
       }
 
       // Create the owned item
@@ -832,6 +826,28 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
       const item = this.actor.items.get(li.data("itemId"));
       if (item) {
         item.update({ ["system.equippable.equipped"]: !item.system.equippable.equipped });
+      }
+    });
+
+    // Stow / carry an item
+    html.find(".items .item a.toggle-stowed").click((ev) => {
+      if(!this.actor.verifyEditModeIsNotEnabled()) {
+        return;
+      }
+      const item = this.actor.items.get($(ev.currentTarget).data("itemId"));
+      if (item) {
+        item.update({ ["system.stowed"]: !item.system.stowed });
+      }
+    });
+
+    // Store an item in a holster, mount or pouch on something carried
+    html.find(".items .item a.toggle-stored").click(async (ev) => {
+      if(!this.actor.verifyEditModeIsNotEnabled()) {
+        return;
+      }
+      const item = this.actor.items.get($(ev.currentTarget).data("itemId"));
+      if (item) {
+        await chooseStorage(this.actor, item);
       }
     });
 

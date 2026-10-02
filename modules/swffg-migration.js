@@ -4,6 +4,10 @@ import {
   migrateActiveEffectsV14,
 } from "./migration/active-effects-v14.js";
 import { foundryGeneration } from "./compatibility/foundry-version.js";
+import {
+  ITEM_EFFECTS_MIGRATION_VERSION,
+  migrateItemEffectsV2,
+} from "./migration/item-effects-v2.js";
 
 /**
  * Handles all logic related to migrating the system to a new version, including sending notifications
@@ -24,7 +28,21 @@ export async function handleUpdate() {
       if (report.lockedPacks.length) CONFIG.logger.warn("Locked or external compendiums were not modified", report.lockedPacks);
     }
   }
-  const registeredVersion = game.settings.get("starwarsffg_sandbox", "systemMigrationVersion");
+  if (game.user?.isGM && game.users?.activeGM?.id === game.user.id) {
+    const itemEffectsVersion = game.settings.get("starwarsffg", "itemEffectsMigrationVersion");
+    if (itemEffectsVersion < ITEM_EFFECTS_MIGRATION_VERSION) {
+      ui.notifications.info("Star Wars FFG is rebuilding the Active Effects of weapons, armour and gear from their modifiers. See the console for what changed.");
+      const report = await migrateItemEffectsV2();
+      CONFIG.logger.log("Item effects rebuild report", report);
+      if (report.ran && !report.failed.length) {
+        await game.settings.set("starwarsffg", "itemEffectsMigrationVersion", ITEM_EFFECTS_MIGRATION_VERSION);
+        if (report.changed.length) ui.notifications.warn(`Equipment effects rebuilt: ${report.changed.length} actor(s) changed. The console report lists each one.`, {permanent: true});
+      } else if (report.failed.length) {
+        ui.notifications.error(`Equipment effects rebuild stopped with ${report.failed.length} failure(s). Check the console report; it will retry next launch.`, {permanent: true});
+      }
+    }
+  }
+  const registeredVersion = game.settings.get("starwarsffg", "systemMigrationVersion");
   const runningVersion = game.system.version;
   if (registeredVersion !== runningVersion) {
     await handleMigration(registeredVersion, runningVersion);

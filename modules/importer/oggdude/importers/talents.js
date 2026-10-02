@@ -83,6 +83,20 @@ export default class Talents {
               const dieModifiers = await ImportHelpers.processDieMod(item.DieModifiers);
               data.data.attributes = foundry.utils.mergeObject(data.data.attributes, dieModifiers.attributes);
             }
+            // <SkillChars>: roll a skill with another characteristic (Ataru: Lightsaber with Agility)
+            const skillChars = item?.SkillChars?.SkillChar;
+            if (skillChars) {
+              for (const entry of Array.isArray(skillChars) ? skillChars : [skillChars]) {
+                const skill = ImportHelpers.resolveSkillName(entry?.SkillKey);
+                const characteristic = ImportHelpers.convertOGCharacteristic(entry?.CharKey);
+                if (skill && characteristic) {
+                  data.data.attributes[`attr${new Date().getTime()}`] = { modtype: "Skill Characteristic", mod: skill, value: characteristic };
+                  await new Promise(r => setTimeout(r, 1));
+                } else {
+                  CONFIG.logger.warn(`Talent ${item.Key}: cannot map SkillChar ${entry?.SkillKey}/${entry?.CharKey}`);
+                }
+              }
+            }
 
             // populate tags
             try {

@@ -1,5 +1,7 @@
 import PopoutEditor from "../popout-editor.js";
 import ModifierHelpers from "../helpers/modifiers.js";
+import { storedAwayIds } from "../helpers/storage.js";
+import { carrierIsActive } from "../helpers/item-effects.js";
 import { getActiveEffectChanges } from "../compatibility/active-effects.js";
 
 /**
@@ -249,6 +251,7 @@ export class ActorFFG extends foundry.documents.Actor {
 
     this._prepareSharedData.bind(this);
     this._prepareSharedData(actor);
+    if (actor.type !== "vehicle") this._applyCharacteristicDamage(actor);
     if (actor.type === "minion") this._prepareMinionData(actor);
     if (["character", "nemesis", "rival"].includes(actor.type)) {
       this._prepareCharacterData(actor);
@@ -290,11 +293,7 @@ export class ActorFFG extends foundry.documents.Actor {
       data.effects.push(...item.effects.contents);
     });
 
-    if (["character", "nemesis", "rival", "minion"].includes(actorData.type)) {
-      if (game.settings.get("starwarsffg_sandbox", "enableSoakCalc")) {
-        this._calculateDerivedValues(actorData);
-      }
-    } else if (["vehicle"].includes(actorData.type)) {
+    if (["character", "nemesis", "rival", "minion", "vehicle"].includes(actorData.type)) {
       this._calculateDerivedValues(actorData);
     }
   }
@@ -544,6 +543,30 @@ export class ActorFFG extends foundry.documents.Actor {
    * @param actorData - an instance of an actor
    * @private
    */
+  /**
+   * Add the damage characteristic to each weapon's adjusted damage. Done here rather than in the
+   * item's own derived data because that runs before the actor's Active Effects (a species' Brawn,
+   * a cybernetic) have been applied. A weapon that adds the characteristic its skill is rolled
+   * with follows a talent that changed that characteristic (Ataru: Agility for Lightsaber).
+   */
+  _applyCharacteristicDamage(actorData) {
+    const characteristics = actorData.system.characteristics ?? {};
+    for (const item of actorData.items) {
+      if (item.type !== "weapon" || !ModifierHelpers.shouldApplyCharacteristicToDamage(item.system)) continue;
+      let name = item.system.characteristic.value;
+      const skill = item.system.skill?.value;
+      // the characteristic the skill is rolled with before any effect changed it is the stored one
+      const skillStored = actorData._source?.system?.skills?.[skill]?.characteristic;
+      const skillCurrent = actorData.system.skills?.[skill]?.characteristic;
+      if (skillStored && skillCurrent && name === skillStored && skillCurrent !== skillStored) name = skillCurrent;
+      const value = parseInt(characteristics[name]?.value, 10);
+      if (!value) continue;
+      item.system.damage.adjusted += value;
+      item.system.damage.sources ??= [];
+      item.system.damage.sources.push({ name, value: `+${value}` });
+    }
+  }
+
   _prepareSources(actorData) {
     // handle direct active effects - which only come from statuses
     const actorActiveEffects = actorData.getEmbeddedCollection("ActiveEffect");
@@ -587,6 +610,8 @@ export class ActorFFG extends foundry.documents.Actor {
 
     // handle indirect active effects - which come from items
     for (const item of actorData.items) {
+      // an unequipped or stowed carrier's effects are not applied, so they are not sources either
+      if (!carrierIsActive(item)) continue;
       const itemActiveEffects = item.getEmbeddedCollection("ActiveEffect");
       for (const effect of itemActiveEffects) {
         if (!effect.disabled) {
@@ -620,25 +645,28 @@ export class ActorFFG extends foundry.documents.Actor {
   _calculateDerivedValues(actorData) {
     const data = actorData.system;
     const items = actorData.items;
-    var encum = 0;
+    // items held in a carried host's holsters, mounts or pouches weigh nothing on the wearer
+    const storedAway = storedAwayIds(items);
+    let encum = 0;
 
     // Loop through all items
     items.forEach(function(item) {
       try {
         // Calculate encumbrance, only if encumbrance value exists
         if (item.system?.encumbrance?.adjusted !== undefined || item.system?.encumbrance?.value !== undefined) {
+          // a stowed item is not carried at all
+          if (item.system?.stowed || storedAway.has(item.id)) return;
           // treat a missing quantity as 1 item (not 0), and coerce all values to numbers so a
           // string/undefined encumbrance can't turn the whole total into NaN
           const rawCount = item.system?.quantity?.value;
           const count = (rawCount === undefined || rawCount === null) ? 1 : (parseInt(rawCount, 10) || 0);
+          const rawEncum = (item.system?.encumbrance?.adjusted !== undefined) ? item.system?.encumbrance?.adjusted : item.system?.encumbrance?.value;
           if (item.type === "armour" && item?.system?.equippable?.equipped) {
-            const equippedEncumbrance = (parseInt(item.system.encumbrance.adjusted, 10) || 0) - 3;
+            // worn armour counts three less
+            const equippedEncumbrance = (parseInt(rawEncum, 10) || 0) - 3;
             encum += equippedEncumbrance > 0 ? equippedEncumbrance : 0;
-          } else if (item.type === "armour" || item.type === "weapon" || item.type === "shipweapon") {
-            const rawEncum = (item.system?.encumbrance?.adjusted !== undefined) ? item.system?.encumbrance?.adjusted : item.system?.encumbrance?.value;
-            encum += (parseInt(rawEncum, 10) || 0) * count;
           } else {
-            encum += (parseInt(item.system?.encumbrance?.value, 10) || 0) * count;
+            encum += (parseInt(rawEncum, 10) || 0) * count;
           }
         }
       } catch (err) {

@@ -40,15 +40,22 @@ async function globalSetup(config: FullConfig) {
   if (new URL(page.url()).pathname.startsWith('/join')) {
     // v13 renders the join screen as an ApplicationV2 into #join-game-form. The user <select>
     // holds user IDs as option values, so the user has to be picked by its visible label.
-    await page.locator('#join-game-form select[name="userid"]').selectOption({ label: 'Gamemaster' });
-    await page.locator('#join-game-form button[name="join"]').click();
+    // v14 renders a username field instead of the select; both come up client-side.
+    await page.locator('#join-username, #join-game-form select[name="userid"]').first().waitFor({ timeout: 60_000 });
+    if (await page.locator('#join-username').count()) {
+      await page.locator('#join-username').fill('Gamemaster');
+    } else {
+      await page.locator('#join-game-form select[name="userid"]').selectOption({ label: 'Gamemaster' });
+    }
+    await page.locator('button[name="join"]').first().click();
   } else {
     console.log('[setup] already joined, skipping the join form');
   }
 
   // The world can take far longer than the default expect timeout to come up after joining,
   // so this waits on the same budget as the destiny tracker below rather than 5 seconds.
-  await expect(page.getByRole('textbox', { name: 'Chat' })).toBeVisible({ timeout: 30_000 });
+  // v14 no longer exposes the chat input as a textbox role, so wait on the game itself instead.
+  await page.waitForFunction(() => (globalThis as any).game?.ready === true, undefined, { timeout: 60_000 });
   // the destiny tracker only exists once the system itself has booted, so it doubles as a "world
   // is ready" signal. Assert on the element rather than its text, which changes with the pool.
   await expect(page.locator('#destinyDark')).toBeVisible({ timeout: 30_000 });

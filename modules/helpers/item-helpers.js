@@ -1,5 +1,6 @@
 import ModifierHelpers from "./modifiers.js";
-import { activeEffectChangesUpdate, getActiveEffectChanges } from "../compatibility/active-effects.js";
+import { activeEffectChangesUpdate } from "../compatibility/active-effects.js";
+import { CARRIER_TYPES } from "./item-effects.js";
 
 export default class ItemHelpers {
   static async itemUpdate(event, formData) {
@@ -26,8 +27,10 @@ export default class ItemHelpers {
       }
     }
 
-    // apply active effects
-    await ModifierHelpers.applyActiveEffectOnUpdate(this.object, formData);
+    // apply active effects - a carrier's managed effects follow from the update itself
+    if (!CARRIER_TYPES.includes(this.object.type)) {
+      await ModifierHelpers.applyActiveEffectOnUpdate(this.object, formData);
+    }
 
     // recombine attributes to formData
     if (Object.keys(attributes).length > 0) {
@@ -179,41 +182,6 @@ export default class ItemHelpers {
   }
 
   /**
-   * Determines if a given Active Effect should have a status updated or not - based on the item it's a part of
-   * For example, if a piece of armor has an attachment with a modification with a mod that's not installed,
-   *  that mod should not apply any effect to the actor - even if the armor is equipped / unequipped
-   * Similarly, unpurchased talents on specializations should not do anything until they are purchased
-   * @param item - the item the active effect is a part of
-   * @param activeEffect - the specific active effect to check
-   * @returns {Promise<boolean>} - bool representing if the changes should be applied or not
-   *
-   */
-  static async shouldUpdateAEStatus(item, activeEffect) {
-    CONFIG.logger.debug(`Checking if ${activeEffect.name} from ${item.name} should be applied`);
-    if (["armour", "weapon", "shipweapon"].includes(item.type)) {
-      for (const attachment of item.system.itemattachment) {
-        for (const modification of attachment.system.itemmodifier) {
-          try {
-            const foundMod = modification.system.attributes[activeEffect.name];
-            CONFIG.logger.debug(`Located mod ${activeEffect.name}, checking if it's active or not`);
-            if (foundMod && !modification.system.active) {
-              CONFIG.logger.debug(`Mod ${activeEffect.name} is not active, not syncing AE status`);
-              return false;
-            } else {
-              CONFIG.logger.debug(`Mod ${activeEffect.name} is active, syncing AE status`);
-              return true;
-            }
-          } catch {
-            CONFIG.logger.debug(`No mod located, continuing search...`);
-          }
-        }
-      }
-    }
-    CONFIG.logger.debug(`No reason to avoid updating status found, syncing AE status`);
-    return true;
-  }
-
-  /**
    * Sync the status of an active effect to the parent object when an item is updated
    * For example, enable an active effect on a talent as a part of a specialization when that talent is purchased
    * @param item
@@ -268,62 +236,8 @@ export default class ItemHelpers {
           }
         }
       }
-    } else if (["armour", "weapon", "shipweapon"].includes(item.type)) {
-      CONFIG.logger.debug("armor and weapon, checking modifiers to sync value to rank");
-      // sync AEs to the rank value - that is, if we have a mod which adds 1 to max wounds with 4 ranks, the AE should have a value of 4, not 1
-      const existingEffects = item.getEmbeddedCollection("ActiveEffect");
-      for (const modifier of item.system.itemmodifier) {
-        for (const attr of Object.keys(modifier.system.attributes)) {
-          const matchingEffect = existingEffects.find(effect => effect.name === attr);
-          if (matchingEffect) {
-            // the modifier's own rank: the derived rank_current also folds in ranks from
-            // attachments, which bring their own effects, and is not yet computed during _onUpdate
-            let ranks = parseInt(modifier.system.rank, 10);
-            if (isNaN(ranks) || ranks < 1) {
-              ranks = 1;
-            }
-            const newValue = ranks * modifier.system.attributes[attr].value;
-            CONFIG.logger.debug(`Located ${attr}, updating with new value of ${newValue}`);
-            // keep every change on the effect - some mods (e.g., Defence) explode into several
-            await matchingEffect.update({
-              ...activeEffectChangesUpdate(getActiveEffectChanges(matchingEffect).map(change => ({...change, value: newValue}))),
-            });
-          }
-        }
-      }
     } else {
       CONFIG.logger.debug(`'other' item type ${item.type}, no need to sync AE status'`);
-    }
-  }
-
-  /**
-   * Update the inherent Encumbrance Active Effect when armor is equipped/unequipped
-   * (because the encumbrance is reduced by 3 when worn)
-   * @param item - item being equipped
-   * @param activeEffect - inherent AE for that item
-   * @param equipped - if the item is now equipped or not
-   * @returns {Promise<void>} - N/A, updates the change on the AE
-   */
-  static async updateEncumbranceOnEquip(item, activeEffect, equipped) {
-    CONFIG.logger.debug("Updating encumbrance Active Effect on equip state change");
-    const realEncumbrance = item?.system?.encumbrance?.value;
-    if (item.type === "armour" && realEncumbrance) {
-      const encumbranceModPath = ModifierHelpers.getModKeyPath("Stat", "Encumbrance");
-      let updatedEncumbrance;
-      if (equipped) {
-        updatedEncumbrance = Math.max(realEncumbrance - 3, 0);
-      } else {
-        updatedEncumbrance = realEncumbrance;
-      }
-      CONFIG.logger.debug(`Original encumbrance: ${realEncumbrance}, new encumbrance: ${updatedEncumbrance}`);
-      const changes = foundry.utils.deepClone(getActiveEffectChanges(activeEffect));
-      for (const change of changes) {
-        if (change.key === encumbranceModPath) {
-          change.value = updatedEncumbrance;
-          break;
-        }
-      }
-      await activeEffect.update(activeEffectChangesUpdate(changes));
     }
   }
 

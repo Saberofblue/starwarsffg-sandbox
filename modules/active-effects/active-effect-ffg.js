@@ -1,14 +1,8 @@
-﻿import {
+import {
   activeEffectChangesUpdate,
   activeEffectCreateData,
 } from "../compatibility/active-effects.js";
-import ModifierHelpers from "../helpers/modifiers.js";
-
-/**
- * Item types that only grant what they carry while they are equipped. Ship weapons and ship
- * attachments have an equipped state as well, but no way to set it, so they are left out.
- */
-const equipGatedTypes = ["armour", "weapon"];
+import { carrierIsActive, INHERENT_EFFECT, MANAGED_FLAG } from "../helpers/item-effects.js";
 
 function disablePushOnItem(options){
   // don't show push/animation if that's an effect from item
@@ -16,6 +10,46 @@ function disablePushOnItem(options){
   {
     options.animate = false;
   }
+}
+
+/**
+ * Whether a change carried by an item should reach the actor right now: weapons and armour only
+ * grant what they carry while equipped, and nothing stowed grants anything. The managed effects
+ * describe what the item would grant; this is where the equip state is applied, so every client
+ * sees the same answer the moment the item changes.
+ */
+function carrierChangeApplies(effect, change) {
+  const item = effect.parent;
+  if (!carrierIsActive(item)) return false;
+  const stat = change ? ARMOUR_STAT_KEYS[change.key] : null;
+  if (stat && item?.type === "armour" && effect.name === INHERENT_EFFECT && effect.flags?.starwarsffg?.[MANAGED_FLAG]) {
+    return bestArmourFor(item, stat) === item;
+  }
+  return true;
+}
+
+/** The actor stat each line of an armour's own (inherent) effect feeds, by change key. */
+const ARMOUR_STAT_KEYS = {
+  "system.stats.soak.value": "soak",
+  "system.stats.defence.melee": "defence",
+  "system.stats.defence.ranged": "defence",
+};
+
+/**
+ * Armour does not stack: of the armour an actor wears, only the piece with the highest value grants
+ * that stat (soak and defence judged separately, ties to the first in the inventory), as OggDude
+ * and the rules have it. Mods and talents carried by the other pieces still apply.
+ */
+function bestArmourFor(item, stat) {
+  const actor = item.actor ?? item.parent;
+  if (!actor?.items) return item;
+  const value = (armour) => parseInt(armour.system?.[stat]?.adjusted ?? armour.system?.[stat]?.value, 10) || 0;
+  let best = null;
+  for (const armour of actor.items) {
+    if (armour.type !== "armour" || !carrierIsActive(armour)) continue;
+    if (best === null || value(armour) > value(best)) best = armour;
+  }
+  return best ?? item;
 }
 
 /**
@@ -67,19 +101,20 @@ export class ActiveEffectFFG extends foundry.documents.ActiveEffect {
   }
 
   /**
-   * Weapons and armor only grant what they carry while they are equipped. Encumbrance is the
-   * exception - carrying something is what makes it encumbering in the first place
+   * Version 14 asks each effect whether a change applies before applying it.
+   * @override
+   */
+  shouldApplyChange(change, options) {
+    if (!carrierChangeApplies(this, change)) return false;
+    return super.shouldApplyChange ? super.shouldApplyChange(change, options) : true;
+  }
+
+  /**
+   * Version 13 applies through the instance; the same gate.
    * @override
    */
   apply(doc, change, ...args) {
-    const item = this.parent;
-    if (
-      equipGatedTypes.includes(item?.type) &&
-      !item.system?.equippable?.equipped &&
-      change.key !== ModifierHelpers.getModKeyPath("Stat", "Encumbrance")
-    ) {
-      return {};
-    }
+    if (!carrierChangeApplies(this, change)) return {};
     return super.apply(doc, change, ...args);
   }
 }

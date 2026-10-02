@@ -49,6 +49,8 @@ import CrewSettings from "./settings/crew-settings.js";
 import {register_dice_enricher, register_oggdude_tag_enricher, register_roll_tag_enricher} from "./helpers/journal.js";
 import {drawAdversaryCount, drawMinionCount, registerTokenControls} from "./helpers/token.js";
 import {handleUpdate} from "./swffg-migration.js";
+import { computeItemEffects, syncManagedEffects } from "./helpers/item-effects.js";
+import { migrateItemEffectsV2 } from "./migration/item-effects-v2.js";
 import SWAImporter from "./importer/swa-importer.js";
 import {CharacterCreator} from "./helpers/character-creator.js";
 import {xpLogUndo} from "./helpers/actor-helpers.js";
@@ -97,6 +99,8 @@ Hooks.once("init", async function () {
     },
     diceterms: [AbilityDie, BoostDie, ChallengeDie, DifficultyDie, ForceDie, ProficiencyDie, SetbackDie],
     ActiveEffectFFG,
+    // what an item's modifiers do, and the rebuild of every carrier's effects from them
+    ItemEffects: { compute: computeItemEffects, sync: syncManagedEffects, rebuildWorld: migrateItemEffectsV2 },
   };
 
   // Define custom log prefix and logger

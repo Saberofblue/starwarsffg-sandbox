@@ -13,6 +13,9 @@ const TYPE_TO_MODE = Object.freeze(Object.fromEntries(
   Object.entries(MODE_TO_TYPE).map(([mode, type]) => [type, Number(mode)]),
 ));
 
+/** A skill's characteristic is a name, not a number: a change to it replaces rather than adds. */
+const OVERRIDE_KEY = /^system\.skills\.[^.]+\.characteristic$/;
+
 function clone(value) {
   if (value === undefined) return value;
   return globalThis.structuredClone ? globalThis.structuredClone(value) : JSON.parse(JSON.stringify(value));
@@ -67,6 +70,7 @@ export function getActiveEffectChanges(effect, generation = foundryGeneration())
 export function normalizeActiveEffectChange(change) {
   const normalized = clone(change) ?? {};
   normalized.type = activeEffectChangeType(normalized);
+  if (OVERRIDE_KEY.test(String(normalized.key ?? ""))) normalized.type = "override";
   delete normalized.mode;
   return normalized;
 }
@@ -86,7 +90,7 @@ export function activeEffectCreateData(data, generation = foundryGeneration()) {
     delete result.changes;
   } else {
     result.changes = changes.map(change => {
-      const legacy = clone(change) ?? {};
+      const legacy = normalizeActiveEffectChange(change);
       legacy.mode = activeEffectChangeMode(legacy);
       delete legacy.type;
       delete legacy.phase;

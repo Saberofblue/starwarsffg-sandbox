@@ -50,7 +50,9 @@ export default class Weapons {
                 isrestricted: item.Restricted === "true" ? true : false,
               },
               damage: {
-                value: parseInt(!item?.Damage ? item.DamageAdd : item.Damage, 10),
+                // a Brawn weapon's "+N" (DamageAdd) is the damage modifier written further down, so its base is 0;
+                // hilts, shields, shock gloves, tractor beams and the like have no damage of their own either
+                value: parseInt(item?.Damage, 10) || 0,
               },
               crit: {
                 value: item.Crit ? parseInt(item.Crit, 10) : 0,
@@ -75,7 +77,8 @@ export default class Weapons {
             };
             //data.data.description += ImportHelpers.getSources(item?.Sources ?? item?.Source);
 
-            data.data.skill.useBrawn = ["Melee", "Brawl", "Lightsaber"].some((element) => data.data.skill.value.includes(element)) && (!item.Damage || item.Damage === "0");
+            // a lightsaber's damage comes from its crystal (a base-damage mod), never from Brawn
+            data.data.skill.useBrawn = ["Melee", "Brawl"].some((element) => data.data.skill.value.includes(element)) && (!item.Damage || item.Damage === "0");
 
             //New setting to be able to use a characteristic as base damage for any weapon.
             if (data.data.skill.useBrawn) {

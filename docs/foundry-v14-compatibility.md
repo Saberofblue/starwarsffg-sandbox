@@ -25,3 +25,27 @@ If migration reports a failure:
 4. Restart the world; successful documents are skipped and failed documents are retried.
 
 See the local harness instructions in `playwright/README.md` for the two-generation validation matrix, migrated-world comparison, and temporary multi-client checks.
+
+## Managed item effects
+
+Every carrier item (weapon, armour, gear, ship weapon, ship attachment) owns two Active Effects
+that the system keeps in step with the item's data: `(inherent)` holds what the item itself grants
+(armour soak and defence, a ship attachment's hard points) and `(mods)` holds what its qualities,
+attachment base mods and installed modifications grant, each multiplied by rank. Both are flagged
+`flags.starwarsffg.managed`. They are rebuilt by `syncManagedEffects` (`modules/helpers/item-effects.js`)
+whenever the item is created or its system data changes; nothing else should write them, and
+nothing should write their `disabled` flag (edit mode suspends and restores it).
+
+Whether the effects apply is decided when they are applied: `ActiveEffectFFG.shouldApplyChange`
+(Version 14) and `apply` (Version 13) refuse changes from a stowed item, or an unequipped weapon,
+armour or ship weapon. The effects therefore always describe what the item would grant.
+Armour does not stack: of the armour an actor wears, the same gate lets only the piece with the
+highest soak grant soak and only the piece with the highest defence grant defence (judged
+separately; ties go to the first in the inventory). A weapon or armour stat modifier that does not
+fit its carrier (a Superior quality's soak on a weapon) is dropped by the computation rather than
+written as an actor change.
+
+Effects named after a modifier attribute (`attr…`), and the `Superior` effect the companion
+importer used to synthesise, belong to the previous pipeline and are deleted by the sync. Hand-made
+effects with other names are left alone. `game.ffg.ItemEffects.rebuildWorld()` rebuilds every
+carrier in the world and reports which actors' stats changed.

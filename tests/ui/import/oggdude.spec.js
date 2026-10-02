@@ -52,11 +52,37 @@ test('an imported attachment carries its AddedMods as Modifications', async ({ w
   const defence = await oggdude.record(page, 'ItemDescriptors.xml', 'DEFADD');
   const attachment = await world.imported('itemattachment');
 
-  const modifications = await api.read(page, attachment, 'system.itemmodifier');
+  const all = await api.read(page, attachment, 'system.itemmodifier');
+  // base mods ride along as installed modifications; the added mods are the ones to buy
+  const modifications = all.filter((mod) => !mod.flags?.starwarsffg?.baseMod);
   const names = modifications.map((mod) => mod.name);
 
   expect(names, 'one Modification per added mod').toEqual([soak.Name, defence.Name, 'Unique Mod 1']);
-  expect(Number(modifications[0].system.rank), 'ranked by its count').toBe(Number(source.AddedMods.Mod[0].Count));
+  expect(modifications.every((mod) => mod.system.active === false), 'none of them installed yet').toBe(true);
+  expect(Number(modifications[0].system.maxRank), 'capped by its count').toBe(Number(source.AddedMods.Mod[0].Count));
+});
+
+test('an imported attachment keeps its base mods as installed modifications', async ({ world, page }) => {
+  const source = await oggdude.record(page, 'ItemAttachments.xml', 'ARMINS');
+  const attachment = await world.imported('itemattachment');
+
+  const base = (await api.read(page, attachment, 'system.itemmodifier')).filter((mod) => mod.flags?.starwarsffg?.baseMod);
+
+  expect(base.map((mod) => mod.flags.starwarsffg.ffgimportid), 'the keyed base mods, in order').toEqual(
+    source.BaseMods.Mod.filter((mod) => mod.Key).map((mod) => mod.Key));
+  expect(base.every((mod) => mod.system.active === true), 'all installed').toBe(true);
+  // SOAKSET carries its number in its Count, as a set-to value rather than a rank
+  const soakSet = base.find((mod) => mod.flags.starwarsffg.ffgimportid === 'SOAKSET');
+  const setter = Object.values(soakSet.system.attributes).find((a) => a.mod === 'soak-set');
+  expect(setter, 'the base soak the insert sets').toBeTruthy();
+  expect(Number(setter.value)).toBe(Number(source.BaseMods.Mod.find((mod) => mod.Key === 'SOAKSET').Count));
+});
+
+test('an imported descriptor carries the mechanics its key names', async ({ world, page }) => {
+  const damage = await world.imported('itemmodifier', 'DAMADD');
+  const attributes = Object.values(await api.read(page, damage, 'system.attributes'));
+
+  expect(attributes, 'Damage +1 as a weapon stat').toEqual([{ modtype: 'Weapon Stat', mod: 'damage', value: 1 }]);
 });
 
 test('a modifier referenced by Key resolves to the descriptor it names', async ({ world, page }) => {

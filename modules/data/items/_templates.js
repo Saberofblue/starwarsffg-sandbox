@@ -32,6 +32,10 @@ export function basic() {
     encumbrance: numberStat({ label: "Encumbrance", abrev: "Encum" }),
     price: numberStat({ label: "Price" }),
     rarity: rarity(),
+    // not carried: contributes nothing to its actor - no encumbrance, no bonuses, no rolls
+    stowed: new fields.BooleanField({ required: true, initial: false }),
+    // id of the carried item whose holster, mount or pouch holds this one (see helpers/storage.js)
+    storedIn: new fields.StringField({ required: true, blank: true, initial: "" }),
   };
 }
 

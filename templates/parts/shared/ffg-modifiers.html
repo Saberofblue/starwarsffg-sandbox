@@ -16,6 +16,10 @@
     </select>
     {{#if (eq attr.modtype "Career Skill")}}
     <input name="data.attributes.{{ key }}.value" type="checkbox" class="modvalue" {{#if attr.value}}checked{{/if}} data-attr-key="{{ key }}">
+    {{else if (eq attr.modtype "Skill Characteristic")}}
+    <select name="data.attributes.{{ key }}.value" class="modvalue" data-attr-key="{{ key }}">
+      {{ selectOptions (lookup ../modifierChoices "Characteristic") selected=attr.value valueAttr="value" labelAttr="label" localize=true }}
+    </select>
     {{else}}
     <input name="data.attributes.{{ key }}.value" type="number" class="modvalue" value="{{ attr.value }}" data-attr-key="{{ key }}">
     {{/if}}

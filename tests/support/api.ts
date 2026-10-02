@@ -570,18 +570,19 @@ export async function setEquipped(page: Page, itemUuid: Uuid, equipped: boolean)
   await update(page, itemUuid, { 'system.equippable.equipped': equipped });
 
   /*
-   * Wait for the effects to follow.
+   * Wait for the managed effects to follow. The item's update kicks off a sync that rewrites
+   * their change lists; it is tracked on the document while it runs.
    */
-  await page.evaluate(async ({ itemUuid, equipped }) => {
+  await page.evaluate(async ({ itemUuid }) => {
     const deadline = Date.now() + 5000;
+    await new Promise((r) => setTimeout(r, 50));
     for (;;) {
-      const item = await fromUuid(itemUuid);
-      const effects = item?.effects?.contents ?? [];
-      if (!effects.length || effects.every((e: any) => e.disabled === !equipped)) return;
+      const item: any = await fromUuid(itemUuid);
+      if (!item?._ffgSyncing) return;
       if (Date.now() > deadline) return;
       await new Promise((r) => setTimeout(r, 50));
     }
-  }, { itemUuid, equipped });
+  }, { itemUuid });
 }
 
 /**

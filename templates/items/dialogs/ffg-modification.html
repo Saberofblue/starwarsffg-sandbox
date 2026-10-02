@@ -1,6 +1,7 @@
 <div class="modification_title">
-  <h2>{{ localize "SWFFG.Items.Popout.Label.Modification" }} #{{ number }}&nbsp;<a class="flat_editor add-modification" title="Delete Modification" data-action="delete" data-id="{{ id }}"><i class="fas fa-trash"></i></a></h2>
+  <h2>{{#if mod.isBaseMod}}{{ localize "SWFFG.Items.Popout.Label.BaseMod" }}: {{ mod.name }}{{else}}{{ localize "SWFFG.Items.Popout.Label.Modification" }} #{{ number }}&nbsp;<a class="flat_editor add-modification" title="Delete Modification" data-action="delete" data-id="{{ id }}"><i class="fas fa-trash"></i></a>{{/if}}</h2>
   <div class="modification_header">
+    {{#if mod.hint}}<p class="hint"><strong>{{ mod.hint }}</strong></p>{{/if}}
     <div class="form-group">
       <label for="system.itemmodifier[{{number}}].name">{{ localize "SWFFG.Name" }}</label>
       <input name="system.itemmodifier[{{number}}].name" type="text" value="{{ mod.name }}">
@@ -11,11 +12,15 @@
     </div>
     <div class="form-group">
       <label for="system.itemmodifier[{{number}}].system.active">{{ localize "SWFFG.Items.Popout.Label.Installed" }}</label>
+      {{#if mod.isBaseMod}}
+      <span class="hint">{{ localize "SWFFG.Items.Popout.Label.AlwaysInstalled" }}</span>
+      {{else}}
       <input name="system.itemmodifier[{{number}}].system.active" type="checkbox" {{ checked mod.system.active }}>
+      {{/if}}
     </div>
     <div class="form-group">
-      <label for="system.itemmodifier[{{number}}].system.rank">{{ localize "SWFFG.Items.Popout.Label.Ranks" }}</label>
-      <input name="system.itemmodifier[{{number}}].system.rank" type="number" value="{{ mod.system.rank }}">
+      <label for="system.itemmodifier[{{number}}].system.rank">{{ localize "SWFFG.Items.Popout.Label.Ranks" }}{{#if mod.system.maxRank}} {{ localize "SWFFG.Items.Popout.Label.MaxRanks" max=mod.system.maxRank }}{{/if}}</label>
+      <input name="system.itemmodifier[{{number}}].system.rank" type="number" min="0" {{#if mod.system.maxRank}}max="{{ mod.system.maxRank }}"{{/if}} value="{{ mod.system.rank }}">
     </div>
     <div class="mod_container attributes">
       <header class="attributes-header flexrow">

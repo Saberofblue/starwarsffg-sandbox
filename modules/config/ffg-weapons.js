@@ -27,4 +27,12 @@ export const weapon_stats = {
     value: "range",
     label: "SWFFG.ItemWeaponRange",
   },
+  "damage-set": {
+    value: "damage-set",
+    label: "SWFFG.ItemsDamageSet",
+  },
+  "critical-set": {
+    value: "critical-set",
+    label: "SWFFG.ItemsCritSet",
+  },
 };

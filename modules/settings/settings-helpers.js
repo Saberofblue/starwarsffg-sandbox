@@ -26,6 +26,13 @@ export default class SettingsHelpers {
       config: false,
       type: Number,
     });
+    game.settings.register("starwarsffg", "itemEffectsMigrationVersion", {
+      name: "Item Effects Migration Version",
+      scope: "world",
+      default: 0,
+      config: false,
+      type: Number,
+    });
 
     game.settings.registerMenu("starwarsffg_sandbox", "rulesetSettings", {
       name: game.i18n.localize("SWFFG.Settings.ruleset.Name"),

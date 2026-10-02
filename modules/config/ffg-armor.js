@@ -23,4 +23,12 @@ export const armor_stats = {
     value: "price",
     label: "SWFFG.ItemsPrice",
   },
+  "soak-set": {
+    value: "soak-set",
+    label: "SWFFG.ItemsSoakSet",
+  },
+  "defence-set": {
+    value: "defence-set",
+    label: "SWFFG.DefenseSet",
+  },
 };

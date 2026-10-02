@@ -43,6 +43,9 @@ export default class Gear {
                 value: item.Rarity ? parseInt(item.Rarity, 10) : 0,
                 isrestricted: item.Restricted === "true" ? true : false,
               },
+              hardpoints: {
+                value: item.HP ? parseInt(item.HP, 10) : 0,
+              },
               itemmodifier: [],
               itemattachment: [],
               metadata: {

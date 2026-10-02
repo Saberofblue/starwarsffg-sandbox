@@ -33,6 +33,8 @@ export default class ItemDescriptors {
       try {
         let data;
         if (Array.isArray(item.Type)) item.Type = item.Type[0];
+        // a whitespace-only <Type> parses to an object
+        item.Type = typeof item.Type === "string" ? item.Type.trim() : "";
         if (item?.Type?.toLowerCase() === "vehicle") {
           data = ImportHelpers.prepareBaseObject(item, "shipattachment");
         } else {
@@ -66,13 +68,22 @@ export default class ItemDescriptors {
           if (mods?.baseMods?.attributes) data.data.attributes = mods.baseMods.attributes;
         }
 
-        const diceMods = await ImportHelpers.processDiceMods(item);
-        if (diceMods) {
-          data.data.attributes = foundry.utils.mergeObject(
-            data.data.attributes,
-            diceMods,
-          );
+        // what the descriptor does, where OggDude only describes it in words
+        const mapped = ImportHelpers.descriptorAttributes(item.Key);
+        if (mapped) {
+          data.data.attributes = foundry.utils.mergeObject(data.data.attributes, mapped);
+        } else {
+          const diceMods = await ImportHelpers.processDiceMods(item);
+          if (diceMods) {
+            data.data.attributes = foundry.utils.mergeObject(
+              data.data.attributes,
+              diceMods,
+            );
+          }
         }
+        // holsters, mounts and pouches
+        const storage = ImportHelpers.descriptorStorage(item);
+        if (storage) data.data.storage = storage;
 
         try {
           // attempt to select the specific compendium for this type of mod

@@ -12,6 +12,8 @@ const IGNORED = [
   // migration task, not a test failure
   /deprecated/i,
   /favicon\.ico/i,
+  // Playwright bundles an older Chromium than Foundry 14 asks for; everything under test runs on it
+  /unsupported on Chromium version/,
   /createScrollingText/,
   /pixi\.min\.js/,
   /*

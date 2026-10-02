@@ -2,6 +2,7 @@ import PopoutEditor from "../popout-editor.js";
 import Helpers from "../helpers/common.js";
 import ModifierHelpers from "../helpers/modifiers.js";
 import ItemHelpers from "../helpers/item-helpers.js";
+import { CARRIER_TYPES } from "../helpers/item-effects.js";
 import ImportHelpers from "../importer/import-helpers.js";
 import DiceHelpers from "../helpers/dice-helpers.js";
 import item from "../helpers/embeddeditem-helpers.js";
@@ -715,7 +716,11 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
       const $valueInput = $(event.currentTarget).parent().find(".modvalue");
       if (new_value === "Career Skill") {
         $valueInput.replaceWith(`<input name="${valueName}" type="checkbox" class="modvalue" data-attr-key="${$valueInput.data('attr-key')}">`);
-      } else if ($valueInput.attr('type') === 'checkbox') {
+      } else if (event.currentTarget.value === "Skill Characteristic") {
+        const options = Object.values(CONFIG.FFG.allowableModifierChoices.Characteristic ?? {})
+          .map((c) => `<option value="${c.value}">${game.i18n.localize(c.label)}</option>`).join("");
+        $valueInput.replaceWith(`<select name="${valueName}" class="modvalue" data-attr-key="${$valueInput.data('attr-key')}">${options}</select>`);
+      } else if ($valueInput.attr('type') === 'checkbox' || $valueInput.is('select')) {
         $valueInput.replaceWith(`<input name="${valueName}" type="number" class="modvalue" value="0" data-attr-key="${$valueInput.data('attr-key')}">`);
       }
     });
@@ -857,7 +862,7 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
       }
     });
 
-    if (["weapon", "armour", "itemattachment", "shipweapon"].includes(this.object.type)) {
+    if (["weapon", "armour", "gear", "itemattachment", "shipweapon"].includes(this.object.type)) {
       const itemToItemAssociation = new foundry.applications.ux.DragDrop({
         dragSelector: ".item",
         dropSelector: null,
@@ -1955,21 +1960,22 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
             rankOnlyUpdate = true;
             foundItem.system.rank = (parseInt(foundItem.system.rank) + parseInt(itemObject.system.rank)).toString();
           } else {
+            itemObject = await ItemHelpers.uniqueAttrs(itemObject, this.object);
             items.push(itemObject);
           }
           break;
         }
         case "itemattachment": {
-          if (this.object.system.hardpoints.adjusted - itemObject.system.hardpoints.value >= 0) {
-            for (const mod of itemObject.system.itemmodifier) {
-              // mark the mods as active so they transfer to the parent item
-              mod.system.active = true;
-            }
-            itemObject = await ItemHelpers.uniqueAttrs(itemObject, this.object);
-            items.push(itemObject);
-          } else {
-            ui.notifications.warn(`Item does not have enough available hardpoints (${this.object.system.hardpoints.adjusted} left)`);
+          // hard points already spent by other attachments count against the budget
+          const available = this.object.system.hardpoints.current ?? this.object.system.hardpoints.adjusted;
+          if (available - itemObject.system.hardpoints.value < 0) {
+            ui.notifications.warn(`Item does not have enough available hardpoints (${available} left)`);
+            return;
           }
+          // an attachment's modifications arrive as stored: its base mods always apply, and a
+          // modification applies once it is marked installed in the attachment editor
+          itemObject = await ItemHelpers.uniqueAttrs(itemObject, this.object);
+          items.push(itemObject);
           break;
         }
         default: {
@@ -1981,7 +1987,10 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
       foundry.utils.setProperty(formData, `data.${itemObject.type}`, items);
 
       await obj.update(formData);
-      // TODO: this happens even if there isn't enough HP (meaning the item gets rejected)
+      if (CARRIER_TYPES.includes(obj.type)) {
+        // the carrier's update brought its managed effects in line
+        return;
+      }
       if (rankOnlyUpdate) {
         await ItemHelpers.syncAEStatus(this.object, this.object.effects);
       } else {

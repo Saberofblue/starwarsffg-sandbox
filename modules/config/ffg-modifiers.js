@@ -188,6 +188,10 @@ export const allModifiersTypes = {
     "value": "Skill Setback",
     "label": "SWFFG.ModTypeSkillSetback",
   },
+  "Skill Characteristic": {
+    "value": "Skill Characteristic",
+    "label": "SWFFG.ModTypeSkillCharacteristic",
+  },
   "Weapon Stat": {
     "value": "Weapon Stat",
     "label": "SWFFG.ModTypeStatWeapon",
@@ -229,6 +233,7 @@ export const allModifiersMap = {
   "Skill Rank": foundry.utils.duplicate(skills),
   "Skill Remove Setback": foundry.utils.duplicate(skills),
   "Skill Setback": foundry.utils.duplicate(skills),
+  "Skill Characteristic": foundry.utils.duplicate(skills),
 }
 
 // list of modifier types which use skills. see above for usages of it
@@ -236,5 +241,5 @@ export const skillModifierTypes = [
   "Career Skill", "Force Boost", "Skill Add Advantage", "Skill Add Dark",
   "Skill Add Despair", "Skill Add Failure", "Skill Add Light", "Skill Add Success",
   "Skill Add Threat", "Skill Add Triumph", "Skill Add Upgrade", "Skill Boost",
-  "Skill Rank", "Skill Remove Setback", "Skill Setback",
+  "Skill Rank", "Skill Remove Setback", "Skill Setback", "Skill Characteristic",
 ];

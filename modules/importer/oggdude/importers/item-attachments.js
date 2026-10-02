@@ -84,9 +84,12 @@ export default class ItemAttachments {
           const mods = await ImportHelpers.processMods(item);
           if (mods) {
             if (mods?.baseMods?.attributes) data.data.attributes = mods.baseMods.attributes;
-            if (mods?.baseMods?.itemattachment) data.data.itemattachment = mods.baseMods.itemattachment;
             if (mods?.baseMods?.description) data.data.description += `<h3>Base Mods</h3>${mods.baseMods.description}`;
-            if (mods?.addedMods?.itemmodifier) data.data.itemmodifier = mods.addedMods.itemmodifier;
+            // keyed base mods (a crystal's damage, a holster's slots) ride along as modifications
+            // that are always installed; added mods are options the owner may buy
+            const base = (mods?.baseMods?.itemmodifier ?? []).map((m) => ImportHelpers.asBaseModification(m));
+            const added = (mods?.addedMods?.itemmodifier ?? []).map((m) => ImportHelpers.asPurchasableModification(m));
+            data.data.itemmodifier = base.concat(added);
           }
 
           // populate tags

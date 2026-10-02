@@ -5,6 +5,10 @@
     <a class="item" data-tab="modifications">{{ localize "SWFFG.Items.Popout.Tabs.Modifications" }}</a>
   </nav>
 
+  {{#if data.hardpoints}}
+  <p class="hint ffg-hp-budget{{#if data.hardpoints.over}} over{{/if}}">{{ localize "SWFFG.Items.Popout.HardPoints" budget=data.hardpoints.budget used=data.hardpoints.used cost=data.hardpoints.cost free=data.hardpoints.free }}</p>
+  {{/if}}
+
   <section class="content">
     {{!-- Basics Tab --}}
     <div class="tab" data-tab="basics" data-group="myGroup">
@@ -46,6 +50,8 @@
     </div>
     {{!-- Base Mods Tab --}}
     <div class="tab" data-tab="base-mods" data-group="myGroup">
+      <p class="hint">{{ localize "SWFFG.Items.Popout.BaseMods.Hint" }}</p>
+      {{#if data.clickedObject.hint}}<p class="hint"><strong>{{ data.clickedObject.hint }}</strong></p>{{/if}}
       <div>
         <div class="mod_container attributes">
           <header class="attributes-header flexrow">

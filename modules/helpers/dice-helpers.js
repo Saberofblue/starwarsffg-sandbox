@@ -1,7 +1,7 @@
 import PopoutEditor from "../popout-editor.js";
 import RollBuilderFFG from "../dice/roll-builder.js";
 import ModifierHelpers from "../helpers/modifiers.js";
-import ImportHelpers from "../importer/import-helpers.js";
+import { computeItemEffects } from "./item-effects.js";
 
 export default class DiceHelpers {
   static async rollSkill(obj, event, type, flavorText, sound) {
@@ -194,6 +194,10 @@ export default class DiceHelpers {
     const actorSheet = await actor.sheet.getData();
 
     const item = actor.items.get(itemId);
+    if (item?.system?.stowed) {
+      ui.notifications.warn(game.i18n.format("SWFFG.Items.Stowed.CannotRoll", { item: item.name }));
+      return;
+    }
     const itemData = item.system;
     await item.setFlag("starwarsffg_sandbox", "uuid", item.uuid);
 
@@ -276,23 +280,17 @@ export default class DiceHelpers {
 
   static async getModifiers(dicePool, item) {
     if (item.type === "weapon" || item.type === "shipweapon") {
-      dicePool = await ModifierHelpers.getDicePoolModifiers(dicePool, item, []);
-
-      if (item?.system?.itemattachment) {
-        await ImportHelpers.asyncForEach(item.system.itemattachment, async (attachment) => {
-          //get base mods and additional mods totals
-          dicePool = await ModifierHelpers.getDicePoolModifiers(dicePool, attachment, []);
-          const activeModifiers = attachment.system.itemmodifier.filter((i) => i.system?.active);
-          await ImportHelpers.asyncForEach(activeModifiers, async (modifier) => {
-            dicePool = await ModifierHelpers.getDicePoolModifiers(dicePool, modifier, []);
-          });
-        });
+      // the weapon's own modifiers, its qualities, its attachments and their installed
+      // modifications, each once per rank
+      const { dice } = computeItemEffects(item);
+      dicePool = new DicePoolFFG(dicePool);
+      for (const field of ["boost", "setback", "remsetback", "advantage", "dark", "failure", "light", "success", "threat", "triumph", "despair", "difficulty"]) {
+        dicePool[field] += dice[field];
       }
-      if (item?.system?.itemmodifier) {
-        await ImportHelpers.asyncForEach(item.system.itemmodifier, async (modifier) => {
-          dicePool = await ModifierHelpers.getDicePoolModifiers(dicePool, modifier, []);
-        });
-      }
+      dicePool.upgradeDifficulty(dice.upgradeDifficulty);
+      dicePool.upgradeDifficulty(-1 * dice.downgradeDifficulty);
+      dicePool.upgrade(dice.upgradeAbility);
+      dicePool.upgrade(-1 * dice.downgradeAbility);
     }
 
     return dicePool;

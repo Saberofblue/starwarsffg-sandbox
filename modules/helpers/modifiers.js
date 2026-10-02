@@ -1,5 +1,6 @@
 import PopoutModifiers from "../popout-modifiers.js";
 import { activeEffectChangesUpdate, getActiveEffectChanges } from "../compatibility/active-effects.js";
+import { CARRIER_TYPES, syncManagedEffects } from "./item-effects.js";
 
 export default class ModifierHelpers {
   /**
@@ -383,7 +384,9 @@ export default class ModifierHelpers {
    * @returns {string}
    */
   static getModTypeByModPath(skillPath) {
-    if (skillPath.endsWith("force")) {
+    if (skillPath.endsWith("characteristic")) {
+      return "Skill Characteristic";
+    } else if (skillPath.endsWith("force")) {
       return "Force Boost";
     } else if (skillPath.endsWith("advantage")) {
       return "Skill Add Advantage";
@@ -561,6 +564,8 @@ export default class ModifierHelpers {
       return `system.skills.${mod}.remsetback`;
     } else if (modType === "Skill Setback") {
       return `system.skills.${mod}.setback`;
+    } else if (modType === "Skill Characteristic") {
+      return `system.skills.${mod}.characteristic`;
     } else if (modType === "Career Skill") {
       return `system.skills.${mod}.careerskill`;
     } else if (modType === "Vehicle Stat") {
@@ -594,6 +599,10 @@ export default class ModifierHelpers {
      * @type {*|{}}
      */
     CONFIG.logger.debug("Updating active effects on item update");
+    if (CARRIER_TYPES.includes(item.type)) {
+      // a carrier's effects are derived from its data, not from the form
+      return syncManagedEffects(item, { force: true });
+    }
     if (!Object.keys(formData).includes("data")) {
       CONFIG.logger.debug("Bailing on update as there was no form data");
       // no changes were made, bail

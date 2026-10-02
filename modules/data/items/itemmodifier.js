@@ -12,6 +12,8 @@ export class ItemModifierData extends foundry.abstract.TypeDataModel {
       // ranks contributed by every source of this quality, summed while preparing the parent item
       rank_current: new fields.NumberField({ required: true, nullable: true, initial: 0 }),
       active: new fields.BooleanField({ required: true, initial: false }),
+      // holsters, mounts and pouches: { encLimit, addlEnc, types, skills } (see helpers/storage.js)
+      storage: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
     };
   }
 }

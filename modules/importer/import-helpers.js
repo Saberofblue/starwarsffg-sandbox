@@ -2,6 +2,7 @@ import Helpers from "../helpers/common.js";
 import {migrateDataToSystem} from "../helpers/migration.js";
 import {ItemFFG} from "../items/item-ffg.js";
 import ModifierHelpers from "../helpers/modifiers.js";
+import { CARRIER_TYPES, syncManagedEffects } from "../helpers/item-effects.js";
 import { activeEffectChangesUpdate, getActiveEffectChanges } from "../compatibility/active-effects.js";
 
 export default class ImportHelpers {
@@ -2484,9 +2485,11 @@ export default class ImportHelpers {
 
           // must not sync them concurrently
 
-          await pack.get(updateData._id).update(updateData, { ffgSkipEffectSync: true });
-          // update here does not return the UUID, so retrieve the item from the pack to get it
-          const updatedItem = await pack.get(updateData._id);
+          // getDocument loads the document when the pack's contents are not loaded yet; get() would return nothing
+          const updatedItem = await pack.getDocument(updateData._id);
+          await updatedItem.update(updateData, { ffgSkipEffectSync: true });
+          // later lookups by import id (an attachment picking up its modifiers) must see the updated data
+          upd = foundry.utils.duplicate(updatedItem);
           upd.uuid = updatedItem.uuid;
           if (type === "Item") {
             // the imported data is authoritative, so drop the Active Effects and build them again
@@ -2856,6 +2859,152 @@ export default class ImportHelpers {
     ENCTADD: { modtype: "Stat", mod: "EncumbranceMax" },
   };
 
+  /**
+   * What each OggDude item descriptor does, as the system's modifiers: [modtype, mod, value].
+   * OggDude describes these only in words. A "-set" mod replaces the item's base value with its
+   * Count (a lightsaber crystal's base damage); every other row applies once per rank.
+   */
+  static DESCRIPTOR_MODS = {
+    // the weapon
+    SUPERIOR: [["Weapon Stat", "damage", 1], ["Result Modifiers", "Add Advantage", 1], ["Armor Stat", "soak", 1]],
+    DAMADD: [["Weapon Stat", "damage", 1]],
+    DAMADDCRYS: [["Weapon Stat", "damage", 1]],
+    DAMSUB: [["Weapon Stat", "damage", -1]],
+    DAMSUBCRYS: [["Weapon Stat", "damage", -1]],
+    DAMSET: [["Weapon Stat", "damage-set", 0]],
+    CRITSET: [["Weapon Stat", "critical-set", 0]],
+    CRITSUB: [["Weapon Stat", "critical", -1]],
+    RANGEADD: [["Weapon Stat", "range", 1]],
+    RANGESUB: [["Weapon Stat", "range", -1]],
+    HPADD: [["Weapon Stat", "hardpoints", 1]],
+    HPSUB: [["Weapon Stat", "hardpoints", -1]],
+    // checks made with the item
+    ACCURATE: [["Roll Modifiers", "Add Boost", 1]],
+    BOOSTADD: [["Roll Modifiers", "Add Boost", 1]],
+    INACCURATE: [["Roll Modifiers", "Add Setback", 1]],
+    SETBACKADD: [["Roll Modifiers", "Add Setback", 1]],
+    SETBACKSUB: [["Roll Modifiers", "Remove Setback", 1]],
+    SUCCADD: [["Result Modifiers", "Add Success", 1]],
+    ADVADD: [["Result Modifiers", "Add Advantage", 1]],
+    ADVADDCOM: [["Result Modifiers", "Add Advantage", 1]],
+    THRADD: [["Result Modifiers", "Add Threat", 1]],
+    THRCANCEL: [["Result Modifiers", "Add Advantage", 1]],
+    UPGRADEDIFF: [["Dice Modifiers", "Upgrade Difficulty", 1]],
+    // the armour
+    SOAKADD: [["Armor Stat", "soak", 1]],
+    SOAKSET: [["Armor Stat", "soak-set", 0]],
+    DEFADD: [["Armor Stat", "defence", 1]],
+    DEFSET: [["Armor Stat", "defence-set", 0]],
+    DEFADDFORCE: [["Armor Stat", "defence", 1]],
+    MELEEDEFADD: [["Stat", "Defence-Melee", 1]],
+    RANGEDEFADD: [["Stat", "Defence-Ranged", 1]],
+    // carrying it
+    ENCADD: [["Stat", "Encumbrance", 1]],
+    ENCSUB: [["Stat", "Encumbrance", -1]],
+    ENCSUB2: [["Stat", "Encumbrance", -2]],
+    ENCTADD: [["Stat", "EncumbranceMax", 1]],
+    ENCTADD3: [["Stat", "EncumbranceMax", 3]],
+    ENCTSUB: [["Stat", "EncumbranceMax", -1]],
+    ENCTBRADD: [["Stat", "EncumbranceMax", 1]],
+    // the wearer
+    STRAINADD: [["Stat", "Strain", 1]],
+    DEMONMASK: [["Stat", "Wounds", 2]],
+    MEDFOCUS: [["Stat", "Strain", 2]],
+    FORCEADD: [["Stat", "ForcePool", 1]],
+    FORCESUB: [["Stat", "ForcePool", -1]],
+  };
+
+  /** The attributes a descriptor key maps to, or null when it is text only. */
+  static descriptorAttributes(key) {
+    const rows = ImportHelpers.DESCRIPTOR_MODS[key];
+    if (!rows) return null;
+    const attributes = {};
+    rows.forEach(([modtype, mod, value], i) => {
+      attributes[`attr${String(key).toLowerCase()}${i}`] = { modtype, mod, value };
+    });
+    return attributes;
+  }
+
+  /**
+   * OggDude's skill key as the system spells the skill, or null when the skill is unknown.
+   */
+  static resolveSkillName(key) {
+    let skill = CONFIG.temporary?.skills?.[key];
+    if (typeof skill !== "string") return null;
+    if (skill.includes(" - ")) skill = skill.replace(" - ", ": ");
+    else if (skill.includes(":") && !skill.includes(": ")) skill = skill.replace(":", ": ");
+    return Object.keys(CONFIG.FFG.skills).includes(skill) ? skill : null;
+  }
+
+  /**
+   * A descriptor's <ItemsForStorage> - holsters, mounts and pouches - as `system.storage`.
+   */
+  static descriptorStorage(item) {
+    const spec = item?.ItemsForStorage;
+    if (!spec || typeof spec !== "object") return null;
+    const storage = {};
+    if (spec.EncLimit !== undefined && spec.EncLimit !== null && spec.EncLimit !== "") storage.encLimit = parseInt(spec.EncLimit, 10) || 0;
+    if (spec.AddlEnc !== undefined && spec.AddlEnc !== null && spec.AddlEnc !== "") storage.addlEnc = parseInt(spec.AddlEnc, 10) || 0;
+    const types = spec.TypeLimit?.Type;
+    if (types) {
+      storage.types = (Array.isArray(types) ? types : [types]).map((t) => {
+        const type = String(t).toLowerCase();
+        return type === "armor" ? "armour" : type;
+      });
+    }
+    const skills = spec.SkillLimit?.Skill;
+    if (skills) {
+      storage.skills = (Array.isArray(skills) ? skills : [skills]).map((k) => ImportHelpers.resolveSkillName(k)).filter(Boolean);
+    }
+    return Object.keys(storage).length ? storage : null;
+  }
+
+  /**
+   * A modification that grants a talent while installed (Integrated Holsters' Quick Draw).
+   */
+  static talentGrantModifier(talent, key, count) {
+    return {
+      name: talent.name,
+      type: "itemmodifier",
+      img: talent.img,
+      id: foundry.utils.randomID(),
+      flags: { starwarsffg: { ffgimportid: key } },
+      system: {
+        description: talent.system?.description ?? "",
+        type: "all",
+        rank: count || 1,
+        active: false,
+        attributes: {},
+        grants: { type: "talent", key, name: talent.name, uuid: talent.uuid },
+      },
+    };
+  }
+
+  /**
+   * An attachment's base mod as a modification: installed, and marked so it cannot be removed.
+   */
+  static asBaseModification(modifier) {
+    const data = typeof modifier?.toObject === "function" ? modifier.toObject() : foundry.utils.duplicate(modifier);
+    data.system = data.system ?? {};
+    data.system.active = true;
+    data.flags = data.flags ?? {};
+    data.flags.starwarsffg = { ...(data.flags.starwarsffg ?? {}), baseMod: true };
+    return data;
+  }
+
+  /**
+   * An attachment's added mod as a modification the owner may buy: not installed, one rank when
+   * it is, and the Count as the most ranks it can be bought to.
+   */
+  static asPurchasableModification(modifier) {
+    const data = typeof modifier?.toObject === "function" ? modifier.toObject() : foundry.utils.duplicate(modifier);
+    data.system = data.system ?? {};
+    data.system.active = false;
+    data.system.maxRank = parseInt(data.system.rank, 10) || 1;
+    data.system.rank = 1;
+    return data;
+  }
+
   static async processModsData(modifiersData) {
     let output = {
       attributes: {},
@@ -2888,30 +3037,44 @@ export default class ImportHelpers {
             const attribute = ImportHelpers.processCharacteristicMod(modifier);
 
             output.attributes[attribute.type] = attribute.value;
-          } else if (ImportHelpers.STAT_BASE_MODS[modifier.Key]) {
-            // a stat bonus OggDude describes only by its descriptor name (no structured data), so
-            // the installed-modifier path below would carry it as an empty modifier that nothing
-            // applies: store it as the item's own attribute instead, scaled by its Count
-            const statMod = ImportHelpers.STAT_BASE_MODS[modifier.Key];
-            output.attributes[statMod.mod] = {
-              modtype: statMod.modtype,
-              mod: statMod.mod,
-              value: parseInt(modifier.Count, 10) || 1,
-            };
           } else {
+            const count = modifier?.Count ? parseInt(modifier.Count, 10) : 1;
             const compendiumEntry = await ImportHelpers.findCompendiumEntityByImportId("Item", modifier.Key);
-            if (compendiumEntry) {
-              if (compendiumEntry?.type === "itemmodifier") {
-                const descriptor = foundry.utils.duplicate(compendiumEntry);
-                descriptor.id = foundry.utils.randomID();
-                descriptor.system.rank = modifier?.Count ? parseInt(modifier.Count, 10) : 1;
-                output.itemmodifier.push(descriptor);
-                let rank = "";
-                if (descriptor.system.rank > 1) {
-                  rank = `${game.i18n.localize("SWFFG.Count")} ${descriptor.system.rank}`;
-                }
-                output.description += `<div>${descriptor.name} - ${descriptor.system.description} ${rank}</div>`;
+            if (compendiumEntry?.type === "itemmodifier") {
+              const descriptor = foundry.utils.duplicate(compendiumEntry);
+              descriptor.id = foundry.utils.randomID();
+              // a descriptor imported before its mechanics were mapped carries no attributes
+              if (!Object.keys(descriptor.system.attributes ?? {}).length) {
+                const mapped = ImportHelpers.descriptorAttributes(modifier.Key);
+                if (mapped) descriptor.system.attributes = mapped;
               }
+              // a "set" mod names its number in Count; everything else applies once per rank
+              const sets = Object.values(descriptor.system.attributes ?? {}).filter((a) => String(a?.mod ?? "").endsWith("-set"));
+              if (sets.length) {
+                sets.forEach((a) => { a.value = count; });
+                descriptor.system.rank = 1;
+              } else {
+                descriptor.system.rank = count;
+              }
+              output.itemmodifier.push(descriptor);
+              let rank = "";
+              if (count > 1) {
+                rank = `${game.i18n.localize("SWFFG.Count")} ${count}`;
+              }
+              output.description += `<div>${descriptor.name} - ${descriptor.system.description} ${rank}</div>`;
+            } else if (compendiumEntry?.type === "talent") {
+              // a mod that grants a talent while installed
+              output.itemmodifier.push(ImportHelpers.talentGrantModifier(compendiumEntry, modifier.Key, count));
+              output.description += `<div>${compendiumEntry.name} (${game.i18n.localize("SWFFG.Items.Grants.Talent")})</div>`;
+            } else if (ImportHelpers.STAT_BASE_MODS[modifier.Key]) {
+              // no descriptor pack to draw on: carry the stat bonus as the item's own attribute,
+              // scaled by its Count
+              const statMod = ImportHelpers.STAT_BASE_MODS[modifier.Key];
+              output.attributes[statMod.mod] = {
+                modtype: statMod.modtype,
+                mod: statMod.mod,
+                value: count,
+              };
             } else if (Object.keys(CONFIG.temporary.skills).includes(modifier.Key)) {
               // this is a skill upgrade
               const skillModifier = ImportHelpers.processSkillMod(modifier);
@@ -3108,7 +3271,11 @@ export default class ImportHelpers {
   }
 
   static async createActiveEffects(item) {
-    if (["species", "gear", "weapon", "armour", "shipattachment"].includes(item.type)) {
+    if (CARRIER_TYPES.includes(item.type)) {
+      // a carrier's managed effects are built from its data by the sync
+      return syncManagedEffects(item, { force: true });
+    }
+    if (["species"].includes(item.type)) {
       const existingEffects = item.getEmbeddedCollection("ActiveEffect");
       // items are "created" when they are pulled from Compendiums, so don't duplicate Active Effects
       const inherentEffect = existingEffects.find(i => i.name === `(inherent)`);
@@ -3203,6 +3370,9 @@ export default class ImportHelpers {
   */
   static async applyActiveEffectOnUpdate(item, formData) {
     CONFIG.logger.debug("Updating active effects on item import");
+    if (CARRIER_TYPES.includes(item.type)) {
+      return syncManagedEffects(item, { force: true });
+    }
     const existing = item.getEmbeddedCollection("ActiveEffect");
     const toDelete = [];
     const toUpdate = [];

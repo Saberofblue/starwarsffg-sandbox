@@ -135,11 +135,12 @@ test('#2311 a quality granting Defence keeps both of its changes', async ({ worl
     },
   });
 
-  // defense explodes into melee and ranged, so the quality's effect carries two changes
+  // defence explodes into melee and ranged. An Armor Stat quality raises the armour's own
+  // defence, which its inherent effect carries as two changes
   const granted = async () => {
     const effects = await api.readItemEffects(page, ctx.item);
     return effects
-      .filter((effect) => effect.name !== '(inherent)')
+      .filter((effect) => effect.name === '(inherent)')
       .flatMap((effect) => effect.changes.map((change) => change.key))
       .filter((key) => key.startsWith('system.stats.defence.'))
       .sort();
@@ -171,22 +172,23 @@ test('#2340 a ranked quality on armour carries every rank, not just one', async 
     },
   });
 
-  // the quality's effect holds rank x value, so the character gets the whole quality at once
+  // a Soak quality raises the armour's own soak by rank x value; its inherent effect carries the
+  // armour's 2 and the quality's 4 together
   const granted = async () => {
     const effects = await api.readItemEffects(page, ctx.item);
     return effects
-      .filter((effect) => effect.name !== '(inherent)')
+      .filter((effect) => effect.name === '(inherent)')
       .flatMap((effect) => effect.changes)
       .filter((change) => change.key === 'system.stats.soak.value')
       .map((change) => Number(change.value));
   };
 
-  expect(await granted(), 'two ranks of +2 soak').toEqual([4]);
+  expect(await granted(), 'the armour plus two ranks of +2 soak').toEqual([2 + 4]);
 
   await world.equip(ctx, false);
   await world.equip(ctx, true);
 
-  expect(await granted(), 'and still both after being taken off and put back on').toEqual([4]);
+  expect(await granted(), 'and still both after being taken off and put back on').toEqual([2 + 4]);
   expect(await consumers.stat(ctx, 'Soak'), 'brawn 3, the armour 2, the quality 4').toBe(9);
 });
 
