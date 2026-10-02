@@ -29,20 +29,20 @@ export async function handleUpdate() {
     }
   }
   if (game.user?.isGM && game.users?.activeGM?.id === game.user.id) {
-    const itemEffectsVersion = game.settings.get("starwarsffg", "itemEffectsMigrationVersion");
+    const itemEffectsVersion = game.settings.get("starwarsffg_sandbox", "itemEffectsMigrationVersion");
     if (itemEffectsVersion < ITEM_EFFECTS_MIGRATION_VERSION) {
       ui.notifications.info("Star Wars FFG is rebuilding the Active Effects of weapons, armour and gear from their modifiers. See the console for what changed.");
       const report = await migrateItemEffectsV2();
       CONFIG.logger.log("Item effects rebuild report", report);
       if (report.ran && !report.failed.length) {
-        await game.settings.set("starwarsffg", "itemEffectsMigrationVersion", ITEM_EFFECTS_MIGRATION_VERSION);
+        await game.settings.set("starwarsffg_sandbox", "itemEffectsMigrationVersion", ITEM_EFFECTS_MIGRATION_VERSION);
         if (report.changed.length) ui.notifications.warn(`Equipment effects rebuilt: ${report.changed.length} actor(s) changed. The console report lists each one.`, {permanent: true});
       } else if (report.failed.length) {
         ui.notifications.error(`Equipment effects rebuild stopped with ${report.failed.length} failure(s). Check the console report; it will retry next launch.`, {permanent: true});
       }
     }
   }
-  const registeredVersion = game.settings.get("starwarsffg", "systemMigrationVersion");
+  const registeredVersion = game.settings.get("starwarsffg_sandbox", "systemMigrationVersion");
   const runningVersion = game.system.version;
   if (registeredVersion !== runningVersion) {
     await handleMigration(registeredVersion, runningVersion);

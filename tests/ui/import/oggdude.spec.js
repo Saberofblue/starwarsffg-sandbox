@@ -54,7 +54,7 @@ test('an imported attachment carries its AddedMods as Modifications', async ({ w
 
   const all = await api.read(page, attachment, 'system.itemmodifier');
   // base mods ride along as installed modifications; the added mods are the ones to buy
-  const modifications = all.filter((mod) => !mod.flags?.starwarsffg?.baseMod);
+  const modifications = all.filter((mod) => !mod.flags?.starwarsffg_sandbox?.baseMod);
   const names = modifications.map((mod) => mod.name);
 
   expect(names, 'one Modification per added mod').toEqual([soak.Name, defence.Name, 'Unique Mod 1']);
@@ -66,13 +66,13 @@ test('an imported attachment keeps its base mods as installed modifications', as
   const source = await oggdude.record(page, 'ItemAttachments.xml', 'ARMINS');
   const attachment = await world.imported('itemattachment');
 
-  const base = (await api.read(page, attachment, 'system.itemmodifier')).filter((mod) => mod.flags?.starwarsffg?.baseMod);
+  const base = (await api.read(page, attachment, 'system.itemmodifier')).filter((mod) => mod.flags?.starwarsffg_sandbox?.baseMod);
 
-  expect(base.map((mod) => mod.flags.starwarsffg.ffgimportid), 'the keyed base mods, in order').toEqual(
+  expect(base.map((mod) => mod.flags.starwarsffg_sandbox.ffgimportid), 'the keyed base mods, in order').toEqual(
     source.BaseMods.Mod.filter((mod) => mod.Key).map((mod) => mod.Key));
   expect(base.every((mod) => mod.system.active === true), 'all installed').toBe(true);
   // SOAKSET carries its number in its Count, as a set-to value rather than a rank
-  const soakSet = base.find((mod) => mod.flags.starwarsffg.ffgimportid === 'SOAKSET');
+  const soakSet = base.find((mod) => mod.flags.starwarsffg_sandbox.ffgimportid === 'SOAKSET');
   const setter = Object.values(soakSet.system.attributes).find((a) => a.mod === 'soak-set');
   expect(setter, 'the base soak the insert sets').toBeTruthy();
   expect(Number(setter.value)).toBe(Number(source.BaseMods.Mod.find((mod) => mod.Key === 'SOAKSET').Count));

@@ -22,7 +22,7 @@ function carrierChangeApplies(effect, change) {
   const item = effect.parent;
   if (!carrierIsActive(item)) return false;
   const stat = change ? ARMOUR_STAT_KEYS[change.key] : null;
-  if (stat && item?.type === "armour" && effect.name === INHERENT_EFFECT && effect.flags?.starwarsffg?.[MANAGED_FLAG]) {
+  if (stat && item?.type === "armour" && effect.name === INHERENT_EFFECT && effect.flags?.starwarsffg_sandbox?.[MANAGED_FLAG]) {
     return bestArmourFor(item, stat) === item;
   }
   return true;

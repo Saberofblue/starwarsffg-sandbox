@@ -2968,7 +2968,7 @@ export default class ImportHelpers {
       type: "itemmodifier",
       img: talent.img,
       id: foundry.utils.randomID(),
-      flags: { starwarsffg: { ffgimportid: key } },
+      flags: { starwarsffg_sandbox: { ffgimportid: key } },
       system: {
         description: talent.system?.description ?? "",
         type: "all",
@@ -2988,7 +2988,7 @@ export default class ImportHelpers {
     data.system = data.system ?? {};
     data.system.active = true;
     data.flags = data.flags ?? {};
-    data.flags.starwarsffg = { ...(data.flags.starwarsffg ?? {}), baseMod: true };
+    data.flags.starwarsffg_sandbox = { ...(data.flags.starwarsffg_sandbox ?? {}), baseMod: true };
     return data;
   }
 

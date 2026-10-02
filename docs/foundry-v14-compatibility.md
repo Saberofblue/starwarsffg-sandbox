@@ -32,7 +32,7 @@ Every carrier item (weapon, armour, gear, ship weapon, ship attachment) owns two
 that the system keeps in step with the item's data: `(inherent)` holds what the item itself grants
 (armour soak and defence, a ship attachment's hard points) and `(mods)` holds what its qualities,
 attachment base mods and installed modifications grant, each multiplied by rank. Both are flagged
-`flags.starwarsffg.managed`. They are rebuilt by `syncManagedEffects` (`modules/helpers/item-effects.js`)
+`flags.starwarsffg_sandbox.managed`. They are rebuilt by `syncManagedEffects` (`modules/helpers/item-effects.js`)
 whenever the item is created or its system data changes; nothing else should write them, and
 nothing should write their `disabled` flag (edit mode suspends and restores it).
 

@@ -47,7 +47,7 @@ export class itemEditor extends FormApplication  {
     if (this.data.clickedObject.type === "itemattachment") {
       data.hardpoints = this._hardpointBudget();
       for (const modification of data.clickedObject.system.itemmodifier ?? []) {
-        modification.isBaseMod = !!modification.flags?.starwarsffg?.baseMod;
+        modification.isBaseMod = !!modification.flags?.starwarsffg_sandbox?.baseMod;
         modification.hint = itemEditor.describeModification(modification);
       }
       data.clickedObject.hint = itemEditor.describeModification({ system: { attributes: data.clickedObject.system.attributes } });
@@ -392,7 +392,7 @@ export class itemEditor extends FormApplication  {
         const merged = foundry.utils.mergeObject(base, row, { inplace: false });
         merged.system.attributes = surviving(row.system?.attributes);
         // a base mod has no Installed box on the form, and stays installed
-        if (base.flags?.starwarsffg?.baseMod) merged.system.active = true;
+        if (base.flags?.starwarsffg_sandbox?.baseMod) merged.system.active = true;
         const cap = parseInt(merged.system.maxRank, 10);
         if (cap > 0 && (parseInt(merged.system.rank, 10) || 0) > cap) merged.system.rank = cap;
         return merged;

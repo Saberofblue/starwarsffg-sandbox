@@ -26,7 +26,7 @@ export default class SettingsHelpers {
       config: false,
       type: Number,
     });
-    game.settings.register("starwarsffg", "itemEffectsMigrationVersion", {
+    game.settings.register("starwarsffg_sandbox", "itemEffectsMigrationVersion", {
       name: "Item Effects Migration Version",
       scope: "world",
       default: 0,

@@ -26,7 +26,7 @@ import {
 export const CARRIER_TYPES = ["weapon", "shipweapon", "armour", "gear", "shipattachment"];
 export const INHERENT_EFFECT = "(inherent)";
 export const MODS_EFFECT = "(mods)";
-/** `flags.starwarsffg.<MANAGED_FLAG>` names which managed effect an Active Effect is. */
+/** `flags.starwarsffg_sandbox.<MANAGED_FLAG>` names which managed effect an Active Effect is. */
 export const MANAGED_FLAG = "managed";
 
 /** Types that only grant what they carry while equipped. Gear is carried as soon as it is owned. */
@@ -330,7 +330,7 @@ export function sameChanges(a, b) {
 export function isLegacyEffect(effect, legacyNames = []) {
   const name = String(effect?.name ?? "");
   if (name === INHERENT_EFFECT || name === MODS_EFFECT) return false;
-  if (effect?.flags?.starwarsffg?.[MANAGED_FLAG]) return false;
+  if (effect?.flags?.starwarsffg_sandbox?.[MANAGED_FLAG]) return false;
   return /^attr\d+$/.test(name) || legacyNames.includes(name) || name === "Superior";
 }
 
@@ -347,7 +347,7 @@ export async function syncManagedEffects(item, { force = false } = {}) {
   const run = (async () => {
     const pack = item.pack ? game.packs?.get(item.pack) : null;
     if (pack?.locked) return;
-    const editing = !!item.actor?.getFlag?.("starwarsffg", "config.enableEditMode");
+    const editing = !!item.actor?.getFlag?.("starwarsffg_sandbox", "config.enableEditMode");
     if (editing && !force) {
       // edit mode has suspended every effect in memory; a write now would race its restore
       CONFIG.logger?.debug?.(`Skipping managed effect sync for ${item.name}: actor is in edit mode`);
@@ -356,7 +356,7 @@ export async function syncManagedEffects(item, { force = false } = {}) {
     const computed = computeItemEffects(item);
     const effects = item.effects?.contents ?? [];
     const managed = (name) =>
-      effects.find((e) => e.flags?.starwarsffg?.[MANAGED_FLAG] === name) ?? effects.find((e) => e.name === name);
+      effects.find((e) => e.flags?.starwarsffg_sandbox?.[MANAGED_FLAG] === name) ?? effects.find((e) => e.name === name);
 
     const toCreate = [];
     const toUpdate = [];
@@ -374,14 +374,14 @@ export async function syncManagedEffects(item, { force = false } = {}) {
           img: item.img,
           transfer: true,
           disabled: false,
-          flags: { starwarsffg: { [MANAGED_FLAG]: name } },
+          flags: { starwarsffg_sandbox: { [MANAGED_FLAG]: name } },
           changes,
         }));
         continue;
       }
       const update = { _id: existing.id };
       if (!sameChanges(getActiveEffectChanges(existing), changes)) Object.assign(update, activeEffectChangesUpdate(changes));
-      if (existing.flags?.starwarsffg?.[MANAGED_FLAG] !== name) update[`flags.starwarsffg.${MANAGED_FLAG}`] = name;
+      if (existing.flags?.starwarsffg_sandbox?.[MANAGED_FLAG] !== name) update[`flags.starwarsffg_sandbox.${MANAGED_FLAG}`] = name;
       // a managed effect carries its gating in its change list, so a disabled one is stale data
       // (an import, or a copy made before this version) - unless edit mode suspended it
       if (existing.disabled && !editing) update.disabled = false;
@@ -392,7 +392,7 @@ export async function syncManagedEffects(item, { force = false } = {}) {
     }
     // a second copy of a managed effect (two syncs that could not see each other) would count twice
     for (const name of [INHERENT_EFFECT, MODS_EFFECT]) {
-      const copies = effects.filter((e) => (e.flags?.starwarsffg?.[MANAGED_FLAG] ?? e.name) === name);
+      const copies = effects.filter((e) => (e.flags?.starwarsffg_sandbox?.[MANAGED_FLAG] ?? e.name) === name);
       for (const extra of copies.slice(1)) if (!toDelete.includes(extra.id)) toDelete.push(extra.id);
     }
 
@@ -422,7 +422,7 @@ export function normalizeCarrierEffects(effects) {
       continue;
     }
     const name = effect?.name;
-    const isManaged = name === INHERENT_EFFECT || name === MODS_EFFECT || effect?.flags?.starwarsffg?.[MANAGED_FLAG];
+    const isManaged = name === INHERENT_EFFECT || name === MODS_EFFECT || effect?.flags?.starwarsffg_sandbox?.[MANAGED_FLAG];
     if (isManaged && effect.disabled) {
       changed = true;
       kept.push({ ...effect, disabled: false });
@@ -456,11 +456,11 @@ export async function syncGrantedTalents(item) {
   const actor = item?.actor;
   if (!actor || !CARRIER_TYPES.includes(item.type) || item.pack) return;
   const wanted = grantedTalents(item);
-  const held = actor.items.filter((t) => t.type === "talent" && t.getFlag("starwarsffg", "grantedBy")?.item === item.id);
-  const toDelete = held.filter((t) => !wanted.has(t.getFlag("starwarsffg", "grantedBy")?.key)).map((t) => t.id);
+  const held = actor.items.filter((t) => t.type === "talent" && t.getFlag("starwarsffg_sandbox", "grantedBy")?.item === item.id);
+  const toDelete = held.filter((t) => !wanted.has(t.getFlag("starwarsffg_sandbox", "grantedBy")?.key)).map((t) => t.id);
   const toCreate = [];
   for (const [key, grant] of wanted) {
-    if (held.some((t) => t.getFlag("starwarsffg", "grantedBy")?.key === key)) continue;
+    if (held.some((t) => t.getFlag("starwarsffg_sandbox", "grantedBy")?.key === key)) continue;
     let source = null;
     try {
       source = grant.uuid ? await fromUuid(grant.uuid) : null;
@@ -475,7 +475,7 @@ export async function syncGrantedTalents(item) {
     const data = source.toObject();
     delete data._id;
     data.flags = data.flags ?? {};
-    data.flags.starwarsffg = { ...(data.flags.starwarsffg ?? {}), grantedBy: { item: item.id, key } };
+    data.flags.starwarsffg_sandbox = { ...(data.flags.starwarsffg_sandbox ?? {}), grantedBy: { item: item.id, key } };
     toCreate.push(data);
   }
   if (toDelete.length) await actor.deleteEmbeddedDocuments("Item", toDelete);
@@ -488,16 +488,16 @@ export async function syncGrantedTalents(item) {
  */
 export async function findTalent(key, name) {
   const matches = (doc) => doc?.type === "talent" && (
-    (key && doc.flags?.starwarsffg?.ffgimportid === key) || (name && doc.name === name));
+    (key && doc.flags?.starwarsffg_sandbox?.ffgimportid === key) || (name && doc.name === name));
   const world = (game.items ?? []).find(matches);
   if (world) return world;
   let byName = null;
   for (const pack of game.packs ?? []) {
     if (pack.documentName !== "Item") continue;
-    const index = await pack.getIndex({ fields: ["type", "flags.starwarsffg.ffgimportid"] });
+    const index = await pack.getIndex({ fields: ["type", "flags.starwarsffg_sandbox.ffgimportid"] });
     for (const entry of index) {
       if (entry.type !== "talent") continue;
-      if (key && entry.flags?.starwarsffg?.ffgimportid === key) return pack.getDocument(entry._id);
+      if (key && entry.flags?.starwarsffg_sandbox?.ffgimportid === key) return pack.getDocument(entry._id);
       if (name && entry.name === name && !byName) byName = { pack, id: entry._id };
     }
   }
@@ -507,6 +507,6 @@ export async function findTalent(key, name) {
 /** Take back every talent an item granted - for when the item itself goes. */
 export async function removeGrantedTalents(actor, itemId) {
   if (!actor) return;
-  const ids = actor.items.filter((t) => t.type === "talent" && t.getFlag("starwarsffg", "grantedBy")?.item === itemId).map((t) => t.id);
+  const ids = actor.items.filter((t) => t.type === "talent" && t.getFlag("starwarsffg_sandbox", "grantedBy")?.item === itemId).map((t) => t.id);
   if (ids.length) await actor.deleteEmbeddedDocuments("Item", ids);
 }

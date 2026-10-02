@@ -10,7 +10,7 @@ const grantedTalents = async (page, actorUuid, itemUuid) => page.evaluate(async 
   const actor = await fromUuid(actorUuid);
   const itemId = itemUuid.split('.').pop();
   return actor.items
-    .filter((i) => i.type === 'talent' && i.getFlag('starwarsffg', 'grantedBy')?.item === itemId)
+    .filter((i) => i.type === 'talent' && i.getFlag('starwarsffg_sandbox', 'grantedBy')?.item === itemId)
     .map((i) => i.name);
 }, { actorUuid, itemUuid });
 
@@ -58,6 +58,6 @@ test('a granted talent follows the item being worn, and leaves with the item', a
   await api.deleteDoc(page, ctx.item);
   await expect.poll(() => page.evaluate(async (actorUuid) => {
     const actor = await fromUuid(actorUuid);
-    return actor.items.filter((i) => i.type === 'talent' && i.getFlag('starwarsffg', 'grantedBy')).length;
+    return actor.items.filter((i) => i.type === 'talent' && i.getFlag('starwarsffg_sandbox', 'grantedBy')).length;
   }, ctx.actor), 'the item is gone, and so is what it granted').toBe(0);
 });
