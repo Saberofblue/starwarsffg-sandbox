@@ -99,6 +99,9 @@ export default class Weapons {
               }
             }
 
+            // a second profile of the weapon's own (a bo-rifle's melee mode)
+            data.data.grantedWeapons = await ImportHelpers.weaponProfiles(item);
+
             if (item?.DamageAdd && parseInt(item.DamageAdd, 10) > 0 && data.type === "weapon") {
               data.data.attributes[foundry.utils.randomID()] = {
                 isCheckbox: false,

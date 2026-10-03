@@ -47,8 +47,8 @@ export class itemEditor extends FormApplication  {
     if (this.data.clickedObject.type === "itemattachment") {
       data.hardpoints = this._hardpointBudget();
       for (const modification of data.clickedObject.system.itemmodifier ?? []) {
-        modification.isBaseMod = !!modification.flags?.starwarsffg_sandbox?.baseMod;
-        modification.hint = itemEditor.describeModification(modification);
+        modification.isBaseMod = !!modification.flags?.starwarsffg?.baseMod;
+        modification.hint = itemEditor.describeModification(modification, data.clickedObject);
       }
       data.clickedObject.hint = itemEditor.describeModification({ system: { attributes: data.clickedObject.system.attributes } });
     }
@@ -85,10 +85,14 @@ export class itemEditor extends FormApplication  {
   /**
    * What a modification does, in words, from its attributes, storage and grants.
    * @param {object} modification
+   * @param {object} [host] the attachment or item carrying it, for a mod aimed at a weapon it grants
    * @returns {string}
    */
-  static describeModification(modification) {
+  static describeModification(modification, host = null) {
     const parts = [];
+    const weaponIndex = modification?.system?.weaponIndex;
+    const target = Number.isInteger(weaponIndex) ? host?.system?.grantedWeapons?.[weaponIndex] : null;
+    if (target?.name) parts.push(game.i18n.format("SWFFG.Items.Popout.Hint.ForWeapon", { name: target.name }));
     const ranked = (parseInt(modification?.system?.rank, 10) || 1) > 1 || modification?.system?.maxRank > 1;
     for (const attr of Object.values(modification?.system?.attributes ?? {})) {
       if (!attr || typeof attr !== "object") continue;

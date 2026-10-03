@@ -66,6 +66,8 @@ export default class Gear {
                 data.data.description += `<br><br><h3>${game.i18n.localize("SWFFG.TabBaseModifiers")}</h3>` + mods.baseMods.description;
               }
             }
+            // the weapons the gear puts in its owner's hands (an explosives belt, a repulsor fist)
+            data.data.grantedWeapons = await ImportHelpers.weaponProfiles(item);
 
             // populate tags
             try {

@@ -2992,6 +2992,60 @@ export default class ImportHelpers {
   }
 
   /**
+   * A record's <WeaponModifiers>: the weapons it puts in its owner's hands (an explosives belt's
+   * charge, a stun blaster's shot, a bo-rifle's melee mode), as weapon item data ready to create.
+   * Left out: profiles with no name of their own (a species' claws, which change every Brawl
+   * weapon instead) and vehicle-mounted profiles.
+   * @param {object} item the OggDude record
+   * @returns {Promise<object[]>}
+   */
+  static async weaponProfiles(item) {
+    let list = item?.WeaponModifiers?.WeaponModifier;
+    if (!list) return [];
+    if (!Array.isArray(list)) list = [list];
+    const profiles = [];
+    for (const profile of list) {
+      if (!profile?.UnarmedName || !profile?.SkillKey || profile?.VehicleWeaponProperties) continue;
+      const skill = CONFIG.temporary?.skills?.[profile.SkillKey];
+      if (!skill) {
+        CONFIG.logger.warn(`${item.Key}: the weapon profile "${profile.UnarmedName}" uses an unknown skill ${profile.SkillKey}`);
+        continue;
+      }
+      const damage = parseInt(profile.Damage, 10) || 0;
+      const damageAdd = parseInt(profile.DamageAdd, 10) || 0;
+      const useBrawn = ["Melee", "Brawl"].some((element) => skill.includes(element)) && !damage;
+      const attributes = {};
+      if (damageAdd > 0) {
+        attributes[foundry.utils.randomID()] = { isCheckbox: false, mod: "damage", modtype: "Weapon Stat", value: damageAdd };
+      }
+      const qualities = profile?.Qualities?.Quality ? (await ImportHelpers.processModsData(profile.Qualities)).itemmodifier : [];
+      profiles.push({
+        name: profile.UnarmedName,
+        type: "weapon",
+        img: "systems/starwarsffg/images/defaults/items/weapon.png",
+        system: {
+          description: game.i18n.format("SWFFG.Items.GrantedBy", { item: item.Name }),
+          attributes,
+          skill: { value: skill, useBrawn },
+          characteristic: { value: useBrawn ? "Brawn" : "" },
+          damage: { value: damage },
+          crit: { value: parseInt(profile.Crit, 10) || 0 },
+          range: { value: profile.RangeValue ? profile.RangeValue.replace("wr", "") : (profile.Range || "Engaged") },
+          encumbrance: { value: 0 },
+          price: { value: 0 },
+          rarity: { value: 0, isrestricted: false },
+          hardpoints: { value: 0 },
+          itemmodifier: qualities,
+          itemattachment: [],
+          equippable: { equipped: true },
+          metadata: { tags: ["weapon", "granted"], sources: ImportHelpers.getSourcesAsArray(item?.Sources ?? item?.Source) },
+        },
+      });
+    }
+    return profiles;
+  }
+
+  /**
    * A modification that grants a talent while installed (Integrated Holsters' Quick Draw).
    */
   static talentGrantModifier(talent, key, count) {
@@ -3089,6 +3143,10 @@ export default class ImportHelpers {
               } else {
                 descriptor.system.rank = count;
               }
+              // a mod aimed at one of the record's weapon profiles (a stun blaster's damage mod)
+              if (modifier.WeaponModifierIndex !== undefined && modifier.WeaponModifierIndex !== null && modifier.WeaponModifierIndex !== "") {
+                descriptor.system.weaponIndex = parseInt(modifier.WeaponModifierIndex, 10);
+              }
               output.itemmodifier.push(descriptor);
               let rank = "";
               if (count > 1) {
@@ -3135,6 +3193,9 @@ export default class ImportHelpers {
               rank: modifier?.Count ? parseInt(modifier.Count, 10) : null,
             },
           };
+          if (modifier.WeaponModifierIndex !== undefined && modifier.WeaponModifierIndex !== null && modifier.WeaponModifierIndex !== "") {
+            unique.system.weaponIndex = parseInt(modifier.WeaponModifierIndex, 10);
+          }
           const descriptor = await new CONFIG.Item.documentClass(unique, { temporary: true });
           let rank = "";
           if (unique.system.rank > 1) {

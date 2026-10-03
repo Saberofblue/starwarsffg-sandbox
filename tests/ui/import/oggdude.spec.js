@@ -258,3 +258,26 @@ test.fixme("#1722 an unsupported species feature does not create a dummy modifie
   // FIXME: #1722
   expect(beyondTheBasics, 'the modifier it could not read is left out').toEqual([]);
 });
+
+test('an imported item carries the weapon its XML profile grants', async ({ world, page }) => {
+  const gear = await world.imported('gear', 'QAWRISTLAUNCH');
+  const profiles = await api.read(page, gear, 'system.grantedWeapons');
+
+  expect(profiles, 'one profile in the XML, one weapon').toHaveLength(1);
+  const [rocket] = profiles;
+  expect(rocket.name).toBe('Wrist Rocket');
+  expect(rocket.type).toBe('weapon');
+  expect(rocket.system.skill.value, 'the skill key resolved to a skill name').toBe('Ranged: Light');
+  expect([rocket.system.damage.value, rocket.system.crit.value, rocket.system.range.value]).toEqual([8, 3, 'Short']);
+  expect(rocket.system.encumbrance.value, 'built in: no encumbrance of its own').toBe(0);
+  expect(rocket.system.itemmodifier.map((q) => [q.name, q.system.rank]), 'its qualities resolved from the descriptors').toEqual([['Pierce Quality', 2]]);
+});
+
+test('an imported attachment keeps the mod aimed at its weapon apart from its host', async ({ world, page }) => {
+  const attachment = await world.imported('itemattachment', 'QASTUNBLAST');
+  const profiles = await api.read(page, attachment, 'system.grantedWeapons');
+  const mods = await api.read(page, attachment, 'system.itemmodifier');
+
+  expect(profiles.map((p) => [p.name, p.system.damage.value])).toEqual([['Stun Blaster', 5]]);
+  expect(mods.map((m) => [m.name, m.system.weaponIndex]), 'the added mod names the profile it belongs to').toEqual([['Additional Damage Mod', 0]]);
+});

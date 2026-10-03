@@ -6,7 +6,7 @@ import ModifierHelpers from "../helpers/modifiers.js";
 import Helpers from "../helpers/common.js";
 import ItemHelpers from "../helpers/item-helpers.js";
 import { activeEffectChangesUpdate, activeEffectCreateData, getActiveEffectChanges } from "../compatibility/active-effects.js";
-import { CARRIER_TYPES, computeItemEffects, removeGrantedTalents, syncGrantedTalents, syncManagedEffects } from "../helpers/item-effects.js";
+import { CARRIER_TYPES, GRANT_HOST_TYPES, computeItemEffects, removeGrantedTalents, removeGrantedWeapons, syncGrantedTalents, syncGrantedWeapons, syncManagedEffects } from "../helpers/item-effects.js";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -78,16 +78,19 @@ export class ItemFFG extends ItemBaseFFG {
     if (CARRIER_TYPES.includes(this.type)) {
       await syncManagedEffects(this);
       await syncGrantedTalents(this);
+      await syncGrantedWeapons(this);
     } else {
       await this._onCreateAEs(options);
+      if (this.type === "species") await syncGrantedWeapons(this);
     }
   }
 
   /** @override */
   async _onDelete(options, userId) {
     await super._onDelete(options, userId);
-    if (userId === game.user.id && CARRIER_TYPES.includes(this.type) && this.actor) {
+    if (userId === game.user.id && GRANT_HOST_TYPES.includes(this.type) && this.actor) {
       await removeGrantedTalents(this.actor, this.id);
+      await removeGrantedWeapons(this.actor, this.id);
     }
   }
 
@@ -179,8 +182,12 @@ export class ItemFFG extends ItemBaseFFG {
       if (changed.system) {
         await syncManagedEffects(this);
         await syncGrantedTalents(this);
+        await syncGrantedWeapons(this);
       }
       return;
+    }
+    if (this.type === "species" && changed.system?.grantedWeapons) {
+      await syncGrantedWeapons(this);
     }
 
     const existingEffects = this.getEmbeddedCollection("ActiveEffect");
@@ -451,6 +458,12 @@ export class ItemFFG extends ItemBaseFFG {
   /**
    * Prepare and return details of the item for display in inventory or chat.
    */
+  /** The item that put this one in its owner's hands (a granted weapon or talent), if any. */
+  get grantedBy() {
+    const flag = this.flags?.starwarsffg?.grantedBy;
+    return flag?.item && this.actor ? (this.actor.items.get(flag.item) ?? null) : null;
+  }
+
   async getItemDetails() {
     // a copy of the prepared data: the adjusted stats and sources live there, not in the stored
     // source a duplicate() of the model would give

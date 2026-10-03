@@ -53,6 +53,9 @@ export default class Species {
               },
             };
 
+            // natural weapons with a profile of their own (an Ithorian's bellow, a Selonian's tail)
+            data.data.grantedWeapons = await ImportHelpers.weaponProfiles(item);
+
             // populate starting characteristics
             Object.keys(item.StartingChars).forEach((char) => {
               data.data.attributes[char] = {

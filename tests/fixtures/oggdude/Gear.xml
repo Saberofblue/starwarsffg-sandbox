@@ -54,4 +54,35 @@
       </Mod>
     </BaseMods>
   </Gear>
+  <Gear>
+    <Key>QAWRISTLAUNCH</Key>
+    <Name>QA Wrist Launcher</Name>
+    <Description>
+      [H3]QA Wrist Launcher[h3]
+      A test record: gear that puts a weapon in its owner's hands.
+    </Description>
+    <Sources>
+      <Source Page="1">QA Fixtures</Source>
+    </Sources>
+    <Price>900</Price>
+    <Encumbrance>1</Encumbrance>
+    <Rarity>5</Rarity>
+    <Type>Tools/Electronics</Type>
+    <WeaponModifiers>
+      <WeaponModifier>
+        <UnarmedName>Wrist Rocket</UnarmedName>
+        <SkillKey>RANGLT</SkillKey>
+        <Damage>8</Damage>
+        <Crit>3</Crit>
+        <Qualities>
+          <Quality>
+            <Key>PIERCE</Key>
+            <Count>2</Count>
+          </Quality>
+        </Qualities>
+        <RangeValue>wrShort</RangeValue>
+        <Range>Short</Range>
+      </WeaponModifier>
+    </WeaponModifiers>
+  </Gear>
 </Gears>

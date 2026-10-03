@@ -81,6 +81,17 @@ export function itemattachments() {
 }
 
 /**
+ * Weapons an item puts in its owner's hands while it is carried: an explosives belt's charge, a
+ * stun blaster's shot, a bo-rifle's melee mode. Each entry is weapon item data, ready to create;
+ * helpers/item-effects.js grants and takes back the weapons.
+ */
+export function grantedWeapons() {
+  return {
+    grantedWeapons: embeddedItems(),
+  };
+}
+
+/**
  * Qualities on the item. `adjusteditemmodifer` is spelled as template.json spells it; the array
  * the system actually computes is `adjusteditemmodifier`, which is derived and left off-schema.
  */

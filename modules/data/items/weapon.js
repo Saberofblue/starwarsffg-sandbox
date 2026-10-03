@@ -1,4 +1,4 @@
-import { basic, core, equippable, hardpoints, itemattachments, qualities } from "./_templates.js";
+import { basic, core, equippable, grantedWeapons, hardpoints, itemattachments, qualities } from "./_templates.js";
 import { numberStat, stringStat } from "../fields.js";
 
 const fields = foundry.data.fields;
@@ -12,6 +12,7 @@ export class WeaponData extends foundry.abstract.TypeDataModel {
       ...equippable(),
       ...itemattachments(),
       ...qualities(),
+      ...grantedWeapons(),
       skill: new fields.SchemaField({
         value: new fields.StringField({ required: true, blank: true, initial: "Ranged: Light" }),
         type: new fields.StringField({ required: true, initial: "String" }),

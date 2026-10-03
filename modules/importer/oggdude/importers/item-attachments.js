@@ -91,6 +91,8 @@ export default class ItemAttachments {
             const added = (mods?.addedMods?.itemmodifier ?? []).map((m) => ImportHelpers.asPurchasableModification(m));
             data.data.itemmodifier = base.concat(added);
           }
+          // the weapon the attachment adds to its host (a stun blaster, an under-barrel flame projector)
+          data.data.grantedWeapons = await ImportHelpers.weaponProfiles(item);
 
           // populate tags
           try {

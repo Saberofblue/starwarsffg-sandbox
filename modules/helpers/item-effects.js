@@ -24,6 +24,8 @@ import {
 } from "../compatibility/active-effects.js";
 
 export const CARRIER_TYPES = ["weapon", "shipweapon", "armour", "gear", "shipattachment"];
+/** Types that can put a weapon in their owner's hands (`system.grantedWeapons`). */
+export const GRANT_HOST_TYPES = ["weapon", "armour", "gear", "species"];
 export const INHERENT_EFFECT = "(inherent)";
 export const MODS_EFFECT = "(mods)";
 /** `flags.starwarsffg_sandbox.<MANAGED_FLAG>` names which managed effect an Active Effect is. */
@@ -138,14 +140,15 @@ export function enumerateSources(item) {
   const sys = item?.system ?? {};
   const sources = [{ name: item?.name, attributes: sys.attributes, rank: 1, enabled: true, kind: "self" }];
   for (const quality of sys.itemmodifier ?? []) {
-    if (!quality) continue;
+    // a mod aimed at a granted weapon changes that weapon, not this item
+    if (!quality || weaponIndexOf(quality) !== null) continue;
     sources.push({ name: quality.name, attributes: quality.system?.attributes, rank: rankOf(quality), enabled: true, kind: "quality", ref: quality });
   }
   for (const attachment of sys.itemattachment ?? []) {
     if (!attachment) continue;
     sources.push({ name: attachment.name, attributes: attachment.system?.attributes, rank: 1, enabled: true, kind: "attachment", ref: attachment });
     for (const modification of attachment.system?.itemmodifier ?? []) {
-      if (!modification) continue;
+      if (!modification || weaponIndexOf(modification) !== null) continue;
       sources.push({
         name: modification.name, attributes: modification.system?.attributes, rank: rankOf(modification),
         enabled: !!modification.system?.active, kind: "modification", attachment: attachment.name, ref: modification,
@@ -476,18 +479,54 @@ export function grantedTalents(item) {
 }
 
 /**
+ * Grant syncs for one item run one after another. An item created and updated in quick
+ * succession (an importer creating a weapon, then linking it into a holster) would otherwise
+ * run two syncs at once, each seeing nothing granted yet and each granting a copy.
+ */
+const grantSyncs = new Map();
+function serialized(item, kind, work) {
+  const key = `${kind}:${item.uuid ?? item.id}`;
+  const previous = grantSyncs.get(key) ?? Promise.resolve();
+  const run = previous.catch(() => {}).then(work).finally(() => {
+    if (grantSyncs.get(key) === run) grantSyncs.delete(key);
+  });
+  grantSyncs.set(key, run);
+  return run;
+}
+
+/**
+ * What an item has already granted, keyed by grant key, with any duplicates (from syncs that
+ * once raced) set aside for deletion.
+ */
+function heldGrants(actor, item, type) {
+  const held = new Map();
+  const extra = [];
+  for (const doc of actor.items) {
+    const flag = doc.type === type ? doc.getFlag("starwarsffg", "grantedBy") : null;
+    if (flag?.item !== item.id) continue;
+    if (held.has(flag.key)) extra.push(doc.id);
+    else held.set(flag.key, doc);
+  }
+  return { held, extra };
+}
+
+/**
  * Give an actor the talents its item's installed modifications grant, and take back the ones
  * they no longer do. Granted talents are flagged with the item that granted them.
  */
-export async function syncGrantedTalents(item) {
+export function syncGrantedTalents(item) {
   const actor = item?.actor;
-  if (!actor || !CARRIER_TYPES.includes(item.type) || item.pack) return;
+  if (!actor || !CARRIER_TYPES.includes(item.type) || item.pack) return Promise.resolve();
+  return serialized(item, "talent", () => syncGrantedTalentsNow(item, actor));
+}
+
+async function syncGrantedTalentsNow(item, actor) {
   const wanted = grantedTalents(item);
-  const held = actor.items.filter((t) => t.type === "talent" && t.getFlag("starwarsffg_sandbox", "grantedBy")?.item === item.id);
-  const toDelete = held.filter((t) => !wanted.has(t.getFlag("starwarsffg_sandbox", "grantedBy")?.key)).map((t) => t.id);
+  const { held, extra } = heldGrants(actor, item, "talent");
+  const toDelete = [...extra, ...[...held.entries()].filter(([key]) => !wanted.has(key)).map(([, t]) => t.id)];
   const toCreate = [];
   for (const [key, grant] of wanted) {
-    if (held.some((t) => t.getFlag("starwarsffg_sandbox", "grantedBy")?.key === key)) continue;
+    if (held.has(key)) continue;
     let source = null;
     try {
       source = grant.uuid ? await fromUuid(grant.uuid) : null;
@@ -529,6 +568,110 @@ export async function findTalent(key, name) {
     }
   }
   return byName ? byName.pack.getDocument(byName.id) : null;
+}
+
+/** Which granted weapon a mod belongs to (OggDude WeaponModifierIndex), or null for the item itself. */
+export function weaponIndexOf(modifier) {
+  const index = modifier?.system?.weaponIndex;
+  return typeof index === "number" && Number.isInteger(index) && index >= 0 ? index : null;
+}
+
+/**
+ * The weapons an item puts in its owner's hands right now, keyed so a granted weapon can be told
+ * apart from the next one: the item's own profiles while it is carried, plus those of each
+ * attachment on it. Each entry carries the mods aimed at that profile (an attachment's installed
+ * modifications, the item's own qualities).
+ * @returns {Map<string, {profile: object, mods: object[]}>}
+ */
+export function grantedWeapons(item) {
+  const grants = new Map();
+  if (!item || !GRANT_HOST_TYPES.includes(item.type) || !carrierIsActive(item)) return grants;
+  const sys = item.system ?? {};
+  (sys.grantedWeapons ?? []).forEach((profile, i) => {
+    if (!profile?.name) return;
+    const mods = (sys.itemmodifier ?? []).filter((quality) => weaponIndexOf(quality) === i);
+    grants.set(`w${i}`, { profile, mods });
+  });
+  (sys.itemattachment ?? []).forEach((attachment, a) => {
+    const id = attachment?._id ?? attachment?.id ?? String(a);
+    (attachment?.system?.grantedWeapons ?? []).forEach((profile, i) => {
+      if (!profile?.name) return;
+      const mods = (attachment.system?.itemmodifier ?? [])
+        .filter((modification) => modification?.system?.active && weaponIndexOf(modification) === i);
+      grants.set(`a${id}:w${i}`, { profile, mods });
+    });
+  });
+  return grants;
+}
+
+/**
+ * The weapon item to create for a grant: the stored profile, carried and wielded, with the mods
+ * aimed at it as its own qualities, and a flag naming what granted it. The flag carries a
+ * signature of everything derived, so a sync can tell when the weapon needs rewriting.
+ */
+export function grantedWeaponData(host, key, profile, mods = []) {
+  const data = structuredClone(profile);
+  delete data._id;
+  data.type = "weapon";
+  data.system = data.system ?? {};
+  data.system.grantedWeapons = [];
+  data.system.equippable = { ...(data.system.equippable ?? {}), equipped: true };
+  data.system.stowed = false;
+  data.system.storedIn = "";
+  data.system.itemmodifier = [
+    ...(data.system.itemmodifier ?? []),
+    ...mods.map((mod) => {
+      const copy = structuredClone(mod);
+      copy.system = { ...(copy.system ?? {}), active: true };
+      delete copy.system.weaponIndex;
+      return copy;
+    }),
+  ];
+  const sys = data.system;
+  const signature = JSON.stringify({
+    name: data.name, img: data.img, skill: sys.skill, damage: sys.damage?.value, crit: sys.crit?.value, range: sys.range?.value,
+    characteristic: sys.characteristic, attributes: sys.attributes,
+    qualities: sys.itemmodifier.map((q) => [q?.name, q?.system?.rank, q?.system?.attributes]),
+  });
+  data.flags = data.flags ?? {};
+  data.flags.starwarsffg = { ...(data.flags.starwarsffg ?? {}), grantedBy: { item: host.id, key, signature } };
+  return data;
+}
+
+/**
+ * Give an actor the weapons its item grants, rewrite the ones whose profile or mods changed, and
+ * take back the ones it no longer grants.
+ */
+export function syncGrantedWeapons(item) {
+  const actor = item?.actor;
+  if (!actor || !GRANT_HOST_TYPES.includes(item.type) || item.pack) return Promise.resolve();
+  return serialized(item, "weapon", () => syncGrantedWeaponsNow(item, actor));
+}
+
+async function syncGrantedWeaponsNow(item, actor) {
+  const wanted = grantedWeapons(item);
+  const { held, extra } = heldGrants(actor, item, "weapon");
+  const toDelete = [...extra, ...[...held.entries()].filter(([key]) => !wanted.has(key)).map(([, w]) => w.id)];
+  const toCreate = [];
+  const toUpdate = [];
+  for (const [key, { profile, mods }] of wanted) {
+    const data = grantedWeaponData(item, key, profile, mods);
+    const existing = held.get(key);
+    if (!existing) toCreate.push(data);
+    else if (existing.getFlag("starwarsffg", "grantedBy")?.signature !== data.flags.starwarsffg.grantedBy.signature) {
+      toUpdate.push({ _id: existing.id, name: data.name, img: data.img, system: data.system, flags: data.flags });
+    }
+  }
+  if (toDelete.length) await actor.deleteEmbeddedDocuments("Item", toDelete);
+  if (toUpdate.length) await actor.updateEmbeddedDocuments("Item", toUpdate);
+  if (toCreate.length) await actor.createEmbeddedDocuments("Item", toCreate);
+}
+
+/** Take back every weapon an item granted - for when the item itself goes. */
+export async function removeGrantedWeapons(actor, itemId) {
+  if (!actor) return;
+  const ids = actor.items.filter((w) => w.type === "weapon" && w.getFlag("starwarsffg", "grantedBy")?.item === itemId).map((w) => w.id);
+  if (ids.length) await actor.deleteEmbeddedDocuments("Item", ids);
 }
 
 /** Take back every talent an item granted - for when the item itself goes. */

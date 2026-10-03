@@ -35,6 +35,9 @@
         {{/if}}
       </div>
       <div class="item-carry">
+        {{#if item.grantedBy}}
+        <span class="granted" title="{{ localize "SWFFG.Items.GrantedBy" item=item.grantedBy.name }}"><i class="fas fa-link"></i></span>
+        {{else}}
         {{#if item.system.stowed}}
         <a class="toggle-stowed active" data-item-id="{{item._id}}" title="{{ localize "SWFFG.Items.Stowed.Tooltip" }}"><i class="fas fa-box-archive"></i></a>
         {{else}}
@@ -44,6 +47,7 @@
         <a class="toggle-stored active" data-item-id="{{item._id}}" title="{{ localize "SWFFG.Items.Store.Tooltip" }}"><i class="fas fa-vest"></i></a>
         {{else}}
         <a class="toggle-stored" data-item-id="{{item._id}}" title="{{ localize "SWFFG.Items.Store.Tooltip" }}"><i class="fas fa-vest"></i></a>
+        {{/if}}
         {{/if}}
       </div>
       {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-adjusted-value.html" (object key="damage" value=item.system.damage.value adjusted=item.system.damage.adjusted show=(and (ne item.system.damage.value item.system.damage.adjusted) (or (gt item.system.damage.adjusted.length 0) (gt item.system.damage.adjusted 0))) sources=item.system.damage.sources)}}

@@ -228,4 +228,44 @@
       </Mod>
     </AddedMods>
   </ItemAttachment>
+  <ItemAttachment>
+    <Key>QASTUNBLAST</Key>
+    <Name>QA Stun Blaster</Name>
+    <Description>
+      [H3]QA Stun Blaster[h3]
+      A test record: an attachment that adds a weapon of its own, with a mod aimed at that weapon.
+    </Description>
+    <Sources>
+      <Source Page="1">QA Fixtures</Source>
+    </Sources>
+    <Type>Armor</Type>
+    <CategoryLimit>
+      <Category>Gauntlets</Category>
+    </CategoryLimit>
+    <Price>750</Price>
+    <Rarity>5</Rarity>
+    <HP>2</HP>
+    <AddedMods>
+      <Mod>
+        <Key>DAMADD</Key>
+        <Count>1</Count>
+        <WeaponModifierIndex>0</WeaponModifierIndex>
+      </Mod>
+    </AddedMods>
+    <WeaponModifiers>
+      <WeaponModifier>
+        <UnarmedName>Stun Blaster</UnarmedName>
+        <SkillKey>RANGLT</SkillKey>
+        <Damage>5</Damage>
+        <Qualities>
+          <Quality>
+            <Key>PIERCE</Key>
+            <Count>1</Count>
+          </Quality>
+        </Qualities>
+        <RangeValue>wrShort</RangeValue>
+        <Range>Short</Range>
+      </WeaponModifier>
+    </WeaponModifiers>
+  </ItemAttachment>
 </ItemAttachments>

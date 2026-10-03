@@ -1,4 +1,4 @@
-import { CARRIER_TYPES, syncGrantedTalents, syncManagedEffects } from "../helpers/item-effects.js";
+import { CARRIER_TYPES, syncGrantedTalents, syncGrantedWeapons, syncManagedEffects } from "../helpers/item-effects.js";
 
 /**
  * Rebuild every carrier's managed Active Effects from its data.
@@ -38,6 +38,7 @@ async function migrateCarrier(item, report) {
   try {
     await syncManagedEffects(item, { force: true });
     await syncGrantedTalents(item);
+    await syncGrantedWeapons(item);
     report.items.push(item.uuid);
   } catch (error) {
     report.failed.push({ uuid: item?.uuid ?? "unknown", reason: error.message });

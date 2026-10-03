@@ -14,6 +14,9 @@ export class ItemModifierData extends foundry.abstract.TypeDataModel {
       active: new fields.BooleanField({ required: true, initial: false }),
       // holsters, mounts and pouches: { encLimit, addlEnc, types, skills } (see helpers/storage.js)
       storage: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
+      // which of the host's granted weapons this mod belongs to (OggDude WeaponModifierIndex): a
+      // stun blaster's damage mod changes the stun blaster, not the hilt it is attached to
+      weaponIndex: new fields.NumberField({ required: false, nullable: true, integer: true, initial: undefined }),
     };
   }
 }

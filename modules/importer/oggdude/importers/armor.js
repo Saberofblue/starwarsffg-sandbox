@@ -73,6 +73,8 @@ export default class Armor {
                 data.data.description += mods.baseMods.description;
               }
             }
+            // the weapons built into the armour (a power suit's launchers, a field disruptor)
+            data.data.grantedWeapons = await ImportHelpers.weaponProfiles(item);
 
             // populate tags
             try {

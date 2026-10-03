@@ -1,3 +1,10 @@
+`2.0.6`
+* Granted weapons: equipment that puts a weapon in its owner's hands now does so. An item's OggDude weapon profile (an Explosives Belt's charge, a Repulsor Fist, a Z-6 Jetpack's rocket launcher, a power suit's built-in launchers, an Ithorian's Bellow, an AB-75 Bo-Rifle's melee mode) imports as a weapon the item grants, and attachments do the same (a Stun Blaster, an Under-Barrel Flame Projector, a Boot Blade, a Retractable Garrote).
+  * The weapon appears in the owner's Weapons list, wielded, with no encumbrance of its own, while the item is carried (and worn or wielded, for armour and weapons). It is marked with a link icon naming the item, and goes when the item is stowed, taken off, uninstalled or deleted.
+  * Mods that OggDude aims at the granted weapon (a Stun Blaster's damage and Disorient mods, an Ion Blaster's damage mod, a Micro-Rocket Rack's ammo) now change that weapon and not the item they are installed on: a lightsaber hilt with a Stun Blaster keeps its own damage.
+  * Characters imported from OggDude get these weapons from the gear and attachments they carry; the importer module keeps skipping the XML's own innate entries.
+  * Re-import the Weapons, Armor, Gear, Attachments and Species data, then re-import characters, to get the profiles. Natural weapons that change every Brawl weapon (a Trandoshan's claws) and vehicle-mounted profiles are not yet covered.
+
 `2.0.5`
 * Equipment effects rebuilt:
   * A weapon, armour, gear item, ship weapon or ship attachment now carries two Active Effects, `(inherent)` (what the item itself grants) and `(mods)` (what its qualities, attachment base mods and installed modifications grant), rebuilt from the item's data whenever it changes. The old per-attribute effects are removed on first launch (`game.ffg.ItemEffects.rebuildWorld()` repeats the rebuild; the console reports every actor whose stats changed).

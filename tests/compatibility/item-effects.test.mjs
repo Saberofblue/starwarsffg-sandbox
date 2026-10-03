@@ -5,7 +5,7 @@ import test from "node:test";
 globalThis.FormApplication ??= class {};
 globalThis.CONFIG ??= { logger: { debug() {}, warn() {}, error() {} } };
 
-const { computeItemEffects, sameChanges, normalizeCarrierEffects, isLegacyEffect, carrierIsActive } =
+const { computeItemEffects, sameChanges, normalizeCarrierEffects, isLegacyEffect, carrierIsActive, enumerateSources, grantedWeapons, grantedWeaponData, weaponIndexOf } =
   await import("../../modules/helpers/item-effects.js");
 
 const attr = (modtype, mod, value) => ({ [`attr${Math.random().toString(36).slice(2)}`]: { modtype, mod, value } });
@@ -201,4 +201,60 @@ test("a skill or range change on armour is nothing: neither an item stat nor an 
   const computed = computeItemEffects(armour, { rangeBands: bands });
   assert.deepEqual(computed.actorChanges, []);
   assert.equal(computed.stats.skill, undefined);
+});
+
+test("a carried item grants its weapon profiles; an attachment's profile takes only the installed mods aimed at it", () => {
+  const shot = { name: "Stun Blaster", type: "weapon", system: { skill: { value: "Ranged: Light" }, damage: { value: 5 }, crit: { value: 4 }, range: { value: "Short" }, itemmodifier: [], attributes: {} } };
+  const aimed = modification("Damage +1", attr("Weapon Stat", "damage", 1), { installed: true });
+  aimed.system.weaponIndex = 0;
+  const notInstalled = modification("Damage +2", attr("Weapon Stat", "damage", 2), { installed: false });
+  notInstalled.system.weaponIndex = 0;
+  const ownMod = modification("Accurate", attr("Roll Modifiers", "Add Boost", 1), { installed: true });
+  const stunBlaster = attachment("Stun Blaster Attachment", { modifications: [aimed, notInstalled, ownMod] });
+  stunBlaster._id = "att1";
+  stunBlaster.system.grantedWeapons = [shot];
+  const hilt = weapon({ attachments: [stunBlaster] });
+  hilt.id = "hilt";
+
+  assert.equal(weaponIndexOf(aimed), 0);
+  assert.equal(weaponIndexOf(ownMod), null);
+
+  const grants = grantedWeapons(hilt);
+  assert.deepEqual([...grants.keys()], ["aatt1:w0"]);
+  assert.deepEqual(grants.get("aatt1:w0").mods.map((m) => m.name), ["Damage +1"], "only the installed mod aimed at the profile");
+
+  const sources = enumerateSources(hilt).map((s) => s.name);
+  assert.ok(sources.includes("Accurate"), "the attachment's own mod still reaches the hilt");
+  assert.ok(!sources.includes("Damage +1") && !sources.includes("Damage +2"), "mods aimed at the granted weapon do not");
+  assert.equal(computeItemEffects(hilt).stats.damage.adjusted, 6, "the hilt keeps its own damage");
+
+  const data = grantedWeaponData(hilt, "aatt1:w0", shot, grants.get("aatt1:w0").mods);
+  assert.equal(data.type, "weapon");
+  assert.equal(data.system.equippable.equipped, true);
+  assert.deepEqual(data.system.grantedWeapons, [], "a granted weapon grants nothing itself");
+  assert.deepEqual(data.system.itemmodifier.map((m) => [m.name, m.system.active, m.system.weaponIndex]), [["Damage +1", true, undefined]]);
+  assert.equal(computeItemEffects(data).stats.damage.adjusted, 6, "the stun blaster's damage takes the mod");
+  assert.equal(data.flags.starwarsffg.grantedBy.item, "hilt");
+  assert.equal(typeof data.flags.starwarsffg.grantedBy.signature, "string");
+  const again = grantedWeaponData(hilt, "aatt1:w0", shot, grants.get("aatt1:w0").mods);
+  assert.equal(again.flags.starwarsffg.grantedBy.signature, data.flags.starwarsffg.grantedBy.signature, "the signature is stable");
+  const without = grantedWeaponData(hilt, "aatt1:w0", shot, []);
+  assert.notEqual(without.flags.starwarsffg.grantedBy.signature, data.flags.starwarsffg.grantedBy.signature, "and changes with the mods");
+});
+
+test("an item's own profile is granted while carried, and a species grants its natural weapon", () => {
+  const belt = { type: "gear", name: "Explosives Belt", system: { stowed: false, grantedWeapons: [{ name: "Explosives Belt", type: "weapon", system: { damage: { value: 15 } } }], itemmodifier: [] } };
+  assert.deepEqual([...grantedWeapons(belt).keys()], ["w0"]);
+  belt.system.stowed = true;
+  assert.equal(grantedWeapons(belt).size, 0, "stowed: nothing granted");
+
+  const unequipped = weapon({ equipped: false });
+  unequipped.system.grantedWeapons = [{ name: "Melee Mode", type: "weapon", system: {} }];
+  assert.equal(grantedWeapons(unequipped).size, 0, "a weapon grants its other mode only while wielded");
+  unequipped.system.equippable.equipped = true;
+  assert.equal(grantedWeapons(unequipped).size, 1);
+
+  const species = { type: "species", name: "Ithorian", system: { grantedWeapons: [{ name: "Bellow", type: "weapon", system: {} }] } };
+  assert.deepEqual([...grantedWeapons(species).keys()], ["w0"]);
+  assert.equal(grantedWeapons({ type: "talent", system: { grantedWeapons: [{ name: "x" }] } }).size, 0, "other types grant nothing");
 });
