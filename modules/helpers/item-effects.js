@@ -502,7 +502,7 @@ function heldGrants(actor, item, type) {
   const held = new Map();
   const extra = [];
   for (const doc of actor.items) {
-    const flag = doc.type === type ? doc.getFlag("starwarsffg", "grantedBy") : null;
+    const flag = doc.type === type ? doc.getFlag("starwarsffg_sandbox", "grantedBy") : null;
     if (flag?.item !== item.id) continue;
     if (held.has(flag.key)) extra.push(doc.id);
     else held.set(flag.key, doc);
@@ -634,7 +634,7 @@ export function grantedWeaponData(host, key, profile, mods = []) {
     qualities: sys.itemmodifier.map((q) => [q?.name, q?.system?.rank, q?.system?.attributes]),
   });
   data.flags = data.flags ?? {};
-  data.flags.starwarsffg = { ...(data.flags.starwarsffg ?? {}), grantedBy: { item: host.id, key, signature } };
+  data.flags.starwarsffg_sandbox = { ...(data.flags.starwarsffg_sandbox ?? {}), grantedBy: { item: host.id, key, signature } };
   return data;
 }
 
@@ -658,7 +658,7 @@ async function syncGrantedWeaponsNow(item, actor) {
     const data = grantedWeaponData(item, key, profile, mods);
     const existing = held.get(key);
     if (!existing) toCreate.push(data);
-    else if (existing.getFlag("starwarsffg", "grantedBy")?.signature !== data.flags.starwarsffg.grantedBy.signature) {
+    else if (existing.getFlag("starwarsffg_sandbox", "grantedBy")?.signature !== data.flags.starwarsffg_sandbox.grantedBy.signature) {
       toUpdate.push({ _id: existing.id, name: data.name, img: data.img, system: data.system, flags: data.flags });
     }
   }
@@ -670,7 +670,7 @@ async function syncGrantedWeaponsNow(item, actor) {
 /** Take back every weapon an item granted - for when the item itself goes. */
 export async function removeGrantedWeapons(actor, itemId) {
   if (!actor) return;
-  const ids = actor.items.filter((w) => w.type === "weapon" && w.getFlag("starwarsffg", "grantedBy")?.item === itemId).map((w) => w.id);
+  const ids = actor.items.filter((w) => w.type === "weapon" && w.getFlag("starwarsffg_sandbox", "grantedBy")?.item === itemId).map((w) => w.id);
   if (ids.length) await actor.deleteEmbeddedDocuments("Item", ids);
 }
 

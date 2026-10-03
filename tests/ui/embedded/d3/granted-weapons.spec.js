@@ -28,7 +28,7 @@ const granted = (page, actorUuid, hostUuid) => page.evaluate(async ({ actorUuid,
   const actor = await fromUuid(actorUuid);
   const hostId = hostUuid.split('.').pop();
   return actor.items
-    .filter((i) => i.type === 'weapon' && i.getFlag('starwarsffg', 'grantedBy')?.item === hostId)
+    .filter((i) => i.type === 'weapon' && i.getFlag('starwarsffg_sandbox', 'grantedBy')?.item === hostId)
     .map((i) => ({
       name: i.name,
       damage: i.system.damage.adjusted,
@@ -69,7 +69,7 @@ test("carried gear puts its weapon in the owner's hands; stowing or deleting the
   await api.deleteDoc(page, ctx.item);
   await expect.poll(() => page.evaluate(async (uuid) => {
     const actor = await fromUuid(uuid);
-    return actor.items.filter((i) => i.getFlag('starwarsffg', 'grantedBy')).length;
+    return actor.items.filter((i) => i.getFlag('starwarsffg_sandbox', 'grantedBy')).length;
   }, ctx.actor), 'the gear is gone, and so is its weapon').toBe(0);
 });
 

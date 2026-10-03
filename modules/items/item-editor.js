@@ -47,7 +47,7 @@ export class itemEditor extends FormApplication  {
     if (this.data.clickedObject.type === "itemattachment") {
       data.hardpoints = this._hardpointBudget();
       for (const modification of data.clickedObject.system.itemmodifier ?? []) {
-        modification.isBaseMod = !!modification.flags?.starwarsffg?.baseMod;
+        modification.isBaseMod = !!modification.flags?.starwarsffg_sandbox?.baseMod;
         modification.hint = itemEditor.describeModification(modification, data.clickedObject);
       }
       data.clickedObject.hint = itemEditor.describeModification({ system: { attributes: data.clickedObject.system.attributes } });

@@ -460,7 +460,7 @@ export class ItemFFG extends ItemBaseFFG {
    */
   /** The item that put this one in its owner's hands (a granted weapon or talent), if any. */
   get grantedBy() {
-    const flag = this.flags?.starwarsffg?.grantedBy;
+    const flag = this.flags?.starwarsffg_sandbox?.grantedBy;
     return flag?.item && this.actor ? (this.actor.items.get(flag.item) ?? null) : null;
   }
 

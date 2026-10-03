@@ -234,12 +234,12 @@ test("a carried item grants its weapon profiles; an attachment's profile takes o
   assert.deepEqual(data.system.grantedWeapons, [], "a granted weapon grants nothing itself");
   assert.deepEqual(data.system.itemmodifier.map((m) => [m.name, m.system.active, m.system.weaponIndex]), [["Damage +1", true, undefined]]);
   assert.equal(computeItemEffects(data).stats.damage.adjusted, 6, "the stun blaster's damage takes the mod");
-  assert.equal(data.flags.starwarsffg.grantedBy.item, "hilt");
-  assert.equal(typeof data.flags.starwarsffg.grantedBy.signature, "string");
+  assert.equal(data.flags.starwarsffg_sandbox.grantedBy.item, "hilt");
+  assert.equal(typeof data.flags.starwarsffg_sandbox.grantedBy.signature, "string");
   const again = grantedWeaponData(hilt, "aatt1:w0", shot, grants.get("aatt1:w0").mods);
-  assert.equal(again.flags.starwarsffg.grantedBy.signature, data.flags.starwarsffg.grantedBy.signature, "the signature is stable");
+  assert.equal(again.flags.starwarsffg_sandbox.grantedBy.signature, data.flags.starwarsffg_sandbox.grantedBy.signature, "the signature is stable");
   const without = grantedWeaponData(hilt, "aatt1:w0", shot, []);
-  assert.notEqual(without.flags.starwarsffg.grantedBy.signature, data.flags.starwarsffg.grantedBy.signature, "and changes with the mods");
+  assert.notEqual(without.flags.starwarsffg_sandbox.grantedBy.signature, data.flags.starwarsffg_sandbox.grantedBy.signature, "and changes with the mods");
 });
 
 test("an item's own profile is granted while carried, and a species grants its natural weapon", () => {

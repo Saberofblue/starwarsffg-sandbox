@@ -3022,7 +3022,7 @@ export default class ImportHelpers {
       profiles.push({
         name: profile.UnarmedName,
         type: "weapon",
-        img: "systems/starwarsffg/images/defaults/items/weapon.png",
+        img: "systems/starwarsffg_sandbox/images/defaults/items/weapon.png",
         system: {
           description: game.i18n.format("SWFFG.Items.GrantedBy", { item: item.Name }),
           attributes,
