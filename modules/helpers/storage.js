@@ -44,7 +44,7 @@ export function storageSlots(host) {
 /** Whether one slot could hold an item. */
 export function slotAccepts(slot, item) {
   if (slot.types.length && !slot.types.includes(String(item?.type ?? "").toLowerCase())) return false;
-  if (slot.skills.length && !slot.skills.includes(item?.system?.skill?.value)) return false;
+  if (slot.skills.length && !slot.skills.includes(item?.system?.skill?.adjusted || item?.system?.skill?.value)) return false;
   const stored = item?.system?.encumbrance ?? {};
   const encumbrance = parseInt(stored.adjusted ?? stored.value, 10) || 0;
   if (slot.encLimit !== null && encumbrance > slot.encLimit) return false;

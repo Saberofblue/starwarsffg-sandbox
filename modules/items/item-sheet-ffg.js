@@ -724,6 +724,19 @@ export class ItemSheetFFG extends foundry.appv1.sheets.ItemSheet {
         $valueInput.replaceWith(`<input name="${valueName}" type="number" class="modvalue" value="0" data-attr-key="${$valueInput.data('attr-key')}">`);
       }
     });
+    // a change of skill or a range cap takes its value from a list, every other weapon stat a number
+    html.find(".attributes").on("change", ".flat_editor.dropdown.mod", (event) => {
+      const valueName = event.currentTarget.name.replace(/\.mod$/, '.value');
+      const $valueInput = $(event.currentTarget).parent().find(".modvalue");
+      const listFor = { "skill-set": "Skill Rank", "range-set": "Range Band" }[event.currentTarget.value];
+      if (listFor) {
+        const options = Object.values(CONFIG.FFG.allowableModifierChoices[listFor] ?? {})
+          .map((c) => `<option value="${c.value}">${game.i18n.localize(c.label)}</option>`).join("");
+        $valueInput.replaceWith(`<select name="${valueName}" class="modvalue" data-attr-key="${$valueInput.data('attr-key')}">${options}</select>`);
+      } else if ($valueInput.is('select') && $(event.currentTarget).parent().find(".flat_editor.dropdown.modtype").val() !== "Skill Characteristic") {
+        $valueInput.replaceWith(`<input name="${valueName}" type="number" class="modvalue" value="0" data-attr-key="${$valueInput.data('attr-key')}">`);
+      }
+    });
 
     if (["signatureability"].includes(this.object.type)) {
       html.find(".talent-action").on("click", this._onClickTalentControl.bind(this));

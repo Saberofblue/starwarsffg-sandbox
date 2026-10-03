@@ -3,10 +3,17 @@
   * A weapon, armour, gear item, ship weapon or ship attachment now carries two Active Effects, `(inherent)` (what the item itself grants) and `(mods)` (what its qualities, attachment base mods and installed modifications grant), rebuilt from the item's data whenever it changes. The old per-attribute effects are removed on first launch (`game.ffg.ItemEffects.rebuildWorld()` repeats the rebuild; the console reports every actor whose stats changed).
   * Every modifier applies once per rank, uninstalled modifications apply nothing, and the item's adjusted stats, its actor effects and its dice pool all come from the same computation.
   * A weapon or armour stat modifier on an item that has no such stat (a Superior quality's soak on a weapon) does nothing, rather than reaching the actor. A duplicated managed effect is removed on the next sync.
+  * Drawing a weapon's roll card no longer overwrites the weapon itself: the card is built from a copy of the item. Before, every client that drew a roll message (on login, or scrolling the chat log) saw that weapon's adjusted damage, range and skill fall back to the stored values until the item was prepared again.
+  * Chat cards (a weapon's roll card, an item sent to chat) read the item's prepared data, so they print the modded damage, crit and range rather than the stored base values.
   * Weapons and armour grant their effects only while equipped; ship weapons likewise. Equip state is checked when effects apply, so every client agrees immediately.
   * A base mod can set a stat rather than add to it (`Base Damage (set to)`, `Base Critical`, `Base Soak`, `Base Defense`): a lightsaber crystal's damage and crit now reach the weapon.
   * A weapon that adds a characteristic to damage follows a talent that changes the characteristic its skill is rolled with (Ataru Technique: Agility).
+  * Two more weapon stat modifiers: `Skill (change to)` rolls the weapon with another skill (a pistol grip makes a rifle a Ranged: Light weapon; the sheet, chat card and Token Action HUD follow), and `Range (no longer than)` caps the range (an H9 pistol grip: Medium). The weapon's own skill and range are kept.
+  * Ship weapons are mounted when installed on a vehicle, and the vehicle sheet has a toggle to unmount one (an unmounted weapon grants nothing). Existing vehicles have their ship weapons mounted on first launch.
   * Armour does not stack: of the armour a character wears, only the piece with the highest soak grants soak, and only the piece with the highest defence grants defence (ties go to the first in the inventory). Mods and talents carried by the other pieces still apply. This matches OggDude and the rules.
+* Obligation:
+  * The Group Manager's obligation and duty tables now list the obligation items a character carries (what the sheet's add control, the character creator and the importer make), as well as the older keyed lists. Before, a character made in the creator never appeared in the GM's obligation roll.
+  * The character creator refuses a starting bonus that would take Obligation past double the group's starting value (Edge of the Empire Table 2-1), and greys those options out. The Default Obligation setting's hint now carries the table.
 * Carrying equipment:
   * Items can be stowed (the box icon in the inventory): a stowed item adds no encumbrance, grants nothing and cannot be rolled, and stowing worn equipment takes it off.
   * Holsters, weapon mounts and pouches: a weapon or gear item can be stored in a holster on carried equipment (the vest icon), where it stops counting toward encumbrance. Each rank of a storage mod is one slot, with the mod's encumbrance, type and skill limits.
@@ -16,6 +23,8 @@
   * Item descriptors now carry what they do (Damage +1, Decrease Critical, Remove Setback, Soak +1, Increase Encumbrance Threshold, holster slots, ...) instead of text alone, and an attachment keeps its base mods as installed modifications. Added mods arrive not installed, one rank each, capped by their count.
   * A modification that names a talent (Integrated Holsters' Quick Draw) grants that talent while installed on carried equipment, and takes it back when uninstalled, unequipped or removed.
   * Talents with `<SkillChars>` (the lightsaber form techniques) change the characteristic a skill is rolled with, as a `Skill Characteristic` modifier.
+  * The pistol-grip descriptors (`USERANGLT`, `USERANGHVY`) and `RANGEREDMED` import as the new skill and range modifiers.
+  * A mod OggDude only describes in words is named by those words ("Add Setback to Perception checks to find stored weapons") instead of "Unique Mod 1".
   * Lightsaber hilts no longer add Brawn to damage: a lightsaber's damage comes from its crystal.
   * The Superior quality now does what it says: +1 damage and an automatic advantage on a weapon, +1 soak on armour (Superior Weapon/Armor Customization, Superior Hilt Personalization).
   * A Brawn weapon's "+N" is stored once, as its damage modifier, instead of as both its base damage and a modifier (a Vibrosword showed Brawn + 4 rather than Brawn + 2).

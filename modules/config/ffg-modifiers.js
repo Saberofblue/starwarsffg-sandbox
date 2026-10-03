@@ -1,4 +1,5 @@
 import {weapon_stats} from "./ffg-weapons.js";
+import {personal_ranges} from "./ffg-ranges.js";
 import {armor_stats} from "./ffg-armor.js";
 import {vehicle_stats} from "./ffg-vehicles.js";
 import {character_characteristics, character_stats} from "./ffg-characters.js";
@@ -211,6 +212,8 @@ export const allModifiersTypes = {
  */
 export const allModifiersMap = {
   "Weapon Stat": foundry.utils.duplicate(weapon_stats),
+  // the value choices of a "Range (no longer than)" weapon stat; not a modifier type of its own
+  "Range Band": foundry.utils.duplicate(personal_ranges),
   "Armor Stat": foundry.utils.duplicate(armor_stats),
   "Vehicle Stat": foundry.utils.duplicate(vehicle_stats),
   "Stat": character_stats,

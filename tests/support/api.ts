@@ -1960,10 +1960,12 @@ export async function rollWeapon(
       // not awaited: it resolves once the dialog is up, and the roll happens when it is answered
       game.ffg.DiceHelpers.rollItem(item.id, actor.id);
 
+      // The dialog for this weapon, not just any roll dialog: the page is shared across tests, and
+      // a dialog whose post-roll work raced its actor's teardown can linger from a previous test.
+      const mine = (app: any) => app?.constructor?.name === 'RollBuilderFFG' && app?.roll?.item?.id === item.id;
       const dialog = await (async () => {
         for (let i = 0; i < 200; i++) {
-          const found = (Object.values(ui.windows ?? {}) as any[])
-            .find((app) => app?.constructor?.name === 'RollBuilderFFG');
+          const found = (Object.values(ui.windows ?? {}) as any[]).find(mine);
           // `element` is a jQuery object that is empty until the dialog renders, so [0] is
           // undefined for a moment and the wrapper itself is no use to ask for a button.
           const root = found?.element?.[0] ?? found?.element;
@@ -1989,11 +1991,18 @@ export async function rollWeapon(
 
       dialog.querySelector('.btn').click();
 
+      let arrived = false;
       for (let i = 0; i < 200; i++) {
-        if (game.messages.contents.length > before) return null;
+        if (game.messages.contents.length > before) { arrived = true; break; }
         await new Promise((r) => setTimeout(r, 25));
       }
-      return 'the roll was made but no message reached the chat log';
+      if (!arrived) return 'the roll was made but no message reached the chat log';
+      // let the dialog finish its post-roll work and close, so it is not found by the next roll
+      for (let i = 0; i < 200; i++) {
+        if (!(Object.values(ui.windows ?? {}) as any[]).some(mine)) break;
+        await new Promise((r) => setTimeout(r, 25));
+      }
+      return null;
     } finally {
       for (const [Die, original] of patched) Die.prototype.mapRandomFace = original;
     }

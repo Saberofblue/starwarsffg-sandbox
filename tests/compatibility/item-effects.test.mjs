@@ -164,3 +164,41 @@ test("change lists compare by content and legacy effects are recognised", () => 
   assert.deepEqual(cleaned, [{ name: "(inherent)", disabled: false }, { name: "Custom", disabled: true }]);
   assert.equal(normalizeCarrierEffects([{ name: "(inherent)", disabled: false }]), null);
 });
+
+const bands = ["Engaged", "Short", "Medium", "Long", "Extreme"].map((value) => ({ value }));
+
+test("a change-of-skill modifier rolls the weapon with that skill; its own skill is kept", () => {
+  const grip = attachment("qa pistol grip", {
+    modifications: [modification("qa use ranged light", attr("Weapon Stat", "skill-set", "Ranged: Light"))],
+  });
+  const item = weapon({ attachments: [grip] });
+  item.system.skill = { value: "Ranged: Heavy" };
+  const computed = computeItemEffects(item, { rangeBands: bands });
+  assert.equal(computed.stats.skill.base, "Ranged: Heavy");
+  assert.equal(computed.stats.skill.adjusted, "Ranged: Light");
+  assert.deepEqual(computed.stats.skill.sources, [{ name: "qa use ranged light", value: "=Ranged: Light" }]);
+  assert.deepEqual(computed.actorChanges, [], "a skill change is not an actor change");
+
+  grip.system.itemmodifier[0].system.active = false;
+  assert.equal(computeItemEffects(item, { rangeBands: bands }).stats.skill.adjusted, "Ranged: Heavy", "uninstalled: the weapon's own skill");
+});
+
+test("a range cap shortens a longer range and leaves a shorter one alone; it combines with range steps", () => {
+  const capped = (base, extra = {}) => {
+    const item = weapon({ attachments: [attachment("qa grip", { modifications: [modification("qa medium", attr("Weapon Stat", "range-set", "Medium"))] })], ...extra });
+    item.system.range.value = base;
+    return computeItemEffects(item, { rangeBands: bands }).stats.range;
+  };
+  assert.equal(capped("Long").adjusted, "Medium", "Long is capped to Medium");
+  assert.equal(capped("Short").adjusted, "Short", "Short is already within the cap");
+  // +1 band from a scope, then the cap: Short -> Medium, within the cap; Medium -> Long, capped back to Medium
+  assert.equal(capped("Short", { attributes: attr("Weapon Stat", "range", 1) }).adjusted, "Medium");
+  assert.equal(capped("Medium", { attributes: attr("Weapon Stat", "range", 1) }).adjusted, "Medium");
+});
+
+test("a skill or range change on armour is nothing: neither an item stat nor an actor change", () => {
+  const armour = { type: "armour", name: "qa vest", system: { soak: { value: 1 }, defence: { value: 0 }, encumbrance: { value: 2 }, price: { value: 0 }, rarity: { value: 0 }, hardpoints: { value: 1 }, equippable: { equipped: true }, stowed: false, attributes: { ...attr("Weapon Stat", "skill-set", "Ranged: Light"), ...attr("Weapon Stat", "range-set", "Medium") }, itemmodifier: [], itemattachment: [] } };
+  const computed = computeItemEffects(armour, { rangeBands: bands });
+  assert.deepEqual(computed.actorChanges, []);
+  assert.equal(computed.stats.skill, undefined);
+});

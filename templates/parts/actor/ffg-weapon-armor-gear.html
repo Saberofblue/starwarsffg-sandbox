@@ -15,7 +15,7 @@
 
   <ul class="items-list">
     {{#each items as |item id|}} {{#iff item.type '==' 'weapon'}}
-    <li class="item flexrow{{#if item.system.stowed}} stowed{{/if}}{{#if item.system.storedIn}} stored{{/if}}" data-item-id="{{item._id}}" data-ability="{{item.system.skill.value}}">
+    <li class="item flexrow{{#if item.system.stowed}} stowed{{/if}}{{#if item.system.storedIn}} stored{{/if}}" data-item-id="{{item._id}}" data-ability="{{#if item.system.skill.adjusted}}{{item.system.skill.adjusted}}{{else}}{{item.system.skill.value}}{{/if}}">
       <div class="item-name">
         <div class="roll-button">
           <!-- Create define a button with mouseover events to update the icon and generate rolls when clicked and moused over -->
@@ -183,11 +183,11 @@
 
   <ul class="items-list">
     {{#each items as |item id|}} {{#iff item.type '==' 'shipweapon'}}
-    <li class="item flexrow" data-item-id="{{item._id}}" data-ability="{{item.system.skill.value}}">
+    <li class="item flexrow" data-item-id="{{item._id}}" data-ability="{{#if item.system.skill.adjusted}}{{item.system.skill.adjusted}}{{else}}{{item.system.skill.value}}{{/if}}">
       <div class="item-name">{{item.name}}</div>
       <div>{{#if (eq item.system.firingarc.fore true)}}{{localize "SWFFG.VehicleFiringArcForward"}}{{/if}} {{#if (eq item.system.firingarc.aft true)}}{{localize "SWFFG.VehicleFiringArcAft"}}{{/if}} {{#if (eq item.system.firingarc.port true)}}{{localize "SWFFG.VehicleFiringArcPort"}}{{/if}} {{#if (eq item.system.firingarc.starboard true)}}{{localize "SWFFG.VehicleFiringArcStarboard"}}{{/if}} {{#if (eq item.system.firingarc.dorsal true)}}{{localize "SWFFG.VehicleFiringArcDorsal"}}{{/if}} {{#if (eq item.system.firingarc.ventral true)}}{{localize "SWFFG.VehicleFiringArcVentral"}}{{/if}}</div>
       <div class="skill-roll">
-        <div class="roll-button"><div class="skill-label rollable">{{#with (lookup ../this.FFG.skills item.system.skill.value)}}{{localize this.abrev}}{{/with}}</div></div>
+        <div class="roll-button"><div class="skill-label rollable">{{#if item.system.skill.adjustedAbrev}}{{localize item.system.skill.adjustedAbrev}}{{else}}{{#with (lookup ../this.FFG.skills item.system.skill.value)}}{{localize this.abrev}}{{/with}}{{/if}}</div></div>
       </div>
       {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-adjusted-value.html" (object key="damage" value=item.system.damage.value adjusted=item.system.damage.adjusted show=(and (ne item.system.damage.value item.system.damage.adjusted) (or (gt item.system.damage.adjusted.length 0) (gt item.system.damage.adjusted 0))) sources=item.system.damage.sources)}}
       {{> "systems/starwarsffg_sandbox/templates/parts/actor/ffg-adjusted-value.html" (object key="range" label=item.system.range.label sources=item.system.range.sources)}}

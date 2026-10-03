@@ -82,8 +82,8 @@ export class GroupManager extends FormApplication {
       players.forEach((player) => {
         if (player.character) {
           try {
-            obligationRangeStart = this._addCharacterObligationDuty(player.character, obligationRangeStart, player.character.system.obligationlist, "obligations");
-            dutyRangeStart = this._addCharacterObligationDuty(player.character, dutyRangeStart, player.character.system.dutylist, "duties");
+            obligationRangeStart = this._addCharacterObligationDuty(player.character, obligationRangeStart, this._obligationDutyList(player.character, "obligation"), "obligations");
+            dutyRangeStart = this._addCharacterObligationDuty(player.character, dutyRangeStart, this._obligationDutyList(player.character, "duty"), "duties");
             //obligationRangeStart = this._addCharacterObligations(player.character, obligationRangeStart);
             //dutyRangeStart = this._addCharacterDuties(player.character, dutyRangeStart);
             characters.push(player.character);
@@ -108,8 +108,8 @@ export class GroupManager extends FormApplication {
 })
       .forEach((c) => {
         try {
-          obligationRangeStart = this._addCharacterObligationDuty(c, obligationRangeStart, c.system.obligationlist, "obligations");
-          dutyRangeStart = this._addCharacterObligationDuty(c, dutyRangeStart, c.system.dutylist, "duties");
+          obligationRangeStart = this._addCharacterObligationDuty(c, obligationRangeStart, this._obligationDutyList(c, "obligation"), "obligations");
+          dutyRangeStart = this._addCharacterObligationDuty(c, dutyRangeStart, this._obligationDutyList(c, "duty"), "duties");
           characters.push(c);
           // obligationRangeStart = this._addCharacterObligations(c, obligationRangeStart);
           // dutyRangeStart = this._addCharacterDuties(c, dutyRangeStart);
@@ -243,6 +243,21 @@ export class GroupManager extends FormApplication {
     game.settings.set("starwarsffg_sandbox", "dPoolLight", formDPool.light);
     game.settings.set("starwarsffg_sandbox", "dPoolDark", formDPool.dark);
     return formData;
+  }
+
+  /**
+   * A character's obligations or duties: the obligation items the sheet, the wizard and the
+   * importer make, plus the legacy keyed list older actors still carry.
+   * @param {Actor} character
+   * @param {"obligation"|"duty"} kind
+   * @returns {{type: string, magnitude: number}[]}
+   */
+  _obligationDutyList(character, kind) {
+    const legacy = Object.values(character.system?.[`${kind}list`] ?? {});
+    const items = character.items
+      .filter((item) => item.type === "obligation" && item.system?.type === kind)
+      .map((item) => ({ type: item.name, magnitude: item.system.magnitude }));
+    return [...legacy, ...items];
   }
 
   _addCharacterObligationDuty(character, rangeStart, list, type) {

@@ -12,6 +12,12 @@ export class ShipWeaponData extends foundry.abstract.TypeDataModel {
       ...equippable(),
       ...itemattachments(),
       ...qualities(),
+      // a ship weapon is mounted unless the vehicle sheet unmounts it
+      equippable: new fields.SchemaField({
+        value: new fields.BooleanField({ required: true, initial: true }),
+        type: new fields.StringField({ required: true, initial: "Boolean" }),
+        equipped: new fields.BooleanField({ required: true, initial: true }),
+      }),
       label: new fields.StringField({ required: true, initial: "Ship Weapon" }),
       firingarc: new fields.SchemaField({
         fore: new fields.BooleanField({ required: true, initial: false }),

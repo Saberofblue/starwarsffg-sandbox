@@ -11,6 +11,14 @@
   <select name="{{#if direct }}system.attributes.{{ id }}.value{{ else }}system.itemmodifier[{{ number }}].system.attributes.{{ id }}.value{{/if}}" class="modvalue" data-attr-id="{{ id }}">
     {{ selectOptions (lookup modifierChoices "Characteristic") selected=attr.value valueAttr="value" labelAttr="label" localize=true }}
   </select>
+  {{else if (eq attr.mod "skill-set")}}
+  <select name="{{#if direct }}system.attributes.{{ id }}.value{{ else }}system.itemmodifier[{{ number }}].system.attributes.{{ id }}.value{{/if}}" class="modvalue" data-attr-id="{{ id }}">
+    {{ selectOptions (lookup modifierChoices "Skill Rank") selected=attr.value valueAttr="value" labelAttr="label" localize=true }}
+  </select>
+  {{else if (eq attr.mod "range-set")}}
+  <select name="{{#if direct }}system.attributes.{{ id }}.value{{ else }}system.itemmodifier[{{ number }}].system.attributes.{{ id }}.value{{/if}}" class="modvalue" data-attr-id="{{ id }}">
+    {{ selectOptions (lookup modifierChoices "Range Band") selected=attr.value valueAttr="value" labelAttr="label" localize=true }}
+  </select>
   {{else}}
   <input name="{{#if direct }}system.attributes.{{ id }}.value{{ else }}system.itemmodifier[{{ number }}].system.attributes.{{ id }}.value{{/if}}" type="number" class="modvalue" value="{{ attr.value }}" data-attr-id="{{ id }}">
   {{/if}}

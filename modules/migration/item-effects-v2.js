@@ -10,10 +10,13 @@ import { CARRIER_TYPES, syncGrantedTalents, syncManagedEffects } from "../helper
  * carrier the world holds, rebuilds its two managed effects, deletes the per-attribute ones,
  * and grants whatever talents its installed modifications grant.
  *
+ * Version 2 also mounts every ship weapon on a vehicle: before it, nothing could mount one, so an
+ * unmounted ship weapon is one the previous version left that way, not a choice.
+ *
  * Also exposed as `game.ffg.ItemEffects.rebuildWorld()` for a world whose items were edited by
  * an older version after this ran.
  */
-export const ITEM_EFFECTS_MIGRATION_VERSION = 1;
+export const ITEM_EFFECTS_MIGRATION_VERSION = 2;
 
 /** The actor values a rebuild can change, compared before and after so the report can say so. */
 const WATCHED = [
@@ -43,6 +46,18 @@ async function migrateCarrier(item, report) {
 
 async function migrateActor(actor, report) {
   const before = snapshot(actor);
+  if (actor.type === "vehicle") {
+    const mounts = actor.items
+      .filter((i) => i.type === "shipweapon" && !i.system.equippable?.equipped && !i.system.stowed)
+      .map((i) => ({ _id: i.id, "system.equippable.equipped": true }));
+    if (mounts.length) {
+      try {
+        await actor.updateEmbeddedDocuments("Item", mounts);
+      } catch (error) {
+        report.failed.push({ uuid: actor.uuid, reason: error.message });
+      }
+    }
+  }
   for (const item of actor.items.filter((i) => CARRIER_TYPES.includes(i.type))) await migrateCarrier(item, report);
   actor.reset();
   const after = snapshot(actor);

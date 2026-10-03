@@ -35,4 +35,12 @@ export const weapon_stats = {
     value: "critical-set",
     label: "SWFFG.ItemsCritSet",
   },
+  "range-set": {
+    value: "range-set",
+    label: "SWFFG.ItemsRangeSet",
+  },
+  "skill-set": {
+    value: "skill-set",
+    label: "SWFFG.ItemsSkillSet",
+  },
 };

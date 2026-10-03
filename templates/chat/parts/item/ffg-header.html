@@ -1,5 +1,5 @@
 {{#if (eq item.type "weapon")}}
-  <span class="subtitle">{{ item.system.skill.value }}</span>
+  <span class="subtitle">{{#if item.system.skill.adjusted}}{{ item.system.skill.adjusted }}{{else}}{{ item.system.skill.value }}{{/if}}</span>
   <span class="basic-stats">
     <span class="stat stat-right" title="{{ localize "SWFFG.ItemsDamage" }}">
       <i class="fa-solid fa-hand-fist"></i>
@@ -16,7 +16,7 @@
   </span>
 {{/if}}
 {{#if (eq item.type "shipweapon")}}
-  <span class="subtitle">{{ item.system.skill.value }}</span>
+  <span class="subtitle">{{#if item.system.skill.adjusted}}{{ item.system.skill.adjusted }}{{else}}{{ item.system.skill.value }}{{/if}}</span>
   <span class="basic-stats">
     <span class="stat stat-right" title="{{ localize "SWFFG.VehicleTabDamage" }}">
       <i class="fa-solid fa-hand-fist"></i>

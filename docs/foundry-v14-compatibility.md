@@ -43,7 +43,12 @@ Armour does not stack: of the armour an actor wears, the same gate lets only the
 highest soak grant soak and only the piece with the highest defence grant defence (judged
 separately; ties go to the first in the inventory). A weapon or armour stat modifier that does not
 fit its carrier (a Superior quality's soak on a weapon) is dropped by the computation rather than
-written as an actor change.
+written as an actor change. Two weapon stats are words rather than numbers: `skill-set` (the skill
+the weapon is rolled with; `system.skill.adjusted`, the item's own `value` untouched) and
+`range-set` (a cap on the range, resolved against the range ladder with any range steps). Ship
+weapons are gated on being mounted (`equippable.equipped`); one is mounted when installed on a
+vehicle, the vehicle sheet can unmount it, and the version 2 rebuild mounts those the previous
+version left unmounted.
 
 Effects named after a modifier attribute (`attr…`), and the `Superior` effect the companion
 importer used to synthesise, belong to the previous pipeline and are deleted by the sync. Hand-made

@@ -265,19 +265,15 @@ export class RollFFG extends foundry.dice.Roll {
 
     // Define chat data
     if (this?.data) {
-      if (this.data.flags?.starwarsffg_sandbox?.uuid) {
-        const item = await fromUuid(this.data.flags.starwarsffg_sandbox.uuid);
-        if (item) {
-          this.data = item;
-          this.data.system = await item.getItemDetails();
-        }
-      }
-      else if (this.data.flags?.starwarsffg_sandbox?.ffgUuid) {
-        const item = await fromUuid(this.data.flags.starwarsffg_sandbox.ffgUuid);
-        if (item) {
-          this.data = item;
-          this.data.system = await item.getItemDetails();
-        }
+      const uuid = this.data.flags?.starwarsffg?.uuid ?? this.data.flags?.starwarsffg?.ffgUuid;
+      const item = uuid ? await fromUuid(uuid) : null;
+      if (item) {
+        // a view of the item for the card, never the live document: writing the card's details onto
+        // the document replaced its prepared data (adjusted damage, range, skill) on every client
+        // that drew the message, until something prepared the item again
+        this.data = { ...item.toObject(), uuid: item.uuid, id: item.id, system: await item.getItemDetails() };
+      } else if (this.data instanceof foundry.abstract.Document) {
+        this.data = { ...this.data.toObject(), uuid: this.data.uuid, id: this.data.id };
       }
       this.data.additionalFlavorText = this.flavorText;
     } else {

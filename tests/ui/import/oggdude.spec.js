@@ -57,7 +57,10 @@ test('an imported attachment carries its AddedMods as Modifications', async ({ w
   const modifications = all.filter((mod) => !mod.flags?.starwarsffg_sandbox?.baseMod);
   const names = modifications.map((mod) => mod.name);
 
-  expect(names, 'one Modification per added mod').toEqual([soak.Name, defence.Name, 'Unique Mod 1']);
+  expect(names.slice(0, 2), 'one Modification per keyed added mod').toEqual([soak.Name, defence.Name]);
+  // a mod described only in words is named by those words, dice tokens spelled out
+  expect(names[2], 'the worded mod, named by its text').toMatch(/^Perception check difficulty increased to Hard/);
+  expect(names, 'one Modification per added mod').toHaveLength(3);
   expect(modifications.every((mod) => mod.system.active === false), 'none of them installed yet').toBe(true);
   expect(Number(modifications[0].system.maxRank), 'capped by its count').toBe(Number(source.AddedMods.Mod[0].Count));
 });

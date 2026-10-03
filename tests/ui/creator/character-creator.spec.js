@@ -467,3 +467,31 @@ test('a wizard closed before review creates no actor', async ({ world, page }) =
     'only the wizard\'s own preview'
   ).toEqual([preview]);
 });
+
+test('a starting bonus may not take Obligation past double the starting value', async ({ world, page }) => {
+  // Edge of the Empire Table 2-1: six or more PCs start at 5 each, so the +10 bonuses are off the table
+  await world.setSetting('defaultObligation', 5);
+  const species = await world.addCreatorChoice({ item: 'species' });
+
+  await creator.open(page);
+  await creator.chooseRules(page, 'eote');
+  await creator.selectSpecies(page, species);
+  world.track(await creator.tempActor(page));
+
+  const offered = await page.evaluate(() => Object.fromEntries(
+    [...document.querySelectorAll('#startingBonus option')].filter((o) => o.value).map((o) => [o.value, o.disabled]),
+  ));
+  expect(offered, 'the +10 options are greyed out, the +5 options stay').toEqual({
+    '5xp': false, '10xp': true, '1k_credits': false, '2k_credits': true,
+  });
+
+  await creator.chooseStartingBonus(page, '10xp');
+  expect((await creator.obligation(page)).available, 'the refused bonus adds nothing').toBe(5);
+  expect((await creator.budget(page)).total, 'and grants no XP').toBe(100);
+
+  await creator.chooseStartingBonus(page, '5xp');
+  expect((await creator.obligation(page)).available, 'a +5 bonus is within the cap').toBe(10);
+  expect((await creator.budget(page)).total, 'and pays its XP').toBe(105);
+
+  await creator.close(page);
+});

@@ -203,7 +203,7 @@ export default class DiceHelpers {
 
     const status = this.getWeaponStatus(item);
 
-    const skill = actor.system.skills[itemData.skill.value];
+    const skill = actor.system.skills[itemData.skill.adjusted || itemData.skill.value];
     const characteristic = actor.system.characteristics[skill.characteristic];
     let defenseDice = this.getDefenseDice(skill, itemData);
     let dicePool = new DicePoolFFG({

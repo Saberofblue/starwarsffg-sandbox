@@ -121,6 +121,8 @@ export default class Vehicles {
                 if (weaponEntity) {
                   const weaponData = JSON.parse(JSON.stringify(weaponEntity));
                   delete weaponData._id;
+                  // mounted: the catalog copy was never equipped
+                  foundry.utils.setProperty(weaponData, "system.equippable.equipped", true);
 
                   if (!Array.isArray(weaponData.system.itemmodifier)) {
                     weaponData.system.itemmodifier = [];

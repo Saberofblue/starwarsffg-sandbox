@@ -346,6 +346,18 @@ export class itemEditor extends FormApplication  {
       } else if ($valueInput.attr('type') === 'checkbox' || $valueInput.is('select')) {
         $valueInput.replaceWith(`<input name="${valueName}" type="number" class="modvalue" value="0" data-attr-id="${$valueInput.data('attr-id')}">`);
       }
+    } else if (dropdown === 'mod') {
+      // a change of skill or a range cap takes its value from a list, every other weapon stat a number
+      const valueName = event.currentTarget.name.replace(/\.mod$/, '.value');
+      const $valueInput = $(event.currentTarget).parent().find(".modvalue");
+      const listFor = { "skill-set": "Skill Rank", "range-set": "Range Band" }[new_value];
+      if (listFor) {
+        const options = Object.values(CONFIG.FFG.allowableModifierChoices[listFor] ?? {})
+          .map((c) => `<option value="${c.value}">${game.i18n.localize(c.label)}</option>`).join("");
+        $valueInput.replaceWith(`<select name="${valueName}" class="modvalue" data-attr-id="${$valueInput.data('attr-id')}">${options}</select>`);
+      } else if ($valueInput.is('select') && $(event.currentTarget).parent().find(".flat_editor.dropdown.modtype").val() !== "Skill Characteristic") {
+        $valueInput.replaceWith(`<input name="${valueName}" type="number" class="modvalue" value="0" data-attr-id="${$valueInput.data('attr-id')}">`);
+      }
     }
   }
 

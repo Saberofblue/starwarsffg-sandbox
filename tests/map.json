@@ -63,7 +63,7 @@
     ],
     "modules/combat-ffg.js": ["tests/ui/combat/**", "tests/ui/status/**"],
     "modules/tokens/**": ["tests/ui/combat/**", "tests/ui/status/**"],
-    "modules/groupmanager-ffg.js": ["tests/ui/advancement/**", "tests/ui/edit-mode/**"],
+    "modules/groupmanager-ffg.js": ["tests/ui/advancement/**", "tests/ui/edit-mode/**", "tests/ui/sheets/group-manager.spec.js"],
     "modules/ffg-destiny-tracker.js": ["tests/ui/smoke/**"],
     "modules/compendium/**": ["tests/ui/import/**"],
     "modules/importer/**": ["tests/ui/import/**", "tests/ui/embedded/d1/origins.spec.js"],

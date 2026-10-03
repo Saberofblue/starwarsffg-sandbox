@@ -61,8 +61,8 @@ export const DICE_FIELDS = Object.values(DICE).flatMap((m) => Object.values(m));
 
 /** The stats each carrier type computes an adjusted value for. */
 const ITEM_STATS = {
-  weapon: ["damage", "crit", "range", "encumbrance", "price", "rarity", "hardpoints"],
-  shipweapon: ["damage", "crit", "range", "encumbrance", "price", "rarity", "hardpoints"],
+  weapon: ["damage", "crit", "range", "skill", "encumbrance", "price", "rarity", "hardpoints"],
+  shipweapon: ["damage", "crit", "range", "skill", "encumbrance", "price", "rarity", "hardpoints"],
   armour: ["soak", "defence", "encumbrance", "price", "rarity", "hardpoints"],
   gear: ["encumbrance", "price", "rarity"],
   shipattachment: ["encumbrance", "price", "rarity", "hardpoints"],
@@ -72,6 +72,8 @@ const ITEM_STATS = {
 const WEAPON_STAT_MODS = {
   damage: "damage", critical: "crit", range: "range", encumbrance: "encumbrance", price: "price",
   rarity: "rarity", hardpoints: "hardpoints", "damage-set": "damage:set", "critical-set": "crit:set",
+  // a range cap ("no longer than Medium") and a change of skill (a pistol grip: Ranged: Light)
+  "range-set": "range:set", "skill-set": "skill:set",
 };
 /** "Armor Stat" modifiers, by lower-cased mod. */
 const ARMOR_STAT_MODS = {
@@ -186,7 +188,9 @@ export function computeItemEffects(item, { rangeBands = null } = {}) {
   for (const key of ITEM_STATS[type]) {
     const stored = sys[key] ?? {};
     if (key === "range") {
-      result.stats.range = { base: stored.value ?? "", adjusted: stored.value ?? "", steps: 0, sources: [] };
+      result.stats.range = { base: stored.value ?? "", adjusted: stored.value ?? "", steps: 0, caps: [], sources: [] };
+    } else if (key === "skill") {
+      result.stats.skill = { base: stored.value ?? "", adjusted: stored.value ?? "", set: null, sources: [] };
     } else {
       const base = toInt(stored.value);
       result.stats[key] = { base, set: null, adds: 0, adjusted: base, sources: [] };
@@ -209,6 +213,22 @@ export function computeItemEffects(item, { rangeBands = null } = {}) {
       if (target) {
         const [key, flag] = target.split(":");
         const stat = result.stats[key];
+        if (key === "skill") {
+          // the weapon is rolled with another skill; the last change wins
+          if (flag === "set" && attr.value) {
+            stat.set = String(attr.value);
+            record(stat, source.name, stat.set, "=");
+          }
+          continue;
+        }
+        if (key === "range" && flag === "set") {
+          // "no longer than": resolved against the range ladder below
+          if (attr.value) {
+            stat.caps.push(String(attr.value));
+            record(stat, source.name, String(attr.value), "=");
+          }
+          continue;
+        }
         if (flag === "set") {
           stat.set = stat.set === null ? value : Math.max(stat.set, value);
           record(stat, source.name, value, "=");
@@ -243,17 +263,24 @@ export function computeItemEffects(item, { rangeBands = null } = {}) {
   result.legacyNames = [...attributeKeys];
 
   for (const [key, stat] of Object.entries(result.stats)) {
-    if (key === "range") continue;
+    if (key === "range" || key === "skill") continue;
     stat.adjusted = (stat.set ?? stat.base) + stat.adds;
   }
+  const skill = result.stats.skill;
+  if (skill) skill.adjusted = skill.set ?? skill.base;
   const crit = result.stats.crit;
   if (crit && crit.adjusted < 1 && (crit.base > 0 || crit.set !== null)) crit.adjusted = 1;
 
   const range = result.stats.range;
-  if (range && range.steps && Array.isArray(rangeBands)) {
-    const current = rangeBands.findIndex((r) => r.value === range.base);
-    if (current > -1) {
-      const index = Math.min(Math.max(current + range.steps, 0), rangeBands.length - 1);
+  if (range && Array.isArray(rangeBands) && (range.steps || range.caps.length)) {
+    const indexOf = (band) => rangeBands.findIndex((r) => r.value === band);
+    let index = indexOf(range.base);
+    if (index > -1) {
+      if (range.steps) index = Math.min(Math.max(index + range.steps, 0), rangeBands.length - 1);
+      for (const cap of range.caps) {
+        const capIndex = indexOf(cap);
+        if (capIndex > -1 && index > capIndex) index = capIndex;
+      }
       range.adjusted = rangeBands[index].value;
     }
   }

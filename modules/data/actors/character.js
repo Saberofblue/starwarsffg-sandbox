@@ -24,8 +24,9 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       duty: numberStat({ label: "Duty", adjusted: false }),
       morality: numberStat({ label: "Morality", adjusted: false }),
       conflict: numberStat({ label: "Conflict", adjusted: false }),
-      // keyed by randomID, each {type, magnitude}; the character sheet's add/remove duty and
-      // obligation controls write them and groupmanager-ffg.js:84 reads them
+      // legacy, keyed by randomID, each {type, magnitude}. Obligations and duties are now
+      // "obligation" items (the sheet's add control, the wizard and the importer make them);
+      // the Group Manager reads both
       obligationlist: keyedMap(),
       dutylist: keyedMap(),
       experience: new fields.SchemaField({

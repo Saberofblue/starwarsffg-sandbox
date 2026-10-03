@@ -554,7 +554,7 @@ export class ActorFFG extends foundry.documents.Actor {
     for (const item of actorData.items) {
       if (item.type !== "weapon" || !ModifierHelpers.shouldApplyCharacteristicToDamage(item.system)) continue;
       let name = item.system.characteristic.value;
-      const skill = item.system.skill?.value;
+      const skill = item.system.skill?.adjusted || item.system.skill?.value;
       // the characteristic the skill is rolled with before any effect changed it is the stored one
       const skillStored = actorData._source?.system?.skills?.[skill]?.characteristic;
       const skillCurrent = actorData.system.skills?.[skill]?.characteristic;

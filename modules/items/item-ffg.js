@@ -30,6 +30,10 @@ export class ItemFFG extends ItemBaseFFG {
         this.updateSource({img: "icons/svg/item-bag.svg"});
       }
     }
+    // a ship weapon is mounted when it is installed on a vehicle; the vehicle sheet can unmount it
+    if (game.user.id === user.id && this.type === "shipweapon" && this.parent?.documentName === "Actor" && !data?.system?.stowed) {
+      this.updateSource({ "system.equippable.equipped": true });
+    }
     return {data, operation, user};
   }
 
@@ -292,6 +296,12 @@ export class ItemFFG extends ItemBaseFFG {
           target.adjusted = stat.adjusted;
           target.sources = stat.sources;
           target.label = (this.type === "weapon" ? "SWFFG.WeaponRange" : "SWFFG.VehicleRange") + this._capitalize(stat.adjusted);
+        } else if (key === "skill") {
+          // the skill the weapon is rolled with, after any change of skill; `value` stays the item's own
+          target.adjusted = stat.adjusted;
+          target.sources = stat.sources;
+          target.adjustedLabel = CONFIG.FFG.skills?.[stat.adjusted]?.label ?? stat.adjusted;
+          target.adjustedAbrev = CONFIG.FFG.skills?.[stat.adjusted]?.abrev ?? stat.adjusted;
         } else {
           target.value = stat.base;
           target.adjusted = stat.adjusted;
@@ -442,7 +452,9 @@ export class ItemFFG extends ItemBaseFFG {
    * Prepare and return details of the item for display in inventory or chat.
    */
   async getItemDetails() {
-    const data = foundry.utils.duplicate(this.system);
+    // a copy of the prepared data: the adjusted stats and sources live there, not in the stored
+    // source a duplicate() of the model would give
+    const data = foundry.utils.deepClone({ ...this.system });
 
     // Item type specific properties
     const props = [];
@@ -572,7 +584,7 @@ export class ItemFFG extends ItemBaseFFG {
     // Weapon properties
     if (this.type === "weapon") {
       if (data.hasOwnProperty("skill")) {
-        const cleanedSkillName = data.skill.value.replace(/[\W_]+/g, "");
+        const cleanedSkillName = (data.skill.adjusted || data.skill.value).replace(/[\W_]+/g, "");
         const skillLabel = "SWFFG.SkillsName" + cleanedSkillName;
         props.push(`Skill: ${game.i18n.localize(skillLabel)}`);
       }

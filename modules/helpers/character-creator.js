@@ -747,9 +747,30 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
       options.push({
         value: value,
         label: label,
+        disabled: !this.startingBonusAllowed(value),
       });
     }
     return options;
+  }
+
+  /**
+   * What a starting bonus costs in Obligation (Edge of the Empire) or Duty (Age of Rebellion).
+   * @param {string} choice
+   * @returns {number}
+   */
+  startingBonusCost(choice) {
+    return { "5xp": 5, "10xp": 10, "1k_credits": 5, "2k_credits": 10 }[choice] ?? 0;
+  }
+
+  /**
+   * Edge of the Empire: a character may never start with more than double the group's starting
+   * Obligation (Table 2-1), so a bonus may cost at most that starting value.
+   * @param {string} choice
+   * @returns {boolean}
+   */
+  startingBonusAllowed(choice) {
+    if (this.data.selected.rules !== "eote") return true;
+    return this.startingBonusCost(choice) <= (Number(this.data.initial.obligation) || 0);
   }
 
   /**
@@ -963,6 +984,11 @@ export class CharacterCreator extends HandlebarsApplicationMixin(ApplicationV2) 
   */
   selectStartingBonus(choice) {
     CONFIG.logger.debug(`selected starting bonus ${choice}`);
+    if (!this.startingBonusAllowed(choice)) {
+      ui.notifications.warn(game.i18n.localize("SWFFG.CharacterCreator.startingBonus.OverCap"));
+      this.render(true);
+      return;
+    }
     const ruleToBonusMap = {
       fad: 'conflict',
       aor: 'duty',

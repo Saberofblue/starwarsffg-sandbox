@@ -10,7 +10,7 @@
         <select class="" id="startingBonus" name="startingBonus">
           <option data-placeholder="true"></option>
           {{#each startingBonusesRadio as |startingBonus|}}
-            <option value="{{startingBonus.value}}">{{localize startingBonus.label}}</option>
+            <option value="{{startingBonus.value}}" {{#if startingBonus.disabled}}disabled{{/if}}>{{localize startingBonus.label}}{{#if startingBonus.disabled}} ({{localize "SWFFG.CharacterCreator.startingBonus.OverCapShort"}}){{/if}}</option>
           {{/each }}
         </select>
       </div>

@@ -2876,6 +2876,9 @@ export default class ImportHelpers {
     CRITSUB: [["Weapon Stat", "critical", -1]],
     RANGEADD: [["Weapon Stat", "range", 1]],
     RANGESUB: [["Weapon Stat", "range", -1]],
+    RANGEREDMED: [["Weapon Stat", "range-set", "Medium"]],
+    USERANGLT: [["Weapon Stat", "skill-set", "Ranged: Light"]],
+    USERANGHVY: [["Weapon Stat", "skill-set", "Ranged: Heavy"]],
     HPADD: [["Weapon Stat", "hardpoints", 1]],
     HPSUB: [["Weapon Stat", "hardpoints", -1]],
     // checks made with the item
@@ -2934,6 +2937,35 @@ export default class ImportHelpers {
     if (skill.includes(" - ")) skill = skill.replace(" - ", ": ");
     else if (skill.includes(":") && !skill.includes(": ")) skill = skill.replace(":", ": ");
     return Object.keys(CONFIG.FFG.skills).includes(skill) ? skill : null;
+  }
+
+  /**
+   * A name for a mod OggDude only describes in words: the words themselves, dice tokens spelled out,
+   * cut to a line. Empty when the text is.
+   */
+  static textModName(text) {
+    const words = {
+      SE: "Setback", SETBACK: "Setback", BO: "Boost", BOOST: "Boost", AD: "Advantage", ADVANTAGE: "Advantage",
+      TH: "Threat", THREAT: "Threat", SU: "Success", SUCCESS: "Success", FA: "Failure", FAILURE: "Failure",
+      TR: "Triumph", TRIUMPH: "Triumph", DE: "Despair", DESPAIR: "Despair", DI: "Difficulty", DIFFICULTY: "Difficulty",
+      CH: "Challenge", CHALLENGE: "Challenge", PR: "Proficiency", PROFICIENCY: "Proficiency", AB: "Ability", ABILITY: "Ability",
+      FP: "Force Point", FORCEPOINT: "Force Point", FO: "Force", FORCE: "Force", LI: "Light Side", LIGHTSIDE: "Light Side",
+      DA: "Dark Side", DARKSIDE: "Dark Side",
+    };
+    let name = String(text ?? "")
+      .replace(/\[([A-Za-z0-9]+)\]/g, (match, token) => (words[token.toUpperCase()] ? ` ${words[token.toUpperCase()]} ` : " "))
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .replace(/\(\s+/g, "(")
+      .replace(/\s+([.,;:)])/g, "$1")
+      .trim();
+    if (name.length > 60) {
+      name = name.slice(0, 60);
+      const cut = name.lastIndexOf(" ");
+      if (cut > 30) name = name.slice(0, cut);
+      name = name.replace(/[\s(,;:.-]+$/, "") + "\u2026";
+    }
+    return name;
   }
 
   /**
@@ -3051,7 +3083,8 @@ export default class ImportHelpers {
               // a "set" mod names its number in Count; everything else applies once per rank
               const sets = Object.values(descriptor.system.attributes ?? {}).filter((a) => String(a?.mod ?? "").endsWith("-set"));
               if (sets.length) {
-                sets.forEach((a) => { a.value = count; });
+                // a numeric set (base damage) names its number in Count; a skill or range set names its value itself
+                sets.forEach((a) => { if (typeof a.value === "number") a.value = count; });
                 descriptor.system.rank = 1;
               } else {
                 descriptor.system.rank = count;
@@ -3093,7 +3126,7 @@ export default class ImportHelpers {
           unique_mods++;
           // this is just a text modifier
           const unique = {
-            name: `Unique Mod ${unique_mods}`,
+            name: ImportHelpers.textModName(modifier.MiscDesc) || `Unique Mod ${unique_mods}`,
             type: "itemmodifier",
             system: {
               description: modifier.MiscDesc,
