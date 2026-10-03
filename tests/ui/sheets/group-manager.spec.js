@@ -21,7 +21,7 @@ test('the obligation table lists obligation items as well as the legacy list', a
 
   const table = await page.evaluate(async (uuid) => {
     const owner = await fromUuid(uuid);
-    const load = (path) => import(/* @vite-ignore */ `/systems/starwarsffg/modules/${path}`);
+    const load = (path) => import(/* @vite-ignore */ `/systems/starwarsffg_sandbox/modules/${path}`);
     const { GroupManager } = await load('groupmanager-ffg.js');
     const data = new GroupManager().getData();
     const mine = (rows) => rows

@@ -265,7 +265,7 @@ export class RollFFG extends foundry.dice.Roll {
 
     // Define chat data
     if (this?.data) {
-      const uuid = this.data.flags?.starwarsffg?.uuid ?? this.data.flags?.starwarsffg?.ffgUuid;
+      const uuid = this.data.flags?.starwarsffg_sandbox?.uuid ?? this.data.flags?.starwarsffg_sandbox?.ffgUuid;
       const item = uuid ? await fromUuid(uuid) : null;
       if (item) {
         // a view of the item for the card, never the live document: writing the card's details onto

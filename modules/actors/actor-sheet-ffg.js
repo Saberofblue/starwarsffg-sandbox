@@ -1345,8 +1345,8 @@ export class ActorSheetFFG extends foundry.appv1.sheets.ActorSheet {
         return;
       }
       const weaponSkill = weapon.system.skill.adjusted || weapon.system.skill.value;
-      const crew = await ship.getFlag("starwarsffg", "crew");
-      const skillRoles = game.settings.get("starwarsffg", "arrayCrewRoles").filter(role => role.role_skill === weaponSkill);
+      const crew = await ship.getFlag("starwarsffg_sandbox", "crew");
+      const skillRoles = game.settings.get("starwarsffg_sandbox", "arrayCrewRoles").filter(role => role.role_skill === weaponSkill);
       // validate the vehicle has a crew and there is a role that matches the weapon skill
       if (!crew || crew.length === 0) {
         CONFIG.logger.warn("Could not find crew for vehicle or could not find relevant skill; presenting default roller");

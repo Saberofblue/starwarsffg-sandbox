@@ -76,7 +76,7 @@ async function installMod(page, itemUuid, attachmentName, modKey, rank = 1) {
     const attachments = foundry.utils.deepClone(item._source.system.itemattachment);
     const att = attachments.find((a) => a.name === attachmentName);
     if (!att) throw new Error(`${item.name} has no attachment ${attachmentName}`);
-    const row = att.system.itemmodifier.find((m) => m.flags?.starwarsffg?.ffgimportid === modKey && !m.flags?.starwarsffg?.baseMod);
+    const row = att.system.itemmodifier.find((m) => m.flags?.starwarsffg_sandbox?.ffgimportid === modKey && !m.flags?.starwarsffg_sandbox?.baseMod);
     if (!row) throw new Error(`${attachmentName} has no purchasable ${modKey}`);
     row.system.active = true;
     row.system.rank = rank;
